@@ -1,8 +1,12 @@
 {
   "meta": {
-    "fonte": "github.com/italia/pdnd-opendata — api.gov.it",
+    "fonte_enti": "github.com/italia/pdnd-opendata — aderenti.csv (CC0 1.0)",
+    "fonte_eservices": "github.com/italia/pdnd-opendata — eservice_a_catalogo.csv (CC0 1.0)",
+    "fonte_connessioni": "Ricostruite da documentazione ufficiale pubblica — vedi METODOLOGIA.md",
     "ultimo_aggiornamento": "2026-04-12",
-    "note": "Il catalogo PDND contiene 2000+ API. La maggior parte sono servizi comunali standard replicati da migliaia di Comuni. Qui rappresentiamo tutte le PA centrali + servizi comunali aggregati per tipologia."
+    "metodologia": "METODOLOGIA.md",
+    "note_aggregazione": "I ~7.500 Comuni aderenti con servizi standard sono aggregati nel nodo 'comuni_agg'. 6 grandi Comuni sono rappresentati individualmente.",
+    "note_connessioni": "Gli archi erogatore→fruitore non derivano da un dataset aperto delle connessioni PDND (non disponibile), ma da: campo 'attributes' del CSV, circolari ANPR (DAIT n.73/2023, n.61/2025), presentazione ANCI/DTD 26 casi d'uso, manuale SSU Unioncamere, documentazione I.PaC, articoli tecnici specializzati."
   },
   "enti": [
     { "id": "min_interno", "name": "Min. Interno (ANPR)", "tipo": "Erogatore", "categoria": "Ministero", "descrizione": "Anagrafe Nazionale della Popolazione Residente" },

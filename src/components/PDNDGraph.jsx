@@ -38,6 +38,7 @@ export default function PDNDGraph() {
   const [search, setSearch] = useState("");
   const [filterCat, setFilterCat] = useState("Tutte");
   const [showPanel, setShowPanel] = useState(true);
+  const [showInfo, setShowInfo] = useState(false);
   const simRef = useRef(null);
   const nodesRef = useRef([]);
   const linksRef = useRef([]);
@@ -54,7 +55,7 @@ export default function PDNDGraph() {
     const { nodes, links, linkCounts } = graph.current;
     lcRef.current = linkCounts;
     const cx = dim.w / 2, cy = dim.h / 2;
-    nodes.forEach(n => { n.x = cx + (Math.random() - .5) * 500; n.y = cy + (Math.random() - .5) * 400; });
+    nodes.forEach(n => { n.x = cx + (Math.random() - .5) * 800; n.y = cy + (Math.random() - .5) * 600; });
     nodesRef.current = nodes;
     linksRef.current = links.map(l => ({ ...l, source: nodes.find(n => n.id === l.source) || l.source, target: nodes.find(n => n.id === l.target) || l.target }));
     simRef.current = mkSim(nodesRef.current, linksRef.current, cx, cy);
@@ -66,9 +67,9 @@ export default function PDNDGraph() {
     const a = { current: 1 };
     function tick() {
       a.current *= .985; if (a.current < .001) a.current = 0;
-      nodes.forEach(n => { n.vx = (n.vx||0) + (cx-n.x)*.008*a.current; n.vy = (n.vy||0) + (cy-n.y)*.008*a.current; });
-      links.forEach(l => { const dx=l.target.x-l.source.x, dy=l.target.y-l.source.y, d=Math.sqrt(dx*dx+dy*dy)||1, f=(d-150)*.003*a.current; l.source.vx+=dx/d*f; l.source.vy+=dy/d*f; l.target.vx-=dx/d*f; l.target.vy-=dy/d*f; });
-      for (let i=0;i<nodes.length;i++) for (let j=i+1;j<nodes.length;j++) { const dx=nodes[j].x-nodes[i].x,dy=nodes[j].y-nodes[i].y,d=Math.sqrt(dx*dx+dy*dy)||1,f=-1500/(d*d)*a.current; nodes[i].vx+=dx/d*f;nodes[i].vy+=dy/d*f;nodes[j].vx-=dx/d*f;nodes[j].vy-=dy/d*f; }
+      nodes.forEach(n => { n.vx = (n.vx||0) + (cx-n.x)*.005*a.current; n.vy = (n.vy||0) + (cy-n.y)*.005*a.current; });
+      links.forEach(l => { const dx=l.target.x-l.source.x, dy=l.target.y-l.source.y, d=Math.sqrt(dx*dx+dy*dy)||1, f=(d-220)*.003*a.current; l.source.vx+=dx/d*f; l.source.vy+=dy/d*f; l.target.vx-=dx/d*f; l.target.vy-=dy/d*f; });
+      for (let i=0;i<nodes.length;i++) for (let j=i+1;j<nodes.length;j++) { const dx=nodes[j].x-nodes[i].x,dy=nodes[j].y-nodes[i].y,d=Math.sqrt(dx*dx+dy*dy)||1,f=-2800/(d*d)*a.current; nodes[i].vx+=dx/d*f;nodes[i].vy+=dy/d*f;nodes[j].vx-=dx/d*f;nodes[j].vy-=dy/d*f; }
       nodes.forEach(n => { if(n.fx!=null){n.x=n.fx;n.vx=0}else{n.vx*=.55;n.x+=n.vx} if(n.fy!=null){n.y=n.fy;n.vy=0}else{n.vy*=.55;n.y+=n.vy} });
     }
     return { alpha: a, tick, stopped: false, reheat() { a.current = .3; }, stop() { this.stopped = true; } };
@@ -131,7 +132,7 @@ export default function PDNDGraph() {
       <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",padding:"10px 20px",borderBottom:"1px solid rgba(100,160,220,.15)",background:"rgba(10,14,26,.7)",backdropFilter:"blur(12px)",zIndex:10}}>
         <div style={{display:"flex",alignItems:"center",gap:12}}>
           <div style={{width:34,height:34,borderRadius:8,background:"linear-gradient(135deg,#06d6a0,#118ab2)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:15,fontWeight:800,color:"#fff"}}>P</div>
-          <div><div style={{fontSize:15,fontWeight:700}}>PDND E-Services Graph</div><div style={{fontSize:10,color:"#64748b",letterSpacing:.5,textTransform:"uppercase"}}>Catalogo ufficiale — Dati reali interop.pagopa.it</div></div>
+          <div><div style={{fontSize:15,fontWeight:700}}>PDND E-Services Graph</div><div style={{fontSize:10,color:"#64748b",letterSpacing:.5,textTransform:"uppercase"}}>Mappa interattiva dell'interoperabilità tra le PA italiane</div></div>
         </div>
         <div style={{display:"flex",gap:18,fontSize:11}}>
           {[["Enti",stats.enti,"#06d6a0"],["E-Services",stats.es,"#ffd166"],["Connessioni",stats.conn,"#ef476f"]].map(([l,v,c])=>(
@@ -143,13 +144,57 @@ export default function PDNDGraph() {
         <input type="text" placeholder="Cerca ente..." value={search} onChange={e=>setSearch(e.target.value)} style={{background:"rgba(30,40,60,.8)",border:"1px solid rgba(100,160,220,.2)",borderRadius:6,padding:"5px 10px",color:"#e2e8f0",fontSize:12,outline:"none",width:160}}/>
         <select value={filterCat} onChange={e=>setFilterCat(e.target.value)} style={{background:"rgba(30,40,60,.8)",border:"1px solid rgba(100,160,220,.2)",borderRadius:6,padding:"5px 8px",color:"#e2e8f0",fontSize:12,outline:"none"}}>{cats.map(c=><option key={c} value={c}>{c}</option>)}</select>
         <button onClick={()=>setShowPanel(p=>!p)} style={{marginLeft:"auto",background:showPanel?"rgba(6,214,160,.15)":"rgba(30,40,60,.8)",border:`1px solid ${showPanel?"rgba(6,214,160,.4)":"rgba(100,160,220,.2)"}`,borderRadius:6,padding:"5px 12px",color:"#e2e8f0",fontSize:11,cursor:"pointer"}}>{showPanel?"Nascondi":"Mostra"} Dettagli</button>
+        <button onClick={()=>setShowInfo(p=>!p)} style={{background:showInfo?"rgba(131,56,236,.15)":"rgba(30,40,60,.8)",border:`1px solid ${showInfo?"rgba(131,56,236,.4)":"rgba(100,160,220,.2)"}`,borderRadius:6,padding:"5px 12px",color:"#e2e8f0",fontSize:11,cursor:"pointer"}}>ℹ Info</button>
       </div>
       <div style={{position:"absolute",bottom:12,left:12,zIndex:10,background:"rgba(10,14,26,.88)",borderRadius:8,border:"1px solid rgba(100,160,220,.12)",padding:"8px 12px",display:"flex",flexWrap:"wrap",gap:"4px 12px",maxWidth:380}}>
         {Object.entries(CATEGORY_COLORS).map(([cat,col])=>(<div key={cat} style={{display:"flex",alignItems:"center",gap:4,fontSize:9,cursor:"pointer",opacity:filterCat==="Tutte"||filterCat===cat?1:.4}} onClick={()=>setFilterCat(filterCat===cat?"Tutte":cat)}><div style={{width:7,height:7,borderRadius:"50%",background:col}}/><span style={{color:"#94a3b8"}}>{cat}</span></div>))}
       </div>
       <div style={{position:"absolute",bottom:12,right:showPanel&&selNode?336:12,zIndex:10,background:"rgba(10,14,26,.85)",borderRadius:6,border:"1px solid rgba(100,160,220,.1)",padding:"6px 10px",fontSize:9,color:"#64748b"}}>
-        Fonte: <span style={{color:"#94a3b8"}}>github.com/italia/pdnd-opendata</span> · api.gov.it
+        Dati: <span style={{color:"#94a3b8"}}>github.com/italia/pdnd-opendata</span> (CC0) · Connessioni: <span style={{color:"#94a3b8"}}>da doc. ufficiale</span> · <a href="https://github.com/engineering87/pdnd-eservices-graph/blob/main/METODOLOGIA.md" target="_blank" rel="noopener" style={{color:"#64b5f6",textDecoration:"none"}}>Metodologia</a>
       </div>
+      {/* Info overlay */}
+      {showInfo&&(
+        <div style={{position:"absolute",top:0,left:0,right:0,bottom:0,zIndex:50,display:"flex",alignItems:"center",justifyContent:"center",background:"rgba(0,0,0,.6)",backdropFilter:"blur(6px)"}} onClick={()=>setShowInfo(false)}>
+          <div style={{background:"linear-gradient(145deg,#131a2e,#0f1623)",border:"1px solid rgba(100,160,220,.2)",borderRadius:14,padding:"28px 32px",maxWidth:480,width:"90%",position:"relative"}} onClick={e=>e.stopPropagation()}>
+            <button onClick={()=>setShowInfo(false)} style={{position:"absolute",top:12,right:14,background:"none",border:"none",color:"#64748b",fontSize:18,cursor:"pointer",lineHeight:1}}>✕</button>
+            <div style={{display:"flex",alignItems:"center",gap:12,marginBottom:18}}>
+              <div style={{width:42,height:42,borderRadius:10,background:"linear-gradient(135deg,#06d6a0,#118ab2)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:18,fontWeight:800,color:"#fff",flexShrink:0}}>P</div>
+              <div>
+                <div style={{fontSize:17,fontWeight:700,color:"#e2e8f0"}}>PDND E-Services Graph</div>
+                <div style={{fontSize:11,color:"#64748b"}}>Mappa interattiva dell'interoperabilità tra le PA italiane</div>
+              </div>
+            </div>
+            <div style={{fontSize:13,color:"#94a3b8",lineHeight:1.6,marginBottom:16}}>
+              Visualizzazione interattiva del grafo degli e-services pubblicati sulla Piattaforma Digitale Nazionale Dati (PDND). I nodi rappresentano gli enti erogatori e fruitori, gli archi le relazioni di interoperabilità tramite e-service.
+            </div>
+            <div style={{borderTop:"1px solid rgba(100,160,220,.1)",paddingTop:14,marginBottom:14}}>
+              <div style={{fontSize:11,fontWeight:700,color:"#8338ec",textTransform:"uppercase",letterSpacing:.8,marginBottom:8}}>Autore</div>
+              <div style={{fontSize:13,color:"#e2e8f0",fontWeight:600}}>Francesco Del Re</div>
+            </div>
+            <div style={{borderTop:"1px solid rgba(100,160,220,.1)",paddingTop:14,marginBottom:14}}>
+              <div style={{fontSize:11,fontWeight:700,color:"#118ab2",textTransform:"uppercase",letterSpacing:.8,marginBottom:8}}>Repository</div>
+              <a href="https://github.com/engineering87/pdnd-eservices-graph" target="_blank" rel="noopener" style={{fontSize:13,color:"#64b5f6",textDecoration:"none",wordBreak:"break-all"}}>github.com/engineering87/pdnd-eservices-graph</a>
+            </div>
+            <div style={{borderTop:"1px solid rgba(100,160,220,.1)",paddingTop:14,marginBottom:14}}>
+              <div style={{fontSize:11,fontWeight:700,color:"#06d6a0",textTransform:"uppercase",letterSpacing:.8,marginBottom:8}}>Fonti dati</div>
+              <div style={{fontSize:12,color:"#94a3b8",lineHeight:1.7}}>
+                <div><span style={{color:"#e2e8f0"}}>Enti e e-services:</span> <a href="https://github.com/italia/pdnd-opendata" target="_blank" rel="noopener" style={{color:"#64b5f6",textDecoration:"none"}}>github.com/italia/pdnd-opendata</a> (CC0 1.0)</div>
+                <div><span style={{color:"#e2e8f0"}}>Connessioni erogatore–fruitore:</span> ricostruite da documentazione ufficiale pubblica (circolari, manuali, campo attributes del catalogo)</div>
+                <div><span style={{color:"#e2e8f0"}}>Comuni:</span> i ~7.500 Comuni aderenti con servizi standard sono aggregati in un unico nodo</div>
+              </div>
+            </div>
+            <div style={{borderTop:"1px solid rgba(100,160,220,.1)",paddingTop:14}}>
+              <div style={{fontSize:11,color:"#64748b",lineHeight:1.5}}>
+                Per la metodologia completa, le fonti puntuali e le limitazioni note, consulta{" "}
+                <a href="https://github.com/engineering87/pdnd-eservices-graph/blob/main/METODOLOGIA.md" target="_blank" rel="noopener" style={{color:"#64b5f6",textDecoration:"none"}}>METODOLOGIA.md</a> nel repository.
+              </div>
+            </div>
+            <div style={{marginTop:16,textAlign:"center"}}>
+              <div style={{fontSize:10,color:"#475569"}}>Licenza MIT · Dati CC0 Presidenza del Consiglio dei Ministri</div>
+            </div>
+          </div>
+        </div>
+      )}
       <div style={{flex:1,display:"flex",position:"relative",overflow:"hidden"}}>
         <div style={{flex:1,position:"relative"}}>
           <canvas ref={canvasRef} width={dim.w*2} height={dim.h*2} style={{width:"100%",height:"100%",cursor:"grab"}} onMouseDown={onMD} onMouseMove={onMM} onMouseUp={onMU} onMouseLeave={onMU} onWheel={onWh}/>
