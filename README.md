@@ -2,7 +2,7 @@
 
 [![Stars](https://img.shields.io/github/stars/engineering87/pdnd-eservices-graph?style=social)](https://github.com/engineering87/pdnd-eservices-graph)
 [![Issues](https://img.shields.io/github/issues/engineering87/pdnd-eservices-graph)](https://github.com/engineering87/pdnd-eservices-graph/issues)
-[![License](https://img.shields.io/github/license/engineering87/pdnd-eservices-graph)](https://github.com/engineering87/pdnd-eservices-graph/blob/main/LICENSE)
+[![License: AGPL-3.0](https://img.shields.io/badge/License-AGPL--3.0-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 [![Live Demo](https://img.shields.io/badge/demo-live-brightgreen)](https://polite-plant-07967ad10.6.azurestaticapps.net/)
 [![Sponsor me](https://img.shields.io/badge/Sponsor-❤-pink)](https://github.com/sponsors/engineering87)
 
