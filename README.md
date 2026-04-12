@@ -12,19 +12,33 @@ I nodi rappresentano gli enti (PA centrali, Regioni, Comuni) e gli archi le rela
 
 **[🔗 Demo live](https://polite-plant-07967ad10.6.azurestaticapps.net/)**
 
+<p align="center">
+  <img src="./docs/demo.gif" alt="PDND E-Services Graph Demo" width="720" />
+</p>
+
 ## Indice
 
 | Sezione | Vai a |
 |---|---|
+| Perché questo progetto | [Perché questo progetto](#perché-questo-progetto) |
 | Funzionalità | [Funzionalità](#funzionalità) |
 | Fonti dati e trasparenza metodologica | [Fonti dati e trasparenza metodologica](#fonti-dati-e-trasparenza-metodologica) |
 | Quick Start | [Quick Start](#quick-start) |
 | Struttura del progetto | [Struttura del progetto](#struttura-del-progetto) |
 | Come aggiornare i dati | [Come aggiornare i dati](#come-aggiornare-i-dati) |
-| Deploy su Azure | [Deploy su Azure](#deploy-su-azure) |
 | Tecnologie | [Tecnologie](#tecnologie) |
 | Contribuire | [Contribuire](#contribuire) |
 | Licenza | [Licenza](#licenza) |
+
+## Perché questo progetto
+
+La PDND è il pilastro dell'interoperabilità tra le Pubbliche Amministrazioni italiane: consente lo scambio sicuro e standardizzato di dati tramite API, realizzando concretamente il principio *once-only*, la PA non chiede a cittadini e imprese dati che già possiede.
+
+Con oltre **2.000 API** pubblicate e **7.500 enti** aderenti, l'ecosistema PDND è vasto e in rapida crescita. Tuttavia, la sua complessità rende difficile avere una visione d'insieme: chi eroga quali servizi? Chi li fruisce? Quanto è interconnessa la rete dell'interoperabilità italiana?
+
+Questo progetto nasce per rendere **visibile e navigabile** quella rete. L'obiettivo è offrire una mappa interattiva che permetta a chiunque, funzionari pubblici, sviluppatori, ricercatori, cittadini, di esplorare le connessioni tra gli enti e comprendere come i dati fluiscono attraverso la Pubblica Amministrazione.
+
+Nei fatti, i dataset open data della PDND pubblicano il **catalogo degli e-service** e il **numero aggregato** delle connessioni, ma non le **coppie puntuali** erogatore–fruitore. Le relazioni rappresentate in questo grafo sono state ricostruite da documentazione ufficiale pubblica (circolari, manuali operativi, presentazioni istituzionali). Questo progetto vuole anche essere uno stimolo affinché quei dati diventino un giorno completamente aperti.
 
 ## Funzionalità
 
@@ -163,47 +177,6 @@ Output di esempio:
    ...
 ```
 
-## Deploy su Azure
-
-### 1. Crea la Static Web App
-
-```bash
-az login
-
-az staticwebapp create \
-  --name pdnd-eservices-graph \
-  --resource-group il-tuo-rg \
-  --source https://github.com/engineering87/pdnd-eservices-graph \
-  --location "westeurope" \
-  --branch main \
-  --app-location "/" \
-  --output-location "dist" \
-  --login-with-github
-```
-
-### 2. Configura il secret GitHub
-
-Azure genera automaticamente un token di deploy. Se serve aggiungerlo manualmente:
-
-1. Vai su **Azure Portal → Static Web App → Manage deployment token**
-2. Copia il token
-3. Vai su **GitHub → Settings → Secrets → Actions**
-4. Crea il secret `AZURE_STATIC_WEB_APPS_API_TOKEN` con il valore copiato
-
-### 3. Deploy automatico
-
-Da questo momento, ogni `git push` su `main` trigghera il build e il deploy automatico. Le Pull Request creano ambienti di staging.
-
-### 4. Dominio custom (opzionale)
-
-```bash
-az staticwebapp hostname set \
-  --name pdnd-eservices-graph \
-  --hostname pdnd-graph.tuodominio.it
-```
-
-HTTPS è automatico con Azure Static Web Apps.
-
 ## Tecnologie
 
 - **React 18** — UI
@@ -221,6 +194,7 @@ Le Pull Request sono benvenute. Per contribuire:
 3. Modifica `src/data/pdnd-data.json` o il componente
 4. Committa e pusha (`git push origin feature/nuovo-ente`)
 5. Apri una Pull Request
+
 ## Licenza
 
 Questo progetto è distribuito sotto licenza **AGPL-3.0** — vedi [LICENSE](LICENSE).
@@ -231,7 +205,7 @@ Questo progetto è distribuito sotto licenza **AGPL-3.0** — vedi [LICENSE](LIC
 - Se **modifichi il codice e lo distribuisci**, devi rendere disponibili le modifiche sotto la stessa licenza
 - Se **usi questo software come servizio (es. web app accessibile da utenti)**, sei tenuto a rendere disponibile il codice sorgente modificato agli utenti del servizio
 
-### Nota importante per l’uso in produzione
+### Nota importante per l'uso in produzione
 
 Se utilizzi questo progetto (o una sua derivazione) per erogare un servizio accessibile via rete, la licenza AGPL richiede che:
 
@@ -240,4 +214,4 @@ Se utilizzi questo progetto (o una sua derivazione) per erogare un servizio acce
 
 ### Dati
 
-I dati sugli e-services provengono da [PDND Open Data](https://github.com/italia/pdnd-opendata) e sono distribuiti sotto licenza **CC-BY 4.0**.
+I dati sugli e-services provengono da [PDND Open Data](https://github.com/italia/pdnd-opendata) e sono distribuiti sotto licenza **CC0 1.0 Universal** (Pubblico Dominio) dalla Presidenza del Consiglio dei Ministri – Dipartimento per la Trasformazione Digitale.

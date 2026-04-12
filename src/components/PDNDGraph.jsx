@@ -190,7 +190,7 @@ export default function PDNDGraph() {
               </div>
             </div>
             <div style={{marginTop:16,textAlign:"center"}}>
-              <div style={{fontSize:10,color:"#475569"}}>Licenza MIT · Dati CC0 Presidenza del Consiglio dei Ministri</div>
+              <div style={{fontSize:10,color:"#475569"}}>Licenza AGPL-3.0 · Dati CC0 Presidenza del Consiglio dei Ministri</div>
             </div>
           </div>
         </div>

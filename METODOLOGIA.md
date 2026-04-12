@@ -272,3 +272,11 @@ repository. Ogni contributo è benvenuto.
 I dati originali della PDND sono rilasciati con licenza
 **CC0 1.0 Universal (Pubblico Dominio)** dalla Presidenza del Consiglio dei
 Ministri – Dipartimento per la Trasformazione Digitale.
+
+È apprezzato un riferimento alla provenienza:
+
+> "Dati dai Numeri del portale PDND — CC0 Presidenza del Consiglio dei Ministri —
+> Dipartimento per la Trasformazione Digitale"
+
+La presente elaborazione (aggregazione, inferenza delle connessioni, visualizzazione)
+è rilasciata con licenza AGPL-3.0.
