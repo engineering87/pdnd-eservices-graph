@@ -1,9 +1,18 @@
 # Metodologia e Fonti Dati
 
 Questo documento descrive in modo trasparente come sono stati ottenuti, elaborati
-e rappresentati i dati visualizzati nel grafo degli e-services PDND.
+e rappresentati i dati pubblici visualizzati nel grafo degli e-services PDND.
 
----
+## Indice
+
+| Sezione | Contenuto |
+|---------|-----------|
+| [1. Fonti dati ufficiali utilizzate](#1-fonti-dati-ufficiali-utilizzate) | Dataset ufficiali PDND utilizzati come base del progetto |
+| [2. Fonti documentali per le relazioni erogatore–fruitore](#2-fonti-documentali-per-le-relazioni-erogatorefruitore) | Documentazione pubblica usata per ricostruire le connessioni |
+| [3. Scelte di rappresentazione e aggregazioni](#3-scelte-di-rappresentazione-e-aggregazioni) | Criteri adottati per rendere il grafo leggibile e significativo |
+| [4. Limitazioni note](#4-limitazioni-note) | Limiti e assunzioni del modello rappresentato |
+| [5. Come verificare e aggiornare i dati](#5-come-verificare-e-aggiornare-i-dati) | Modalità di aggiornamento e verifica del dataset |
+| [6. Licenza dei dati](#6-licenza-dei-dati) | Licenze delle fonti originali e dell’elaborazione |
 
 ## 1. Fonti dati ufficiali utilizzate
 
@@ -50,8 +59,6 @@ l'identità dei singoli fruitori.
 
 **Utilizzo nel grafo:** dato utilizzato solo come riferimento numerico complessivo
 (6.400+ connessioni al 2024), non come fonte per le singole coppie erogatore–fruitore.
-
----
 
 ## 2. Fonti documentali per le relazioni erogatore–fruitore
 
@@ -127,7 +134,27 @@ Enti Terzi, ComUnica, Registro Imprese) e il ruolo di Unioncamere come erogatore
 - Associazione Cittadinanza Digitale: ["Api.gov.it: il Catalogo API"](https://www.associazionecittadinanzadigitale.org/2026/01/03/api-gov-it-il-catalogo-api-per-la-consultazione-dei-servizi-digitali-su-pdnd/) (gennaio 2026)
 - I.PaC: ["Pubblicata la core release e gli e-service su PDND"](https://ipac.cultura.gov.it/2024/08/02/i-pac-pubblicata-la-core-release-e-gli-e-service-sul-pdnd/) (agosto 2024)
 
----
+### 2.6 Utilizzo di modelli AI
+
+Le relazioni erogatore–fruitore sono state ricostruite con l'ausilio di modelli
+di intelligenza artificiale (LLM), utilizzati come strumento di analisi per:
+
+- **incrociare** le fonti documentali elencate nelle sezioni 2.1–2.5
+- **estrarre** le informazioni rilevanti su chi eroga e chi fruisce da documenti
+  non strutturati (circolari, manuali, presentazioni)
+- **collegare** il campo `attributes` del catalogo CSV con la documentazione
+  istituzionale per inferire le connessioni plausibili
+- **strutturare** il risultato nel formato JSON utilizzato dall'applicazione
+
+I modelli AI non hanno generato informazioni autonomamente: ogni connessione
+rappresentata nel grafo è riconducibile a una o più delle fonti documentali
+pubbliche elencate in questa sezione. L'AI è stata lo strumento per
+sistematizzare un lavoro di ricognizione che avrebbe altrimenti richiesto
+l'analisi manuale di decine di documenti eterogenei.
+
+> **Questo progetto si basa esclusivamente su informazioni già pubbliche,
+> rielaborate e messe in relazione. Nessun dato riservato o non pubblicato
+> è stato utilizzato.**
 
 ## 3. Scelte di rappresentazione e aggregazioni
 
@@ -209,8 +236,6 @@ La distinzione grafica degli archi segue questa logica:
 - **Freccia direzionale:** indica il verso erogatore → fruitore
 - **Luminosità:** gli archi si evidenziano al passaggio del mouse o alla selezione di un nodo
 
----
-
 ## 4. Limitazioni note
 
 1. **Le connessioni erogatore–fruitore non sono dati aperti strutturati.**
@@ -237,8 +262,6 @@ La distinzione grafica degli archi segue questa logica:
    i servizi con stato documentato come "Attivo", salvo dove esplicitamente
    indicato.
 
----
-
 ## 5. Come verificare e aggiornare i dati
 
 ### Verificare il catalogo attuale
@@ -264,8 +287,6 @@ e mostra statistiche sugli e-service per erogatore e per tipologia.
 Se individui un errore nelle relazioni rappresentate o hai accesso a dati più
 precisi sulle connessioni attive, apri una Issue o una Pull Request su questo
 repository. Ogni contributo è benvenuto.
-
----
 
 ## 6. Licenza dei dati
 
