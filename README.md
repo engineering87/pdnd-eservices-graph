@@ -1,25 +1,10 @@
 # PDND E-Services Graph
 
-<p align="left">
-  <a href="https://github.com/engineering87/pdnd-eservices-graph/stargazers">
-    <img src="https://img.shields.io/github/stars/engineering87/pdnd-eservices-graph?style=flat-square" alt="GitHub stars" />
-  </a>
-  <a href="https://github.com/engineering87/pdnd-eservices-graph/issues">
-    <img src="https://img.shields.io/github/issues/engineering87/pdnd-eservices-graph?style=flat-square" alt="GitHub issues" />
-  </a>
-  <a href="https://github.com/engineering87/pdnd-eservices-graph/network/members">
-    <img src="https://img.shields.io/github/forks/engineering87/pdnd-eservices-graph?style=flat-square" alt="GitHub forks" />
-  </a>
-  <a href="https://github.com/engineering87/pdnd-eservices-graph/blob/main/LICENSE">
-    <img src="https://img.shields.io/github/license/engineering87/pdnd-eservices-graph?style=flat-square" alt="License" />
-  </a>
-  <a href="https://github.com/sponsors/engineering87">
-    <img src="https://img.shields.io/github/sponsors/engineering87?style=flat-square" alt="GitHub Sponsors" />
-  </a>
-  <a href="https://polite-plant-07967ad10.6.azurestaticapps.net/">
-    <img src="https://img.shields.io/badge/demo-live-brightgreen?style=flat-square" alt="Live Demo" />
-  </a>
-</p>
+[![Stars](https://img.shields.io/github/stars/engineering87/pdnd-eservices-graph?style=social)](https://github.com/engineering87/pdnd-eservices-graph)
+[![Issues](https://img.shields.io/github/issues/engineering87/pdnd-eservices-graph)](https://github.com/engineering87/pdnd-eservices-graph/issues)
+[![License](https://img.shields.io/github/license/engineering87/pdnd-eservices-graph)](https://github.com/engineering87/pdnd-eservices-graph/blob/main/LICENSE)
+[![Live Demo](https://img.shields.io/badge/demo-live-brightgreen)](https://polite-plant-07967ad10.6.azurestaticapps.net/)
+[![Sponsor me](https://img.shields.io/badge/Sponsor-❤-pink)](https://github.com/sponsors/engineering87)
 
 Visualizzazione interattiva del grafo degli e-services sulla **Piattaforma Digitale Nazionale Dati (PDND)**.
 
@@ -27,7 +12,19 @@ I nodi rappresentano gli enti (PA centrali, Regioni, Comuni) e gli archi le rela
 
 **[🔗 Demo live](https://polite-plant-07967ad10.6.azurestaticapps.net/)**
 
----
+## Indice
+
+| Sezione | Vai a |
+|---|---|
+| Funzionalità | [Funzionalità](#funzionalità) |
+| Fonti dati e trasparenza metodologica | [Fonti dati e trasparenza metodologica](#fonti-dati-e-trasparenza-metodologica) |
+| Quick Start | [Quick Start](#quick-start) |
+| Struttura del progetto | [Struttura del progetto](#struttura-del-progetto) |
+| Come aggiornare i dati | [Come aggiornare i dati](#come-aggiornare-i-dati) |
+| Deploy su Azure | [Deploy su Azure](#deploy-su-azure) |
+| Tecnologie | [Tecnologie](#tecnologie) |
+| Contribuire | [Contribuire](#contribuire) |
+| Licenza | [Licenza](#licenza) |
 
 ## Funzionalità
 
@@ -224,11 +221,23 @@ Le Pull Request sono benvenute. Per contribuire:
 3. Modifica `src/data/pdnd-data.json` o il componente
 4. Committa e pusha (`git push origin feature/nuovo-ente`)
 5. Apri una Pull Request
-
 ## Licenza
 
-AGPL-3.0 — vedi [LICENSE](LICENSE).
+Questo progetto è distribuito sotto licenza **AGPL-3.0** — vedi [LICENSE](LICENSE).
 
----
+### Cosa significa in pratica
 
-Dati e-services: [PDND Open Data](https://github.com/italia/pdnd-opendata) — Licenza CC-BY 4.0
+- Puoi **usare, modificare e distribuire** liberamente il codice
+- Se **modifichi il codice e lo distribuisci**, devi rendere disponibili le modifiche sotto la stessa licenza
+- Se **usi questo software come servizio (es. web app accessibile da utenti)**, sei tenuto a rendere disponibile il codice sorgente modificato agli utenti del servizio
+
+### Nota importante per l’uso in produzione
+
+Se utilizzi questo progetto (o una sua derivazione) per erogare un servizio accessibile via rete, la licenza AGPL richiede che:
+
+- gli utenti possano accedere al codice sorgente della versione in esecuzione
+- eventuali modifiche apportate siano pubblicate
+
+### Dati
+
+I dati sugli e-services provengono da [PDND Open Data](https://github.com/italia/pdnd-opendata) e sono distribuiti sotto licenza **CC-BY 4.0**.
