@@ -10,7 +10,7 @@ Visualizzazione interattiva del grafo degli e-services sulla **Piattaforma Digit
 
 I nodi rappresentano gli enti (PA centrali, Regioni, Comuni) e gli archi le relazioni erogatore→fruitore, con spessore proporzionale al numero di e-services condivisi.
 
-**[🔗 Demo live](https://polite-plant-07967ad10.6.azurestaticapps.net/)**
+Una versione pubblica dell'applicazione è accessibile all'indirizzo **[Demo live](https://polite-plant-07967ad10.6.azurestaticapps.net/)** e non richiede installazione né autenticazione.
 
 <p align="center">
   <img src="./docs/demo.gif" alt="PDND E-Services Graph Demo" width="720" />
@@ -21,6 +21,7 @@ I nodi rappresentano gli enti (PA centrali, Regioni, Comuni) e gli archi le rela
 | Sezione | Vai a |
 |---|---|
 | Perché questo progetto | [Perché questo progetto](#perché-questo-progetto) |
+| Perché un grafo | [Perché un grafo](#perché-un-grafo) |
 | Funzionalità | [Funzionalità](#funzionalità) |
 | Fonti dati e trasparenza metodologica | [Fonti dati e trasparenza metodologica](#fonti-dati-e-trasparenza-metodologica) |
 | Quick Start | [Quick Start](#quick-start) |
@@ -39,6 +40,75 @@ Con oltre **2.000 API** pubblicate e **7.500 enti** aderenti, l'ecosistema PDND 
 Questo progetto nasce per rendere **visibile e navigabile** quella rete. L'obiettivo è offrire una mappa interattiva che permetta a chiunque, funzionari pubblici, sviluppatori, ricercatori, cittadini, di esplorare le connessioni tra gli enti e comprendere come i dati fluiscono attraverso la Pubblica Amministrazione.
 
 Nei fatti, i dataset open data della PDND pubblicano il **catalogo degli e-service** e il **numero aggregato** delle connessioni, ma non le **coppie puntuali** erogatore–fruitore. Le relazioni rappresentate in questo grafo sono state ricostruite da documentazione ufficiale pubblica (circolari, manuali operativi, presentazioni istituzionali). Questo progetto vuole anche essere uno stimolo affinché quei dati diventino un giorno completamente aperti.
+
+## Perché un grafo
+
+L'interoperabilità tra enti pubblici è, nella sua essenza, un problema di rete:
+soggetti che producono dati e soggetti che li consumano, collegati da accordi e
+interfacce digitali. La teoria dei grafi offre il modello formale più naturale
+per rappresentare e analizzare questo tipo di struttura.
+
+### Il modello
+
+Formalmente, l'ecosistema PDND può essere modellato come un **grafo diretto
+pesato** $G = (V, E, w)$ dove:
+
+- $V$ è l'insieme dei nodi (gli enti aderenti)
+- $E \subseteq V \times V$ è l'insieme degli archi diretti (le relazioni di fruizione)
+- $w: E \to \mathbb{N}$ è la funzione peso che associa a ogni arco il numero di
+  e-services condivisi tra i due enti
+
+Un arco $(A, B) \in E$ indica che l'ente $A$ eroga almeno un e-service fruito
+dall'ente $B$. Il grafo è **diretto** perché la relazione non è simmetrica: il
+fatto che INPS eroghi un servizio verso i Comuni non implica che i Comuni eroghino
+servizi verso INPS.
+
+### Proprietà osservabili
+
+La rappresentazione a grafo rende immediatamente visibili proprietà dell'ecosistema
+che sarebbero difficili da cogliere da un elenco tabulare:
+
+- **Grado di un nodo** (*degree*). Per ogni nodo $v$, il grafo diretto distingue
+  tra il grado in uscita $d_{out}(v)$ (numero di enti verso cui $v$ eroga servizi)
+  e il grado in ingresso $d_{in}(v)$ (numero di enti da cui $v$ fruisce servizi).
+  Un ente come il Ministero dell'Interno (ANPR) ha un $d_{out}$ elevato e un
+  $d_{in}$ basso, tipico di un **hub erogatore**. I Comuni presentano il pattern
+  opposto.
+
+- **Centralità** (*centrality*). La centralità di grado
+  $C_D(v) = \frac{d_{in}(v) + d_{out}(v)}{|V| - 1}$
+  quantifica quanto un ente è interconnesso rispetto al resto della rete.
+  Nodi con alta centralità rappresentano gli snodi critici dell'interoperabilità:
+  un'interruzione dei loro servizi avrebbe impatto su molti altri enti.
+
+- **Densità del grafo**. Definita come
+  $\rho = \frac{|E|}{|V| \cdot (|V| - 1)}$
+  misura quanto la rete è interconnessa rispetto al massimo teorico. Una densità
+  bassa indica che l'interoperabilità è ancora concentrata su pochi enti erogatori
+  centrali, mentre una densità crescente nel tempo segnalerebbe una rete sempre
+  più distribuita.
+
+- **Componenti e cluster**. Il grafo evidenzia raggruppamenti tematici naturali, 
+  gli enti del welfare (INPS, Comuni, MLPS), del fisco (AdE, MEF, Sogei), della
+  trasparenza (ANAC, AgID), che corrispondono ai domini funzionali della PA.
+  In termini di teoria dei grafi, questi cluster possono essere analizzati tramite
+  il coefficiente di clustering o algoritmi di community detection.
+
+### Layout force-directed
+
+La visualizzazione adotta un layout **force-directed** (*Fruchterman-Reingold*),
+un algoritmo che modella il grafo come un sistema fisico:
+
+- ogni arco si comporta come una **molla** che attrae i nodi collegati
+- ogni coppia di nodi esercita una **forza repulsiva** (come cariche elettriche)
+- una **forza gravitazionale** debole tiene il grafo centrato
+
+Il sistema converge iterativamente verso un equilibrio in cui i nodi collegati
+sono vicini e i nodi non collegati sono distanti, facendo emergere visivamente la
+struttura topologica della rete senza richiedere un posizionamento manuale.
+Questa proprietà è particolarmente utile per l'ecosistema PDND, dove la struttura
+a stella (pochi erogatori centrali, molti fruitori periferici) si manifesta
+spontaneamente nel layout.
 
 ## Funzionalità
 
