@@ -3,7 +3,9 @@
 [![Stars](https://img.shields.io/github/stars/engineering87/pdnd-eservices-graph?style=social)](https://github.com/engineering87/pdnd-eservices-graph)
 [![Issues](https://img.shields.io/github/issues/engineering87/pdnd-eservices-graph)](https://github.com/engineering87/pdnd-eservices-graph/issues)
 [![License: AGPL-3.0](https://img.shields.io/badge/License-AGPL--3.0-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
+![Last commit](https://img.shields.io/github/last-commit/engineering87/pdnd-eservices-graph)
 [![Live Demo](https://img.shields.io/badge/demo-live-brightgreen)](https://polite-plant-07967ad10.6.azurestaticapps.net/)
+![PDND](https://img.shields.io/badge/PDND-Interoperability-blue)
 [![Sponsor me](https://img.shields.io/badge/Sponsor-❤-pink)](https://github.com/sponsors/engineering87)
 
 Visualizzazione interattiva del grafo degli e-services sulla **Piattaforma Digitale Nazionale Dati (PDND)**.
