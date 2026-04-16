@@ -1,0 +1,16 @@
+export const CATEGORY_COLORS = {
+  Ministero: "#118ab2",
+  Previdenza: "#06d6a0",
+  Fisco: "#ef476f",
+  Digitale: "#8338ec",
+  Lavoro: "#ff6b35",
+  Imprese: "#3d405b",
+  Anticorruzione: "#e63946",
+  Trasporti: "#457b9d",
+  Cultura: "#d4a373",
+  Statistica: "#81b29a",
+  Tecnologia: "#f2cc8f",
+  Regione: "#3a86a8",
+  Comune: "#26547c",
+  "Comuni Aggregati": "#4a7c91",
+};
