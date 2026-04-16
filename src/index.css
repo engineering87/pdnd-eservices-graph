@@ -11,6 +11,8 @@ html, body, #root {
   height: 100%;
   overflow: hidden;
   background: #0a0e1a;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
