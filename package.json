@@ -11,8 +11,8 @@
     "update-data": "node scripts/update-data.mjs"
   },
   "dependencies": {
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^6.0.1",
