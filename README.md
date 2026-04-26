@@ -12,7 +12,7 @@ Visualizzazione interattiva del grafo degli e-services sulla **Piattaforma Digit
 
 I nodi rappresentano gli enti (PA centrali, Regioni, Comuni) e gli archi le relazioni erogatore→fruitore, con spessore proporzionale al numero di e-services condivisi.
 
-Una versione pubblica dell'applicazione è accessibile all'indirizzo **[PDND Graph](www.pdndgraph.it/)** e non richiede installazione né autenticazione.
+Una versione pubblica dell'applicazione è accessibile all'indirizzo **[PDND Graph](https://www.pdndgraph.it)** e non richiede installazione né autenticazione.
 
 <p align="center">
   <img src="./docs/demo.gif" alt="PDND E-Services Graph Demo" width="720" />
