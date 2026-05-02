@@ -8,7 +8,10 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "update-data": "node scripts/update-data.mjs"
+    "update-data": "node scripts/update-data.mjs",
+    "audit": "node scripts/audit-model.mjs",
+    "compare-catalog": "node scripts/compare-catalog.mjs",
+    "paper-metrics": "node scripts/compute-paper-metrics.mjs"
   },
   "dependencies": {
     "react": "^19.2.5",

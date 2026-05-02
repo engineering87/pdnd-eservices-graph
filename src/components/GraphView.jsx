@@ -281,6 +281,14 @@ export default function GraphView() {
                 <div><div style={{ fontWeight: 700, fontSize: 14 }}>{selNode.name}</div><div style={{ fontSize: 10, color: "#64748b" }}>{selNode.categoria} · {selNode.tipo}</div></div>
               </div>
               <div style={{ fontSize: 12, color: "#94a3b8", marginBottom: 14 }}>{selNode.descrizione}</div>
+              {selNode.id === "comuni_agg" && (
+                <div style={{ marginBottom: 14, padding: "10px 12px", borderRadius: 6, background: "rgba(255,209,102,.05)", border: "1px solid rgba(255,209,102,.18)" }}>
+                  <div style={{ fontSize: 10, fontWeight: 700, color: "#ffd166", textTransform: "uppercase", letterSpacing: .8, marginBottom: 4 }}>ⓘ Tipi di servizio</div>
+                  <div style={{ fontSize: 11, color: "#94a3b8", lineHeight: 1.55 }}>
+                    Gli e-service elencati qui sotto sono <strong style={{ color: "#e2e8f0" }}>tipi di servizio</strong> aggregati: nel catalogo PDND ciascuno corrisponde a centinaia o migliaia di endpoint reali, uno per ogni Comune che lo pubblica. Per i dettagli vedi <em>Metodologia</em>.
+                  </div>
+                </div>
+              )}
               <div style={{ display: "flex", gap: 8, marginBottom: 16 }}>
                 {[["Erogati", selNode.erogati, "#06d6a0"], ["Fruiti", selNode.fruiti, "#118ab2"], ["Conn.", selNode.totalConnections, "#ef476f"]].map(([l, v, c]) => (
                   <div key={l} style={{ flex: 1, textAlign: "center", padding: "6px 2px", background: "rgba(30,40,60,.5)", borderRadius: 6, border: `1px solid ${c}22` }}><div style={{ fontSize: 16, fontWeight: 800, color: c }}>{v}</div><div style={{ fontSize: 8, color: "#64748b", textTransform: "uppercase", letterSpacing: .5 }}>{l}</div></div>

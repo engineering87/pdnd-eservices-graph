@@ -172,7 +172,11 @@ pdnd-eservices-graph/
 ├── public/
 │   └── favicon.svg
 ├── scripts/
-│   └── update-data.mjs             # Utility per verificare il catalogo
+│   ├── update-data.mjs             # Riepilogo del catalogo PDND
+│   ├── audit-model.mjs             # Audit interno del modello
+│   ├── compare-catalog.mjs         # Confronto modello vs catalogo
+│   ├── compute-paper-metrics.mjs   # Snippet per il paper Zenodo
+│   └── README.md                   # Documentazione degli script
 ├── src/
 │   ├── components/
 │   │   └── PDNDGraph.jsx            # Componente principale del grafo
@@ -248,6 +252,18 @@ Output di esempio:
    2. Comune di Genova                    18 API
    ...
 ```
+
+### Auditare il modello e generare metriche
+
+Tre script complementari sono disponibili per verificare in modo ripetibile la coerenza del modello e per generare i numeri esatti dei deliverable scientifici:
+
+```bash
+npm run audit             # audit interno del JSON: conteggi, gradi, consistency checks
+npm run compare-catalog   # confronto con il catalogo ufficiale, copertura, gap
+npm run paper-metrics     # snippet pgfplots/LaTeX per il paper Zenodo
+```
+
+`npm run audit` segnala incoerenze (es. nodo dichiarato `Erogatore` ma senza e-service erogati). `npm run compare-catalog` calcola la copertura percentuale del modello rispetto al catalogo PDND vivo. Per dettagli vedi [scripts/README.md](scripts/README.md).
 
 ## Tecnologie
 

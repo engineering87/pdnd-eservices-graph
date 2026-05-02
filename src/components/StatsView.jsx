@@ -52,6 +52,15 @@ export default function StatsView({ graphData }) {
 
   return (
     <div style={{ flex: 1, overflowY: "auto", padding: "24px 28px" }}>
+      <div style={{ marginBottom: 20, padding: "12px 16px", borderRadius: 8, background: "rgba(255,209,102,.04)", border: "1px solid rgba(255,209,102,.14)", display: "flex", gap: 12 }}>
+        <div style={{ fontSize: 18, color: "#ffd166", flexShrink: 0, lineHeight: 1 }}>ⓘ</div>
+        <div style={{ fontSize: 12, color: "#94a3b8", lineHeight: 1.6 }}>
+          I numeri qui sotto si riferiscono al modello a <strong style={{ color: "#e2e8f0" }}>tipi di servizio</strong>, non agli endpoint del catalogo PDND.
+          Un servizio come <em>Albo Pretorio</em> è un singolo nodo nel grafo ma corrisponde a circa 2.000 endpoint reali, uno per Comune.
+          Per il confronto con il catalogo ufficiale (~2.000 API pubblicate) vedi la sezione{" "}
+          <span style={{ color: "#ffd166" }}>Metodologia</span>.
+        </div>
+      </div>
       <div style={{ display: "flex", gap: 12, marginBottom: 24, flexWrap: "wrap" }}>
         {[
           ["Densità del grafo", density, "#8338ec", "ρ = |E| / (|V| × (|V|-1))"],

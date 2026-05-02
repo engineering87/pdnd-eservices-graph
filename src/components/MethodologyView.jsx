@@ -69,6 +69,43 @@ export default function MethodologyView() {
         </div>
       </Section>
 
+      <Section title="Tipi di servizio vs endpoint del catalogo">
+        <div style={{ fontSize: 13, color: "#94a3b8", lineHeight: 1.75, marginBottom: 14 }}>
+          Una conseguenza diretta dell'aggregazione: ogni record nel grafo rappresenta un{" "}
+          <strong style={{ color: "#e2e8f0" }}>tipo di servizio</strong>, non un singolo endpoint del catalogo PDND.
+          Lo stesso servizio standardizzato (es. <em>Albo Pretorio</em>) compare nel grafo come un nodo solo
+          ma corrisponde a centinaia o migliaia di endpoint reali nel catalogo, uno per ciascun Comune che lo pubblica.
+        </div>
+        <div style={{ padding: "12px 16px", borderRadius: 8, background: "rgba(30,40,60,.4)", border: "1px solid rgba(100,160,220,.06)", marginBottom: 14 }}>
+          <div style={{ fontSize: 11, color: "#64748b", marginBottom: 8 }}>Mappatura indicativa per i 9 servizi standard del nodo aggregato</div>
+          {[
+            ["Albo Pretorio Online", "~2.000"],
+            ["Pratiche SUAP", "~1.500"],
+            ["Numerazione Civica / Stradario", "~800"],
+            ["Amministrazione Trasparente", "~500"],
+            ["Servizi Demografici", "~400"],
+            ["Tributi e Posizioni Debitorie", "~300"],
+            ["WaaS – Welfare as a Service", "~300"],
+            ["Protocollo Informatico", "~200"],
+            ["Dati Sensori IoT", "~50"],
+          ].map(([nome, count]) => (
+            <div key={nome} style={{ display: "flex", justifyContent: "space-between", padding: "5px 0", fontSize: 12, borderBottom: "1px solid rgba(100,160,220,.04)" }}>
+              <span style={{ color: "#cbd5e1" }}>{nome}</span>
+              <span style={{ color: "#4a7c91", fontWeight: 600 }}>{count} endpoint</span>
+            </div>
+          ))}
+          <div style={{ display: "flex", justifyContent: "space-between", padding: "8px 0 2px 0", fontSize: 12, fontWeight: 700, marginTop: 4 }}>
+            <span style={{ color: "#e2e8f0" }}>Totale endpoint coperti dal nodo aggregato</span>
+            <span style={{ color: "#06d6a0" }}>~6.050</span>
+          </div>
+        </div>
+        <div style={{ fontSize: 12, color: "#94a3b8", lineHeight: 1.6 }}>
+          La tabella nella sezione <span style={{ color: "#ffd166" }}>Statistiche</span> riporta quindi 62 e-service: sono i 62 <em>tipi di servizio</em> del modello,
+          non gli endpoint del catalogo. Espandendo le repliche municipali tramite la tabella sopra, il modello copre circa 6.050 endpoint del catalogo,
+          il che è coerente con il dato pubblico "2.000+ API pubblicate" (le restanti sono servizi centrali rappresentati uno-a-uno).
+        </div>
+      </Section>
+
       <Section title="Utilizzo di modelli AI">
         <div style={{ fontSize: 13, color: "#94a3b8", lineHeight: 1.75 }}>
           I modelli AI sono stati utilizzati come strumento per incrociare le fonti documentali, estrarre informazioni

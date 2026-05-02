@@ -236,6 +236,31 @@ La distinzione grafica degli archi segue questa logica:
 - **Freccia direzionale:** indica il verso erogatore → fruitore
 - **Luminosità:** gli archi si evidenziano al passaggio del mouse o alla selezione di un nodo
 
+### 3.5 Tipi di servizio (service-type) vs endpoint del catalogo
+
+Una conseguenza diretta dell'aggregazione descritta in §3.1: ogni record
+nell'array `eservices[]` di `pdnd-data.json` rappresenta un **tipo di
+servizio**, non un singolo endpoint del catalogo PDND.
+
+Lo stesso servizio standardizzato (es. *Albo Pretorio*) compare nel grafo come
+un nodo solo, ma corrisponde a centinaia o migliaia di endpoint reali nel
+catalogo, uno per ciascun ente che lo pubblica.
+
+**Conseguenze numeriche:**
+
+- I 62 e-service del modello **non sono direttamente confrontabili** con i 2.000+
+  API pubblicati che il dashboard PDND riporta: il dashboard conta endpoint, il
+  modello conta tipi di servizio.
+- La mappatura indicativa per i 9 servizi standard del nodo aggregato è la
+  tabella riportata in §3.1: ~6.050 endpoint complessivi per i soli servizi
+  comunali. I restanti ~50 servizi del modello (centrali, regionali, di grandi
+  Comuni) sono in larga parte rappresentati uno-a-uno con i corrispondenti
+  endpoint del catalogo.
+
+Il caveat è esplicitato anche nel frontend: nella vista **Statistiche** un
+banner in cima ricorda che i numeri sono service-type, non endpoint; nel
+pannello dettagli del nodo *Comuni (aggregati)* compare un avviso analogo.
+
 ## 4. Limitazioni note
 
 1. **Le connessioni erogatore–fruitore non sono dati aperti strutturati.**
@@ -270,8 +295,35 @@ La distinzione grafica degli archi segue questa logica:
 npm run update-data
 ```
 
-Questo comando scarica il CSV aggiornato da `github.com/italia/pdnd-opendata`
-e mostra statistiche sugli e-service per erogatore e per tipologia.
+Scarica il CSV aggiornato da `github.com/italia/pdnd-opendata` e produce un
+riepilogo del catalogo per erogatore e per tipologia.
+
+### Auditare il modello
+
+Tre script idempotenti, integrati nel `package.json`, supportano la verifica
+ripetibile del modello a ogni modifica di `src/data/pdnd-data.json`:
+
+```bash
+npm run audit             # audit interno del JSON
+npm run compare-catalog   # confronto contro il catalogo ufficiale
+npm run paper-metrics     # genera snippet LaTeX per il paper Zenodo
+```
+
+L'audit `npm run audit` produce un report strutturato del modello: conteggi,
+distribuzione e-service per erogatore, distribuzione gradi della rete derivata,
+top-N per ruolo e una sezione di consistency checks che segnala discrepanze
+tra il `tipo` dichiarato di un nodo e il suo comportamento effettivo nel grafo.
+
+Il confronto `npm run compare-catalog` scarica il CSV del catalogo e calcola
+la copertura percentuale del modello rispetto al catalogo ufficiale, evidenzia
+i tipi di servizio ricostruiti euristicamente e segnala i producer rilevanti
+non ancora rappresentati. Se la rete non è disponibile, accetta il flag
+`--csv <path-to-local-csv>` come fallback.
+
+`npm run paper-metrics` produce gli stessi numeri in formato pgfplots/LaTeX,
+pronti per essere incollati nel sorgente del paper Zenodo.
+
+La documentazione completa degli script è in [scripts/README.md](scripts/README.md).
 
 ### Fonti di aggiornamento
 
