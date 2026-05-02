@@ -101,9 +101,9 @@ export default function MethodologyView() {
         </div>
         <div style={{ fontSize: 12, color: "#94a3b8", lineHeight: 1.6 }}>
           Il catalogo PDND completo conta <strong style={{ color: "#e2e8f0" }}>14.102 API pubblicate</strong> da 6.388 enti distinti.
-          Il modello rappresenta 84 tipi di servizio in 49 nodi: i 9 sopra (servizi standardizzati comunali) coprono 6.382 endpoint;
+          Il modello rappresenta 86 tipi di servizio in 51 nodi: i 9 sopra (servizi standardizzati comunali) coprono 6.382 endpoint;
           gli altri 75 record corrispondono a servizi centrali, regionali o ministeriali, in maggioranza uno-a-uno con il catalogo.
-          La copertura totale del modello è dell'<strong style={{ color: "#06d6a0" }}>80%</strong>, misurabile lanciando{" "}
+          La copertura totale del modello è dell'<strong style={{ color: "#06d6a0" }}>~89%</strong>, misurabile lanciando{" "}
           <code style={{ fontSize: 11, padding: "1px 5px", borderRadius: 3, background: "rgba(30,40,60,.6)", color: "#e2e8f0" }}>npm run compare-catalog</code>.
         </div>
       </Section>

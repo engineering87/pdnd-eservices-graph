@@ -6,3 +6,4 @@ dist/
 .DS_Store
 Thumbs.db
 .vite/
+.cache-catalog.csv

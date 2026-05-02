@@ -219,33 +219,84 @@ const sub = (s) => console.log(`\n  ${s}\n  ${'─'.repeat(s.length)}`);
   // Mappatura producer del catalogo ai nodi del modello
   // ───────────────────────────────────────────────────────────────────
   banner('4. COVERAGE OF CATALOGUE PRODUCERS BY MODEL NODES');
-  // Heuristica: matching per substring tra producerName e nome del nodo
+
+  // Tabella di alias esplicita: per ogni id del modello, una lista di pattern
+  // (substring case-insensitive) che, se trovati nel producerName del catalogo,
+  // mappano sul nodo. Le voci sono valutate nell'ordine: la prima che fa match
+  // vince. Più specifico → prima.
+  //
+  // Modificare questa tabella quando si aggiungono nuovi nodi al modello o
+  // quando il catalogo introduce nuove varianti di denominazione.
+  const PRODUCER_ALIASES = [
+    // Riscossione PRIMA di Agenzia delle Entrate per evitare mismatch
+    ['ade_riscossione', ['agenzia delle entrate-riscossione', 'agenzia delle entrate - riscossione', 'riscossione']],
+    ['ade',             ['agenzia delle entrate']],
+    ['ag_demanio',      ['agenzia del demanio']],
+    ['min_interno',     ['ministero dell\'interno', "ministero dell interno", 'anpr']],
+    ['min_giustizia',   ['ministero della giustizia']],
+    ['min_cultura',     ['ministero della cultura', 'i.pac', 'ipac', 'istituto centrale per la digitalizzazione del patr']],
+    ['mef',             ['ministero dell\'economia e delle finanze', 'ministero economia e finanze', 'mef']],
+    ['mlps',            ['ministero del lavoro']],
+    ['mit',             ['ministero delle infrastrutture', 'ministero infrastrutture']],
+    ['mit_dgmot',       ['motorizzazione', 'direzione generale per la motorizzazione']],
+    ['mur',             ['ministero dell\'universita\' e della ricerca', 'ministero dell\'università e della ricerca', 'ministero dell\'università', 'ministero dell\'universita', 'ministero universita', "mur"]],
+    ['min_istruzione',  ['ministero dell\'istruzione e del merito', 'ministero dell\'istruzione', 'ministero istruzione']],
+    ['ispra',           ['istituto superiore per la protezione e la ricerca ambientale', 'ispra']],
+    ['dfp',             ['dipartimento della funzione pubblica', 'funzione pubblica']],
+    ['inps',            ['istituto nazionale previdenza sociale', 'i.n.p.s.', 'inps']],
+    ['inail',           ['istituto nazionale assicurazione', 'inail']],
+    ['agid',            ['agenzia per l\'italia digitale', 'agid']],
+    ['anac',            ['autorita\' nazionale anticorruzione', 'autorita nazionale anticorruzione', 'a.n.ac', 'anac']],
+    ['unioncamere',     ['unione italiana delle camere di commercio', 'unioncamere', 'infocamere']],
+    ['istat',           ['istituto nazionale di statistica', 'istat']],
+    ['pagopa',          ['pagopa']],
+    ['sogei',           ['sogei']],
+    ['cineca',          ['cineca']],
+    // Regioni e Province Autonome (ordine importante: PA prima delle regioni omonime)
+    ['pa_bolzano',      ['provincia autonoma di bolzano']],
+    ['pa_trento',       ['provincia autonoma di trento']],
+    ['r_friuli',        ['friuli-venezia giulia', 'friuli venezia giulia']],
+    ['r_sicilia',       ['regione siciliana', 'regione sicilia']],
+    ['r_vda',           ["valle d'aosta", 'valle d aosta']],
+    ['r_emilia',        ['emilia-romagna', 'emilia romagna']],
+    ['r_lombardia',     ['regione lombardia']],
+    ['r_lazio',         ['regione lazio']],
+    ['r_campania',      ['regione campania']],
+    ['r_liguria',       ['regione liguria']],
+    ['r_toscana',       ['regione toscana']],
+    ['r_molise',        ['regione molise']],
+    ['r_puglia',        ['regione puglia']],
+    ['r_abruzzo',       ['regione abruzzo']],
+    ['r_piemonte',      ['regione piemonte']],
+    ['r_veneto',        ['regione del veneto', 'regione veneto']],
+    ['r_marche',        ['regione marche']],
+    ['r_umbria',        ['regione umbria']],
+    ['r_basilicata',    ['regione basilicata']],
+    ['r_sardegna',      ['regione autonoma della sardegna', 'regione sardegna']],
+    ['r_calabria',      ['regione calabria']],
+    // Big municipalities (ordine: prima dei comuni generici)
+    ['c_milano',        ['comune di milano']],
+    ['c_roma',          ['roma capitale', 'comune di roma']],
+    ['c_napoli',        ['comune di napoli']],
+    ['c_bologna',       ['comune di bologna']],
+    ['c_genova',        ['comune di genova']],
+    ['c_padova',        ['comune di padova']],
+  ];
+
   function matchToNode(producerName) {
-    const p = producerName.toLowerCase();
-    for (const e of model.enti) {
-      const n = e.name.toLowerCase();
-      const baseName = n.replace(/\(.*?\)/g, '').trim();
-      if (p.includes(baseName) || baseName.includes(p)) return e.id;
+    // Normalizza apostrofi unicode (' ` ‘ ’) → ' e collassa whitespace
+    const p = producerName
+      .toLowerCase()
+      .replace(/[\u2018\u2019\u0060\u00b4]/g, "'")
+      .replace(/\s+/g, ' ')
+      .trim();
+    for (const [id, patterns] of PRODUCER_ALIASES) {
+      for (const pat of patterns) {
+        const np = pat.replace(/[\u2018\u2019\u0060\u00b4]/g, "'");
+        if (p.includes(np)) return id;
+      }
     }
-    // Match aggiuntivi: ANPR appartiene a Min. Interno
-    if (p.includes('interno') || p.includes('anpr')) return 'min_interno';
-    if (p.includes('inps')) return 'inps';
-    if (p.includes('entrate') && !p.includes('riscoss')) return 'ade';
-    if (p.includes('riscossione')) return 'ade_riscossione';
-    if (p.includes('agid') || p.includes('italia digitale')) return 'agid';
-    if (p.includes('inail')) return 'inail';
-    if (p.includes('unioncamere') || p.includes('infocamere')) return 'unioncamere';
-    if (p.includes('mef') || p.includes('economia e finanze')) return 'mef';
-    if (p.includes('anac')) return 'anac';
-    if (p.includes('motorizz')) return 'mit_dgmot';
-    if (p.includes('giustizia')) return 'min_giustizia';
-    if (p.includes('cultura')) return 'min_cultura';
-    if (p.includes('mur') || p.includes('università')) return 'mur';
-    if (p.includes('sogei')) return 'sogei';
-    if (p.includes('istat')) return 'istat';
-    if (p.includes('pagopa')) return 'pagopa';
-    if (p.includes('cineca')) return 'cineca';
-    if (p.includes('comune di')) return null; // singolo Comune
+    if (/^comune di /i.test(producerName)) return null;
     return null;
   }
 

@@ -57,7 +57,7 @@ export default function StatsView({ graphData }) {
         <div style={{ fontSize: 12, color: "#94a3b8", lineHeight: 1.6 }}>
           I numeri qui sotto si riferiscono al modello a <strong style={{ color: "#e2e8f0" }}>tipi di servizio</strong>, non agli endpoint del catalogo PDND.
           Un servizio come <em>Albo Pretorio</em> è un singolo nodo nel grafo ma corrisponde a circa 1.450 endpoint reali, uno per Comune che lo pubblica.
-          Il catalogo ufficiale conta 14.102 API pubblicate; il modello copre l'80% del catalogo via mapping diretto e aggregazione.
+          Il catalogo ufficiale conta 14.102 API pubblicate; il modello copre ~89% del catalogo via mapping diretto e aggregazione.
           Per il dettaglio vedi la sezione <span style={{ color: "#ffd166" }}>Metodologia</span>.
         </div>
       </div>

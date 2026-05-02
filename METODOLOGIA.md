@@ -200,7 +200,7 @@ Rappresentare ogni Comune come nodo singolo renderebbe il grafo illeggibile
 
 ### 3.2 Selezione degli enti rappresentati
 
-Il grafo include **49 enti**, selezionati con questi criteri:
+Il grafo include **51 enti**, selezionati con questi criteri:
 
 - **Tutte le PA centrali** che erogano e-service documentati nel catalogo e nelle
   fonti ufficiali (Ministeri, INPS, INAIL, AgID, ANAC, Agenzia delle Entrate,
@@ -266,13 +266,13 @@ catalogo, uno per ciascun ente che lo pubblica.
 
 - Il catalogo PDND ufficiale conta **14.102 API pubblicate** prodotte da 6.388
   enti distinti.
-- Il modello rappresenta **84 e-service-tipo** in 49 nodi, di cui 9 sul nodo
+- Il modello rappresenta **86 e-service-tipo** in 51 nodi, di cui 9 sul nodo
   aggregato dei Comuni minori e 22 placeholder regionali/ministeriali per i
   nuovi enti aggiunti.
 - I 9 e-service del nodo aggregato coprono **6.382 endpoint reali** (vedi
   tabella in §3.1). Il resto dei nodi copre tipicamente uno-a-uno o uno-a-pochi
   endpoint del catalogo.
-- La copertura totale del modello rispetto al catalogo è del **~80%**
+- La copertura totale del modello rispetto al catalogo è del **~89%**
   misurata dallo script `compare-catalog`. Il gap residuo (~20%) è composto in
   larga parte da producer regionali con pochi endpoint, da società partecipate
   e da enti molto specifici fuori scope per il modello attuale.

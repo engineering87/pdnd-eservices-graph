@@ -8,7 +8,7 @@
     "convenzione_eservices": "Ogni record in 'eservices' rappresenta un TIPO DI SERVIZIO, non un singolo endpoint del catalogo PDND. I 9 e-service erogati dal nodo 'comuni_agg' corrispondono a ~6.380 endpoint reali del catalogo (Albo Pretorio 1.451, SUAP 1.429, Protocollo 1.296, Demografici 637, Tributi 480, Civici 395, WaaS 372, IoT 221, Trasparenza 101). Vedi METODOLOGIA.md §3.5.",
     "note_aggregazione": "I ~7.500 Comuni aderenti con servizi standard sono aggregati nel nodo 'comuni_agg'. 6 grandi Comuni sono rappresentati individualmente: Bologna, Genova, Padova erogano servizi specifici; Milano, Roma, Napoli compaiono come fruitori. Le Regioni sono rappresentate individualmente quando hanno >25 endpoint nel catalogo (~18 enti regionali su 21).",
     "note_connessioni": "Gli archi erogatore→fruitore non derivano da un dataset aperto delle connessioni PDND (non disponibile), ma da: campo 'attributes' del CSV, circolari ANPR (DAIT n.73/2023, n.61/2025), presentazione ANCI/DTD 26 casi d'uso, manuale SSU Unioncamere, documentazione I.PaC, articoli tecnici specializzati. Per i nodi regionali e ministeriali aggiunti nel maggio 2026, gli e-service sono rappresentati come categorie aggregate (un record per producer) con il numero di endpoint del catalogo annotato in descrizione.",
-    "snapshot_catalogo": "14.102 API pubblicate, 366 sospese, 6.388 producer distinti (snapshot 2026-05). Modello copre 80%+ del catalogo via mapping diretto e aggregazione."
+    "snapshot_catalogo": "14.102 API pubblicate, 366 sospese, 6.388 producer distinti (snapshot 2026-05). Modello copre ~89% del catalogo via mapping diretto e aggregazione. Verificabile con 'npm run compare-catalog'."
   },
   "enti": [
     {
@@ -157,6 +157,20 @@
       "tipo": "Erogatore",
       "categoria": "Fisco",
       "descrizione": "Agenzia del Demanio — patrimonio dello Stato"
+    },
+    {
+      "id": "min_istruzione",
+      "name": "Min. Istruzione",
+      "tipo": "Erogatore/Fruitore",
+      "categoria": "Ministero",
+      "descrizione": "Min. Istruzione e del Merito — 13 endpoint nel catalogo"
+    },
+    {
+      "id": "ispra",
+      "name": "ISPRA",
+      "tipo": "Erogatore",
+      "categoria": "Statistica",
+      "descrizione": "Ist. Superiore Protezione e Ricerca Ambientale — 17 endpoint"
     },
     {
       "id": "r_lombardia",
@@ -462,7 +476,8 @@
         "r_vda",
         "r_basilicata",
         "r_sardegna",
-        "r_calabria"
+        "r_calabria",
+        "min_istruzione"
       ],
       "versione": "3.0",
       "stato": "Attivo",
@@ -497,7 +512,8 @@
         "r_vda",
         "r_basilicata",
         "r_sardegna",
-        "r_calabria"
+        "r_calabria",
+        "min_istruzione"
       ],
       "versione": "3.0",
       "stato": "Attivo",
@@ -1752,6 +1768,37 @@
       "versione": "1.0",
       "stato": "Attivo",
       "descrizione": "Sanità, sociale, istruzione regionale — 27 endpoint nel catalogo (categoria aggregata)"
+    },
+    {
+      "id": "min_istruzione_eserv",
+      "nome": "Servizi Istruzione Scolastica",
+      "erogatore": "min_istruzione",
+      "fruitori": [
+        "comuni_agg",
+        "mur",
+        "istat",
+        "mlps"
+      ],
+      "versione": "1.0",
+      "stato": "Attivo",
+      "descrizione": "Anagrafe scolastica, profilo studente — 13 endpoint nel catalogo (categoria aggregata)"
+    },
+    {
+      "id": "ispra_eserv",
+      "nome": "Dati Ambientali e Protezione",
+      "erogatore": "ispra",
+      "fruitori": [
+        "comuni_agg",
+        "istat",
+        "r_lombardia",
+        "r_lazio",
+        "r_emilia",
+        "pa_bolzano",
+        "pa_trento"
+      ],
+      "versione": "1.0",
+      "stato": "Attivo",
+      "descrizione": "Dati ambientali, qualità aria/acqua, biodiversità — 17 endpoint nel catalogo (categoria aggregata)"
     }
   ]
 }
