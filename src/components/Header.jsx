@@ -23,12 +23,40 @@ export default function Header({ stats, activeTab, onTabChange, onAbout }) {
         </div>
 
         <div style={{ display: "flex", gap: m ? 6 : 10, alignItems: "center", ...(m ? { width: "100%", justifyContent: "center" } : {}) }}>
-          {[["Enti", stats.enti, "#06d6a0"], ["E-Services", stats.es, "#ffd166"], ["Connessioni", stats.conn, "#ef476f"]].map(([label, value, color]) => (
-            <div key={label} style={{ textAlign: "center", padding: m ? "5px 10px" : "8px 16px", background: "rgba(30,40,60,.4)", borderRadius: m ? 6 : 8, border: `1px solid ${color}15`, flex: m ? 1 : undefined, minWidth: m ? 0 : 80 }}>
-              <div style={{ fontSize: m ? 16 : 22, fontWeight: 800, color, lineHeight: 1 }}>{value}</div>
-              <div style={{ color: "#64748b", fontSize: m ? 8 : 9, letterSpacing: .6, textTransform: "uppercase", marginTop: m ? 2 : 4 }}>{label}</div>
-            </div>
-          ))}
+          {[
+            ["Enti", stats.enti, "#06d6a0", null, null],
+            ["E-Service tipo", stats.es, "#ffd166", "Tipi di servizio aggregati: gli e-service nel grafo rappresentano categorie tematiche, non singoli endpoint del catalogo PDND. Es. 'Albo Pretorio' è 1 nodo qui ma 1.451 endpoint nel catalogo. Clicca per i dettagli.", "metodologia"],
+            ["Connessioni", stats.conn, "#ef476f", null, null],
+          ].map(([label, value, color, tooltip, targetTab]) => {
+            const isInteractive = !!targetTab;
+            return (
+              <div
+                key={label}
+                title={tooltip || undefined}
+                onClick={isInteractive ? () => onTabChange(targetTab) : undefined}
+                style={{
+                  textAlign: "center",
+                  padding: m ? "5px 10px" : "8px 16px",
+                  background: "rgba(30,40,60,.4)",
+                  borderRadius: m ? 6 : 8,
+                  border: `1px solid ${color}${isInteractive ? "35" : "15"}`,
+                  flex: m ? 1 : undefined,
+                  minWidth: m ? 0 : 80,
+                  cursor: isInteractive ? "pointer" : "default",
+                  position: "relative",
+                  transition: "border-color .15s, background .15s",
+                }}
+                onMouseEnter={isInteractive ? (e) => { e.currentTarget.style.background = "rgba(40,55,85,.55)"; } : undefined}
+                onMouseLeave={isInteractive ? (e) => { e.currentTarget.style.background = "rgba(30,40,60,.4)"; } : undefined}
+              >
+                <div style={{ fontSize: m ? 16 : 22, fontWeight: 800, color, lineHeight: 1 }}>{value}</div>
+                <div style={{ color: "#64748b", fontSize: m ? 8 : 9, letterSpacing: .6, textTransform: "uppercase", marginTop: m ? 2 : 4, display: "flex", alignItems: "center", justifyContent: "center", gap: 4 }}>
+                  {label}
+                  {isInteractive && <span style={{ color, opacity: .8, fontSize: m ? 9 : 10, lineHeight: 1 }} aria-hidden="true">ⓘ</span>}
+                </div>
+              </div>
+            );
+          })}
           {!m && <button onClick={onAbout} title="Informazioni sull'applicazione" style={{ padding: "6px 14px", borderRadius: 8, background: "rgba(30,40,60,.4)", border: "1px solid rgba(100,160,220,.12)", color: "#64748b", fontSize: 11, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", letterSpacing: .3 }}>Info</button>}
         </div>
       </div>
