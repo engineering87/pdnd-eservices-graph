@@ -160,21 +160,27 @@ l'analisi manuale di decine di documenti eterogenei.
 
 ### 3.1 Aggregazione dei Comuni
 
-Il catalogo PDND contiene **2.000+ e-service**, la stragrande maggioranza dei quali
-sono servizi standard pubblicati individualmente da ciascun Comune italiano aderente
-(~7.500 Comuni). I servizi più diffusi sono:
+Il catalogo PDND contiene **14.102 API pubblicate** (snapshot 2026-05), la stragrande
+maggioranza delle quali sono servizi standard pubblicati individualmente da ciascun
+Comune italiano aderente (~7.500 Comuni). I servizi più diffusi, con i conteggi
+reali misurati sul catalogo:
 
-| Tipo di servizio comunale       | API stimate nel catalogo |
-|---------------------------------|--------------------------|
-| Albo Pretorio Online            | ~2.000                   |
-| Pratiche SUAP (lista/dettaglio) | ~1.500                   |
-| Numerazione Civica / Stradario  | ~800                     |
-| Amministrazione Trasparente     | ~500                     |
-| Servizi Demografici             | ~400                     |
-| Tributi e Posizioni Debitorie   | ~300                     |
-| WaaS (Welfare as a Service)     | ~300                     |
-| Protocollo Informatico          | ~200                     |
-| Dati Sensori IoT                | ~50                      |
+| Tipo di servizio comunale       | Endpoint nel catalogo |
+|---------------------------------|----------------------:|
+| Albo Pretorio Online            | 1.451                 |
+| Pratiche SUAP                   | 1.429                 |
+| Protocollo Informatico          | 1.296                 |
+| Servizi Demografici             | 637                   |
+| Tributi e Posizioni Debitorie   | 480                   |
+| Numerazione Civica / Stradario  | 395                   |
+| WaaS (Welfare as a Service)     | 372                   |
+| Dati Sensori IoT                | 221                   |
+| Amministrazione Trasparente     | 101                   |
+| **Totale aggregabile**          | **6.382**             |
+
+> I numeri sopra derivano da un'analisi euristica sul nome dei servizi nel
+> CSV `eservice_a_catalogo.csv`. Per misurarli direttamente sul catalogo
+> aggiornato vedi `npm run compare-catalog` in §5.
 
 Rappresentare ogni Comune come nodo singolo renderebbe il grafo illeggibile
 (migliaia di nodi con servizi identici). Per questo motivo:
@@ -183,24 +189,34 @@ Rappresentare ogni Comune come nodo singolo renderebbe il grafo illeggibile
   nodo chiamato **"Comuni (aggregati)"**, che rappresenta collettivamente i
   ~7.500 Comuni minori aderenti alla PDND.
 - **6 grandi Comuni** (Milano, Roma, Napoli, Bologna, Genova, Padova) sono
-  rappresentati come nodi individuali perché erogano anche servizi specifici
-  non standard (es. Comune di Bologna → Ricerca Edifici, Ricerca Gare e Appalti).
+  rappresentati come nodi individuali. Tre di essi — Bologna, Genova, Padova —
+  erogano servizi specifici non standard documentati. Gli altri tre — Milano,
+  Roma, Napoli — compaiono nel modello come `Fruitore`: la documentazione
+  pubblica non riporta ad oggi servizi specifici dichiarati erogati da loro
+  sul catalogo PDND.
 - I **servizi comunali standard** (Albo Pretorio, SUAP, ecc.) sono rappresentati
   come e-service singoli erogati dal nodo aggregato, con l'indicazione del numero
-  approssimativo di API effettive nel catalogo.
+  effettivo di endpoint nel catalogo.
 
 ### 3.2 Selezione degli enti rappresentati
 
-Il grafo include **31 enti**, selezionati con questi criteri:
+Il grafo include **49 enti**, selezionati con questi criteri:
 
 - **Tutte le PA centrali** che erogano e-service documentati nel catalogo e nelle
-  fonti ufficiali (Ministeri, INPS, INAIL, AgID, ANAC, ecc.)
-- **6 grandi Comuni** come fruitori e micro-erogatori rappresentativi
-- **5 Regioni e 1 Provincia Autonoma** come fruitori rappresentativi del livello
-  territoriale intermedio, selezionate perché hanno documentazione pubblica
-  di fruizione o perché erogano servizi propri (Regione Siciliana, FVG,
-  Provincia Autonoma di Bolzano)
+  fonti ufficiali (Ministeri, INPS, INAIL, AgID, ANAC, Agenzia delle Entrate,
+  Ministero del Lavoro, Ministero delle Infrastrutture e Trasporti, Dipartimento
+  della Funzione Pubblica, Agenzia del Demanio, ecc.)
+- **6 grandi Comuni** come fruitori e micro-erogatori (Bologna, Genova, Padova
+  come erogatori di servizi specifici; Milano, Roma, Napoli come fruitori)
+- **Tutte le 18 Regioni e Province Autonome** che pubblicano almeno ~25 endpoint
+  nel catalogo, più Bolzano. La copertura regionale è quasi completa, mancano
+  solo le Regioni con copertura marginale.
 - **1 nodo aggregato** per i Comuni minori
+
+Il criterio di soglia per l'inclusione individuale di un ente regionale è di
+~25 endpoint nel catalogo, calibrato per evitare di rappresentare amministrazioni
+con presenza marginale. La soglia può essere rivista lanciando
+`npm run compare-catalog` per vedere i producer non rappresentati.
 
 ### 3.3 Categorizzazione degli enti
 
@@ -246,20 +262,23 @@ Lo stesso servizio standardizzato (es. *Albo Pretorio*) compare nel grafo come
 un nodo solo, ma corrisponde a centinaia o migliaia di endpoint reali nel
 catalogo, uno per ciascun ente che lo pubblica.
 
-**Conseguenze numeriche:**
+**Conseguenze numeriche (snapshot 2026-05):**
 
-- I 62 e-service del modello **non sono direttamente confrontabili** con i 2.000+
-  API pubblicati che il dashboard PDND riporta: il dashboard conta endpoint, il
-  modello conta tipi di servizio.
-- La mappatura indicativa per i 9 servizi standard del nodo aggregato è la
-  tabella riportata in §3.1: ~6.050 endpoint complessivi per i soli servizi
-  comunali. I restanti ~50 servizi del modello (centrali, regionali, di grandi
-  Comuni) sono in larga parte rappresentati uno-a-uno con i corrispondenti
+- Il catalogo PDND ufficiale conta **14.102 API pubblicate** prodotte da 6.388
+  enti distinti.
+- Il modello rappresenta **84 e-service-tipo** in 49 nodi, di cui 9 sul nodo
+  aggregato dei Comuni minori e 22 placeholder regionali/ministeriali per i
+  nuovi enti aggiunti.
+- I 9 e-service del nodo aggregato coprono **6.382 endpoint reali** (vedi
+  tabella in §3.1). Il resto dei nodi copre tipicamente uno-a-uno o uno-a-pochi
   endpoint del catalogo.
-
-Il caveat è esplicitato anche nel frontend: nella vista **Statistiche** un
-banner in cima ricorda che i numeri sono service-type, non endpoint; nel
-pannello dettagli del nodo *Comuni (aggregati)* compare un avviso analogo.
+- La copertura totale del modello rispetto al catalogo è del **~80%**
+  misurata dallo script `compare-catalog`. Il gap residuo (~20%) è composto in
+  larga parte da producer regionali con pochi endpoint, da società partecipate
+  e da enti molto specifici fuori scope per il modello attuale.
+- Il caveat è esplicitato anche nel frontend: nella vista **Statistiche** un
+  banner ricorda che i numeri sono service-type; nel pannello dettagli del nodo
+  *Comuni (aggregati)* compare un avviso analogo.
 
 ## 4. Limitazioni note
 
@@ -273,10 +292,12 @@ pannello dettagli del nodo *Comuni (aggregati)* compare un avviso analogo.
    del servizio, ma che il servizio è strutturalmente disponibile per la
    categoria "Comuni".
 
-3. **Le Regioni rappresentate sono un campione.** Sono state incluse 5 Regioni
-   e 1 Provincia Autonoma come rappresentative. Le altre Regioni aderenti
-   alla PDND non sono escluse per mancanza di dati, ma per mantenere la
-   leggibilità del grafo.
+3. **Le Regioni e Province Autonome rappresentate coprono i principali enti
+   regionali.** Sono incluse 18 amministrazioni regionali su 21 (le 20 Regioni
+   più 2 Province Autonome). Le poche escluse hanno un numero marginale di
+   endpoint nel catalogo. Il criterio di soglia per l'inclusione individuale
+   è di ~25 endpoint pubblicati: vedi `npm run compare-catalog` per
+   verificare la lista corrente.
 
 4. **Versioni e-service.** Le versioni indicate nel grafo sono quelle
    documentate nelle fonti al momento della compilazione e potrebbero non

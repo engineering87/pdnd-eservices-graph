@@ -77,17 +77,17 @@ export default function MethodologyView() {
           ma corrisponde a centinaia o migliaia di endpoint reali nel catalogo, uno per ciascun Comune che lo pubblica.
         </div>
         <div style={{ padding: "12px 16px", borderRadius: 8, background: "rgba(30,40,60,.4)", border: "1px solid rgba(100,160,220,.06)", marginBottom: 14 }}>
-          <div style={{ fontSize: 11, color: "#64748b", marginBottom: 8 }}>Mappatura indicativa per i 9 servizi standard del nodo aggregato</div>
+          <div style={{ fontSize: 11, color: "#64748b", marginBottom: 8 }}>Mappatura misurata sul catalogo per i 9 servizi standard del nodo aggregato (snapshot 2026-05)</div>
           {[
-            ["Albo Pretorio Online", "~2.000"],
-            ["Pratiche SUAP", "~1.500"],
-            ["Numerazione Civica / Stradario", "~800"],
-            ["Amministrazione Trasparente", "~500"],
-            ["Servizi Demografici", "~400"],
-            ["Tributi e Posizioni Debitorie", "~300"],
-            ["WaaS – Welfare as a Service", "~300"],
-            ["Protocollo Informatico", "~200"],
-            ["Dati Sensori IoT", "~50"],
+            ["Albo Pretorio Online", "1.451"],
+            ["Pratiche SUAP", "1.429"],
+            ["Protocollo Informatico", "1.296"],
+            ["Servizi Demografici", "637"],
+            ["Tributi e Posizioni Debitorie", "480"],
+            ["Numerazione Civica / Stradario", "395"],
+            ["WaaS – Welfare as a Service", "372"],
+            ["Dati Sensori IoT", "221"],
+            ["Amministrazione Trasparente", "101"],
           ].map(([nome, count]) => (
             <div key={nome} style={{ display: "flex", justifyContent: "space-between", padding: "5px 0", fontSize: 12, borderBottom: "1px solid rgba(100,160,220,.04)" }}>
               <span style={{ color: "#cbd5e1" }}>{nome}</span>
@@ -96,13 +96,15 @@ export default function MethodologyView() {
           ))}
           <div style={{ display: "flex", justifyContent: "space-between", padding: "8px 0 2px 0", fontSize: 12, fontWeight: 700, marginTop: 4 }}>
             <span style={{ color: "#e2e8f0" }}>Totale endpoint coperti dal nodo aggregato</span>
-            <span style={{ color: "#06d6a0" }}>~6.050</span>
+            <span style={{ color: "#06d6a0" }}>6.382</span>
           </div>
         </div>
         <div style={{ fontSize: 12, color: "#94a3b8", lineHeight: 1.6 }}>
-          La tabella nella sezione <span style={{ color: "#ffd166" }}>Statistiche</span> riporta quindi 62 e-service: sono i 62 <em>tipi di servizio</em> del modello,
-          non gli endpoint del catalogo. Espandendo le repliche municipali tramite la tabella sopra, il modello copre circa 6.050 endpoint del catalogo,
-          il che è coerente con il dato pubblico "2.000+ API pubblicate" (le restanti sono servizi centrali rappresentati uno-a-uno).
+          Il catalogo PDND completo conta <strong style={{ color: "#e2e8f0" }}>14.102 API pubblicate</strong> da 6.388 enti distinti.
+          Il modello rappresenta 84 tipi di servizio in 49 nodi: i 9 sopra (servizi standardizzati comunali) coprono 6.382 endpoint;
+          gli altri 75 record corrispondono a servizi centrali, regionali o ministeriali, in maggioranza uno-a-uno con il catalogo.
+          La copertura totale del modello è dell'<strong style={{ color: "#06d6a0" }}>80%</strong>, misurabile lanciando{" "}
+          <code style={{ fontSize: 11, padding: "1px 5px", borderRadius: 3, background: "rgba(30,40,60,.6)", color: "#e2e8f0" }}>npm run compare-catalog</code>.
         </div>
       </Section>
 
