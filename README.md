@@ -147,6 +147,16 @@ spontaneamente nel layout.
 
 📄 **Documentazione completa:** [METODOLOGIA.md](METODOLOGIA.md)
 
+## Pubblicazione di riferimento
+
+La metodologia adottata in questo progetto è documentata nel paper:
+
+> Del Re, F. (2026). *The PDND E-Service Network: A Graph-Based Model from Italian Open Government Data*. Zenodo. [doi:10.5281/zenodo.19989954](https://doi.org/10.5281/zenodo.19989954)
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19989954.svg)](https://doi.org/10.5281/zenodo.19989954)
+
+Il paper descrive il modello, le fonti, la pipeline di ricostruzione, il ruolo dei modelli linguistici come strumento di estrazione, e riporta la copertura misurata del modello rispetto al catalogo PDND ufficiale (~89% di 14.102 endpoint pubblicati). Il sorgente LaTeX è in [pdnd-graph-paper](https://github.com/engineering87/pdnd-graph-paper).
+
 ## Quick Start
 
 ```bash

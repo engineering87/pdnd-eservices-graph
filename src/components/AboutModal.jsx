@@ -65,6 +65,14 @@ export default function AboutModal({ onClose }) {
           </a>
         </Section>
 
+        {/* Publication */}
+        <Section label="Pubblicazione">
+          <a href="https://doi.org/10.5281/zenodo.19989954" target="_blank" rel="noopener" style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 13, color: "#ffd166", textDecoration: "none", padding: "8px 12px", borderRadius: 6, background: "rgba(255,209,102,.06)", border: "1px solid rgba(255,209,102,.18)" }}>
+            <span style={{ fontSize: 16 }}>📄</span>
+            <span style={{ wordBreak: "break-all" }}>Del Re, F. (2026). Zenodo. doi:10.5281/zenodo.19989954</span>
+          </a>
+        </Section>
+
         {/* Data source */}
         <div style={{ borderTop: "1px solid rgba(100,160,220,.1)", paddingTop: 18 }}>
           <div style={{ fontSize: 10, fontWeight: 700, color: "#475569", textTransform: "uppercase", letterSpacing: .8, marginBottom: 10 }}>Dati</div>

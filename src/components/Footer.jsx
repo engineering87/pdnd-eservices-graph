@@ -12,6 +12,8 @@ export default function Footer() {
         <span style={{ opacity: .3 }}>|</span>
         <a href="https://github.com/engineering87/pdnd-eservices-graph/blob/main/METODOLOGIA.md" target="_blank" rel="noopener" style={{ color: "#64b5f6", textDecoration: "none" }}>Metodologia</a>
         <span style={{ opacity: .3 }}>|</span>
+        <a href="https://doi.org/10.5281/zenodo.19989954" target="_blank" rel="noopener" style={{ color: "#ffd166", textDecoration: "none", fontWeight: 600 }} title="The PDND E-Service Network — Zenodo, 2026">Paper</a>
+        <span style={{ opacity: .3 }}>|</span>
         <span>AGPL-3.0</span>
       </div>
       <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: m ? 9 : 10, color: "#475569" }}>

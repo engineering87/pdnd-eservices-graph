@@ -119,8 +119,9 @@ export default function MethodologyView() {
       <Section title="Limitazioni note">
         {[
           "Le connessioni rappresentano relazioni documentate o inferite, non necessariamente accordi di interoperabilità attivi e verificati sulla piattaforma.",
-          "I Comuni aggregati non indicano che tutti i 7.500 Comuni fruiscono effettivamente di ogni servizio.",
-          "Le Regioni incluse sono un campione rappresentativo, non l'intero insieme.",
+          "I Comuni aggregati non indicano che tutti i ~7.500 Comuni fruiscono effettivamente di ogni servizio.",
+          "Per le 18 Regioni e Province Autonome rappresentate, gli e-service sono esposti come categoria aggregata (un record per ente) con il numero di endpoint del catalogo annotato in descrizione.",
+          "Il modello copre ~89% del catalogo PDND. Il residuo 11% è composto principalmente da università, conservatori e società in-house regionali con pochi endpoint ciascuno.",
           "Le versioni degli e-service potrebbero non corrispondere all'ultima versione attiva nel catalogo.",
         ].map((text, i) => (
           <div key={i} style={{ display: "flex", gap: 10, marginBottom: 8, fontSize: 12 }}>
@@ -128,6 +129,42 @@ export default function MethodologyView() {
             <span>{text}</span>
           </div>
         ))}
+      </Section>
+
+      <Section title="Pubblicazione di riferimento">
+        <div style={{ fontSize: 13, color: "#94a3b8", lineHeight: 1.75, marginBottom: 12 }}>
+          La metodologia adottata in questo progetto è documentata nel paper:
+        </div>
+        <div style={{ padding: "14px 16px", borderRadius: 8, background: "rgba(30,40,60,.4)", border: "1px solid rgba(100,160,220,.1)", marginBottom: 12 }}>
+          <div style={{ fontSize: 13, color: "#e2e8f0", fontWeight: 600, marginBottom: 6, lineHeight: 1.4 }}>
+            The PDND E-Service Network: A Graph-Based Model from Italian Open Government Data
+          </div>
+          <div style={{ fontSize: 12, color: "#94a3b8", marginBottom: 10 }}>
+            Del Re, F. (2026). Zenodo.
+          </div>
+          <div style={{ display: "flex", gap: 10, flexWrap: "wrap", alignItems: "center" }}>
+            <a
+              href="https://doi.org/10.5281/zenodo.19989954"
+              target="_blank"
+              rel="noopener"
+              style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "6px 12px", borderRadius: 6, background: "rgba(255,209,102,.08)", border: "1px solid rgba(255,209,102,.25)", color: "#ffd166", fontSize: 12, fontWeight: 600, textDecoration: "none" }}
+            >
+              <span style={{ fontSize: 11 }}>DOI</span>
+              <span style={{ fontFamily: "monospace" }}>10.5281/zenodo.19989954</span>
+            </a>
+            <a
+              href="https://github.com/engineering87/pdnd-graph-paper"
+              target="_blank"
+              rel="noopener"
+              style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "6px 12px", borderRadius: 6, background: "rgba(30,40,60,.6)", border: "1px solid rgba(100,160,220,.15)", color: "#cbd5e1", fontSize: 12, textDecoration: "none" }}
+            >
+              Sorgente LaTeX su GitHub →
+            </a>
+          </div>
+        </div>
+        <div style={{ fontSize: 12, color: "#64748b", lineHeight: 1.6 }}>
+          Il paper descrive il modello, le fonti, la pipeline di ricostruzione, il ruolo dei modelli linguistici come strumento di estrazione, e riporta la copertura misurata del modello rispetto al catalogo PDND ufficiale (~89% di 14.102 endpoint pubblicati). Licenza CC-BY 4.0.
+        </div>
       </Section>
 
       <div style={{ padding: "14px 16px", borderRadius: 8, background: "rgba(100,160,220,.04)", border: "1px solid rgba(100,160,220,.1)" }}>
