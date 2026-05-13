@@ -37,7 +37,7 @@ Una versione pubblica dell'applicazione è accessibile all'indirizzo **[PDND Gra
 
 La PDND è il pilastro dell'interoperabilità tra le Pubbliche Amministrazioni italiane: consente lo scambio sicuro e standardizzato di dati tramite API, realizzando concretamente il principio *once-only*, la PA non chiede a cittadini e imprese dati che già possiede.
 
-Con oltre **2.000 API** pubblicate e **7.500 enti** aderenti, l'ecosistema PDND è vasto e in rapida crescita. Tuttavia, la sua complessità rende difficile avere una visione d'insieme: chi eroga quali servizi? Chi li fruisce? Quanto è interconnessa la rete dell'interoperabilità italiana?
+Con oltre **14.000 API** pubblicate e **7.500 enti** aderenti, l'ecosistema PDND è vasto e in rapida crescita. Tuttavia, la sua complessità rende difficile avere una visione d'insieme: chi eroga quali servizi? Chi li fruisce? Quanto è interconnessa la rete dell'interoperabilità italiana?
 
 Questo progetto nasce per rendere **visibile e navigabile** quella rete. L'obiettivo è offrire una mappa interattiva che permetta a chiunque, funzionari pubblici, sviluppatori, ricercatori, cittadini, di esplorare le connessioni tra gli enti e comprendere come i dati fluiscono attraverso la Pubblica Amministrazione.
 
