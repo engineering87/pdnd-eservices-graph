@@ -42,7 +42,8 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -e
-          if git diff --quiet -- pipeline/pdnd-data.preview.json; then
+          # Rileva sia modifiche sia file nuovi (git diff è cieco ai file non tracciati).
+          if [ -z "$(git status --porcelain -- pipeline/pdnd-data.preview.json)" ]; then
             echo "Anteprima invariata: nessuna PR."
             exit 0
           fi

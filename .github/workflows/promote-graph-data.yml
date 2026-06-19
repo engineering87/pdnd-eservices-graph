@@ -65,7 +65,7 @@ jobs:
             cp src/data/pdnd-data.json src/data/pdnd-data.curated-backup.json
           fi
           cp pipeline/pdnd-data.preview.json src/data/pdnd-data.json
-          if git diff --quiet -- src/data/pdnd-data.json src/data/pdnd-data.curated-backup.json; then
+          if [ -z "$(git status --porcelain -- src/data/pdnd-data.json src/data/pdnd-data.curated-backup.json)" ]; then
             echo "Il grafo live era già allineato all'anteprima."
             exit 0
           fi
