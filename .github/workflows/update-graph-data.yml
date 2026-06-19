@@ -13,13 +13,15 @@ jobs:
   update:
     runs-on: ubuntu-latest
     env:
-      # Inferenza AI via GitHub Models: nessuna chiave esterna, usa il GITHUB_TOKEN.
-      INFERENCE_ENGINE: github
+      # Inferenza AI via API Anthropic (Opus 4.8).
+      INFERENCE_ENGINE: anthropic
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      ANTHROPIC_MODEL: claude-opus-4-8
+      # GITHUB_TOKEN serve solo al passo gh (push branch + apertura PR), non all'inferenza.
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      GITHUB_MODEL: openai/gpt-4.1
       INFERENCE_MIN_CONF: "0.6"
-      INFERENCE_MAX_CALLS: "40"     # basso: il backfill grosso va fatto in locale (vedi README)
-      INFERENCE_DELAY_MS: "2500"    # pausa tra chiamate per il rate limit del tier free
+      INFERENCE_MAX_CALLS: "200"    # copre il backfill iniziale in un run; poi la cache fa il resto
+      INFERENCE_DELAY_MS: "500"
       INFERENCE_MAX_RETRIES: "4"
     steps:
       - name: Checkout
@@ -28,7 +30,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "22"
 
       - name: Genera anteprima aggiornata
         # Esce con codice 1 se un guard di validazione fallisce, interrompendo
@@ -51,12 +53,17 @@ jobs:
           git add pipeline/pdnd-data.preview.json pipeline/last-run-report.md pipeline/ai-cache.json
           git commit -m "chore: aggiornamento anteprima grafo PDND"
           git push -f -u origin "$BRANCH"
-          if [ -z "$(gh pr list --head "$BRANCH" --state open --json number -q '.[0].number')" ]; then
-            gh pr create --base main --head "$BRANCH" \
-              --title "Aggiornamento anteprima grafo PDND" \
-              --body "Aggiornamento automatico dell'anteprima (\`pipeline/pdnd-data.preview.json\`). Il grafo live non è toccato. Rivedi il report e mergia per versionare l'anteprima."
-          else
+          # Apri la PR se non già aperta. Se l'organizzazione/repo non consente alle
+          # Actions di creare PR, il branch resta pushato e viene stampato il link manuale.
+          if [ -n "$(gh pr list --head "$BRANCH" --state open --json number -q '.[0].number' 2>/dev/null)" ]; then
             echo "PR già aperta per $BRANCH: aggiornata col nuovo commit."
+          elif gh pr create --base main --head "$BRANCH" \
+              --title "Aggiornamento anteprima grafo PDND" \
+              --body "Aggiornamento automatico dell'anteprima (\`pipeline/pdnd-data.preview.json\`). Il grafo live non è toccato. Rivedi il report e mergia per versionare l'anteprima." 2>/dev/null; then
+            echo "Pull request creata."
+          else
+            echo "::warning::Creazione PR non consentita alle Actions. Branch pushato: aprila a mano qui:"
+            echo "https://github.com/${GITHUB_REPOSITORY}/pull/new/${BRANCH}"
           fi
 
       - name: Pubblica report nel riepilogo

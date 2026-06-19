@@ -159,24 +159,24 @@ Due backend, selezionati da `INFERENCE_ENGINE`:
 
 | Engine | Autenticazione |
 |--------|----------------|
-| `github` (default) | `GITHUB_TOKEN` integrato nelle Actions + permesso `models: read` |
-| `anthropic` | `ANTHROPIC_API_KEY` come secret |
+| `anthropic` (usato dal workflow) | `ANTHROPIC_API_KEY` come secret |
+| `github` | `GITHUB_TOKEN` integrato nelle Actions + permesso `models: read` |
 
 | Variabile | Valore |
 |-----------|--------|
-| `INFERENCE_ENGINE` | `github` (default) · `anthropic` |
-| `GITHUB_MODEL` | default `openai/gpt-4.1` |
+| `INFERENCE_ENGINE` | `anthropic` · `github` |
 | `ANTHROPIC_API_KEY` / `ANTHROPIC_MODEL` | per engine `anthropic` |
+| `GITHUB_MODEL` | per engine `github`, default `openai/gpt-4.1` |
 | `INFERENCE_MIN_CONF` | soglia confidenza, default `0.55` |
 | `INFERENCE_MAX_CALLS` | tetto chiamate per run |
 | `INFERENCE_DELAY_MS` | pausa tra chiamate (ms) |
 | `INFERENCE_MAX_RETRIES` | retry su 429/503 con backoff |
 
-Con engine `github` l'inferenza usa il `GITHUB_TOKEN` già disponibile nelle Actions
-(serve il permesso `models: read`, già impostato nel workflow). Endpoint:
-`https://models.github.ai/inference/chat/completions`. La cache
-(`pipeline/ai-cache.json`) evita di re-inferire gli e-service già elaborati, così
-ogni run elabora solo i servizi nuovi.
+Il workflow usa l'engine `anthropic` con il modello indicato in `ANTHROPIC_MODEL`,
+leggendo la chiave dal secret `ANTHROPIC_API_KEY`. La cache (`pipeline/ai-cache.json`)
+evita di re-inferire gli e-service già elaborati, così ogni run elabora solo i
+servizi nuovi. In alternativa è disponibile l'engine `github` (GitHub Models, via
+`GITHUB_TOKEN` con permesso `models: read`).
 
 ### Disattivare l'AI
 

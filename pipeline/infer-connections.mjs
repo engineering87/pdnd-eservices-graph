@@ -76,24 +76,34 @@ function extractJSON(text) {
 async function callAnthropic(system, user) {
   const key = process.env.ANTHROPIC_API_KEY;
   if (!key) throw new Error("ANTHROPIC_API_KEY mancante");
-  const res = await fetch("https://api.anthropic.com/v1/messages", {
-    method: "POST",
-    headers: {
-      "content-type": "application/json",
-      "x-api-key": key,
-      "anthropic-version": "2023-06-01",
-    },
-    body: JSON.stringify({
-      model: process.env.ANTHROPIC_MODEL || "claude-sonnet-4-6",
-      max_tokens: 400,
-      temperature: 0,
-      system,
-      messages: [{ role: "user", content: user }],
-    }),
-  });
-  if (!res.ok) throw new Error(`Anthropic HTTP ${res.status}`);
-  const data = await res.json();
-  return data.content.map(b => b.text || "").join("");
+  for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
+    const res = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        "x-api-key": key,
+        "anthropic-version": "2023-06-01",
+      },
+      body: JSON.stringify({
+        model: process.env.ANTHROPIC_MODEL || "claude-sonnet-4-6",
+        max_tokens: 400,
+        temperature: 0,
+        system,
+        messages: [{ role: "user", content: user }],
+      }),
+    });
+    // Rate limit (429) o overload (529): backoff e riprova
+    if ((res.status === 429 || res.status === 529) && attempt < MAX_RETRIES) {
+      const retryAfter = parseInt(res.headers.get("retry-after") || "0", 10);
+      const wait = retryAfter > 0 ? retryAfter * 1000 : Math.min(30000, 2000 * 2 ** attempt);
+      await sleep(wait);
+      continue;
+    }
+    if (!res.ok) throw new Error(`Anthropic HTTP ${res.status}`);
+    const data = await res.json();
+    return data.content.map(b => b.text || "").join("");
+  }
+  throw new Error("Anthropic: rate limit/overload persistente dopo i retry");
 }
 
 async function callGitHub(system, user) {
@@ -150,6 +160,7 @@ export async function inferConnections(uncovered, nodes, cachePath) {
   const validIds = new Set(nodes.map(n => n.id));
   const result = new Map();
   let calls = 0, fresh = 0, fromCache = 0, dropped = 0, errors = 0;
+  let lastError = null;
 
   for (const svc of uncovered) {
     const cid = svc.catalogId;
@@ -179,6 +190,7 @@ export async function inferConnections(uncovered, nodes, cachePath) {
       }
     } catch (e) {
       errors++;
+      lastError = e.message;
       // non scrivere in cache: riproveremo al prossimo run
     }
   }
@@ -186,5 +198,5 @@ export async function inferConnections(uncovered, nodes, cachePath) {
   // Persisti cache aggiornata
   try { writeFileSync(cachePath, JSON.stringify(cache, null, 2) + "\n", "utf-8"); } catch { /* ignore */ }
 
-  return { map: result, stats: { calls, fresh, fromCache, dropped, errors, engine: ENGINE, minConf: MIN_CONF } };
+  return { map: result, stats: { calls, fresh, fromCache, dropped, errors, lastError, engine: ENGINE, minConf: MIN_CONF } };
 }
