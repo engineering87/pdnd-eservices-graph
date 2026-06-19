@@ -1,0 +1,7 @@
+{
+  "_comment": "Override curati delle connessioni erogatore->fruitore, ricostruiti da documentazione ufficiale (circolari, manuali, presentazioni). Chiave = UUID dell'e-service nel catalogo PDND (colonna 'id' di eservice_a_catalogo.csv). Valore = lista di id-nodo fruitori (devono esistere in entities.json). Questi override PREVALGONO sulla baseline derivata da attributes.certified. Aggiungi qui le coppie precise che hai documentato: la pipeline le preserva ad ogni aggiornamento. Per scoprire gli UUID, consulta pipeline/last-run-report.md dopo un run, oppure il catalogo ufficiale.",
+
+  "overrides": {
+    "ESEMPIO-uuid-e-service": ["comuni_agg", "r_lombardia", "inps"]
+  }
+}

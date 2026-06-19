@@ -1,0 +1,555 @@
+{
+  "_comment": "Registro entità tracciate. ipaCodes = producerIpaCode nel catalogo PDND. produces:false = nodo solo fruitore (non se ne estraggono e-service). Allineato ai 51 nodi del grafo curato.",
+  "entities": [
+    {
+      "id": "min_interno",
+      "ipaCodes": [
+        "m_it"
+      ],
+      "name": "Min. Interno (ANPR)",
+      "categoria": "Ministero",
+      "descrizione": "Anagrafe Nazionale della Popolazione Residente",
+      "produces": true,
+      "maxServices": 8
+    },
+    {
+      "id": "inps",
+      "ipaCodes": [
+        "inps"
+      ],
+      "name": "INPS",
+      "categoria": "Previdenza",
+      "descrizione": "Istituto Nazionale della Previdenza Sociale",
+      "produces": true,
+      "maxServices": 8
+    },
+    {
+      "id": "ade",
+      "ipaCodes": [
+        "age"
+      ],
+      "name": "Agenzia delle Entrate",
+      "categoria": "Fisco",
+      "descrizione": "Servizi fiscali, catastali, ANNCSU",
+      "produces": true,
+      "maxServices": 8
+    },
+    {
+      "id": "agid",
+      "ipaCodes": [
+        "agid"
+      ],
+      "name": "AgID",
+      "categoria": "Digitale",
+      "descrizione": "Agenzia per l'Italia Digitale — INAD, Indice PA",
+      "produces": true,
+      "maxServices": 8
+    },
+    {
+      "id": "inail",
+      "ipaCodes": [
+        "inail"
+      ],
+      "name": "INAIL",
+      "categoria": "Lavoro",
+      "descrizione": "Istituto Naz. Assicurazione Infortuni sul Lavoro",
+      "produces": true,
+      "maxServices": 5
+    },
+    {
+      "id": "unioncamere",
+      "ipaCodes": [
+        "UICCIAA"
+      ],
+      "name": "Unioncamere",
+      "categoria": "Imprese",
+      "descrizione": "Unione Camere di Commercio — Registro Imprese, SSU",
+      "produces": true,
+      "maxServices": 8
+    },
+    {
+      "id": "mef",
+      "ipaCodes": [
+        "m_ef"
+      ],
+      "name": "MEF",
+      "categoria": "Ministero",
+      "descrizione": "Min. Economia e Finanze — noiPA, Anagrafe Dip. Pubblici",
+      "produces": true,
+      "maxServices": 5
+    },
+    {
+      "id": "anac",
+      "ipaCodes": [
+        "cvtiap"
+      ],
+      "name": "ANAC",
+      "categoria": "Anticorruzione",
+      "descrizione": "Aut. Naz. Anticorruzione — Contratti Pubblici, SIMOG",
+      "produces": true,
+      "maxServices": 5
+    },
+    {
+      "id": "mit_dgmot",
+      "ipaCodes": [],
+      "name": "MIT – Motorizzazione",
+      "categoria": "Trasporti",
+      "descrizione": "DG Motorizzazione — Veicoli, Patenti, CUDE",
+      "produces": false
+    },
+    {
+      "id": "min_giustizia",
+      "ipaCodes": [
+        "m_dg"
+      ],
+      "name": "Min. Giustizia",
+      "categoria": "Ministero",
+      "descrizione": "Casellario Giudiziale",
+      "produces": true,
+      "maxServices": 5
+    },
+    {
+      "id": "min_cultura",
+      "ipaCodes": [
+        "m_bac",
+        "D390VG"
+      ],
+      "name": "Min. Cultura (I.PaC)",
+      "categoria": "Cultura",
+      "descrizione": "Infrastruttura del Patrimonio Culturale — 16+ API",
+      "produces": true,
+      "maxServices": 5
+    },
+    {
+      "id": "mur",
+      "ipaCodes": [
+        "KH5RHFCV"
+      ],
+      "name": "MUR",
+      "categoria": "Ministero",
+      "descrizione": "Min. Università e Ricerca — ANIS",
+      "produces": true,
+      "maxServices": 5
+    },
+    {
+      "id": "ade_riscossione",
+      "ipaCodes": [
+        "esrsris"
+      ],
+      "name": "AdE Riscossione",
+      "categoria": "Fisco",
+      "descrizione": "Agenzia delle Entrate — Riscossione",
+      "produces": true,
+      "maxServices": 5
+    },
+    {
+      "id": "sogei",
+      "ipaCodes": [],
+      "name": "Sogei",
+      "categoria": "Tecnologia",
+      "descrizione": "Partner tecnologico MEF — Fatturazione elettronica",
+      "produces": false
+    },
+    {
+      "id": "istat",
+      "ipaCodes": [
+        "ISTAT"
+      ],
+      "name": "ISTAT",
+      "categoria": "Statistica",
+      "descrizione": "Istituto Nazionale di Statistica",
+      "produces": true,
+      "maxServices": 5
+    },
+    {
+      "id": "pagopa",
+      "ipaCodes": [
+        "5N2TR557"
+      ],
+      "name": "PagoPA",
+      "categoria": "Digitale",
+      "descrizione": "PagoPA S.p.A. — Gestore infrastruttura PDND",
+      "produces": true,
+      "maxServices": 5
+    },
+    {
+      "id": "mlps",
+      "ipaCodes": [
+        "m_lps"
+      ],
+      "name": "Min. Lavoro",
+      "categoria": "Ministero",
+      "descrizione": "Min. Lavoro e Politiche Sociali — 122 endpoint nel catalogo",
+      "produces": true,
+      "maxServices": 8
+    },
+    {
+      "id": "cineca",
+      "ipaCodes": [],
+      "name": "Cineca",
+      "categoria": "Tecnologia",
+      "descrizione": "Consorzio Interuniversitario — Servizi IFS",
+      "produces": false
+    },
+    {
+      "id": "mit",
+      "ipaCodes": [
+        "m_inf"
+      ],
+      "name": "MIT",
+      "categoria": "Trasporti",
+      "descrizione": "Min. Infrastrutture e Trasporti — 66 endpoint nel catalogo",
+      "produces": true,
+      "maxServices": 8
+    },
+    {
+      "id": "dfp",
+      "ipaCodes": [
+        "AEB3273"
+      ],
+      "name": "Dip. Funzione Pubblica",
+      "categoria": "Ministero",
+      "descrizione": "Dipartimento della Funzione Pubblica — PCM",
+      "produces": true,
+      "maxServices": 5
+    },
+    {
+      "id": "ag_demanio",
+      "ipaCodes": [
+        "agd"
+      ],
+      "name": "Agenzia del Demanio",
+      "categoria": "Fisco",
+      "descrizione": "Agenzia del Demanio — patrimonio dello Stato",
+      "produces": true,
+      "maxServices": 5
+    },
+    {
+      "id": "min_istruzione",
+      "ipaCodes": [
+        "m_pi"
+      ],
+      "name": "Min. Istruzione",
+      "categoria": "Ministero",
+      "descrizione": "Min. Istruzione e del Merito — 13 endpoint nel catalogo",
+      "produces": true,
+      "maxServices": 5
+    },
+    {
+      "id": "ispra",
+      "ipaCodes": [
+        "ispra_rm"
+      ],
+      "name": "ISPRA",
+      "categoria": "Statistica",
+      "descrizione": "Ist. Superiore Protezione e Ricerca Ambientale — 17 endpoint",
+      "produces": true,
+      "maxServices": 5
+    },
+    {
+      "id": "r_lombardia",
+      "ipaCodes": [
+        "r_lombar"
+      ],
+      "name": "Reg. Lombardia",
+      "categoria": "Regione",
+      "descrizione": "Regione Lombardia — 42 endpoint nel catalogo",
+      "produces": true,
+      "maxServices": 4
+    },
+    {
+      "id": "r_lazio",
+      "ipaCodes": [
+        "r_lazio"
+      ],
+      "name": "Reg. Lazio",
+      "categoria": "Regione",
+      "descrizione": "Regione Lazio — 35 endpoint nel catalogo",
+      "produces": true,
+      "maxServices": 4
+    },
+    {
+      "id": "r_campania",
+      "ipaCodes": [
+        "r_campan"
+      ],
+      "name": "Reg. Campania",
+      "categoria": "Regione",
+      "descrizione": "Regione Campania — 50 endpoint nel catalogo",
+      "produces": true,
+      "maxServices": 4
+    },
+    {
+      "id": "r_sicilia",
+      "ipaCodes": [
+        "r_sicili"
+      ],
+      "name": "Reg. Siciliana",
+      "categoria": "Regione",
+      "descrizione": "Regione Siciliana — Sanità territoriale",
+      "produces": true,
+      "maxServices": 4
+    },
+    {
+      "id": "r_friuli",
+      "ipaCodes": [
+        "r_friuve"
+      ],
+      "name": "Reg. FVG",
+      "categoria": "Regione",
+      "descrizione": "Regione Autonoma Friuli-Venezia Giulia — 51 endpoint nel catalogo",
+      "produces": true,
+      "maxServices": 4
+    },
+    {
+      "id": "pa_bolzano",
+      "ipaCodes": [
+        "p_bz"
+      ],
+      "name": "Prov. Aut. Bolzano",
+      "categoria": "Regione",
+      "descrizione": "Provincia Autonoma di Bolzano — Dati ambientali",
+      "produces": true,
+      "maxServices": 4
+    },
+    {
+      "id": "r_liguria",
+      "ipaCodes": [
+        "r_liguri"
+      ],
+      "name": "Reg. Liguria",
+      "categoria": "Regione",
+      "descrizione": "Regione Liguria — 60 endpoint nel catalogo",
+      "produces": true,
+      "maxServices": 4
+    },
+    {
+      "id": "r_toscana",
+      "ipaCodes": [
+        "r_toscan"
+      ],
+      "name": "Reg. Toscana",
+      "categoria": "Regione",
+      "descrizione": "Regione Toscana — 53 endpoint nel catalogo",
+      "produces": true,
+      "maxServices": 4
+    },
+    {
+      "id": "r_molise",
+      "ipaCodes": [
+        "r_molise"
+      ],
+      "name": "Reg. Molise",
+      "categoria": "Regione",
+      "descrizione": "Regione Molise — 48 endpoint nel catalogo",
+      "produces": true,
+      "maxServices": 4
+    },
+    {
+      "id": "r_puglia",
+      "ipaCodes": [
+        "r_puglia"
+      ],
+      "name": "Reg. Puglia",
+      "categoria": "Regione",
+      "descrizione": "Regione Puglia — 45 endpoint nel catalogo",
+      "produces": true,
+      "maxServices": 4
+    },
+    {
+      "id": "pa_trento",
+      "ipaCodes": [
+        "p_TN"
+      ],
+      "name": "Prov. Aut. Trento",
+      "categoria": "Regione",
+      "descrizione": "Provincia Autonoma di Trento — 45 endpoint nel catalogo",
+      "produces": true,
+      "maxServices": 4
+    },
+    {
+      "id": "r_abruzzo",
+      "ipaCodes": [
+        "r_abruzz"
+      ],
+      "name": "Reg. Abruzzo",
+      "categoria": "Regione",
+      "descrizione": "Regione Abruzzo — 45 endpoint nel catalogo",
+      "produces": true,
+      "maxServices": 4
+    },
+    {
+      "id": "r_emilia",
+      "ipaCodes": [
+        "r_emiro"
+      ],
+      "name": "Reg. Emilia-Romagna",
+      "categoria": "Regione",
+      "descrizione": "Regione Emilia-Romagna — 41 endpoint nel catalogo",
+      "produces": true,
+      "maxServices": 4
+    },
+    {
+      "id": "r_piemonte",
+      "ipaCodes": [
+        "r_piemon"
+      ],
+      "name": "Reg. Piemonte",
+      "categoria": "Regione",
+      "descrizione": "Regione Piemonte — 41 endpoint nel catalogo",
+      "produces": true,
+      "maxServices": 4
+    },
+    {
+      "id": "r_veneto",
+      "ipaCodes": [
+        "r_veneto"
+      ],
+      "name": "Reg. Veneto",
+      "categoria": "Regione",
+      "descrizione": "Regione del Veneto — 40 endpoint nel catalogo",
+      "produces": true,
+      "maxServices": 4
+    },
+    {
+      "id": "r_marche",
+      "ipaCodes": [
+        "r_marche"
+      ],
+      "name": "Reg. Marche",
+      "categoria": "Regione",
+      "descrizione": "Regione Marche — 37 endpoint nel catalogo",
+      "produces": true,
+      "maxServices": 4
+    },
+    {
+      "id": "r_umbria",
+      "ipaCodes": [
+        "r_umbria"
+      ],
+      "name": "Reg. Umbria",
+      "categoria": "Regione",
+      "descrizione": "Regione Umbria — 32 endpoint nel catalogo",
+      "produces": true,
+      "maxServices": 4
+    },
+    {
+      "id": "r_vda",
+      "ipaCodes": [
+        "r_vda"
+      ],
+      "name": "Reg. Valle d'Aosta",
+      "categoria": "Regione",
+      "descrizione": "Regione Autonoma Valle d'Aosta — 32 endpoint nel catalogo",
+      "produces": true,
+      "maxServices": 4
+    },
+    {
+      "id": "r_basilicata",
+      "ipaCodes": [
+        "r_basili"
+      ],
+      "name": "Reg. Basilicata",
+      "categoria": "Regione",
+      "descrizione": "Regione Basilicata — 31 endpoint nel catalogo",
+      "produces": true,
+      "maxServices": 4
+    },
+    {
+      "id": "r_sardegna",
+      "ipaCodes": [
+        "r_sardeg"
+      ],
+      "name": "Reg. Sardegna",
+      "categoria": "Regione",
+      "descrizione": "Regione Autonoma della Sardegna — 30 endpoint nel catalogo",
+      "produces": true,
+      "maxServices": 4
+    },
+    {
+      "id": "r_calabria",
+      "ipaCodes": [
+        "regcal"
+      ],
+      "name": "Reg. Calabria",
+      "categoria": "Regione",
+      "descrizione": "Regione Calabria — 27 endpoint nel catalogo",
+      "produces": true,
+      "maxServices": 4
+    },
+    {
+      "id": "c_milano",
+      "ipaCodes": [
+        "c_f205"
+      ],
+      "name": "Comune di Milano",
+      "categoria": "Comune",
+      "descrizione": "Comune di Milano",
+      "produces": true,
+      "maxServices": 4
+    },
+    {
+      "id": "c_roma",
+      "ipaCodes": [
+        "c_h501"
+      ],
+      "name": "Comune di Roma",
+      "categoria": "Comune",
+      "descrizione": "Comune di Roma Capitale",
+      "produces": true,
+      "maxServices": 4
+    },
+    {
+      "id": "c_napoli",
+      "ipaCodes": [
+        "c_f839"
+      ],
+      "name": "Comune di Napoli",
+      "categoria": "Comune",
+      "descrizione": "Comune di Napoli",
+      "produces": true,
+      "maxServices": 4
+    },
+    {
+      "id": "c_bologna",
+      "ipaCodes": [
+        "c_a944"
+      ],
+      "name": "Comune di Bologna",
+      "categoria": "Comune",
+      "descrizione": "Comune di Bologna",
+      "produces": true,
+      "maxServices": 4
+    },
+    {
+      "id": "c_genova",
+      "ipaCodes": [
+        "c_d969"
+      ],
+      "name": "Comune di Genova",
+      "categoria": "Comune",
+      "descrizione": "Comune di Genova",
+      "produces": true,
+      "maxServices": 4
+    },
+    {
+      "id": "c_padova",
+      "ipaCodes": [
+        "c_g224"
+      ],
+      "name": "Comune di Padova",
+      "categoria": "Comune",
+      "descrizione": "Comune di Padova",
+      "produces": true,
+      "maxServices": 4
+    },
+    {
+      "id": "comuni_agg",
+      "ipaCodes": [],
+      "name": "Comuni (aggregati)",
+      "categoria": "Comuni Aggregati",
+      "descrizione": "~7.500 Comuni aderenti — servizi standard aggregati",
+      "produces": false
+    }
+  ]
+}

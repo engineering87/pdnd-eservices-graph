@@ -251,6 +251,25 @@ La distinzione grafica degli archi segue questa logica:
 - **Spessore:** proporzionale al numero di e-service condivisi tra due enti
 - **Freccia direzionale:** indica il verso erogatore → fruitore
 - **Luminosità:** gli archi si evidenziano al passaggio del mouse o alla selezione di un nodo
+- **Tratteggio:** gli archi *inferiti dall'AI* (vedi sotto) sono tratteggiati, quelli documentati o certificati sono a linea piena
+
+**Provenienza degli archi.** Ogni arco porta una provenienza esplicita (`origine`),
+su tre livelli di affidabilità decrescente:
+
+1. **Documentata** — ricostruita da documentazione ufficiale pubblica (circolari,
+   manuali, presentazioni; vedi Sezione 2). Massima affidabilità, prevale su tutto.
+2. **Certificata** — derivata dal campo `attributes.certified` del catalogo, che
+   dichiara la categoria di enti autorizzati alla fruizione. Dato pubblico e deterministico.
+3. **Inferita** — stimata da un modello di intelligenza artificiale per gli e-service
+   privi di categoria certificata e di override documentato, allo scopo di garantire
+   una copertura completa. Ogni inferenza porta un punteggio di confidenza; sotto
+   soglia viene scartata. Questi archi sono resi **tratteggiati** nel grafo.
+
+> **Distinzione epistemica.** Gli archi *documentati* e *certificati* sono fatti
+> verificabili da fonti pubbliche. Gli archi *inferiti* sono stime ragionate del
+> modello, dichiarate come tali e non presentate come fatti: per ciascuno sono
+> conservate confidenza e motivazione, e un arco inferito può essere promosso a
+> "documentato" quando se ne trova la fonte ufficiale.
 
 ### 3.5 Tipi di servizio (service-type) vs endpoint del catalogo
 
@@ -354,6 +373,20 @@ La documentazione completa degli script è in [scripts/README.md](scripts/README
 | Catalogo API navigabile | [api.gov.it](https://api.gov.it/it/catalogo) | Continua |
 | Numeri della PDND | [interop.pagopa.it/numeri](https://www.interop.pagopa.it/numeri) | Continua |
 | Documentazione ANPR | [anagrafenazionale.interno.it](https://www.anagrafenazionale.interno.it/area-tecnica/accesso-ai-dati/) | Ad aggiornamento |
+
+### Aggiornamento automatico (pipeline)
+
+Lo stato del grafo è mantenuto aggiornato da una pipeline automatica mensile
+(`pipeline/build-graph-data.mjs`, GitHub Action `update-graph-data.yml`) che legge
+il catalogo ufficiale, estrae gli e-service delle entità tracciate
+(`pipeline/entities.json`), e determina gli archi con i tre livelli di provenienza
+descritti nella Sezione 3.4: override documentati (`pipeline/connections-overrides.json`),
+baseline certificata (`pipeline/category-map.json`) e inferenza AI per i restanti.
+
+La pipeline applica guard di validazione (catalogo minimo, calo nodi, zero servizi)
+che impediscono la pubblicazione di dati corrotti, e mantiene una cache delle
+inferenze (`pipeline/ai-cache.json`) per stabilità e contenimento dei costi. Dettagli
+operativi in `pipeline/README.md`.
 
 ### Segnalare correzioni
 

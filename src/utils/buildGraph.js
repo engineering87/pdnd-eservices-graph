@@ -1,3 +1,8 @@
+// src/utils/buildGraph.js
+// Versione provenance-aware: legge il campo `archi` (con origine) se presente,
+// altrimenti ricade su `fruitori` (retrocompatibile). Ogni link porta `origine`:
+// "documentata" | "certificata" | "inferita".
+
 export function buildGraph(data) {
   const nodes = data.enti.map((e) => {
     const er = data.eservices.filter((s) => s.erogatore === e.id);
@@ -16,21 +21,24 @@ export function buildGraph(data) {
   const links = [];
   const linkCounts = {};
 
-  data.eservices.forEach((es) =>
-    es.fruitori.forEach((f) => {
+  data.eservices.forEach((es) => {
+    // Usa `archi` (con provenienza) se presente, altrimenti `fruitori` (legacy)
+    const archi = es.archi || es.fruitori.map((f) => ({ fruitore: f, origine: "certificata" }));
+    archi.forEach(({ fruitore, origine }) => {
       links.push({
         source: es.erogatore,
-        target: f,
+        target: fruitore,
         eservice: es.nome,
         eserviceId: es.id,
         versione: es.versione,
         stato: es.stato,
         descrizione: es.descrizione,
+        origine: origine || "certificata",
       });
-      const key = [es.erogatore, f].sort().join("--");
+      const key = [es.erogatore, fruitore].sort().join("--");
       linkCounts[key] = (linkCounts[key] || 0) + 1;
-    })
-  );
+    });
+  });
 
   links.forEach((l) => {
     const key = [

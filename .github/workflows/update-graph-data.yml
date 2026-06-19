@@ -1,0 +1,56 @@
+name: Aggiornamento automatico grafo PDND
+
+on:
+  schedule:
+    - cron: "0 4 1 * *"   # giorno 1 di ogni mese, 04:00 UTC
+  workflow_dispatch: {}    # avvio manuale dalla tab Actions
+
+permissions:
+  contents: write
+  models: read             # necessario per l'inferenza via GitHub Models col GITHUB_TOKEN
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    env:
+      # Inferenza AI via GitHub Models: nessuna chiave esterna, usa il GITHUB_TOKEN.
+      INFERENCE_ENGINE: github
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GITHUB_MODEL: openai/gpt-4.1
+      INFERENCE_MIN_CONF: "0.6"
+      INFERENCE_MAX_CALLS: "120"   # tieni sotto i rate limit del tier gratuito
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Genera dati aggiornati
+        # Esce con codice 1 se un guard di validazione fallisce, interrompendo
+        # il workflow PRIMA del commit. L'inferenza AI è fail-safe: se il servizio
+        # non risponde, la pipeline prosegue con archi certificati/documentati.
+        run: node pipeline/build-graph-data.mjs --write
+
+      - name: Commit se ci sono modifiche
+        run: |
+          git config user.name "pdnd-graph-bot"
+          git config user.email "actions@github.com"
+          # Modalità non distruttiva: la pipeline aggiorna l'ANTEPRIMA, non il grafo live.
+          # Il grafo curato (src/data/pdnd-data.json) resta intatto.
+          git add pipeline/pdnd-data.preview.json pipeline/last-run-report.md pipeline/ai-cache.json
+          if git diff --cached --quiet; then
+            echo "Nessuna modifica."
+          else
+            git commit -m "chore: aggiornamento anteprima grafo PDND [skip ci]"
+            git push
+          fi
+
+      - name: Pubblica report nel riepilogo
+        if: always()
+        run: |
+          if [ -f pipeline/last-run-report.md ]; then
+            cat pipeline/last-run-report.md >> "$GITHUB_STEP_SUMMARY"
+          fi

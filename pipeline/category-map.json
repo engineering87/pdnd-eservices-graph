@@ -1,0 +1,15 @@
+{
+  "_comment": "Mappa le categorie di enti autorizzati alla fruizione (attributes.certified) sui nodi del grafo, come baseline deterministica degli archi. Gli id devono esistere in entities.json. Override in connections-overrides.json hanno precedenza.",
+  "map": {
+    "Comuni e loro Consorzi e Associazioni": ["comuni_agg"],
+    "Unioni di Comuni e loro Consorzi e Associazioni": ["comuni_agg"],
+    "Citta' Metropolitane": ["comuni_agg"],
+    "Pubbliche Amministrazioni": ["comuni_agg"],
+    "Regioni, Province Autonome e loro Consorzi e Associazioni": ["r_lombardia", "r_lazio", "r_campania", "r_emilia", "r_toscana", "r_veneto", "r_piemonte"],
+    "Istituto Nazionale Previdenza Sociale - INPS": ["inps"],
+    "MINISTERO DELL'UNIVERSITA' E DELLA RICERCA": ["mur"],
+    "Cineca Consorzio Interuniversitario": ["cineca"],
+    "Ministero delle infrastrutture e dei trasporti": ["mit"],
+    "Presidenza del Consiglio dei Ministri, Ministeri e Avvocatura dello Stato": ["min_interno", "mlps", "mef", "min_cultura", "min_giustizia", "min_istruzione"]
+  }
+}

@@ -97,7 +97,9 @@ export default function GraphView() {
       if (hl) { ctx.strokeStyle = `rgba(200,220,255,${.4 + w * .06})`; ctx.lineWidth = 1.5 + w * .5; ctx.shadowColor = "rgba(100,180,255,.3)"; ctx.shadowBlur = 6; }
       else if (dim2) { ctx.strokeStyle = "rgba(100,120,140,.04)"; ctx.lineWidth = .3; }
       else { ctx.strokeStyle = `rgba(100,160,220,${.08 + w * .03})`; ctx.lineWidth = .5 + w * .3; }
-      ctx.stroke(); ctx.shadowBlur = 0;
+      // Archi inferiti dall'AI: tratteggiati per distinguerli da quelli documentati/certificati
+      if (l.origine === "inferita") ctx.setLineDash([6, 5]); else ctx.setLineDash([]);
+      ctx.stroke(); ctx.setLineDash([]); ctx.shadowBlur = 0;
 
       if (hl) {
         const angle = curvature > 0 ? Math.atan2(tg.y - cy2, tg.x - cx2) : Math.atan2(tg.y - s.y, tg.x - s.x);
@@ -263,6 +265,15 @@ export default function GraphView() {
                 <span style={{ color: "#94a3b8" }}>{cat}</span>
               </div>
             ))}
+          </div>
+        )}
+
+        {/* Legenda provenienza archi */}
+        {!m && (
+          <div style={{ position: "absolute", bottom: 12, right: 12, background: "rgba(10,14,26,.88)", borderRadius: 8, border: "1px solid rgba(100,160,220,.1)", padding: "8px 12px", display: "flex", flexDirection: "column", gap: 5, fontSize: 9, color: "#94a3b8" }}>
+            <div style={{ fontSize: 8, textTransform: "uppercase", letterSpacing: .6, color: "#64748b", marginBottom: 1 }}>Provenienza archi</div>
+            <div style={{ display: "flex", alignItems: "center", gap: 6 }}><svg width="22" height="6"><line x1="0" y1="3" x2="22" y2="3" stroke="rgba(100,160,220,.9)" strokeWidth="1.6" /></svg><span>Documentata / Certificata</span></div>
+            <div style={{ display: "flex", alignItems: "center", gap: 6 }}><svg width="22" height="6"><line x1="0" y1="3" x2="22" y2="3" stroke="rgba(100,160,220,.9)" strokeWidth="1.6" strokeDasharray="5,4" /></svg><span>Inferita (AI)</span></div>
           </div>
         )}
 
