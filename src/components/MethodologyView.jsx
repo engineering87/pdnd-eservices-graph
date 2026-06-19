@@ -120,6 +120,7 @@ export default function MethodologyView() {
         {[
           "Le connessioni rappresentano relazioni documentate o inferite, non necessariamente accordi di interoperabilità attivi e verificati sulla piattaforma.",
           "I Comuni aggregati non indicano che tutti i ~7.500 Comuni fruiscono effettivamente di ogni servizio.",
+          "Gli archi inferiti dall'AI sono normalizzati sugli aggregati: città e regioni confluiscono nei nodi \"Comuni (aggregati)\" e \"Regioni (aggregati)\", così l'arco dichiara un'eleggibilità di classe stimata e non una connessione puntuale. Gli archi certificati e documentati mantengono i nomi puntuali.",
           "Per le 18 Regioni e Province Autonome rappresentate, gli e-service sono esposti come categoria aggregata (un record per ente) con il numero di endpoint del catalogo annotato in descrizione.",
           "Il modello copre ~89% del catalogo PDND. Il residuo 11% è composto principalmente da università, conservatori e società in-house regionali con pochi endpoint ciascuno.",
           "Le versioni degli e-service potrebbero non corrispondere all'ultima versione attiva nel catalogo.",

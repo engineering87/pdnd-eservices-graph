@@ -235,6 +235,31 @@ async function main() {
     }
   }
 
+  // 4c. Normalizzazione deterministica dei soli archi 'inferita'.
+  // Le città e le regioni che tracciamo come nodi sono un CAMPIONE scelto da noi:
+  // un arco inferito verso "Milano" o "Lazio" rifletterebbe la nostra selezione di
+  // nodi, non un'evidenza nel dato. Per gli archi inferiti collassiamo perciò le
+  // classi campionate su aggregati (c_* -> comuni_agg, r_*/pa_* -> regioni_agg),
+  // dichiarando un'eleggibilità di classe stimata anziché connessioni puntuali non
+  // documentabili. Gli enti distinti (ministeri, INPS, INAIL, ANAC, MUR, Cineca…)
+  // restano nominati. Gli archi 'certificata' e 'documentata' NON vengono toccati:
+  // lì il nome dell'ente è ancorato al dato di catalogo o alla fonte ufficiale.
+  const collapseInferred = (id) =>
+    /^c_/.test(id) ? "comuni_agg" : (/^(r_|pa_)/.test(id) ? "regioni_agg" : id);
+  for (const s of eservices) {
+    if (!s.archi.some(a => a.origine === "inferita")) continue;
+    const seen = new Set();
+    const collapsed = [];
+    for (const a of s.archi) {
+      const f = a.origine === "inferita" ? collapseInferred(a.fruitore) : a.fruitore;
+      if (f === s.erogatore || !validNodeIds.has(f) || seen.has(f)) continue;
+      seen.add(f);
+      collapsed.push({ fruitore: f, origine: a.origine });
+    }
+    s.archi = collapsed;
+    s.fruitori = collapsed.map(a => a.fruitore);
+  }
+
   // Ricalcola i servizi ancora privi di archi dopo l'inferenza
   eservices.forEach(s => { if (s.fruitori.length === 0) noFruitori.push(`${s.nome} (${s.catalogId})`); });
 

@@ -552,6 +552,13 @@
       "produces": false
     },
     {
+      "id": "regioni_agg",
+      "name": "Regioni (aggregati)",
+      "tipo": "Fruitore",
+      "categoria": "Regioni Aggregate",
+      "descrizione": "Regioni e Province Autonome aderenti — eleggibilità di classe aggregata"
+    },
+    {
       "id": "ipzs",
       "ipaCodes": [],
       "name": "Ist. Poligrafico e Zecca",

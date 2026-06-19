@@ -239,6 +239,7 @@ Le categorie sono state assegnate in base alla funzione istituzionale prevalente
 | Regione            | Regioni, Province Autonome                           |
 | Comune             | Grandi Comuni individuali                            |
 | Comuni Aggregati   | Nodo aggregato dei Comuni minori                     |
+| Regioni Aggregate  | Nodo aggregato delle Regioni (eleggibilità inferita) |
 
 ### 3.4 Natura degli archi (connessioni)
 
@@ -263,13 +264,31 @@ su tre livelli di affidabilità decrescente:
 3. **Inferita** — stimata da un modello di intelligenza artificiale per gli e-service
    privi di categoria certificata e di override documentato, allo scopo di garantire
    una copertura completa. Ogni inferenza porta un punteggio di confidenza; sotto
-   soglia viene scartata. Questi archi sono resi **tratteggiati** nel grafo.
+   soglia viene scartata. Questi archi sono resi **tratteggiati** nel grafo e, prima della rappresentazione, sono normalizzati sugli aggregati (vedi sotto).
 
 > **Distinzione epistemica.** Gli archi *documentati* e *certificati* sono fatti
 > verificabili da fonti pubbliche. Gli archi *inferiti* sono stime ragionate del
 > modello, dichiarate come tali e non presentate come fatti: per ciascuno sono
 > conservate confidenza e motivazione, e un arco inferito può essere promosso a
 > "documentato" quando se ne trova la fonte ufficiale.
+
+**Normalizzazione degli archi inferiti.** Le città e le regioni rappresentate
+come nodi distinti costituiscono un campione selezionato in fase di modellazione
+(Sezione 3.2), non l’esito di un’evidenza nel dato. Un arco inferito verso, ad
+esempio, il Comune di Milano o la Regione Lazio rifletterebbe quindi la nostra
+scelta di nodi e non un’informazione del catalogo. Per non presentare un artefatto
+di campionamento come una connessione puntuale, gli archi di sola origine
+*inferita* vengono normalizzati in modo deterministico: i nodi-Comune confluiscono
+nell’aggregato **Comuni (aggregati)** e i nodi-Regione o Provincia Autonoma
+nell’aggregato **Regioni (aggregati)**. L’arco risultante dichiara così
+un’**eleggibilità di classe stimata** anziché un rapporto bilaterale non
+documentabile. Le istituzioni distinte (ministeri, enti previdenziali e
+assicurativi, autorità) restano invece **nominate**, perché sono enti reali
+tracciati singolarmente e non campioni di un insieme. La normalizzazione si applica
+**esclusivamente** agli archi inferiti: gli archi *certificati* e *documentati*
+conservano i nomi puntuali, perché in quei casi l’ente è ancorato rispettivamente
+al campo `attributes.certified` del catalogo o a una fonte ufficiale.
+
 
 ### 3.5 Tipi di servizio (service-type) vs endpoint del catalogo
 

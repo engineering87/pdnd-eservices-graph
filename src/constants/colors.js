@@ -13,4 +13,7 @@ export const CATEGORY_COLORS = {
   Regione: "#3a86a8",
   Comune: "#26547c",
   "Comuni Aggregati": "#4a7c91",
+  "Regioni Aggregate": "#6aa5b5",
+  "Società pubblica": "#b07d62",
+  Ordini: "#7768ae",
 };
