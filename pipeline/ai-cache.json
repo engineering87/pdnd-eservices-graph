@@ -1,0 +1,206 @@
+{
+  "88f03670-80c9-4495-a24b-d6d582b584da": {
+    "fruitori": [
+      "comuni_agg",
+      "c_milano",
+      "c_roma",
+      "c_napoli",
+      "c_bologna",
+      "c_genova",
+      "c_padova",
+      "r_lombardia",
+      "r_lazio",
+      "r_campania",
+      "r_toscana",
+      "r_emilia",
+      "r_piemonte",
+      "r_veneto"
+    ],
+    "confidenza": 0.66,
+    "motivazione": "I dati sulle prestazioni di accoglienza di adulti/anziani servono a Comuni e Regioni per gestire servizi sociali e verificare il diritto a prestazioni assistenziali."
+  },
+  "9b2bf50d-9a4f-49bc-8473-1b87408b70ea": {
+    "fruitori": [
+      "comuni_agg",
+      "c_milano",
+      "c_roma",
+      "c_napoli",
+      "c_bologna",
+      "c_genova",
+      "c_padova",
+      "r_lombardia",
+      "r_lazio",
+      "r_campania",
+      "r_toscana",
+      "r_emilia",
+      "r_piemonte",
+      "r_veneto",
+      "r_puglia",
+      "r_sicilia"
+    ],
+    "confidenza": 0.74,
+    "motivazione": "Le agevolazioni per servizi pubblici (bonus, tariffe sociali) sono gestite da Comuni e Regioni che consultano i dati INPS per verificare il diritto del cittadino."
+  },
+  "6832ec2f-cacf-483b-92fd-149219c4f06a": {
+    "fruitori": [
+      "mur",
+      "cineca",
+      "r_lombardia",
+      "r_lazio",
+      "r_campania",
+      "r_toscana",
+      "r_emilia",
+      "r_piemonte",
+      "r_veneto",
+      "r_puglia",
+      "r_sicilia",
+      "r_sardegna",
+      "r_calabria",
+      "r_liguria",
+      "r_marche",
+      "r_friuli",
+      "r_abruzzo",
+      "r_umbria",
+      "r_basilicata",
+      "r_molise",
+      "pa_trento",
+      "pa_bolzano",
+      "r_vda"
+    ],
+    "confidenza": 0.7,
+    "motivazione": "Le agevolazioni sulle tasse universitarie sono gestite da università/enti DSU e dalle Regioni che erogano il diritto allo studio, oltre al MUR e Cineca."
+  },
+  "2dd25168-da15-485e-bef8-21003b03d2b3": {
+    "fruitori": [
+      "comuni_agg",
+      "c_milano",
+      "c_roma",
+      "c_napoli",
+      "c_bologna",
+      "c_genova",
+      "c_padova",
+      "ade"
+    ],
+    "confidenza": 0.55,
+    "motivazione": "Le agevolazioni tributarie comunali sono gestite dai Comuni, che possono consultare la prestazione INPS per verifiche; anche il fisco può averne interesse."
+  },
+  "54a312be-ab6b-4627-a73e-1f07e0b20914": {
+    "fruitori": [
+      "comuni_agg",
+      "c_milano",
+      "c_roma",
+      "c_napoli",
+      "c_bologna",
+      "c_genova",
+      "c_padova",
+      "min_interno"
+    ],
+    "confidenza": 0.7,
+    "motivazione": "L'ANNCSU (archivio nazionale stradario e numeri civici) è alimentato e aggiornato prevalentemente dai Comuni, con rilevanza anche per l'ANPR del Ministero dell'Interno."
+  },
+  "a51198a6-0b08-4958-9d80-6fb6d49e4bbc": {
+    "fruitori": [
+      "anac",
+      "inps",
+      "comuni_agg",
+      "c_milano",
+      "c_roma",
+      "c_napoli",
+      "c_bologna",
+      "c_genova",
+      "c_padova",
+      "mit",
+      "ade",
+      "mef"
+    ],
+    "confidenza": 0.78,
+    "motivazione": "Il DURC è verificato dalle stazioni appaltanti e dalle PA (comuni, regioni, ANAC) nelle procedure di appalto e dagli enti previdenziali/fiscali per regolarità contributiva."
+  },
+  "673e99b9-f7cc-4e1c-b319-677340d53956": {
+    "fruitori": [
+      "min_interno",
+      "mef",
+      "mit",
+      "ade",
+      "mit_dgmot",
+      "ag_demanio",
+      "r_lombardia",
+      "r_lazio",
+      "r_campania",
+      "r_sicilia",
+      "r_friuli",
+      "pa_bolzano",
+      "r_liguria",
+      "r_toscana",
+      "r_molise",
+      "r_puglia",
+      "pa_trento",
+      "r_abruzzo",
+      "r_emilia",
+      "r_piemonte",
+      "r_veneto",
+      "r_marche",
+      "r_umbria",
+      "r_vda",
+      "r_basilicata",
+      "r_sardegna",
+      "r_calabria",
+      "c_milano",
+      "c_roma",
+      "c_napoli",
+      "c_bologna",
+      "c_genova",
+      "c_padova",
+      "comuni_agg"
+    ],
+    "confidenza": 0.6,
+    "motivazione": "I dati anagrafici del CIG sono utili a tutte le stazioni appaltanti pubbliche (ministeri, regioni, comuni ed enti) per la gestione e verifica degli appalti."
+  },
+  "0340d951-558c-499a-9ec5-08ef6da84104": {
+    "fruitori": [
+      "mef",
+      "ade",
+      "mit",
+      "r_lombardia",
+      "r_lazio",
+      "r_campania",
+      "r_sicilia",
+      "r_toscana",
+      "r_emilia",
+      "r_piemonte",
+      "r_veneto",
+      "r_puglia",
+      "r_calabria",
+      "r_sardegna",
+      "c_milano",
+      "c_roma",
+      "c_napoli",
+      "c_bologna",
+      "c_genova",
+      "c_padova",
+      "comuni_agg",
+      "ag_demanio",
+      "adm"
+    ],
+    "confidenza": 0.7,
+    "motivazione": "Le informazioni su CIG e contratti pubblici sono utili a ministeri, regioni, comuni ed enti che operano come stazioni appaltanti o verificano appalti."
+  },
+  "1f0bdc23-544c-4c8a-a620-fadca0c0a77b": {
+    "fruitori": [
+      "mlps",
+      "inps",
+      "inail"
+    ],
+    "confidenza": 0.78,
+    "motivazione": "Le comunicazioni obbligatorie sulle assunzioni confluiscono nel sistema del Ministero del Lavoro e sono utilizzate da INPS e INAIL per gli adempimenti previdenziali e assicurativi."
+  },
+  "3bac69b0-9d84-45bb-b36b-80e9ae9d4c81": {
+    "fruitori": [
+      "mlps",
+      "inps",
+      "inail"
+    ],
+    "confidenza": 0.78,
+    "motivazione": "Le Comunicazioni Obbligatorie UNILAV confluiscono nel sistema del Ministero del Lavoro e sono utilizzate da INPS e INAIL per finalità previdenziali, assicurative e di vigilanza sui rapporti di lavoro."
+  }
+}

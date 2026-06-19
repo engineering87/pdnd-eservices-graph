@@ -1,0 +1,5644 @@
+{
+  "meta": {
+    "generato": "2026-06-19T22:14:59.029Z",
+    "fonte_enti": "github.com/italia/pdnd-opendata — aderenti.csv (CC0 1.0)",
+    "fonte_eservices": "github.com/italia/pdnd-opendata — eservice_a_catalogo.csv (CC0 1.0)",
+    "note_connessioni": "Ogni arco porta un campo 'origine': 'documentata' (override da fonti ufficiali), 'certificata' (campo attributes.certified del catalogo), 'inferita' (stima AI con confidenza, da rendere tratteggiata nel grafo). Il progetto si basa esclusivamente su informazioni già pubbliche; gli archi inferiti sono dichiarati come stime e non come fatti documentati.",
+    "generato_da": "pipeline/build-graph-data.mjs"
+  },
+  "enti": [
+    {
+      "id": "min_interno",
+      "name": "Min. Interno (ANPR)",
+      "tipo": "Erogatore/Fruitore",
+      "categoria": "Ministero",
+      "descrizione": "Anagrafe Nazionale della Popolazione Residente"
+    },
+    {
+      "id": "inps",
+      "name": "INPS",
+      "tipo": "Erogatore/Fruitore",
+      "categoria": "Previdenza",
+      "descrizione": "Istituto Nazionale della Previdenza Sociale"
+    },
+    {
+      "id": "ade",
+      "name": "Agenzia delle Entrate",
+      "tipo": "Erogatore/Fruitore",
+      "categoria": "Fisco",
+      "descrizione": "Servizi fiscali, catastali, ANNCSU"
+    },
+    {
+      "id": "agid",
+      "name": "AgID",
+      "tipo": "Erogatore/Fruitore",
+      "categoria": "Digitale",
+      "descrizione": "Agenzia per l'Italia Digitale — INAD, Indice PA"
+    },
+    {
+      "id": "inail",
+      "name": "INAIL",
+      "tipo": "Erogatore/Fruitore",
+      "categoria": "Lavoro",
+      "descrizione": "Istituto Naz. Assicurazione Infortuni sul Lavoro"
+    },
+    {
+      "id": "unioncamere",
+      "name": "Unioncamere",
+      "tipo": "Erogatore",
+      "categoria": "Imprese",
+      "descrizione": "Unione Camere di Commercio — Registro Imprese, SSU"
+    },
+    {
+      "id": "mef",
+      "name": "MEF",
+      "tipo": "Erogatore/Fruitore",
+      "categoria": "Ministero",
+      "descrizione": "Min. Economia e Finanze — noiPA, Anagrafe Dip. Pubblici"
+    },
+    {
+      "id": "anac",
+      "name": "ANAC",
+      "tipo": "Erogatore/Fruitore",
+      "categoria": "Anticorruzione",
+      "descrizione": "Aut. Naz. Anticorruzione — Contratti Pubblici, SIMOG"
+    },
+    {
+      "id": "mit_dgmot",
+      "name": "MIT – Motorizzazione",
+      "tipo": "Fruitore",
+      "categoria": "Trasporti",
+      "descrizione": "DG Motorizzazione — Veicoli, Patenti, CUDE"
+    },
+    {
+      "id": "min_giustizia",
+      "name": "Min. Giustizia",
+      "tipo": "Erogatore/Fruitore",
+      "categoria": "Ministero",
+      "descrizione": "Casellario Giudiziale"
+    },
+    {
+      "id": "min_cultura",
+      "name": "Min. Cultura (I.PaC)",
+      "tipo": "Erogatore/Fruitore",
+      "categoria": "Cultura",
+      "descrizione": "Infrastruttura del Patrimonio Culturale — 16+ API"
+    },
+    {
+      "id": "mur",
+      "name": "MUR",
+      "tipo": "Erogatore/Fruitore",
+      "categoria": "Ministero",
+      "descrizione": "Min. Università e Ricerca — ANIS"
+    },
+    {
+      "id": "ade_riscossione",
+      "name": "AdE Riscossione",
+      "tipo": "Erogatore",
+      "categoria": "Fisco",
+      "descrizione": "Agenzia delle Entrate — Riscossione"
+    },
+    {
+      "id": "istat",
+      "name": "ISTAT",
+      "tipo": "Erogatore",
+      "categoria": "Statistica",
+      "descrizione": "Istituto Nazionale di Statistica"
+    },
+    {
+      "id": "pagopa",
+      "name": "PagoPA",
+      "tipo": "Erogatore/Fruitore",
+      "categoria": "Digitale",
+      "descrizione": "PagoPA S.p.A. — Gestore infrastruttura PDND"
+    },
+    {
+      "id": "mlps",
+      "name": "Min. Lavoro",
+      "tipo": "Erogatore/Fruitore",
+      "categoria": "Ministero",
+      "descrizione": "Min. Lavoro e Politiche Sociali — 122 endpoint nel catalogo"
+    },
+    {
+      "id": "cineca",
+      "name": "Cineca",
+      "tipo": "Fruitore",
+      "categoria": "Tecnologia",
+      "descrizione": "Consorzio Interuniversitario — Servizi IFS"
+    },
+    {
+      "id": "mit",
+      "name": "MIT",
+      "tipo": "Erogatore/Fruitore",
+      "categoria": "Trasporti",
+      "descrizione": "Min. Infrastrutture e Trasporti — 66 endpoint nel catalogo"
+    },
+    {
+      "id": "dfp",
+      "name": "Dip. Funzione Pubblica",
+      "tipo": "Erogatore",
+      "categoria": "Ministero",
+      "descrizione": "Dipartimento della Funzione Pubblica — PCM"
+    },
+    {
+      "id": "ag_demanio",
+      "name": "Agenzia del Demanio",
+      "tipo": "Erogatore/Fruitore",
+      "categoria": "Fisco",
+      "descrizione": "Agenzia del Demanio — patrimonio dello Stato"
+    },
+    {
+      "id": "min_istruzione",
+      "name": "Min. Istruzione",
+      "tipo": "Erogatore/Fruitore",
+      "categoria": "Ministero",
+      "descrizione": "Min. Istruzione e del Merito — 13 endpoint nel catalogo"
+    },
+    {
+      "id": "ispra",
+      "name": "ISPRA",
+      "tipo": "Erogatore",
+      "categoria": "Statistica",
+      "descrizione": "Ist. Superiore Protezione e Ricerca Ambientale — 17 endpoint"
+    },
+    {
+      "id": "r_lombardia",
+      "name": "Reg. Lombardia",
+      "tipo": "Erogatore/Fruitore",
+      "categoria": "Regione",
+      "descrizione": "Regione Lombardia — 42 endpoint nel catalogo"
+    },
+    {
+      "id": "r_lazio",
+      "name": "Reg. Lazio",
+      "tipo": "Erogatore/Fruitore",
+      "categoria": "Regione",
+      "descrizione": "Regione Lazio — 35 endpoint nel catalogo"
+    },
+    {
+      "id": "r_campania",
+      "name": "Reg. Campania",
+      "tipo": "Erogatore/Fruitore",
+      "categoria": "Regione",
+      "descrizione": "Regione Campania — 50 endpoint nel catalogo"
+    },
+    {
+      "id": "r_sicilia",
+      "name": "Reg. Siciliana",
+      "tipo": "Erogatore/Fruitore",
+      "categoria": "Regione",
+      "descrizione": "Regione Siciliana — Sanità territoriale"
+    },
+    {
+      "id": "r_friuli",
+      "name": "Reg. FVG",
+      "tipo": "Erogatore/Fruitore",
+      "categoria": "Regione",
+      "descrizione": "Regione Autonoma Friuli-Venezia Giulia — 51 endpoint nel catalogo"
+    },
+    {
+      "id": "pa_bolzano",
+      "name": "Prov. Aut. Bolzano",
+      "tipo": "Erogatore/Fruitore",
+      "categoria": "Regione",
+      "descrizione": "Provincia Autonoma di Bolzano — Dati ambientali"
+    },
+    {
+      "id": "r_liguria",
+      "name": "Reg. Liguria",
+      "tipo": "Erogatore/Fruitore",
+      "categoria": "Regione",
+      "descrizione": "Regione Liguria — 60 endpoint nel catalogo"
+    },
+    {
+      "id": "r_toscana",
+      "name": "Reg. Toscana",
+      "tipo": "Erogatore/Fruitore",
+      "categoria": "Regione",
+      "descrizione": "Regione Toscana — 53 endpoint nel catalogo"
+    },
+    {
+      "id": "r_molise",
+      "name": "Reg. Molise",
+      "tipo": "Erogatore/Fruitore",
+      "categoria": "Regione",
+      "descrizione": "Regione Molise — 48 endpoint nel catalogo"
+    },
+    {
+      "id": "r_puglia",
+      "name": "Reg. Puglia",
+      "tipo": "Erogatore/Fruitore",
+      "categoria": "Regione",
+      "descrizione": "Regione Puglia — 45 endpoint nel catalogo"
+    },
+    {
+      "id": "pa_trento",
+      "name": "Prov. Aut. Trento",
+      "tipo": "Erogatore/Fruitore",
+      "categoria": "Regione",
+      "descrizione": "Provincia Autonoma di Trento — 45 endpoint nel catalogo"
+    },
+    {
+      "id": "r_abruzzo",
+      "name": "Reg. Abruzzo",
+      "tipo": "Erogatore/Fruitore",
+      "categoria": "Regione",
+      "descrizione": "Regione Abruzzo — 45 endpoint nel catalogo"
+    },
+    {
+      "id": "r_emilia",
+      "name": "Reg. Emilia-Romagna",
+      "tipo": "Erogatore/Fruitore",
+      "categoria": "Regione",
+      "descrizione": "Regione Emilia-Romagna — 41 endpoint nel catalogo"
+    },
+    {
+      "id": "r_piemonte",
+      "name": "Reg. Piemonte",
+      "tipo": "Erogatore/Fruitore",
+      "categoria": "Regione",
+      "descrizione": "Regione Piemonte — 41 endpoint nel catalogo"
+    },
+    {
+      "id": "r_veneto",
+      "name": "Reg. Veneto",
+      "tipo": "Erogatore/Fruitore",
+      "categoria": "Regione",
+      "descrizione": "Regione del Veneto — 40 endpoint nel catalogo"
+    },
+    {
+      "id": "r_marche",
+      "name": "Reg. Marche",
+      "tipo": "Erogatore/Fruitore",
+      "categoria": "Regione",
+      "descrizione": "Regione Marche — 37 endpoint nel catalogo"
+    },
+    {
+      "id": "r_umbria",
+      "name": "Reg. Umbria",
+      "tipo": "Erogatore/Fruitore",
+      "categoria": "Regione",
+      "descrizione": "Regione Umbria — 32 endpoint nel catalogo"
+    },
+    {
+      "id": "r_vda",
+      "name": "Reg. Valle d'Aosta",
+      "tipo": "Erogatore/Fruitore",
+      "categoria": "Regione",
+      "descrizione": "Regione Autonoma Valle d'Aosta — 32 endpoint nel catalogo"
+    },
+    {
+      "id": "r_basilicata",
+      "name": "Reg. Basilicata",
+      "tipo": "Erogatore/Fruitore",
+      "categoria": "Regione",
+      "descrizione": "Regione Basilicata — 31 endpoint nel catalogo"
+    },
+    {
+      "id": "r_sardegna",
+      "name": "Reg. Sardegna",
+      "tipo": "Erogatore/Fruitore",
+      "categoria": "Regione",
+      "descrizione": "Regione Autonoma della Sardegna — 30 endpoint nel catalogo"
+    },
+    {
+      "id": "r_calabria",
+      "name": "Reg. Calabria",
+      "tipo": "Erogatore/Fruitore",
+      "categoria": "Regione",
+      "descrizione": "Regione Calabria — 27 endpoint nel catalogo"
+    },
+    {
+      "id": "c_milano",
+      "name": "Comune di Milano",
+      "tipo": "Erogatore/Fruitore",
+      "categoria": "Comune",
+      "descrizione": "Comune di Milano"
+    },
+    {
+      "id": "c_roma",
+      "name": "Comune di Roma",
+      "tipo": "Erogatore/Fruitore",
+      "categoria": "Comune",
+      "descrizione": "Comune di Roma Capitale"
+    },
+    {
+      "id": "c_napoli",
+      "name": "Comune di Napoli",
+      "tipo": "Erogatore/Fruitore",
+      "categoria": "Comune",
+      "descrizione": "Comune di Napoli"
+    },
+    {
+      "id": "c_bologna",
+      "name": "Comune di Bologna",
+      "tipo": "Erogatore/Fruitore",
+      "categoria": "Comune",
+      "descrizione": "Comune di Bologna"
+    },
+    {
+      "id": "c_genova",
+      "name": "Comune di Genova",
+      "tipo": "Erogatore/Fruitore",
+      "categoria": "Comune",
+      "descrizione": "Comune di Genova"
+    },
+    {
+      "id": "c_padova",
+      "name": "Comune di Padova",
+      "tipo": "Erogatore/Fruitore",
+      "categoria": "Comune",
+      "descrizione": "Comune di Padova"
+    },
+    {
+      "id": "comuni_agg",
+      "name": "Comuni (aggregati)",
+      "tipo": "Fruitore",
+      "categoria": "Comuni Aggregati",
+      "descrizione": "~7.500 Comuni aderenti — servizi standard aggregati"
+    },
+    {
+      "id": "ipzs",
+      "name": "Ist. Poligrafico e Zecca",
+      "tipo": "Fruitore",
+      "categoria": "Società pubblica",
+      "descrizione": "Istituto Poligrafico e Zecca dello Stato — IT-Wallet, documenti"
+    },
+    {
+      "id": "adm",
+      "name": "Ag. Dogane e Monopoli",
+      "tipo": "Fruitore",
+      "categoria": "Fisco",
+      "descrizione": "Agenzia delle Dogane e dei Monopoli"
+    },
+    {
+      "id": "notariato",
+      "name": "Consiglio Naz. Notariato",
+      "tipo": "Fruitore",
+      "categoria": "Ordini",
+      "descrizione": "Consiglio Nazionale del Notariato"
+    },
+    {
+      "id": "poste",
+      "name": "Poste Italiane",
+      "tipo": "Fruitore",
+      "categoria": "Società pubblica",
+      "descrizione": "Poste Italiane S.p.A."
+    }
+  ],
+  "eservices": [
+    {
+      "id": "min_interno_49cb628f",
+      "nome": "ANPR API INTEGRAZIONE INAD",
+      "erogatore": "min_interno",
+      "fruitori": [
+        "agid"
+      ],
+      "archi": [
+        {
+          "fruitore": "agid",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "2",
+      "stato": "Attivo",
+      "descrizione": "API esposte da ANPR ad INAD per la sincronizzazione dei domicili digitali",
+      "catalogId": "49cb628f-be12-4eb5-8c3a-e469db43440b"
+    },
+    {
+      "id": "min_interno_936f081c",
+      "nome": "ANPR-Certificazione",
+      "erogatore": "min_interno",
+      "fruitori": [
+        "notariato",
+        "poste"
+      ],
+      "archi": [
+        {
+          "fruitore": "notariato",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "poste",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Servizio per l'emissione dei certificati anagrafici",
+      "catalogId": "936f081c-141e-4601-a9aa-4a6b5437bbfe"
+    },
+    {
+      "id": "min_interno_579dcb3b",
+      "nome": "C001–servizioNotifica",
+      "erogatore": "min_interno",
+      "fruitori": [
+        "mlps",
+        "mef",
+        "min_cultura",
+        "min_giustizia",
+        "min_istruzione",
+        "pagopa",
+        "inps",
+        "inail",
+        "comuni_agg",
+        "r_lombardia",
+        "r_lazio",
+        "r_campania",
+        "r_emilia",
+        "r_toscana",
+        "r_veneto",
+        "r_piemonte",
+        "adm"
+      ],
+      "archi": [
+        {
+          "fruitore": "mlps",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "mef",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "min_cultura",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "min_giustizia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "min_istruzione",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "pagopa",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "inps",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "inail",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_lombardia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_lazio",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_campania",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_emilia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_toscana",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_veneto",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_piemonte",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "adm",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "7",
+      "stato": "Attivo",
+      "descrizione": "C001 servizio di Notifica",
+      "catalogId": "579dcb3b-cc97-43dc-8080-64855408dd26"
+    },
+    {
+      "id": "min_interno_e9ed562f",
+      "nome": "C001–servizioNotifica-approvazione_automatica",
+      "erogatore": "min_interno",
+      "fruitori": [
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "2",
+      "stato": "Attivo",
+      "descrizione": "C001 servizio di Notifica",
+      "catalogId": "e9ed562f-cc12-46ab-91e3-e8199bee9728"
+    },
+    {
+      "id": "min_interno_4fa8a9c4",
+      "nome": "C002-servizioComunicazione",
+      "erogatore": "min_interno",
+      "fruitori": [
+        "mlps",
+        "mef",
+        "min_cultura",
+        "min_giustizia",
+        "min_istruzione",
+        "inps",
+        "inail",
+        "comuni_agg",
+        "r_lombardia",
+        "r_lazio",
+        "r_campania",
+        "r_emilia",
+        "r_toscana",
+        "r_veneto",
+        "r_piemonte",
+        "adm"
+      ],
+      "archi": [
+        {
+          "fruitore": "mlps",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "mef",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "min_cultura",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "min_giustizia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "min_istruzione",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "inps",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "inail",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_lombardia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_lazio",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_campania",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_emilia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_toscana",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_veneto",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_piemonte",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "adm",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "5",
+      "stato": "Attivo",
+      "descrizione": "C002-servizio di Comunicazione",
+      "catalogId": "4fa8a9c4-ca38-44ba-af70-e3a73309cb74"
+    },
+    {
+      "id": "min_interno_c0e20947",
+      "nome": "C002-servizioComunicazione-approvazione_automatica",
+      "erogatore": "min_interno",
+      "fruitori": [
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "2",
+      "stato": "Attivo",
+      "descrizione": "C002-servizio di Comunicazione",
+      "catalogId": "c0e20947-7c1a-416e-9abf-0dfbfb3fec24"
+    },
+    {
+      "id": "min_interno_c08ebda5",
+      "nome": "C003-servizioVerificaDichGeneralita",
+      "erogatore": "min_interno",
+      "fruitori": [
+        "adm",
+        "comuni_agg",
+        "inps",
+        "inail",
+        "mlps",
+        "mef",
+        "min_cultura",
+        "min_giustizia",
+        "min_istruzione",
+        "r_lombardia",
+        "r_lazio",
+        "r_campania",
+        "r_emilia",
+        "r_toscana",
+        "r_veneto",
+        "r_piemonte"
+      ],
+      "archi": [
+        {
+          "fruitore": "adm",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "inps",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "inail",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "mlps",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "mef",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "min_cultura",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "min_giustizia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "min_istruzione",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_lombardia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_lazio",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_campania",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_emilia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_toscana",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_veneto",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_piemonte",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "3",
+      "stato": "Attivo",
+      "descrizione": "C003-servizio di Verifica Dichiarazione Generalita",
+      "catalogId": "c08ebda5-1641-4258-a70f-f12b50c6016c"
+    },
+    {
+      "id": "min_interno_ea3e08b5",
+      "nome": "C003-servizioVerificaDichGeneralita-approvazione_automatica",
+      "erogatore": "min_interno",
+      "fruitori": [
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "2",
+      "stato": "Attivo",
+      "descrizione": "C003-servizioVerificaDichGeneralita",
+      "catalogId": "ea3e08b5-47d2-47e4-bcd8-9fe7a988a3c9"
+    },
+    {
+      "id": "inps_34043187",
+      "nome": "Certificazioni di diritto a pensione per MIM",
+      "erogatore": "inps",
+      "fruitori": [
+        "min_istruzione"
+      ],
+      "archi": [
+        {
+          "fruitore": "min_istruzione",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Il servizio permette di recuperare l’esito di certificazione del diritto a pensione per il personale scolastico",
+      "catalogId": "34043187-434c-4bf9-94d7-49015fdea438"
+    },
+    {
+      "id": "inps_fc0160de",
+      "nome": "Comunicazioni Obbligatorie",
+      "erogatore": "inps",
+      "fruitori": [
+        "min_interno",
+        "mlps",
+        "mef",
+        "min_cultura",
+        "min_giustizia",
+        "min_istruzione"
+      ],
+      "archi": [
+        {
+          "fruitore": "min_interno",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "mlps",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "mef",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "min_cultura",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "min_giustizia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "min_istruzione",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "4",
+      "stato": "Attivo",
+      "descrizione": "Il servizio consente la ricezione delle CO per i modelli UNILAV, UNISOMM, UNIMARE, UNIURG, VARDATORI e UNILAV CONG",
+      "catalogId": "fc0160de-6db7-414b-805d-e3670394c107"
+    },
+    {
+      "id": "inps_88f03670",
+      "nome": "Consultazione Acc. Adulti Anziani - WaaS",
+      "erogatore": "inps",
+      "fruitori": [
+        "comuni_agg",
+        "c_milano",
+        "c_roma",
+        "c_napoli",
+        "c_bologna",
+        "c_genova",
+        "c_padova",
+        "r_lombardia",
+        "r_lazio",
+        "r_campania",
+        "r_toscana",
+        "r_emilia",
+        "r_piemonte",
+        "r_veneto"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_milano",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_roma",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_napoli",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_bologna",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_genova",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_padova",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_lombardia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_lazio",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_campania",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_toscana",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_emilia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_piemonte",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_veneto",
+          "origine": "inferita"
+        }
+      ],
+      "versione": "3",
+      "stato": "Attivo",
+      "descrizione": "Servizio che prende in input il codice fiscale del cittadino e restituisce i dati della prestazione Servizio di accoglienza di adulti e anz…",
+      "catalogId": "88f03670-80c9-4495-a24b-d6d582b584da",
+      "ai_confidenza": 0.66,
+      "ai_motivazione": "I dati sulle prestazioni di accoglienza di adulti/anziani servono a Comuni e Regioni per gestire servizi sociali e verificare il diritto a prestazioni assistenziali."
+    },
+    {
+      "id": "inps_423385e8",
+      "nome": "Consultazione Adozione Internazionale – WaaS",
+      "erogatore": "inps",
+      "fruitori": [],
+      "archi": [],
+      "versione": "3",
+      "stato": "Attivo",
+      "descrizione": "Servizio che prende in input il codice fiscale del cittadino e restituisce i dati della prestazione Servizio per l'adozione internazionale …",
+      "catalogId": "423385e8-1a06-4b26-bafb-33b1af64a0a6"
+    },
+    {
+      "id": "inps_5c9248fd",
+      "nome": "Consultazione Adozione Nazionale Minori - WaaS",
+      "erogatore": "inps",
+      "fruitori": [],
+      "archi": [],
+      "versione": "3",
+      "stato": "Attivo",
+      "descrizione": "Servizio che prende in input il codice fiscale del cittadino e restituisce i dati della prestazione Servizio per l'adozione nazionale di mi…",
+      "catalogId": "5c9248fd-1cb8-4dec-b68c-bfd0dededaf0"
+    },
+    {
+      "id": "inps_9b2bf50d",
+      "nome": "Consultazione Agevolazioni Servizi Pubb. - WaaS",
+      "erogatore": "inps",
+      "fruitori": [
+        "comuni_agg",
+        "c_milano",
+        "c_roma",
+        "c_napoli",
+        "c_bologna",
+        "c_genova",
+        "c_padova",
+        "r_lombardia",
+        "r_lazio",
+        "r_campania",
+        "r_toscana",
+        "r_emilia",
+        "r_piemonte",
+        "r_veneto",
+        "r_puglia",
+        "r_sicilia"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_milano",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_roma",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_napoli",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_bologna",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_genova",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_padova",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_lombardia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_lazio",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_campania",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_toscana",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_emilia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_piemonte",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_veneto",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_puglia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_sicilia",
+          "origine": "inferita"
+        }
+      ],
+      "versione": "3",
+      "stato": "Attivo",
+      "descrizione": "Servizio che prende in input il codice fiscale del cittadino e restituisce i dati della prestazione Agevolazioni per i servizi di pubblica …",
+      "catalogId": "9b2bf50d-9a4f-49bc-8473-1b87408b70ea",
+      "ai_confidenza": 0.74,
+      "ai_motivazione": "Le agevolazioni per servizi pubblici (bonus, tariffe sociali) sono gestite da Comuni e Regioni che consultano i dati INPS per verificare il diritto del cittadino."
+    },
+    {
+      "id": "inps_6832ec2f",
+      "nome": "Consultazione Agevolazioni Tasse Univ. - WaaS",
+      "erogatore": "inps",
+      "fruitori": [
+        "mur",
+        "cineca",
+        "r_lombardia",
+        "r_lazio",
+        "r_campania",
+        "r_toscana",
+        "r_emilia",
+        "r_piemonte",
+        "r_veneto",
+        "r_puglia",
+        "r_sicilia",
+        "r_sardegna",
+        "r_calabria",
+        "r_liguria",
+        "r_marche",
+        "r_friuli",
+        "r_abruzzo",
+        "r_umbria",
+        "r_basilicata",
+        "r_molise",
+        "pa_trento",
+        "pa_bolzano",
+        "r_vda"
+      ],
+      "archi": [
+        {
+          "fruitore": "mur",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "cineca",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_lombardia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_lazio",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_campania",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_toscana",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_emilia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_piemonte",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_veneto",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_puglia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_sicilia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_sardegna",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_calabria",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_liguria",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_marche",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_friuli",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_abruzzo",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_umbria",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_basilicata",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_molise",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "pa_trento",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "pa_bolzano",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_vda",
+          "origine": "inferita"
+        }
+      ],
+      "versione": "3",
+      "stato": "Attivo",
+      "descrizione": "Servizio che prende in input il codice fiscale del cittadino e restituisce i dati della prestazione Agevolazioni per tasse universitarie.",
+      "catalogId": "6832ec2f-cacf-483b-92fd-149219c4f06a",
+      "ai_confidenza": 0.7,
+      "ai_motivazione": "Le agevolazioni sulle tasse universitarie sono gestite da università/enti DSU e dalle Regioni che erogano il diritto allo studio, oltre al MUR e Cineca."
+    },
+    {
+      "id": "inps_2dd25168",
+      "nome": "Consultazione Agevolazioni Tributarie - WaaS",
+      "erogatore": "inps",
+      "fruitori": [],
+      "archi": [],
+      "versione": "3",
+      "stato": "Attivo",
+      "descrizione": "Servizio che prende in input il codice fiscale del cittadino e restituisce i dati della prestazione Agevolazioni tributarie comunali (nette…",
+      "catalogId": "2dd25168-da15-485e-bef8-21003b03d2b3"
+    },
+    {
+      "id": "ade_6445be6b",
+      "nome": "Aggiornamento catalogo immobili Agenzia del Demanio",
+      "erogatore": "ade",
+      "fruitori": [
+        "ag_demanio"
+      ],
+      "archi": [
+        {
+          "fruitore": "ag_demanio",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Inserimento, aggiornamento, cancellazione e interrogazione del catalogo degli immobili di proprietà demaniale sviluppato secondo le modalit…",
+      "catalogId": "6445be6b-0d1d-4a20-970d-ac2326c7bfff"
+    },
+    {
+      "id": "ade_652f6ef7",
+      "nome": "Aggiornamento catalogo immobili Dipartimento Tesoro",
+      "erogatore": "ade",
+      "fruitori": [
+        "mef"
+      ],
+      "archi": [
+        {
+          "fruitore": "mef",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Il servizio consente di interrogare il costituito catalogo degli immobili degli enti pubblici, gestito dal Dipartimento del Tesoro, di inte…",
+      "catalogId": "652f6ef7-6a89-4cb4-891f-21215731e0d2"
+    },
+    {
+      "id": "ade_57d95a2a",
+      "nome": "ANNCSU - Aggiornamento accessi",
+      "erogatore": "ade",
+      "fruitori": [
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Aggiornamento degli accessi con operazioni di inserimento, aggiornamento e soppressione. Il servizio non è utilizzabile per modificare solo…",
+      "catalogId": "57d95a2a-d740-43be-8083-b09077856e72"
+    },
+    {
+      "id": "ade_0aa3313a",
+      "nome": "ANNCSU - Aggiornamento coordinate",
+      "erogatore": "ade",
+      "fruitori": [
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Aggiornamento delle coordinate geografiche (longitudine, latitudine e quota) degli accessi con un'unica tipologia di operazione che aggiung…",
+      "catalogId": "0aa3313a-41bc-4c0b-af2b-338483583525"
+    },
+    {
+      "id": "ade_c41f8c3c",
+      "nome": "ANNCSU - Aggiornamento coordinate per grandi Comuni",
+      "erogatore": "ade",
+      "fruitori": [
+        "comuni_agg",
+        "c_roma",
+        "c_padova",
+        "c_napoli",
+        "c_milano",
+        "c_genova",
+        "c_bologna"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "c_roma",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "c_padova",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "c_napoli",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "c_milano",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "c_genova",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "c_bologna",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Aggiornamento delle coordinate geografiche (longitudine, latitudine e quota) degli accessi con un'unica tipologia di operazione che aggiung…",
+      "catalogId": "c41f8c3c-375b-4162-9505-6862c6c75e7a"
+    },
+    {
+      "id": "ade_54a312be",
+      "nome": "ANNCSU - Aggiornamento interni",
+      "erogatore": "ade",
+      "fruitori": [
+        "comuni_agg",
+        "c_milano",
+        "c_roma",
+        "c_napoli",
+        "c_bologna",
+        "c_genova",
+        "c_padova",
+        "min_interno"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_milano",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_roma",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_napoli",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_bologna",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_genova",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_padova",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "min_interno",
+          "origine": "inferita"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Aggiornamento degli accessi interni con operazioni di inserimento, aggiornamento e soppressione. Il servizio non è utilizzabile per modific…",
+      "catalogId": "54a312be-ab6b-4627-a73e-1f07e0b20914",
+      "ai_confidenza": 0.7,
+      "ai_motivazione": "L'ANNCSU (archivio nazionale stradario e numeri civici) è alimentato e aggiornato prevalentemente dai Comuni, con rilevanza anche per l'ANPR del Ministero dell'Interno."
+    },
+    {
+      "id": "ade_3dca862b",
+      "nome": "ANNCSU - Aggiornamento odonimi",
+      "erogatore": "ade",
+      "fruitori": [
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Aggiornamento degli odonimi con operazioni di inserimento, aggiornamento e soppressione. Il servizio non è utilizzabile per modificare solo…",
+      "catalogId": "3dca862b-b7a4-4b0c-b989-cc24ad947ee8"
+    },
+    {
+      "id": "ade_f469250e",
+      "nome": "ANNCSU - Consultazione per altre PPAA",
+      "erogatore": "ade",
+      "fruitori": [
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Consultazione di strade/indirizzi per le pubbliche Amministrazioni diverse dai Comuni.Ricerche booleane di esistenza per odonimo/indirizzo,…",
+      "catalogId": "f469250e-5b8a-486d-a4d9-2fc430180b10"
+    },
+    {
+      "id": "agid_7afa3f39",
+      "nome": "analytics-services_SDG",
+      "erogatore": "agid",
+      "fruitori": [],
+      "archi": [],
+      "versione": "2",
+      "stato": "Attivo",
+      "descrizione": "Consente di usufruire dei servizi di analytics AgID",
+      "catalogId": "7afa3f39-5c80-45b2-a314-5b3ecda1bfea"
+    },
+    {
+      "id": "agid_c80fc0c7",
+      "nome": "arch-common-service_SDG",
+      "erogatore": "agid",
+      "fruitori": [],
+      "archi": [],
+      "versione": "4",
+      "stato": "Attivo",
+      "descrizione": "il servizio permette il recupero automatico delle evidence OOTS o del link per la preview dell’evidence. L'eservice espone anche i servizi …",
+      "catalogId": "c80fc0c7-e532-4222-bab3-478bb311be4b"
+    },
+    {
+      "id": "agid_f9650b99",
+      "nome": "data-service-directory_SDG",
+      "erogatore": "agid",
+      "fruitori": [],
+      "archi": [],
+      "versione": "5",
+      "stato": "Attivo",
+      "descrizione": "il servizio permette di recuperare le informazioni relative al soggetto erogatore per una tipologia di evidence",
+      "catalogId": "f9650b99-dca2-4304-b3f0-105ef27e81e3"
+    },
+    {
+      "id": "agid_7b76f54f",
+      "nome": "Download massivo AOO-UO ed Esito - IPA Area Riservata Ente",
+      "erogatore": "agid",
+      "fruitori": [
+        "inps"
+      ],
+      "archi": [
+        {
+          "fruitore": "inps",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Scaricamento di un file JSON con le informazioni allo stato attuale di AOO e UO presenti nell’Area Riservata di IPA (incluso l’Esito dell’e…",
+      "catalogId": "7b76f54f-96ca-43ca-bdab-b49dac26c3a6"
+    },
+    {
+      "id": "agid_36e210c7",
+      "nome": "evidence-broker_SDG",
+      "erogatore": "agid",
+      "fruitori": [],
+      "archi": [],
+      "versione": "4",
+      "stato": "Attivo",
+      "descrizione": "L'eservice permette di recuperare la lista dei requisiti previsti per il procedimento amministrativo d’interesse e la lista delle Tipologie…",
+      "catalogId": "36e210c7-0da5-481c-904e-6f47fda61ed1"
+    },
+    {
+      "id": "agid_99263b13",
+      "nome": "INAD API INTEGRAZIONE ANPR",
+      "erogatore": "agid",
+      "fruitori": [
+        "min_interno"
+      ],
+      "archi": [
+        {
+          "fruitore": "min_interno",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "2",
+      "stato": "Attivo",
+      "descrizione": "Servizi di integrazione tra ANPR e INAD",
+      "catalogId": "99263b13-8546-4a21-b207-f7fe85bb0b50"
+    },
+    {
+      "id": "agid_2d97cffc",
+      "nome": "INAD CONSULTAZIONE DD",
+      "erogatore": "agid",
+      "fruitori": [
+        "inps",
+        "inail",
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "inps",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "inail",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "2",
+      "stato": "Attivo",
+      "descrizione": "e-service per la consultazione dei domicili digitali presenti nell'INAD per le Pubbliche Amministrazioni e Gestori dei Pubblici Servizi ai …",
+      "catalogId": "2d97cffc-27cb-4705-a21d-9e1084aec9e3"
+    },
+    {
+      "id": "agid_0fd99b5d",
+      "nome": "INAD CONSULTAZIONE DD - PagoPA",
+      "erogatore": "agid",
+      "fruitori": [
+        "pagopa"
+      ],
+      "archi": [
+        {
+          "fruitore": "pagopa",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "e-service per la consultazione dei domicili digitali presenti nell'INAD per le Pubbliche Amministrazioni e Gestori dei Pubblici Servizi ai …",
+      "catalogId": "0fd99b5d-e6b7-492f-8e11-dae1411cabbf"
+    },
+    {
+      "id": "inail_27d0b921",
+      "nome": "comobb",
+      "erogatore": "inail",
+      "fruitori": [
+        "mlps"
+      ],
+      "archi": [
+        {
+          "fruitore": "mlps",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Riceve i dati sulle comunicazioni obbligatorie dal mlps",
+      "catalogId": "27d0b921-bd8b-4c17-b5dd-761a6fff7cb8"
+    },
+    {
+      "id": "inail_a51198a6",
+      "nome": "INAIL_Gra_Durc",
+      "erogatore": "inail",
+      "fruitori": [
+        "anac",
+        "inps",
+        "comuni_agg",
+        "c_milano",
+        "c_roma",
+        "c_napoli",
+        "c_bologna",
+        "c_genova",
+        "c_padova",
+        "mit",
+        "ade",
+        "mef"
+      ],
+      "archi": [
+        {
+          "fruitore": "anac",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "inps",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "comuni_agg",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_milano",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_roma",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_napoli",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_bologna",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_genova",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_padova",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "mit",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "ade",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "mef",
+          "origine": "inferita"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Risorse per la consultazione del Durc",
+      "catalogId": "a51198a6-0b08-4958-9d80-6fb6d49e4bbc",
+      "ai_confidenza": 0.78,
+      "ai_motivazione": "Il DURC è verificato dalle stazioni appaltanti e dalle PA (comuni, regioni, ANAC) nelle procedure di appalto e dagli enti previdenziali/fiscali per regolarità contributiva."
+    },
+    {
+      "id": "inail_16444299",
+      "nome": "pdnd.mlps.tassi",
+      "erogatore": "inail",
+      "fruitori": [
+        "mlps"
+      ],
+      "archi": [
+        {
+          "fruitore": "mlps",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "pdnd.mlps.tassi",
+      "catalogId": "16444299-2354-44c9-b587-bcb29ee29a0f"
+    },
+    {
+      "id": "inail_e85c57f7",
+      "nome": "Richiesta Certificato del Debito",
+      "erogatore": "inail",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Richiesta Certificato del Debito",
+      "catalogId": "e85c57f7-5d94-45ad-b88b-9e81dc837a62"
+    },
+    {
+      "id": "unioncamere_e37dde23",
+      "nome": "ACCREDITAMENTO SUAP ED ENTI-TERZI - SUITE DI BLACK-BOX-TEST",
+      "erogatore": "unioncamere",
+      "fruitori": [],
+      "archi": [],
+      "versione": "4",
+      "stato": "Attivo",
+      "descrizione": "il servizio permette di richiedere l'esecuzione della testlist di verifica compliant delle componenti informatiche della componenti informa…",
+      "catalogId": "e37dde23-93f2-4c8f-89a2-472cd0d4f380"
+    },
+    {
+      "id": "unioncamere_8d75b585",
+      "nome": "CATALOGO - GESTIONE ISTANZA - BACKOFFICE",
+      "erogatore": "unioncamere",
+      "fruitori": [
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "4",
+      "stato": "Attivo",
+      "descrizione": "API esposta ai Back Office SUAP per il recupero e l'aggiornamento del descrittore istanza",
+      "catalogId": "8d75b585-715c-40a0-a9c5-7108b8cbd5dc"
+    },
+    {
+      "id": "unioncamere_5cc5a9be",
+      "nome": "CATALOGO - GESTIONE ISTANZA - COMUNICA",
+      "erogatore": "unioncamere",
+      "fruitori": [],
+      "archi": [],
+      "versione": "3",
+      "stato": "Attivo",
+      "descrizione": "API esposta a ComUnica per il recupero del descrittore istanza",
+      "catalogId": "5cc5a9be-9336-40ef-a87e-e044b19aeabf"
+    },
+    {
+      "id": "unioncamere_1bcf7afa",
+      "nome": "CATALOGO - GESTIONE ISTANZA - ENTI TERZI",
+      "erogatore": "unioncamere",
+      "fruitori": [
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "3",
+      "stato": "Attivo",
+      "descrizione": "API esposta ai Back Office ET per il recupero e l'aggiornamento del descrittore istanza",
+      "catalogId": "1bcf7afa-dcc6-4674-8f2c-978da051d065"
+    },
+    {
+      "id": "unioncamere_16e87af1",
+      "nome": "CATALOGO - GESTIONE ISTANZA - FRONTOFFICE",
+      "erogatore": "unioncamere",
+      "fruitori": [
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "3",
+      "stato": "Attivo",
+      "descrizione": "API esposta ai Front Office SUAP per il recupero e l'aggiornamento del descrittore istanza",
+      "catalogId": "16e87af1-d005-491d-88ae-e02a0f45174d"
+    },
+    {
+      "id": "unioncamere_48df8b36",
+      "nome": "CATALOGO - GESTIONE ISTANZA - REGISTRO IMPRESE",
+      "erogatore": "unioncamere",
+      "fruitori": [],
+      "archi": [],
+      "versione": "3",
+      "stato": "Attivo",
+      "descrizione": "API esposta al Registro delle imprese per il recupero del descrittore istanza",
+      "catalogId": "48df8b36-2173-45bc-9337-bd3127f00911"
+    },
+    {
+      "id": "unioncamere_df6de05b",
+      "nome": "CATALOGO - INFO ATTIVAZIONE SPORTELLO",
+      "erogatore": "unioncamere",
+      "fruitori": [
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "E' il servizio che data la municipalità e il contesto restituisce la data di attivazione dello sportello unico",
+      "catalogId": "df6de05b-f7aa-441b-9deb-39011c23fbfc"
+    },
+    {
+      "id": "unioncamere_7a850b8b",
+      "nome": "CATALOGO - METADATI",
+      "erogatore": "unioncamere",
+      "fruitori": [
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "3",
+      "stato": "Attivo",
+      "descrizione": "API per il recupero dei metadati dei procedimenti e delle componenti strutturali",
+      "catalogId": "7a850b8b-4307-491f-9534-771e212d4c45"
+    },
+    {
+      "id": "mef_a957566b",
+      "nome": "DE - IMMOBILI - Ricezione Dati Demanio",
+      "erogatore": "mef",
+      "fruitori": [
+        "ag_demanio"
+      ],
+      "archi": [
+        {
+          "fruitore": "ag_demanio",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "3",
+      "stato": "Attivo",
+      "descrizione": "E-Service per l'acquisizione dei dati relativi al patrimonio immobiliare gestito dall'Agenzia del Demanio.",
+      "catalogId": "a957566b-e0b3-4c8a-a8f8-e3713261bcfb"
+    },
+    {
+      "id": "mef_dfd69963",
+      "nome": "RGS - SIBI - Interrogazione disposizioni e flussi inviati",
+      "erogatore": "mef",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Permette di usufruire di: • Interrogazione elenco disposizioni inviate • Interrogazione dettaglio disposizione • Download ACK • Interrogazi…",
+      "catalogId": "dfd69963-a321-4484-bc69-bc8d2ea62f58"
+    },
+    {
+      "id": "mef_896e9437",
+      "nome": "RGS - SIBI - Interrogazione elenco singole disposizioni",
+      "erogatore": "mef",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Permette: • Interrogazione elenco disposizioni con esito SIBI • Interrogazione elenco disposizioni inviate a BdI • Interrogazione elenco di…",
+      "catalogId": "896e9437-b9f9-44d6-9107-28ca8f5d8374"
+    },
+    {
+      "id": "mef_18a4257f",
+      "nome": "RGS - SIBI - Invio disposizioni - ricezione",
+      "erogatore": "mef",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Permette: • Invio richieste disposizioni OPI • Invio richieste disposizioni Anagrafica e Conti • Invio metadati flusso firmato a SIBI",
+      "catalogId": "18a4257f-4705-4f26-a06e-6c1b18a8ed3f"
+    },
+    {
+      "id": "mef_43a82074",
+      "nome": "RGS - SIBI - Rendicontazioni",
+      "erogatore": "mef",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Interrogazione Rendicontazioni Download Rendicontazione (applicazioni fuori rete) Invio conferma download Rendicontazione Invio metadati AC…",
+      "catalogId": "43a82074-c4ec-4fd1-80cb-91221f4b8801"
+    },
+    {
+      "id": "anac_7fbf061c",
+      "nome": "AdE - Callback Atti non definitivamente accertati - v2",
+      "erogatore": "anac",
+      "fruitori": [
+        "ade"
+      ],
+      "archi": [
+        {
+          "fruitore": "ade",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Acquisizione da parte di AdE delle risposte alle richieste di Atti non definitivamente accertati - versione del 04/09/2024 con aggiornament…",
+      "catalogId": "7fbf061c-097e-477d-8ff0-c53a63f31522"
+    },
+    {
+      "id": "anac_0181b4fe",
+      "nome": "AdE - Callback Redditi società di persone - v2",
+      "erogatore": "anac",
+      "fruitori": [
+        "ade"
+      ],
+      "archi": [
+        {
+          "fruitore": "ade",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Acquisizione delle risposte da parte di Agenzia Entrate alle richieste di dati reddituali delle società di persone e delle ditte individuali",
+      "catalogId": "0181b4fe-909c-442f-a2d8-de34daa56c73"
+    },
+    {
+      "id": "anac_5ae8c18d",
+      "nome": "AdE - Callback Regolarità fiscale - v2",
+      "erogatore": "anac",
+      "fruitori": [
+        "ade"
+      ],
+      "archi": [
+        {
+          "fruitore": "ade",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Acquisizione delle risposte da parte di AdE alle richieste di regolarità fiscale",
+      "catalogId": "5ae8c18d-18aa-4e4b-8bae-53e7e71e6f22"
+    },
+    {
+      "id": "anac_673e99b9",
+      "nome": "APICIG",
+      "erogatore": "anac",
+      "fruitori": [
+        "min_interno",
+        "mef",
+        "mit",
+        "ade",
+        "mit_dgmot",
+        "ag_demanio",
+        "r_lombardia",
+        "r_lazio",
+        "r_campania",
+        "r_sicilia",
+        "r_friuli",
+        "pa_bolzano",
+        "r_liguria",
+        "r_toscana",
+        "r_molise",
+        "r_puglia",
+        "pa_trento",
+        "r_abruzzo",
+        "r_emilia",
+        "r_piemonte",
+        "r_veneto",
+        "r_marche",
+        "r_umbria",
+        "r_vda",
+        "r_basilicata",
+        "r_sardegna",
+        "r_calabria",
+        "c_milano",
+        "c_roma",
+        "c_napoli",
+        "c_bologna",
+        "c_genova",
+        "c_padova",
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "min_interno",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "mef",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "mit",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "ade",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "mit_dgmot",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "ag_demanio",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_lombardia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_lazio",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_campania",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_sicilia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_friuli",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "pa_bolzano",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_liguria",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_toscana",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_molise",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_puglia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "pa_trento",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_abruzzo",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_emilia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_piemonte",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_veneto",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_marche",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_umbria",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_vda",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_basilicata",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_sardegna",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_calabria",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_milano",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_roma",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_napoli",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_bologna",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_genova",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_padova",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "comuni_agg",
+          "origine": "inferita"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Il servizio è ad uso delle istituzioni pubbliche e restituisce i dati anagrafici di CIG e smartCIG",
+      "catalogId": "673e99b9-f7cc-4e1c-b319-677340d53956",
+      "ai_confidenza": 0.6,
+      "ai_motivazione": "I dati anagrafici del CIG sono utili a tutte le stazioni appaltanti pubbliche (ministeri, regioni, comuni ed enti) per la gestione e verifica degli appalti."
+    },
+    {
+      "id": "anac_0340d951",
+      "nome": "APICIG2",
+      "erogatore": "anac",
+      "fruitori": [
+        "mef",
+        "ade",
+        "mit",
+        "r_lombardia",
+        "r_lazio",
+        "r_campania",
+        "r_sicilia",
+        "r_toscana",
+        "r_emilia",
+        "r_piemonte",
+        "r_veneto",
+        "r_puglia",
+        "r_calabria",
+        "r_sardegna",
+        "c_milano",
+        "c_roma",
+        "c_napoli",
+        "c_bologna",
+        "c_genova",
+        "c_padova",
+        "comuni_agg",
+        "ag_demanio",
+        "adm"
+      ],
+      "archi": [
+        {
+          "fruitore": "mef",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "ade",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "mit",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_lombardia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_lazio",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_campania",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_sicilia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_toscana",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_emilia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_piemonte",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_veneto",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_puglia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_calabria",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_sardegna",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_milano",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_roma",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_napoli",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_bologna",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_genova",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_padova",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "comuni_agg",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "ag_demanio",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "adm",
+          "origine": "inferita"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Il servizio, dato un CIG, restituisce le informazioni relative alla Stazione Appaltante, alla pubblicazione, al bando e agli incaricati Sec…",
+      "catalogId": "0340d951-558c-499a-9ec5-08ef6da84104",
+      "ai_confidenza": 0.7,
+      "ai_motivazione": "Le informazioni su CIG e contratti pubblici sono utili a ministeri, regioni, comuni ed enti che operano come stazioni appaltanti o verificano appalti."
+    },
+    {
+      "id": "min_giustizia_b028dc1a",
+      "nome": "S001- Casellario Giudiziale Art 28 comma 3",
+      "erogatore": "min_giustizia",
+      "fruitori": [
+        "anac"
+      ],
+      "archi": [
+        {
+          "fruitore": "anac",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Certificato Giudiziale: Art. 28 comma 3 D.P.R. 14/11/2002 n 313",
+      "catalogId": "b028dc1a-d494-4450-b2b6-4afaa6acec89"
+    },
+    {
+      "id": "min_giustizia_e2c2b882",
+      "nome": "S002-Sanzioni Amministrative Art. 32",
+      "erogatore": "min_giustizia",
+      "fruitori": [
+        "anac"
+      ],
+      "archi": [
+        {
+          "fruitore": "anac",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Sanzioni Amministrative: Art. 32 D.P.R. 14/11/2002 n 313",
+      "catalogId": "e2c2b882-79ae-4d10-9e5b-cc723fb98a2f"
+    },
+    {
+      "id": "min_giustizia_d13e52c3",
+      "nome": "Verifica esito richiesta fascicolo e invio provvedimento",
+      "erogatore": "min_giustizia",
+      "fruitori": [
+        "min_interno",
+        "mlps",
+        "mef",
+        "min_cultura",
+        "min_istruzione"
+      ],
+      "archi": [
+        {
+          "fruitore": "min_interno",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "mlps",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "mef",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "min_cultura",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "min_istruzione",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "2",
+      "stato": "Attivo",
+      "descrizione": "Il servizio gestisce i flussi informativi tra la Corte di Cassazione e la Giustizia Tributaria, disciplinati dagli articoli 137-bis delle d…",
+      "catalogId": "d13e52c3-1654-48af-b7fc-b8d9b1c9d0d5"
+    },
+    {
+      "id": "min_giustizia_da7ec4f9",
+      "nome": "Verifica esito richiesta fascicolo e invio decisione",
+      "erogatore": "min_giustizia",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Sospeso",
+      "descrizione": "Il servizio gestisce i flussi informativi tra la Corte di Cassazione e la Giustizia Tributaria, disciplinati dagli articoli 137-bis delle d…",
+      "catalogId": "da7ec4f9-163b-40a1-93a6-80a545b5102c"
+    },
+    {
+      "id": "min_cultura_2415b4f3",
+      "nome": "Ente Terzo SUAP MiC",
+      "erogatore": "min_cultura",
+      "fruitori": [
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Servizio Ente Terzo SUAP MiC",
+      "catalogId": "2415b4f3-e401-405e-a3b0-fa16ab180e25"
+    },
+    {
+      "id": "min_cultura_0d261160",
+      "nome": "I.PaC - Acknowledge pacchetto",
+      "erogatore": "min_cultura",
+      "fruitori": [
+        "r_lombardia",
+        "r_lazio",
+        "r_campania",
+        "r_emilia",
+        "r_toscana",
+        "r_veneto",
+        "r_piemonte",
+        "min_interno",
+        "mlps",
+        "mef",
+        "min_giustizia",
+        "min_istruzione"
+      ],
+      "archi": [
+        {
+          "fruitore": "r_lombardia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_lazio",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_campania",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_emilia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_toscana",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_veneto",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_piemonte",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "min_interno",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "mlps",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "mef",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "min_giustizia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "min_istruzione",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "2",
+      "stato": "Attivo",
+      "descrizione": "Servizio per la gestione dei file di ack corrispondenti ad un esito di ingestion.",
+      "catalogId": "0d261160-20ff-4b73-b9b4-6a7fa7081749"
+    },
+    {
+      "id": "min_cultura_c51652e7",
+      "nome": "I.PaC - Download Risorsa Digitale",
+      "erogatore": "min_cultura",
+      "fruitori": [
+        "r_lombardia",
+        "r_lazio",
+        "r_campania",
+        "r_emilia",
+        "r_toscana",
+        "r_veneto",
+        "r_piemonte",
+        "min_interno",
+        "mlps",
+        "mef",
+        "min_giustizia",
+        "min_istruzione"
+      ],
+      "archi": [
+        {
+          "fruitore": "r_lombardia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_lazio",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_campania",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_emilia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_toscana",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_veneto",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_piemonte",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "min_interno",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "mlps",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "mef",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "min_giustizia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "min_istruzione",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Servizi per il recupero delle informazioni possibili da utilizzare per richiedere il download di Risorse Digitali.",
+      "catalogId": "c51652e7-89b9-4e27-a638-805b881aac8c"
+    },
+    {
+      "id": "min_cultura_09ba8db3",
+      "nome": "I.PaC - Fruizione Media Immagini",
+      "erogatore": "min_cultura",
+      "fruitori": [
+        "r_lombardia",
+        "r_lazio",
+        "r_campania",
+        "r_emilia",
+        "r_toscana",
+        "r_veneto",
+        "r_piemonte",
+        "min_interno",
+        "mlps",
+        "mef",
+        "min_giustizia",
+        "min_istruzione"
+      ],
+      "archi": [
+        {
+          "fruitore": "r_lombardia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_lazio",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_campania",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_emilia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_toscana",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_veneto",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_piemonte",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "min_interno",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "mlps",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "mef",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "min_giustizia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "min_istruzione",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Servizi di accesso alle thumbnail di una risorsa digitale e ai suoi media, ed esposizione di servizi IIIF Image, Presentation e Annotation.",
+      "catalogId": "09ba8db3-2447-43bd-9587-ce39c72c6069"
+    },
+    {
+      "id": "min_cultura_c5254b5c",
+      "nome": "I.PaC - Gestione anagrafiche e ruoli",
+      "erogatore": "min_cultura",
+      "fruitori": [
+        "r_lombardia",
+        "r_lazio",
+        "r_campania",
+        "r_emilia",
+        "r_toscana",
+        "r_veneto",
+        "r_piemonte",
+        "min_interno",
+        "mlps",
+        "mef",
+        "min_giustizia",
+        "min_istruzione"
+      ],
+      "archi": [
+        {
+          "fruitore": "r_lombardia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_lazio",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_campania",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_emilia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_toscana",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_veneto",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_piemonte",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "min_interno",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "mlps",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "mef",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "min_giustizia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "min_istruzione",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "3",
+      "stato": "Attivo",
+      "descrizione": "Servizi per il censimento degli enti (Content Owner), per la creazione della Tenancy e relative configurazioni.",
+      "catalogId": "c5254b5c-8ae1-4905-af3f-b1207bd08b18"
+    },
+    {
+      "id": "mur_06a2d800",
+      "nome": "ANIS - Consultazione Iscrizioni [IFS02]",
+      "erogatore": "mur",
+      "fruitori": [
+        "inps",
+        "inail",
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "inps",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "inail",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "4",
+      "stato": "Attivo",
+      "descrizione": "Consente di richiedere il dettaglio delle iscrizioni, relative ad un singolo soggetto, presso gli Istituti di Formazione Superiore (IFS) pr…",
+      "catalogId": "06a2d800-1f5f-46d0-8602-d1ed7eabedf6"
+    },
+    {
+      "id": "mur_ec8d7bb8",
+      "nome": "ANIS - Consultazione Massiva Iscrizioni",
+      "erogatore": "mur",
+      "fruitori": [
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Consultazione massiva delle iscrizioni agli IFS presenti in ANIS",
+      "catalogId": "ec8d7bb8-76bb-4c94-a2fc-4c8cd8ee0d93"
+    },
+    {
+      "id": "mur_89e145bd",
+      "nome": "ANIS - Consultazione Massiva Titoli",
+      "erogatore": "mur",
+      "fruitori": [
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Consultazione massiva dei titoli conseguiti presso gli IFS presenti in ANIS",
+      "catalogId": "89e145bd-95ff-4bf5-a385-f6f8c28e84f0"
+    },
+    {
+      "id": "mur_b943e5ed",
+      "nome": "ANIS - Consultazione Titoli [IFS03]",
+      "erogatore": "mur",
+      "fruitori": [
+        "inps",
+        "inail",
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "inps",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "inail",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "4",
+      "stato": "Attivo",
+      "descrizione": "Consente di richiedere il dettaglio dei titoli, relativi ad un singolo soggetto, presso gli Istituti di Formazione Superiore (IFS) presenti…",
+      "catalogId": "b943e5ed-1cdc-4010-8bd7-da6ee221b923"
+    },
+    {
+      "id": "mur_d6d7b30f",
+      "nome": "ANIS - Elenco Istituti",
+      "erogatore": "mur",
+      "fruitori": [
+        "inps",
+        "inail",
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "inps",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "inail",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "2",
+      "stato": "Attivo",
+      "descrizione": "Consente di ottenere l'elenco degli Istituti di Formazione Superiore presenti nella banca dati ANIS",
+      "catalogId": "d6d7b30f-5931-4a8e-93d5-ad3734e380ca"
+    },
+    {
+      "id": "ade_riscossione_622683b6",
+      "nome": "Servizio per la fornitura della Situazione Debitoria",
+      "erogatore": "ade_riscossione",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Il servizio consente all’esperto, nominato nell’ambito della composizione negoziata, di richiedere a AdeR, tramite la Piattaforma ex art. 1…",
+      "catalogId": "622683b6-83e1-4adc-984d-7f9e70d4265c"
+    },
+    {
+      "id": "istat_9a597700",
+      "nome": "Invio incidenti stradali",
+      "erogatore": "istat",
+      "fruitori": [
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "E-service utilizzato dall'Istat per la raccolta dei dati riguardanti gli incidenti stradali, destinato ai ripondenti comunali o loro delega…",
+      "catalogId": "9a597700-a52f-45dc-b9d8-47e745702e44"
+    },
+    {
+      "id": "pagopa_3820c986",
+      "nome": "Revoca Wallet Instance",
+      "erogatore": "pagopa",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Permettere di inviare una richiesta di revoca della Wallet Instance di un determinato utente.",
+      "catalogId": "3820c986-ed71-44c3-b13b-a403ebfef91e"
+    },
+    {
+      "id": "pagopa_cfc8a94d",
+      "nome": "SEND - Servizio Notifiche Digitali",
+      "erogatore": "pagopa",
+      "fruitori": [
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "15",
+      "stato": "Attivo",
+      "descrizione": "Il servizio permette alle Pubbliche Amministrazioni di inviare comunicazioni a valore legale a persone fisiche e giuridiche.",
+      "catalogId": "cfc8a94d-001a-4ab6-bb5c-2509b2a68af1"
+    },
+    {
+      "id": "pagopa_dc9cdf88",
+      "nome": "SEND - solo per SCP (Società a controllo pubblico)",
+      "erogatore": "pagopa",
+      "fruitori": [],
+      "archi": [],
+      "versione": "5",
+      "stato": "Attivo",
+      "descrizione": "Il servizio permette alle Società a controllo pubblico di inviare comunicazioni a valore legale a persone fisiche e giuridiche.",
+      "catalogId": "dc9cdf88-1696-4b90-b29e-c116cc0f8c24"
+    },
+    {
+      "id": "pagopa_bf9bfde5",
+      "nome": "SEND - Servizio Notifiche Digitali 24Q4.A",
+      "erogatore": "pagopa",
+      "fruitori": [
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Sospeso",
+      "descrizione": "Il servizio permette alle Pubbliche Amministrazioni di inviare comunicazioni a valore legale a persone fisiche e giuridiche.",
+      "catalogId": "bf9bfde5-fdcb-4554-8951-9846d8d0b651"
+    },
+    {
+      "id": "mlps_4c8075b3",
+      "nome": "AGGIORNAMENTO_Area Catalogo servizi-FSL_092",
+      "erogatore": "mlps",
+      "fruitori": [
+        "r_lombardia",
+        "r_lazio",
+        "r_campania",
+        "r_emilia",
+        "r_toscana",
+        "r_veneto",
+        "r_piemonte",
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "r_lombardia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_lazio",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_campania",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_emilia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_toscana",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_veneto",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_piemonte",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Il servizio permette l'aggiornamento, all’interno del catalogo dei servizi, dell’area specificata",
+      "catalogId": "4c8075b3-b41f-4a45-89e1-2eb4699f2ecb"
+    },
+    {
+      "id": "mlps_9cfaa520",
+      "nome": "AGGIORNAMENTO_Macro Area Catalogo servizi-FSL_095",
+      "erogatore": "mlps",
+      "fruitori": [
+        "r_lombardia",
+        "r_lazio",
+        "r_campania",
+        "r_emilia",
+        "r_toscana",
+        "r_veneto",
+        "r_piemonte",
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "r_lombardia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_lazio",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_campania",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_emilia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_toscana",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_veneto",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_piemonte",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Il servizio permette l'aggiornamento, all'interno del catalogo dei servizi, della macro area specificata",
+      "catalogId": "9cfaa520-fc42-4fb8-bd6b-5af5d83070e3"
+    },
+    {
+      "id": "mlps_a8bea178",
+      "nome": "AGGIORNAMENTO_Offerta formativa Microcredito-FSL_045",
+      "erogatore": "mlps",
+      "fruitori": [],
+      "archi": [],
+      "versione": "4",
+      "stato": "Attivo",
+      "descrizione": "Il servizio permette l'aggiornamento di una nuova offerta formativa (in input) da parte dell'Ente Nazionale del Mi-crocredito e restituisce…",
+      "catalogId": "a8bea178-21e3-4db3-86dd-7d5557629267"
+    },
+    {
+      "id": "mlps_f57c1d09",
+      "nome": "AGGIORNAMENTO_Offerta formativa-FSL_002",
+      "erogatore": "mlps",
+      "fruitori": [
+        "r_lombardia",
+        "r_lazio",
+        "r_campania",
+        "r_emilia",
+        "r_toscana",
+        "r_veneto",
+        "r_piemonte"
+      ],
+      "archi": [
+        {
+          "fruitore": "r_lombardia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_lazio",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_campania",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_emilia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_toscana",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_veneto",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_piemonte",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "3",
+      "stato": "Attivo",
+      "descrizione": "Il servizio permette l'aggiornamento di un'offerta formativa (in input) da parte di una regione o ente formatore accreditato da una regione…",
+      "catalogId": "f57c1d09-d038-40d3-b358-feafa3c3e59f"
+    },
+    {
+      "id": "mlps_1993ee96",
+      "nome": "AGGIORNAMENTO_Servizio Catalogo servizi-FSL_098",
+      "erogatore": "mlps",
+      "fruitori": [
+        "r_lombardia",
+        "r_lazio",
+        "r_campania",
+        "r_emilia",
+        "r_toscana",
+        "r_veneto",
+        "r_piemonte",
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "r_lombardia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_lazio",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_campania",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_emilia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_toscana",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_veneto",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_piemonte",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Il servizio permette l'aggiornamento, all'interno del catalogo dei servizi, del servizio specificato",
+      "catalogId": "1993ee96-7d4d-47d7-bebc-cf9f88fa67ea"
+    },
+    {
+      "id": "mlps_db60aabf",
+      "nome": "Avviamenti Legge 68 del 1999-FSL_049",
+      "erogatore": "mlps",
+      "fruitori": [
+        "r_lombardia",
+        "r_lazio",
+        "r_campania",
+        "r_emilia",
+        "r_toscana",
+        "r_veneto",
+        "r_piemonte"
+      ],
+      "archi": [
+        {
+          "fruitore": "r_lombardia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_lazio",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_campania",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_emilia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_toscana",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_veneto",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_piemonte",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "L’e-service consente di ricercare, salvare, eliminare o revocare, nella banca dati del collocamento mirato, un provvedimento di avviamento …",
+      "catalogId": "db60aabf-ab4b-4508-be24-d2956c3767fe"
+    },
+    {
+      "id": "mlps_10fbfaed",
+      "nome": "Comunicazioni periodi - Lavoro agile",
+      "erogatore": "mlps",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Il servizio consente tramite differenti operazioni di ricercare, annullare, inserire, modificare, recedere e recuperare i dettagli di comun…",
+      "catalogId": "10fbfaed-c219-4441-8860-3a98753c41a3"
+    },
+    {
+      "id": "mlps_0dec0eb6",
+      "nome": "CONSULTAZIONE Aree Catalogo Servizi-FSL_086",
+      "erogatore": "mlps",
+      "fruitori": [
+        "r_lombardia",
+        "r_lazio",
+        "r_campania",
+        "r_emilia",
+        "r_toscana",
+        "r_veneto",
+        "r_piemonte",
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "r_lombardia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_lazio",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_campania",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_emilia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_toscana",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_veneto",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_piemonte",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Restituisce l'elenco delle Aree appartenenti a una Macro Area",
+      "catalogId": "0dec0eb6-7b32-44a1-94cc-9648a94d6a0c"
+    },
+    {
+      "id": "mit_63c38daa",
+      "nome": "Classificazione General Contractor",
+      "erogatore": "mit",
+      "fruitori": [
+        "comuni_agg",
+        "anac"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "anac",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Accedere all'elenco dei Contraenti Generali",
+      "catalogId": "63c38daa-fd38-440f-b49f-8a7d005555e6"
+    },
+    {
+      "id": "mit_fcceb326",
+      "nome": "DGCGCP - GUARDIA COSTIERA - Passi",
+      "erogatore": "mit",
+      "fruitori": [
+        "min_interno",
+        "mlps",
+        "mef",
+        "min_cultura",
+        "min_giustizia",
+        "min_istruzione"
+      ],
+      "archi": [
+        {
+          "fruitore": "min_interno",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "mlps",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "mef",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "min_cultura",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "min_giustizia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "min_istruzione",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Il servizio consente di ricevere dati di arrivo e partenza delle navi, delle merci e dei passeggeri trasportati",
+      "catalogId": "fcceb326-4823-4842-9934-5b87c93eaacc"
+    },
+    {
+      "id": "mit_f834bd31",
+      "nome": "DGCGCP - GUARDIA COSTIERA .m.solide container s imb transito",
+      "erogatore": "mit",
+      "fruitori": [
+        "min_interno",
+        "mlps",
+        "mef",
+        "min_cultura",
+        "min_giustizia",
+        "min_istruzione"
+      ],
+      "archi": [
+        {
+          "fruitore": "min_interno",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "mlps",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "mef",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "min_cultura",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "min_giustizia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "min_istruzione",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Restituisce i dati relativi all’istanza di gestione delle merci pericolose solide in container relative alla sosta indicata nella request, …",
+      "catalogId": "f834bd31-33de-494e-a282-2193aef1f950"
+    },
+    {
+      "id": "mit_6a08a25e",
+      "nome": "DGCGCP-GUARDIA COSTIERA ic.m.solide.container.sfuse.sba.tran",
+      "erogatore": "mit",
+      "fruitori": [
+        "min_interno",
+        "mlps",
+        "mef",
+        "min_cultura",
+        "min_giustizia",
+        "min_istruzione"
+      ],
+      "archi": [
+        {
+          "fruitore": "min_interno",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "mlps",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "mef",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "min_cultura",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "min_giustizia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "min_istruzione",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Restituisce i dati relativi all’istanza di gestione delle merci pericolose solide in container relative alla sosta indicata nella request, …",
+      "catalogId": "6a08a25e-7abf-4eba-8dfd-f3612495cf33"
+    },
+    {
+      "id": "mit_ed695f13",
+      "nome": "DGCGCP-GUARDIA COSTIERA Ric.m.peric.liquide imbarcate",
+      "erogatore": "mit",
+      "fruitori": [
+        "min_interno",
+        "mlps",
+        "mef",
+        "min_cultura",
+        "min_giustizia",
+        "min_istruzione"
+      ],
+      "archi": [
+        {
+          "fruitore": "min_interno",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "mlps",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "mef",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "min_cultura",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "min_giustizia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "min_istruzione",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Restituisce i dati relativi all’istanza di gestione delle merci pericolose liquide relative alla sosta indicata nella request, in particola…",
+      "catalogId": "ed695f13-30e8-4601-a25f-d38b0f5cf6c0"
+    },
+    {
+      "id": "mit_33c54126",
+      "nome": "DGCGCP-GUARDIA COSTIERA Ric.m.peric.s.s.imbarcate",
+      "erogatore": "mit",
+      "fruitori": [
+        "min_interno",
+        "mlps",
+        "mef",
+        "min_cultura",
+        "min_giustizia",
+        "min_istruzione"
+      ],
+      "archi": [
+        {
+          "fruitore": "min_interno",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "mlps",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "mef",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "min_cultura",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "min_giustizia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "min_istruzione",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Restituisce i dati relativi all’istanza di gestione delle merci pericolose solide sfuse relative alla sosta indicata nella request, in part…",
+      "catalogId": "33c54126-6b1a-46d4-bc71-7b3893961de1"
+    },
+    {
+      "id": "mit_6904a356",
+      "nome": "DGCGCP-GUARDIA COSTIERA Ric.m.peric.s.s.sbarcate",
+      "erogatore": "mit",
+      "fruitori": [
+        "min_interno",
+        "mlps",
+        "mef",
+        "min_cultura",
+        "min_giustizia",
+        "min_istruzione"
+      ],
+      "archi": [
+        {
+          "fruitore": "min_interno",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "mlps",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "mef",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "min_cultura",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "min_giustizia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "min_istruzione",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Restituisce i dati relativi all’istanza di gestione delle merci pericolose solide sfuse relative alla sosta indicata nella request, in part…",
+      "catalogId": "6904a356-e949-4f83-ad66-9db8e241a567"
+    },
+    {
+      "id": "mit_8e964886",
+      "nome": "DGCGCP-GUARDIA COSTIERA Ric.m.pericol.s.cont.s.sbarcate",
+      "erogatore": "mit",
+      "fruitori": [
+        "min_interno",
+        "mlps",
+        "mef",
+        "min_cultura",
+        "min_giustizia",
+        "min_istruzione"
+      ],
+      "archi": [
+        {
+          "fruitore": "min_interno",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "mlps",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "mef",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "min_cultura",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "min_giustizia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "min_istruzione",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Restituisce i dati relativi all’istanza di gestione delle merci pericolose solide in container relative alla sosta indicata nella request, …",
+      "catalogId": "8e964886-7dfd-45b0-a791-e4e9bf9ed80b"
+    },
+    {
+      "id": "dfp_16639688",
+      "nome": "Consultazione Avvisi di Mobilità - inPA",
+      "erogatore": "dfp",
+      "fruitori": [
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "3",
+      "stato": "Attivo",
+      "descrizione": "Ricerca delle procedure di tipo \"Avvisi di mobilità\" di competenza della PA a fronte di diversi parametri di ingresso e restituzione delle …",
+      "catalogId": "16639688-0916-44b5-8de3-77093c8ad2cc"
+    },
+    {
+      "id": "dfp_09610cde",
+      "nome": "Consultazione Avvisi OIV – inPA",
+      "erogatore": "dfp",
+      "fruitori": [
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "3",
+      "stato": "Attivo",
+      "descrizione": "Ricerca delle procedure di tipo \"Avvisi OIV\" di competenza della PA a fronte di diversi parametri di ingresso e restituzione delle informaz…",
+      "catalogId": "09610cde-6673-4236-92f3-c1cf2b212f3a"
+    },
+    {
+      "id": "dfp_0bc0fd4c",
+      "nome": "Consultazione Bandi apprendistato – inPA",
+      "erogatore": "dfp",
+      "fruitori": [
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "3",
+      "stato": "Attivo",
+      "descrizione": "Ricerca delle procedure di tipo \"Bando apprendistato\" di competenza della PA a fronte di diversi parametri di ingresso e restituzione delle…",
+      "catalogId": "0bc0fd4c-ff79-4e9c-b4da-8f38f5a3c054"
+    },
+    {
+      "id": "dfp_45497ebc",
+      "nome": "Consultazione candidature Avvisi di mobilità – inPA",
+      "erogatore": "dfp",
+      "fruitori": [
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "3",
+      "stato": "Attivo",
+      "descrizione": "Consultazione delle informazioni relative alle candidature per le procedure di tipo \"Avvisi di mobilità\" pubblicate dall'Amministrazione fr…",
+      "catalogId": "45497ebc-a9ef-4ac5-b4c8-2310541183ec"
+    },
+    {
+      "id": "dfp_31842eca",
+      "nome": "Consultazione candidature Avvisi OIV – inPA",
+      "erogatore": "dfp",
+      "fruitori": [
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "3",
+      "stato": "Attivo",
+      "descrizione": "Consultazione delle informazioni relative alle candidature per le procedure di tipo \"Avvisi OIV\" pubblicate dall'Amministrazione fruitrice …",
+      "catalogId": "31842eca-7378-48b3-a520-2dcb61f0319d"
+    },
+    {
+      "id": "ag_demanio_9881c816",
+      "nome": "Caratteristiche fisiche",
+      "erogatore": "ag_demanio",
+      "fruitori": [
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Restituisce l'elenco delle caratteristiche fisiche di un'occupazione specifica identificata dal relativo ID univoco.",
+      "catalogId": "9881c816-abc4-42ba-8358-59554595666c"
+    },
+    {
+      "id": "ag_demanio_11888313",
+      "nome": "Certificazioni energetiche",
+      "erogatore": "ag_demanio",
+      "fruitori": [
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Restituisce l'elenco delle certificazioni energetiche di un'occupazione specifica identificata dal relativo ID univoco.",
+      "catalogId": "11888313-1b35-4ee4-9a17-55ee7ae08998"
+    },
+    {
+      "id": "ag_demanio_262ee18f",
+      "nome": "Consumi energetici",
+      "erogatore": "ag_demanio",
+      "fruitori": [
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Restituisce l'elenco dei consumi energetici di un'occupazione specifica identificata dal relativo ID univoco.",
+      "catalogId": "262ee18f-12c4-4f20-b493-808d09f60522"
+    },
+    {
+      "id": "ag_demanio_a79dd1cb",
+      "nome": "Costi gestionali",
+      "erogatore": "ag_demanio",
+      "fruitori": [
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Restituisce l'elenco dei costi gestionali di un'occupazione specifica identificata dal relativo ID univoco.",
+      "catalogId": "a79dd1cb-f56c-48bd-86a4-f2345eed891f"
+    },
+    {
+      "id": "ag_demanio_1cc0dd5e",
+      "nome": "Dettaglio area",
+      "erogatore": "ag_demanio",
+      "fruitori": [
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "6",
+      "stato": "Attivo",
+      "descrizione": "Dettaglio di un’Area nella consistenza dello Stato.",
+      "catalogId": "1cc0dd5e-e0ec-40f7-b3ad-32cd96113731"
+    },
+    {
+      "id": "min_istruzione_463cf9fe",
+      "nome": "ANIST - Accertamento Frequenze",
+      "erogatore": "min_istruzione",
+      "fruitori": [
+        "inps",
+        "inail",
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "inps",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "inail",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "2",
+      "stato": "Attivo",
+      "descrizione": "Servizi per accertare le informazioni di frequenza",
+      "catalogId": "463cf9fe-9d72-463e-922d-e200ba45fdae"
+    },
+    {
+      "id": "min_istruzione_720d8217",
+      "nome": "ANIST - Accertamento Massivo Frequenze - Comuni",
+      "erogatore": "min_istruzione",
+      "fruitori": [
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "2",
+      "stato": "Attivo",
+      "descrizione": "Include le API per accertare massivamente le frequenze",
+      "catalogId": "720d8217-b15f-4571-ab4a-641f797281f1"
+    },
+    {
+      "id": "min_istruzione_5b209f53",
+      "nome": "ANIST - Accertamento Massivo Frequenze - PP.AA.",
+      "erogatore": "min_istruzione",
+      "fruitori": [
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Include le API per accertare massivamente le frequenze",
+      "catalogId": "5b209f53-6b21-4df5-a714-e0a693769b14"
+    },
+    {
+      "id": "min_istruzione_78fd67d2",
+      "nome": "ANIST - Accertamento Titoli",
+      "erogatore": "min_istruzione",
+      "fruitori": [
+        "inps",
+        "inail",
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "inps",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "inail",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "2",
+      "stato": "Attivo",
+      "descrizione": "Servizi per accertare le informazioni dei titoli",
+      "catalogId": "78fd67d2-a23e-46f4-8ff0-734c04b54feb"
+    },
+    {
+      "id": "min_istruzione_282b1ee0",
+      "nome": "ANIST - Frequenze",
+      "erogatore": "min_istruzione",
+      "fruitori": [
+        "inps",
+        "inail",
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "inps",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "inail",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "2",
+      "stato": "Attivo",
+      "descrizione": "Servizi per verificare le informazioni di frequenza",
+      "catalogId": "282b1ee0-eb3f-49f4-bd3a-9860b8055b97"
+    },
+    {
+      "id": "ispra_9fa25829",
+      "nome": "Assetto costiero",
+      "erogatore": "ispra",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "API per la pubblicazione dei dati di assetto costiero",
+      "catalogId": "9fa25829-952e-4fcc-be76-5c206a82d377"
+    },
+    {
+      "id": "ispra_27394ada",
+      "nome": "Biodiversità dati NNB",
+      "erogatore": "ispra",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "API per la pubblicazione dei dati di Natura e Biodiversità",
+      "catalogId": "27394ada-473a-460c-9252-18ac11413cb1"
+    },
+    {
+      "id": "ispra_b23ddedb",
+      "nome": "Biodiversità NNB Osservazioni di specie puntuali",
+      "erogatore": "ispra",
+      "fruitori": [],
+      "archi": [],
+      "versione": "4",
+      "stato": "Attivo",
+      "descrizione": "Servizio di Consultazione dei dati associati a geometrie puntuali di specie raccolti dal Network Nazionale della Biodiversità (NNB) attrave…",
+      "catalogId": "b23ddedb-f276-4f03-9d27-1e138daf2ccd"
+    },
+    {
+      "id": "ispra_a3925fd6",
+      "nome": "Biodiversità NNB Osservazioni di specie su griglia 10km",
+      "erogatore": "ispra",
+      "fruitori": [],
+      "archi": [],
+      "versione": "4",
+      "stato": "Attivo",
+      "descrizione": "Servizio di Consultazione dei dati su griglia standard utm 10km di specie raccolti dal Network Nazionale della Biodiversità (NNB) attravers…",
+      "catalogId": "a3925fd6-bfa3-4747-a1ae-66970e8a7ba1"
+    },
+    {
+      "id": "ispra_529d65d0",
+      "nome": "Biodiversità NNB Osservazioni specie citizen science",
+      "erogatore": "ispra",
+      "fruitori": [],
+      "archi": [],
+      "versione": "3",
+      "stato": "Attivo",
+      "descrizione": "Servizio di Consultazione dei dati legati di specie raccolti dal Network Nazionale della Biodiversità (NNB) attraverso iniziative di citize…",
+      "catalogId": "529d65d0-f130-4054-b068-3f61a46556c0"
+    },
+    {
+      "id": "r_lombardia_f3806161",
+      "nome": "Accessibilità delle Strutture in Lombardia",
+      "erogatore": "r_lombardia",
+      "fruitori": [
+        "comuni_agg",
+        "r_lazio",
+        "r_campania",
+        "r_emilia",
+        "r_toscana",
+        "r_veneto",
+        "r_piemonte"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_lazio",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_campania",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_emilia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_toscana",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_veneto",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_piemonte",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "L'e-service permette di ottenere la lista di strutture accessibili (es. musei, monumenti) di interesse turistico-culturale del territorio l…",
+      "catalogId": "f3806161-e1fc-4542-bd80-11ccb38de541"
+    },
+    {
+      "id": "r_lombardia_7e6483a7",
+      "nome": "Agriturismi in Lombardia",
+      "erogatore": "r_lombardia",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Il servizio “Agriturismi in Lombardia” mette a disposizione le informazioni relative agli agriturismi presenti sul territorio lombardo.",
+      "catalogId": "7e6483a7-18ca-4657-a1ee-038c1a0ec786"
+    },
+    {
+      "id": "r_lombardia_755958d0",
+      "nome": "Allerte di Protezione Civile della Regione Lombardia",
+      "erogatore": "r_lombardia",
+      "fruitori": [
+        "comuni_agg",
+        "r_lazio",
+        "r_campania",
+        "r_emilia",
+        "r_toscana",
+        "r_veneto",
+        "r_piemonte"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_lazio",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_campania",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_emilia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_toscana",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_veneto",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_piemonte",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Rende disponibili le previsioni quotidiane relative ai rischi naturali sul territorio lombardo e mette a disposizione i documenti di Allert…",
+      "catalogId": "755958d0-d94b-49eb-b348-30e7885877ea"
+    },
+    {
+      "id": "r_lombardia_bc3b0ded",
+      "nome": "Cartografie per i Trasporti Eccezionali",
+      "erogatore": "r_lombardia",
+      "fruitori": [
+        "c_milano",
+        "comuni_agg",
+        "r_lazio",
+        "r_campania",
+        "r_emilia",
+        "r_toscana",
+        "r_veneto",
+        "r_piemonte"
+      ],
+      "archi": [
+        {
+          "fruitore": "c_milano",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_lazio",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_campania",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_emilia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_toscana",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_veneto",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_piemonte",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Con il servizio sono resi disponibili i group layers, che rappresentano i 14 tipi di itinerari percorribili per i veicoli eccezionali e i t…",
+      "catalogId": "bc3b0ded-e6ef-4ec4-8de8-a4ad898c5db1"
+    },
+    {
+      "id": "r_lazio_6610f1a6",
+      "nome": "r_lazio_L30_cartografia_acque_ferme",
+      "erogatore": "r_lazio",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Superfici coperte da “acque ferme”: Lago, Stagno, Palude/acquitrino, Laguna",
+      "catalogId": "6610f1a6-9a1e-49fd-ba95-a1b4b0f1dd75"
+    },
+    {
+      "id": "r_lazio_dc8a1c8c",
+      "nome": "Ricerca cartografia acque ferme",
+      "erogatore": "r_lazio",
+      "fruitori": [
+        "comuni_agg",
+        "r_lombardia",
+        "r_campania",
+        "r_emilia",
+        "r_toscana",
+        "r_veneto",
+        "r_piemonte"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_lombardia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_campania",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_emilia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_toscana",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_veneto",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_piemonte",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Si tratta della rappresentazione della superfici coperte da “acque ferme”. In particolare in questa classe vengono compresi i seguenti tipi…",
+      "catalogId": "dc8a1c8c-9536-4abe-a9f7-2f7a59519646"
+    },
+    {
+      "id": "r_lazio_8e040179",
+      "nome": "Ricerca cartografia acque pubbliche rispetto",
+      "erogatore": "r_lazio",
+      "fruitori": [
+        "comuni_agg",
+        "r_lombardia",
+        "r_campania",
+        "r_emilia",
+        "r_toscana",
+        "r_veneto",
+        "r_piemonte"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_lombardia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_campania",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_emilia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_toscana",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_veneto",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_piemonte",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Piano Paesaggistico Territoriale Regionale (PTPR), Approvato con Deliberazione del Consiglio Regionale n. 5 del 21 aprile 2021, pubblicato …",
+      "catalogId": "8e040179-7df2-40bc-bd33-f2b229b27880"
+    },
+    {
+      "id": "r_lazio_78ed5b7b",
+      "nome": "Ricerca cartografia aree naturali protette",
+      "erogatore": "r_lazio",
+      "fruitori": [
+        "comuni_agg",
+        "r_lombardia",
+        "r_campania",
+        "r_emilia",
+        "r_toscana",
+        "r_veneto",
+        "r_piemonte"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_lombardia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_campania",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_emilia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_toscana",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_veneto",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_piemonte",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Perimetri delle Aree Protette (istituite ai sensi della L. 6 dicembre 1991, n. 394 e ss.mm.ii della L.R. 28 novembre 1977, n. 46 e della L.…",
+      "catalogId": "78ed5b7b-8a79-499f-8e03-5385fbd3260c"
+    },
+    {
+      "id": "r_campania_7149d510",
+      "nome": "IT-Wallet - RC036 - Consultazione statistiche",
+      "erogatore": "r_campania",
+      "fruitori": [
+        "ipzs"
+      ],
+      "archi": [
+        {
+          "fruitore": "ipzs",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Il servizio consente di consultare le statistiche di utilizzo del sistema \"Entra con IT Wallet\"",
+      "catalogId": "7149d510-1af9-4fb7-9a6f-df89106ef485"
+    },
+    {
+      "id": "r_campania_a50cb57d",
+      "nome": "IT-Wallet - RC037 - Badge impiegato regionale",
+      "erogatore": "r_campania",
+      "fruitori": [
+        "ipzs"
+      ],
+      "archi": [
+        {
+          "fruitore": "ipzs",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Dato il codice fiscale del soggetto, il servizio restituisce i dati relativi all'Attestato Elettronico del Badge di un impiegato di Regione…",
+      "catalogId": "a50cb57d-f739-44d2-9385-791458367390"
+    },
+    {
+      "id": "r_campania_bc96a293",
+      "nome": "IT-Wallet - RC038 - Tesserino raccolta funghi",
+      "erogatore": "r_campania",
+      "fruitori": [
+        "ipzs"
+      ],
+      "archi": [
+        {
+          "fruitore": "ipzs",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Dato il codice fiscale del soggetto, il servizio restituisce i dati relativi all'Attestato Elettronico del Tesserino di abilitazione per la…",
+      "catalogId": "bc96a293-9c15-473c-ae75-bf0a13a41387"
+    },
+    {
+      "id": "r_campania_7c7898bc",
+      "nome": "IT-Wallet - RC039 - Tesserino raccolta tartufi",
+      "erogatore": "r_campania",
+      "fruitori": [
+        "ipzs"
+      ],
+      "archi": [
+        {
+          "fruitore": "ipzs",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Dato il codice fiscale del soggetto, il servizio restituisce i dati relativi all'Attestato Elettronico del Tesserino di abilitazione per la…",
+      "catalogId": "7c7898bc-628f-458e-b4ec-1a2624ec48d4"
+    },
+    {
+      "id": "r_sicilia_54698fcd",
+      "nome": "Consultazione accessi SOVRACUP per fascia di età",
+      "erogatore": "r_sicilia",
+      "fruitori": [
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Il servizio restituisce le informazioni sugli accessi medi giornalieri al SovraCUP aggregate e filtrabili per fascia di età dei prenotati e…",
+      "catalogId": "54698fcd-e521-46a3-904f-f52010de600b"
+    },
+    {
+      "id": "r_sicilia_6c88f059",
+      "nome": "Consultazione accessi SOVRACUP per sesso",
+      "erogatore": "r_sicilia",
+      "fruitori": [
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Il servizio restituisce le informazioni sugli accessi medi giornalieri al SovraCUP aggregate e filtrabili per sesso dei prenotati e periodo…",
+      "catalogId": "6c88f059-f036-4707-8205-f83a6e4f4b1e"
+    },
+    {
+      "id": "r_sicilia_e191fe66",
+      "nome": "Consultazione accessi SOVRACUP suddivisi per provincia",
+      "erogatore": "r_sicilia",
+      "fruitori": [
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Il servizio restituisce le informazioni sugli accessi medi giornalieri al SovraCUP aggregate e filtrabili per provincia dei prenotati e per…",
+      "catalogId": "e191fe66-0b10-4a26-8136-59a71117bc75"
+    },
+    {
+      "id": "r_sicilia_f821d1f5",
+      "nome": "Consultazione dati anagrafici e di rapporto per MMG e PLS",
+      "erogatore": "r_sicilia",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Il servizio esposto intende fornire informazioni di dettaglio sui medici di medicina generale e pediatri di libera scelta del servizio sani…",
+      "catalogId": "f821d1f5-ef08-42b6-83ac-04f7e8f8b035"
+    },
+    {
+      "id": "r_friuli_c21cbca9",
+      "nome": "Consultazione anagrafe procedimenti",
+      "erogatore": "r_friuli",
+      "fruitori": [
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Il servizio consente di consultare l'elenco dei procedimenti di un dato ente che hanno subito variazioni e/o chiusure, l'elenco di periodi …",
+      "catalogId": "c21cbca9-30f7-4545-a3d1-98808e107400"
+    },
+    {
+      "id": "r_friuli_e8927064",
+      "nome": "Consultazione Attestati di Formazione - IT-Wallet",
+      "erogatore": "r_friuli",
+      "fruitori": [
+        "ipzs"
+      ],
+      "archi": [
+        {
+          "fruitore": "ipzs",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Dato il codice fiscale dell’utente, restituisce i dataset di attributi relativi agli attestati di formazione a lui associati, comprensivi d…",
+      "catalogId": "e8927064-9592-4ce2-95b5-a34bcd9f70cd"
+    },
+    {
+      "id": "r_friuli_2023e8d8",
+      "nome": "Consultazione Badge Dipendente - IT-Wallet",
+      "erogatore": "r_friuli",
+      "fruitori": [
+        "ipzs"
+      ],
+      "archi": [
+        {
+          "fruitore": "ipzs",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Dato il codice fiscale dell’impiegato, restituisce i dataset di attributi relativi ai badge a lui associati, comprensivi di stato, periodo …",
+      "catalogId": "2023e8d8-4c39-4abb-861b-079c237bc566"
+    },
+    {
+      "id": "r_friuli_db884c94",
+      "nome": "Consultazione bandi e concorsi attivati",
+      "erogatore": "r_friuli",
+      "fruitori": [
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "2",
+      "stato": "Attivo",
+      "descrizione": "Il servizio consente di consultare i numeri totali di bandi e concorsi attivati con Istanze On Line - IOL",
+      "catalogId": "db884c94-e897-42cc-9e11-a2c3d37d15b6"
+    },
+    {
+      "id": "pa_bolzano_ee491435",
+      "nome": "Attestato Bilinguismo - IT-Wallet",
+      "erogatore": "pa_bolzano",
+      "fruitori": [
+        "ipzs"
+      ],
+      "archi": [
+        {
+          "fruitore": "ipzs",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Il servizio fruitore deve indicare il codice fiscale dell'utente. L'e-service restituirà informazioni relative all'Attestato di Bilinguismo…",
+      "catalogId": "ee491435-c4af-46e9-9759-0fcb23d08503"
+    },
+    {
+      "id": "pa_bolzano_5683abe0",
+      "nome": "Attestato Ladino - IT-Wallet",
+      "erogatore": "pa_bolzano",
+      "fruitori": [
+        "ipzs"
+      ],
+      "archi": [
+        {
+          "fruitore": "ipzs",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Il servizio fruitore deve indicare il codice fiscale dell'utente. L'e-service restituirà informazioni relative all'Attestato di Ladino even…",
+      "catalogId": "5683abe0-6aca-41ed-800b-8894052107ac"
+    },
+    {
+      "id": "pa_bolzano_dcb4aee9",
+      "nome": "Consultazione aree di tutela dell'acqua potabile",
+      "erogatore": "pa_bolzano",
+      "fruitori": [],
+      "archi": [],
+      "versione": "2",
+      "stato": "Attivo",
+      "descrizione": "Consultazione aree di tutela dell'acqua potabile della Provincia Autonoma di Bolzano",
+      "catalogId": "dcb4aee9-bd6c-40a3-a466-d40d7e8837b9"
+    },
+    {
+      "id": "pa_bolzano_2f07a53b",
+      "nome": "Consultazione balneabilità laghi",
+      "erogatore": "pa_bolzano",
+      "fruitori": [],
+      "archi": [],
+      "versione": "2",
+      "stato": "Attivo",
+      "descrizione": "Situazione della balneabilità dei laghi della Provincia Autonoma di Bolzano",
+      "catalogId": "2f07a53b-d3f5-4ab5-9834-8da30abca54a"
+    },
+    {
+      "id": "r_liguria_43aadda6",
+      "nome": "ARPAL-Alims Dati Analisi",
+      "erogatore": "r_liguria",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "API per la ricezione dei dati ed allegati delle analisi di laboratorio.",
+      "catalogId": "43aadda6-04bc-4ca8-84dd-e768a0ec4447"
+    },
+    {
+      "id": "r_liguria_b8b48c3f",
+      "nome": "ARPAL-Alims Dati Servizio",
+      "erogatore": "r_liguria",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "API per la ricezione degli stati di servizio delle analisi di laboratorio.",
+      "catalogId": "b8b48c3f-d4de-4eb6-9ec9-94eae91a9605"
+    },
+    {
+      "id": "r_liguria_d7dc8738",
+      "nome": "ARPAL-Balneazione Cambi Stato",
+      "erogatore": "r_liguria",
+      "fruitori": [],
+      "archi": [],
+      "versione": "2",
+      "stato": "Attivo",
+      "descrizione": "API per la ricezione dei cambio stato delle reti balneari.",
+      "catalogId": "d7dc8738-8a05-4a4a-a24f-4b044d222745"
+    },
+    {
+      "id": "r_liguria_7e9c5e42",
+      "nome": "ARPAL-Balneazione Rete",
+      "erogatore": "r_liguria",
+      "fruitori": [],
+      "archi": [],
+      "versione": "2",
+      "stato": "Attivo",
+      "descrizione": "API per visualizzare le informazioni della rete ricezione dati balneari.",
+      "catalogId": "7e9c5e42-5c72-4edd-bdd7-adc379ea0699"
+    },
+    {
+      "id": "r_toscana_d068b30a",
+      "nome": "ComObblWS",
+      "erogatore": "r_toscana",
+      "fruitori": [
+        "mlps"
+      ],
+      "archi": [
+        {
+          "fruitore": "mlps",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Comunicazioni Obbligatorie REST Service – Regione Toscana Invio e ricezione delle comunicazioni obbligatorie di assunzione, variazione e ce…",
+      "catalogId": "d068b30a-ceef-4e50-a2ac-3c4624ae66ac"
+    },
+    {
+      "id": "r_toscana_548a3b48",
+      "nome": "Consultazione aree candidate al bando Italia 5G",
+      "erogatore": "r_toscana",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Servizio per la consultazione delle aree candidate al bando Italia 5G in formato GeoJSON",
+      "catalogId": "548a3b48-ebbb-4c23-b8e3-3231908291b1"
+    },
+    {
+      "id": "r_toscana_1a1d7b26",
+      "nome": "Consultazione Aziende Agrobiodiversità",
+      "erogatore": "r_toscana",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Servizio per la consultazione della lista delle aziende legate all'agrobiodiversità in formato GeoJSON",
+      "catalogId": "1a1d7b26-14e9-4f41-a265-50aee228b5a4"
+    },
+    {
+      "id": "r_toscana_51913793",
+      "nome": "Consultazione Bacini Sottesi",
+      "erogatore": "r_toscana",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Servizio per la consultazione dei bacini sottesi in Toscana in formato GeoJSON",
+      "catalogId": "51913793-f898-4e79-b20c-b2703ebd8b9b"
+    },
+    {
+      "id": "r_molise_08d35082",
+      "nome": "Attestato formazione personale regionale - IT Wallet",
+      "erogatore": "r_molise",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Dato il codice fiscale del dipendente, l’e-service restituisce i dati dell’attestato di formazione del personale regionale e il relativo st…",
+      "catalogId": "08d35082-da90-4677-ab26-a4b1bf300d34"
+    },
+    {
+      "id": "r_molise_73061316",
+      "nome": "Attestazione trasparenza apprendimenti - IT Wallet",
+      "erogatore": "r_molise",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Dato il codice fiscale del titolare, l’e-service restituisce i dati dell’attestazione di messa in trasparenza degli apprendimenti.",
+      "catalogId": "73061316-8b48-4174-b204-4aaa6246d0c4"
+    },
+    {
+      "id": "r_molise_6782534b",
+      "nome": "Certificato qualificazione professionale- IT Wallet",
+      "erogatore": "r_molise",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Dato il codice fiscale del titolare, l’e-service restituisce i dati del certificato di qualificazione professionale e il relativo stato di …",
+      "catalogId": "6782534b-e537-4f0e-beb3-1360c3cea4fa"
+    },
+    {
+      "id": "r_molise_049d7f88",
+      "nome": "Certificazione competenze- IT Wallet",
+      "erogatore": "r_molise",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Dato il codice fiscale del titolare, l’e-service restituisce i dati della certificazione delle competenze e il relativo stato di validità.",
+      "catalogId": "049d7f88-4c96-4c42-bd2d-8c5859cdf7d8"
+    },
+    {
+      "id": "r_puglia_1f0bdc23",
+      "nome": "Comunicazione Obbligatoria Invio UniUrg",
+      "erogatore": "r_puglia",
+      "fruitori": [
+        "mlps",
+        "inps",
+        "inail"
+      ],
+      "archi": [
+        {
+          "fruitore": "mlps",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "inps",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "inail",
+          "origine": "inferita"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "COB - UniUrg: Invio del modulo per comunicare assunzioni urgenti legate a esigenze produttive, obbligatorio per tutti i datori di lavoro.",
+      "catalogId": "1f0bdc23-544c-4c8a-a620-fadca0c0a77b",
+      "ai_confidenza": 0.78,
+      "ai_motivazione": "Le comunicazioni obbligatorie sulle assunzioni confluiscono nel sistema del Ministero del Lavoro e sono utilizzate da INPS e INAIL per gli adempimenti previdenziali e assicurativi."
+    },
+    {
+      "id": "r_puglia_3bac69b0",
+      "nome": "Comunicazioni Obbligatorie Invio UNILAV",
+      "erogatore": "r_puglia",
+      "fruitori": [
+        "mlps",
+        "inps",
+        "inail"
+      ],
+      "archi": [
+        {
+          "fruitore": "mlps",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "inps",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "inail",
+          "origine": "inferita"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "COB - Invio del modulo di comunicazione dell’assunzione dei lavoratori, della proroga, trasformazione e cessazione dei relativi rapporti di…",
+      "catalogId": "3bac69b0-9d84-45bb-b36b-80e9ae9d4c81",
+      "ai_confidenza": 0.78,
+      "ai_motivazione": "Le Comunicazioni Obbligatorie UNILAV confluiscono nel sistema del Ministero del Lavoro e sono utilizzate da INPS e INAIL per finalità previdenziali, assicurative e di vigilanza sui rapporti di lavoro."
+    },
+    {
+      "id": "r_puglia_632318ab",
+      "nome": "Consultazione Albo Pretorio",
+      "erogatore": "r_puglia",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "L'e-service consente di accedere agli atti e documenti pubblicati per garantire trasparenza amministrativa, con riferimento a delibere, det…",
+      "catalogId": "632318ab-ae37-45c7-a18a-2540e86f34ec"
+    },
+    {
+      "id": "r_puglia_5c428447",
+      "nome": "Consultazione beneficiari Reddito di dignità Pugliese",
+      "erogatore": "r_puglia",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Il servizio permette di consultare i beneficiari del RED, con riferimento all'ambito, comune, cittadinanza, titolo di studio e valore ISEE …",
+      "catalogId": "5c428447-64e1-466a-b202-b7b6cc9fd3cb"
+    },
+    {
+      "id": "pa_trento_db1d118f",
+      "nome": "Alberi Monumentali",
+      "erogatore": "pa_trento",
+      "fruitori": [],
+      "archi": [],
+      "versione": "3",
+      "stato": "Attivo",
+      "descrizione": "Localizzazione degli alberi monumentali di interesse nazionale e provinciale e livelli di supporto.",
+      "catalogId": "db1d118f-4b35-4146-aa19-402a9eb80649"
+    },
+    {
+      "id": "pa_trento_3070b462",
+      "nome": "Beni Archeologici",
+      "erogatore": "pa_trento",
+      "fruitori": [],
+      "archi": [],
+      "versione": "2",
+      "stato": "Attivo",
+      "descrizione": "Rappresentazione puntuale dei Beni archeologici e vincoli diretti e indiretti dei Beni archeologici (poligoni delle particelle catastali)",
+      "catalogId": "3070b462-a3f4-41f2-a7be-21633067aa16"
+    },
+    {
+      "id": "pa_trento_5096cbaf",
+      "nome": "Beni Architettonici",
+      "erogatore": "pa_trento",
+      "fruitori": [],
+      "archi": [],
+      "versione": "3",
+      "stato": "Attivo",
+      "descrizione": "Rappresentazione puntuale e areale dei Beni architettonici (vincoli diretti e vincoli indiretti)",
+      "catalogId": "5096cbaf-4d0e-467f-9352-38fea642a2a1"
+    },
+    {
+      "id": "pa_trento_79b4ac47",
+      "nome": "Briglia consolidamento",
+      "erogatore": "pa_trento",
+      "fruitori": [],
+      "archi": [],
+      "versione": "2",
+      "stato": "Attivo",
+      "descrizione": "Lo strato informativo Briglia di consolidamento localizza sul territorio ciascuna opera di questa tipologia censita dal Servizio Bacini mon…",
+      "catalogId": "79b4ac47-c7d3-4b24-acca-ffeb999470d6"
+    },
+    {
+      "id": "r_abruzzo_15c080d0",
+      "nome": "Accesso biblioteca - IT Wallet",
+      "erogatore": "r_abruzzo",
+      "fruitori": [
+        "ipzs"
+      ],
+      "archi": [
+        {
+          "fruitore": "ipzs",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Dato il codice fiscale di un cittadino, l'API restituisce i dataset di accesso alle biblioteche a lui associati, conformemente alle specifi…",
+      "catalogId": "15c080d0-2f68-40f7-83a6-47d946b1c603"
+    },
+    {
+      "id": "r_abruzzo_a7bba1e3",
+      "nome": "Attestato Certificatore APE - IT Wallet",
+      "erogatore": "r_abruzzo",
+      "fruitori": [
+        "ipzs"
+      ],
+      "archi": [
+        {
+          "fruitore": "ipzs",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Dato il codice fiscale di un cittadino, l'API restituisce i dataset di certificatore APE a lui associati, conformemente alle specifiche IT-…",
+      "catalogId": "a7bba1e3-4017-4bcb-9d8c-cb4cf6684a08"
+    },
+    {
+      "id": "r_abruzzo_bf547ba6",
+      "nome": "Attestato Formazione - IT Wallet",
+      "erogatore": "r_abruzzo",
+      "fruitori": [
+        "ipzs"
+      ],
+      "archi": [
+        {
+          "fruitore": "ipzs",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Dato il codice fiscale di un cittadino, l'API restituisce i dataset di attestato formazione a lui associati, conformemente alle specifiche …",
+      "catalogId": "bf547ba6-236e-405d-a094-ba48d5522ad9"
+    },
+    {
+      "id": "r_abruzzo_ecb3574f",
+      "nome": "Attestato Gestore Turistico - IT Wallet",
+      "erogatore": "r_abruzzo",
+      "fruitori": [
+        "ipzs"
+      ],
+      "archi": [
+        {
+          "fruitore": "ipzs",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Dato il codice fiscale di un cittadino, l'API restituisce i dataset di attestato gestore turistico a lui associati, conformemente alle spec…",
+      "catalogId": "ecb3574f-848d-433e-9724-2a6a3c671bab"
+    },
+    {
+      "id": "r_emilia_bb51b16e",
+      "nome": "Consultazione Statistiche \"Entra con IT-Wallet\"",
+      "erogatore": "r_emilia",
+      "fruitori": [
+        "min_interno",
+        "mlps",
+        "mef",
+        "min_cultura",
+        "min_giustizia",
+        "min_istruzione"
+      ],
+      "archi": [
+        {
+          "fruitore": "min_interno",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "mlps",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "mef",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "min_cultura",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "min_giustizia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "min_istruzione",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Il servizio consente di consultare le statistiche di utilizzo del sistema \"Entra con IT‑Wallet\".",
+      "catalogId": "bb51b16e-24f5-48eb-8541-0e963c6bdb68"
+    },
+    {
+      "id": "r_emilia_a2789991",
+      "nome": "Creazione EAA Badge – IT-Wallet",
+      "erogatore": "r_emilia",
+      "fruitori": [
+        "ipzs"
+      ],
+      "archi": [
+        {
+          "fruitore": "ipzs",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Il servizio consente la trasmissione dei dati per l'emissione e la gestione delle attestazioni elettroniche di tipo Badge all’interno di IT…",
+      "catalogId": "a2789991-8e4a-44ca-9945-7c0ef553e0ec"
+    },
+    {
+      "id": "r_emilia_2ab7da50",
+      "nome": "Creazione EAA Licenza di Pesca – IT-Wallet",
+      "erogatore": "r_emilia",
+      "fruitori": [
+        "ipzs"
+      ],
+      "archi": [
+        {
+          "fruitore": "ipzs",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Documento che attesta il pagamento della Licenza di Pesca",
+      "catalogId": "2ab7da50-a2bb-4bd8-9d27-a073273e28e7"
+    },
+    {
+      "id": "r_emilia_fd1cb63b",
+      "nome": "Creazione EAA Open Badge Formazione – IT-Wallet",
+      "erogatore": "r_emilia",
+      "fruitori": [
+        "ipzs"
+      ],
+      "archi": [
+        {
+          "fruitore": "ipzs",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Creazione EAA Open Badge Formazione – IT-Wallet",
+      "catalogId": "fd1cb63b-33fd-4580-8ce2-9b17259f4e98"
+    },
+    {
+      "id": "r_piemonte_fc275cb0",
+      "nome": "Anagrafica mercati e altre aree pubbliche Regione Piemonte",
+      "erogatore": "r_piemonte",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Anagrafica aree pubbliche (Mercati, Fiere, Posteggi isolati, Gruppo di posteggi) siti in Regione Piemonte",
+      "catalogId": "fc275cb0-0acb-41c1-9491-fc001442dd35"
+    },
+    {
+      "id": "r_piemonte_e4d74527",
+      "nome": "Aree protette e Rete Natura 2000",
+      "erogatore": "r_piemonte",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Aree protette e Rete Natura 2000: siti individuati per caratteristiche naturali, paesaggistiche e culturali definite mediante specifici att…",
+      "catalogId": "e4d74527-cf64-4fc9-8b01-463548665a23"
+    },
+    {
+      "id": "r_piemonte_f99b9550",
+      "nome": "Arrivi in Piemonte",
+      "erogatore": "r_piemonte",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Movimenti turistici relativi agli arrivi nelle strutture ricettive del Piemonte, per i comuni con numero di esercizi ricettivi maggiore di …",
+      "catalogId": "f99b9550-3ab1-417d-a297-d55bfa0e50bb"
+    },
+    {
+      "id": "r_piemonte_5faaca20",
+      "nome": "Arrivi, presenze e pernottamenti in Piemonte",
+      "erogatore": "r_piemonte",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Movimenti turistici relativi agli arrivi, presenze e pernottamenti nelle strutture ricettive del Piemonte, per i comuni con numero di eserc…",
+      "catalogId": "5faaca20-1ccf-467b-9da3-854b5b04cf9b"
+    },
+    {
+      "id": "r_veneto_ad6a71ef",
+      "nome": "[RVE] BackOffice SUAP to Enti Terzi",
+      "erogatore": "r_veneto",
+      "fruitori": [
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "API rese disponibili dagli Enti Terzi di RVE ai BackOffice SUAP per il sistema informatico degli sportelli unici (SSU)",
+      "catalogId": "ad6a71ef-056f-483c-ac46-b0d12e10357c"
+    },
+    {
+      "id": "r_veneto_3958c6e7",
+      "nome": "Associazione Targa a PassBLU - VIVIPASS",
+      "erogatore": "r_veneto",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Permette la gestione dell'associazione di una targa ad un PassBLU, ricerca e cancellazione della targa nell'applicativo viviPass di Regione…",
+      "catalogId": "3958c6e7-50bc-4f6c-92b7-a0ca0239bc23"
+    },
+    {
+      "id": "r_veneto_7cbe3d9b",
+      "nome": "Conferimento Targa - ZTLNETWORK",
+      "erogatore": "r_veneto",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Consente l'inserimento di una targa nel CircuitoZTL di Regione del Veneto",
+      "catalogId": "7cbe3d9b-7564-48e9-b715-20c17ff9e270"
+    },
+    {
+      "id": "r_veneto_d63cbac6",
+      "nome": "Consultazione Archeologie Industriali - IDT",
+      "erogatore": "r_veneto",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Consultazione dati dei manufatti e siti dell'archeologia industriale in Regione del Veneto",
+      "catalogId": "d63cbac6-940c-4de1-94bc-fe78d1d6f877"
+    },
+    {
+      "id": "r_marche_a4a29ec9",
+      "nome": "Consultazione Statistiche \"Entra con IT-Wallet\" - Reg Marche",
+      "erogatore": "r_marche",
+      "fruitori": [
+        "min_interno",
+        "mlps",
+        "mef",
+        "min_cultura",
+        "min_giustizia",
+        "min_istruzione"
+      ],
+      "archi": [
+        {
+          "fruitore": "min_interno",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "mlps",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "mef",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "min_cultura",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "min_giustizia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "min_istruzione",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Il servizio consente di consultare le statistiche di utilizzo del sistema \"Entra con IT‑Wallet\".",
+      "catalogId": "a4a29ec9-4293-4d07-a4a3-6111f74a2d3f"
+    },
+    {
+      "id": "r_marche_3ec92b8c",
+      "nome": "Creazione EAA Badge – IT-Wallet - Marche",
+      "erogatore": "r_marche",
+      "fruitori": [
+        "ipzs"
+      ],
+      "archi": [
+        {
+          "fruitore": "ipzs",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Il servizio consente la trasmissione dei dati per l'emissione e la gestione delle attestazioni elettroniche di tipo Badge all’interno di IT…",
+      "catalogId": "3ec92b8c-2bf5-4dc5-bb39-a674542c12a0"
+    },
+    {
+      "id": "r_marche_9b10f40d",
+      "nome": "IT Wallet - Attestato di Accompagnatore Turistico",
+      "erogatore": "r_marche",
+      "fruitori": [
+        "ipzs"
+      ],
+      "archi": [
+        {
+          "fruitore": "ipzs",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Dato il codice fiscale di un cittadino, l'API restituisce i dataset di attestato operatore turistico a lui associati, conformemente alle sp…",
+      "catalogId": "9b10f40d-0512-4ca5-9e9b-8f8e1cee2b57"
+    },
+    {
+      "id": "r_marche_20df12f7",
+      "nome": "IT-Wallet - Attestato di Accompagnatore di Media Montagna",
+      "erogatore": "r_marche",
+      "fruitori": [
+        "ipzs"
+      ],
+      "archi": [
+        {
+          "fruitore": "ipzs",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Dato il codice fiscale di un cittadino, l'API restituisce i dataset di attestato di accompagnatore di media montagna a lui associati, confo…",
+      "catalogId": "20df12f7-e603-47be-951c-dcb4e1872ced"
+    },
+    {
+      "id": "r_umbria_ae42671f",
+      "nome": "Accesso unico - Enti",
+      "erogatore": "r_umbria",
+      "fruitori": [],
+      "archi": [],
+      "versione": "7",
+      "stato": "Attivo",
+      "descrizione": "API per la gestione degli Enti del Catalogo della Regione Umbria",
+      "catalogId": "ae42671f-d8f1-4b2f-82a1-fd43e6d036a6"
+    },
+    {
+      "id": "r_umbria_da4847c6",
+      "nome": "Accesso unico - Materie",
+      "erogatore": "r_umbria",
+      "fruitori": [],
+      "archi": [],
+      "versione": "4",
+      "stato": "Attivo",
+      "descrizione": "API per la ricerca delle materie del Catalogo della Regione Umbria",
+      "catalogId": "da4847c6-da15-42cb-89b4-56918491e87d"
+    },
+    {
+      "id": "r_umbria_86222887",
+      "nome": "Accesso unico - Persone",
+      "erogatore": "r_umbria",
+      "fruitori": [],
+      "archi": [],
+      "versione": "6",
+      "stato": "Attivo",
+      "descrizione": "API per la gestione delle Persone associate agli Enti del Catalogo della Regione Umbria",
+      "catalogId": "86222887-3b24-40e5-b7cb-525529186ebd"
+    },
+    {
+      "id": "r_umbria_56a35ca2",
+      "nome": "Accesso unico - Servizi",
+      "erogatore": "r_umbria",
+      "fruitori": [],
+      "archi": [],
+      "versione": "6",
+      "stato": "Attivo",
+      "descrizione": "API per la gestione dei Servizi del Catalogo della Regione Umbria",
+      "catalogId": "56a35ca2-f565-4560-a4c6-31fe8ce926f4"
+    },
+    {
+      "id": "r_vda_e11340aa",
+      "nome": "Consultazione alunni per Istituzione scolastica",
+      "erogatore": "r_vda",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Consultazione distribuzione degli alunni per istituzione scolastica",
+      "catalogId": "e11340aa-b9b4-4aeb-a46e-da8f3e11862d"
+    },
+    {
+      "id": "r_vda_fe66fb1d",
+      "nome": "Consultazione alunni per Ordine scolastico",
+      "erogatore": "r_vda",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Consultazione alunni per Ordine scolastico",
+      "catalogId": "fe66fb1d-1ab4-47d6-9b8a-c7898b9c8471"
+    },
+    {
+      "id": "r_vda_0493d746",
+      "nome": "Consultazione ambulatori e prestazioni prenotabili",
+      "erogatore": "r_vda",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Consultazione ambulatori e prestazioni prenotabili presso AUSL- VDA",
+      "catalogId": "0493d746-3aa5-4863-8ca9-71cb356034c2"
+    },
+    {
+      "id": "r_vda_3da29f0f",
+      "nome": "Consultazione beni immobili",
+      "erogatore": "r_vda",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Consultazione beni immobili",
+      "catalogId": "3da29f0f-0cca-480c-8676-19f8e71de416"
+    },
+    {
+      "id": "r_basilicata_37197101",
+      "nome": "Accompagnatore Turistico - IT-Wallet",
+      "erogatore": "r_basilicata",
+      "fruitori": [
+        "ipzs"
+      ],
+      "archi": [
+        {
+          "fruitore": "ipzs",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Accompagnatore Turistico - IT-Wallet",
+      "catalogId": "37197101-90a5-461a-b195-ea1745d4ca1c"
+    },
+    {
+      "id": "r_basilicata_ae96b524",
+      "nome": "Atti Digitali",
+      "erogatore": "r_basilicata",
+      "fruitori": [
+        "r_lombardia",
+        "r_lazio",
+        "r_campania",
+        "r_emilia",
+        "r_toscana",
+        "r_veneto",
+        "r_piemonte",
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "r_lombardia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_lazio",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_campania",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_emilia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_toscana",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_veneto",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_piemonte",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "API REST per la visualizzazione di determine e delibere della Regione Basilicata",
+      "catalogId": "ae96b524-c14b-4380-a69f-9227ed1fffa6"
+    },
+    {
+      "id": "r_basilicata_9cede9eb",
+      "nome": "Avvisi-e-Bandi",
+      "erogatore": "r_basilicata",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Avvisi, bandi e istanze online della Regione Basilicata",
+      "catalogId": "9cede9eb-8dac-48ac-aaf2-43c5f773d21d"
+    },
+    {
+      "id": "r_basilicata_8cd1d814",
+      "nome": "BDR Stabilimenti Alimentari",
+      "erogatore": "r_basilicata",
+      "fruitori": [
+        "comuni_agg",
+        "r_lombardia",
+        "r_lazio",
+        "r_campania",
+        "r_emilia",
+        "r_toscana",
+        "r_veneto",
+        "r_piemonte"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_lombardia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_lazio",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_campania",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_emilia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_toscana",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_veneto",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_piemonte",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Informazioni inerenti le Imprese e gli stabilimenti alimentari che svolgono attività relative al regolamento (CE) n. 852/2004",
+      "catalogId": "8cd1d814-e303-44e6-a8ad-fc497b0d4e18"
+    },
+    {
+      "id": "r_sardegna_e3100505",
+      "nome": "Attestato di impegno finanziario per IT Wallet",
+      "erogatore": "r_sardegna",
+      "fruitori": [
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Il servizio restituisce, a partire dal Codice Fiscale e/o Partiva Iva del soggetto, le informazioni relative a impegni di spesa/obbligazion…",
+      "catalogId": "e3100505-1f1c-495a-be16-ef707855840b"
+    },
+    {
+      "id": "r_sardegna_3f68916d",
+      "nome": "Attestato di pagamento per IT Wallet",
+      "erogatore": "r_sardegna",
+      "fruitori": [
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "2",
+      "stato": "Attivo",
+      "descrizione": "Il servizio restituisce, a partire dal Codice Fiscale e/o Partiva Iva del soggetto, le informazioni relative ai mandati di pagamento emessi…",
+      "catalogId": "3f68916d-6a4f-4639-be70-273f38c37371"
+    },
+    {
+      "id": "r_sardegna_0c950404",
+      "nome": "Cedolino pensione integrativa FITQ per IT Wallet",
+      "erogatore": "r_sardegna",
+      "fruitori": [
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "2",
+      "stato": "Attivo",
+      "descrizione": "Il servizio restituisce, a partire dal Codice Fiscale e dalla matricola di un iscritto al FITQ e di un anno-mese specificato, le informazio…",
+      "catalogId": "0c950404-85bf-4fe2-a010-1abeb54e74a0"
+    },
+    {
+      "id": "r_sardegna_1de00102",
+      "nome": "Certificazione Unica (CU) FITQ per IT Wallet",
+      "erogatore": "r_sardegna",
+      "fruitori": [
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Il servizio restituisce, a partire dal Codice Fiscale e dalla matricola di un iscritto al FITQ e di un anno di imposta specificato, le info…",
+      "catalogId": "1de00102-b04b-4fed-9d56-18cbb1f399a9"
+    },
+    {
+      "id": "r_calabria_ccfb6374",
+      "nome": "Consultazione Atti di Concessione",
+      "erogatore": "r_calabria",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Consultazione dei dati relativi agli atti di concessione di sovvenzioni, contributi, sussidi ed ausili finanziari alle imprese e di vantagg…",
+      "catalogId": "ccfb6374-b384-4ac8-a9f6-0d6fb68ba497"
+    },
+    {
+      "id": "r_calabria_375046d9",
+      "nome": "Consultazione Carta dei Servizi e Standard di Qualità",
+      "erogatore": "r_calabria",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Consultazione della Carta dei Servizi o il documento contenente gli standard di qualità dei servizi pubblici dell'Ente.",
+      "catalogId": "375046d9-de94-4046-9483-1eb58fd12fce"
+    },
+    {
+      "id": "r_calabria_114c2738",
+      "nome": "Consultazione Criteri di Concessione sovvenzioni, contributi",
+      "erogatore": "r_calabria",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Consultazione degli atti con i quali sono determinati i criteri e le modalità cui le amministrazioni devono attenersi per la concessione di…",
+      "catalogId": "114c2738-54ce-4da4-bd82-94acd6c19a5f"
+    },
+    {
+      "id": "r_calabria_98df9ca7",
+      "nome": "Consultazione Dati Enti di Diritto Privato Controllati",
+      "erogatore": "r_calabria",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Consultazione dei dati sugli enti di diritto privato, comunque denominati, in controllo dell'Amministrazione, oppure gli enti costituiti o …",
+      "catalogId": "98df9ca7-9f3c-48f0-a0c7-971b47aea69b"
+    },
+    {
+      "id": "c_milano_20cd619a",
+      "nome": "Accesso dati cartografici del Gemello digitale",
+      "erogatore": "c_milano",
+      "fruitori": [],
+      "archi": [],
+      "versione": "4",
+      "stato": "Attivo",
+      "descrizione": "Il servizio consente di visualizzare e accettare la licenza d'uso e ottenere il link di accesso ai dati territoriali messi a disposizione a…",
+      "catalogId": "20cd619a-c108-4633-a395-670cae03ca67"
+    },
+    {
+      "id": "c_milano_c783f89e",
+      "nome": "Consultazione avvisi di manomissione",
+      "erogatore": "c_milano",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Restituisce le informazioni relative agli avvisi di manomissione per scavi e lavori",
+      "catalogId": "c783f89e-6d0b-4d54-ac27-60e55dcac33e"
+    },
+    {
+      "id": "c_milano_90452419",
+      "nome": "Consultazione limiti amministrativi",
+      "erogatore": "c_milano",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Restituisce il layer geografico contente i confini amministrativi del comune di Milano",
+      "catalogId": "90452419-aef4-459f-aedc-37a066dd8680"
+    },
+    {
+      "id": "c_milano_fab939d5",
+      "nome": "Consultazione limiti municipi",
+      "erogatore": "c_milano",
+      "fruitori": [],
+      "archi": [],
+      "versione": "2",
+      "stato": "Attivo",
+      "descrizione": "Restituisce il layer geografico contente i confini amministrativi dei nove municipi del comune di Milano",
+      "catalogId": "fab939d5-bb08-47c9-881f-c93ea2f66cdd"
+    },
+    {
+      "id": "c_roma_2a11ae82",
+      "nome": "API Geografica Numeri Civici",
+      "erogatore": "c_roma",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "API Geografica Numeri Civici",
+      "catalogId": "2a11ae82-452e-4c39-b300-40ed217c84f4"
+    },
+    {
+      "id": "c_roma_0d81de35",
+      "nome": "Aree Siti UNESCO - OGC API",
+      "erogatore": "c_roma",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Aree Siti UNESCO - OGC API",
+      "catalogId": "0d81de35-169c-468a-9af1-0f471e856f61"
+    },
+    {
+      "id": "c_roma_5833ad41",
+      "nome": "Aree Verdi",
+      "erogatore": "c_roma",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Versione iniziale con nome modificato",
+      "catalogId": "5833ad41-2564-4b1f-8cac-f921cf77f862"
+    },
+    {
+      "id": "c_roma_0713baa0",
+      "nome": "Aree Verdi - OGC API",
+      "erogatore": "c_roma",
+      "fruitori": [],
+      "archi": [],
+      "versione": "2",
+      "stato": "Attivo",
+      "descrizione": "Aree Verdi - OGC API",
+      "catalogId": "0713baa0-3567-4a13-ac30-0b82ae4f7b60"
+    },
+    {
+      "id": "c_napoli_2d16cc90",
+      "nome": "Ambito - OGC Pratiche Edilizie",
+      "erogatore": "c_napoli",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Restituisce il dettaglio dello stato e dei dati geografici delle pratiche edilizie.",
+      "catalogId": "2d16cc90-96bc-4650-a9af-bf2498d6939f"
+    },
+    {
+      "id": "c_napoli_0e4097be",
+      "nome": "Ambito - OGC Protezione Civile Api",
+      "erogatore": "c_napoli",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Prima versione disponibile",
+      "catalogId": "0e4097be-4396-4f35-a820-be1e89b2691d"
+    },
+    {
+      "id": "c_napoli_19692c8f",
+      "nome": "Ambito - OGC Stradario",
+      "erogatore": "c_napoli",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Restituisce il dettaglio dei civici e dello stradario del comune di Napoli filtrando per via, civico e/o area geografica.",
+      "catalogId": "19692c8f-25b6-4a66-bd76-49b3a89afd59"
+    },
+    {
+      "id": "c_napoli_927e5493",
+      "nome": "Ambito - OGC Urbanistica",
+      "erogatore": "c_napoli",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Restituisce il dettaglio delle trasformazioni urbanistiche sul territorio del Comune di Napoli",
+      "catalogId": "927e5493-320c-4bff-add2-93fdb7af4832"
+    },
+    {
+      "id": "c_bologna_242bbc81",
+      "nome": "L’e-service ricerca gli archi stradali",
+      "erogatore": "c_bologna",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "L’e-service ritorna l’elenco ufficiale degli archi stradali della città di Bologna",
+      "catalogId": "242bbc81-cf94-42ef-a47f-23c90efff025"
+    },
+    {
+      "id": "c_bologna_91b9f081",
+      "nome": "L’e-service ricerca gli edifici",
+      "erogatore": "c_bologna",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "L’e-service ritorna l’elenco degli edifici con gli estremi particellari estratti dalla Carta Tecnica Comunale e aggregati ed integrati con …",
+      "catalogId": "91b9f081-1e8d-4d3d-b620-0f5d23f72ba6"
+    },
+    {
+      "id": "c_bologna_46035466",
+      "nome": "L’e-service ricerca gli eventi culturali",
+      "erogatore": "c_bologna",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "L’e-service ritorna gli Eventi di Bologna Agenda Cultura.",
+      "catalogId": "46035466-f9cb-446d-a608-82590eaf5c53"
+    },
+    {
+      "id": "c_bologna_305054a1",
+      "nome": "L’e-service ricerca i numeri civici",
+      "erogatore": "c_bologna",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "L’e-service ritorna l’elenco ufficiale dei numeri civici della città di Bologna.",
+      "catalogId": "305054a1-090e-4c3f-9568-f4fb4f9ae266"
+    },
+    {
+      "id": "c_genova_5f0a445e",
+      "nome": "Bilancio - ricerca accertamenti",
+      "erogatore": "c_genova",
+      "fruitori": [
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Servizio per ricercare gli accertamenti di bilancio",
+      "catalogId": "5f0a445e-2620-4e45-9c18-2698b926dc7e"
+    },
+    {
+      "id": "c_genova_f7ccdaff",
+      "nome": "Bilancio: ricerca impegni",
+      "erogatore": "c_genova",
+      "fruitori": [
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Servizio per ricercare gli impegni di bilancio",
+      "catalogId": "f7ccdaff-95c3-4a10-9e38-85553734f1b0"
+    },
+    {
+      "id": "c_genova_911ff354",
+      "nome": "Protocollo - destinatario annullamento mittente",
+      "erogatore": "c_genova",
+      "fruitori": [
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Annullamento da parte del mittente - nel caso il mittente adotti un provvedimento per l'annullamento.",
+      "catalogId": "911ff354-9af5-4add-a0c8-c8eab85e4946"
+    },
+    {
+      "id": "c_genova_f97d2588",
+      "nome": "Protocollo - destinatario comunicazione irricevibile",
+      "erogatore": "c_genova",
+      "fruitori": [
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Richiesta di irricevibilità protocollazione - richiesta dei dettagli di irricevibilità protocollazione da parte del mittente.",
+      "catalogId": "f97d2588-b6f2-4cdf-9134-5d4a1be08fa6"
+    },
+    {
+      "id": "c_padova_4b71bf2c",
+      "nome": "[CPD] BACKOFFICE SUAP TO ENTI TERZI",
+      "erogatore": "c_padova",
+      "fruitori": [
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Erogazione servizi SUAP di backoffice",
+      "catalogId": "4b71bf2c-6444-4a5d-82da-2417d0c26385"
+    },
+    {
+      "id": "c_padova_3c129479",
+      "nome": "Consultazione Dati cartografici/GIS PAT",
+      "erogatore": "c_padova",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Consultazione Dati cartografici/GIS PAT",
+      "catalogId": "3c129479-6c1a-4444-89c9-20ad1168eaad"
+    },
+    {
+      "id": "c_padova_26cbaae3",
+      "nome": "Consultazione Dati statistici cimiteri",
+      "erogatore": "c_padova",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Consultazione Dati statistici cimiteri",
+      "catalogId": "26cbaae3-8e81-46ff-8dd8-4d48af4e4360"
+    },
+    {
+      "id": "c_padova_7804034f",
+      "nome": "Consultazione Opere Lavori Pubblici",
+      "erogatore": "c_padova",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Consultazione Opere Lavori Pubblici",
+      "catalogId": "7804034f-f0e6-4e39-bbd1-6ac4c36a7579"
+    }
+  ]
+}
