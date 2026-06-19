@@ -7,7 +7,7 @@ on:
 
 permissions:
   contents: write
-  models: read             # necessario per l'inferenza via GitHub Models col GITHUB_TOKEN
+  pull-requests: write     # per aprire la PR (main è protetto)
 
 jobs:
   update:
@@ -18,7 +18,9 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       GITHUB_MODEL: openai/gpt-4.1
       INFERENCE_MIN_CONF: "0.6"
-      INFERENCE_MAX_CALLS: "120"   # tieni sotto i rate limit del tier gratuito
+      INFERENCE_MAX_CALLS: "40"     # basso: il backfill grosso va fatto in locale (vedi README)
+      INFERENCE_DELAY_MS: "2500"    # pausa tra chiamate per il rate limit del tier free
+      INFERENCE_MAX_RETRIES: "4"
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -28,24 +30,33 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Genera dati aggiornati
+      - name: Genera anteprima aggiornata
         # Esce con codice 1 se un guard di validazione fallisce, interrompendo
-        # il workflow PRIMA del commit. L'inferenza AI è fail-safe: se il servizio
-        # non risponde, la pipeline prosegue con archi certificati/documentati.
+        # il workflow PRIMA della PR. L'inferenza AI è fail-safe.
         run: node pipeline/build-graph-data.mjs --write
 
-      - name: Commit se ci sono modifiche
+      - name: Apri Pull Request con l'anteprima
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          set -e
+          if git diff --quiet -- pipeline/pdnd-data.preview.json; then
+            echo "Anteprima invariata: nessuna PR."
+            exit 0
+          fi
+          BRANCH="automation/preview-update"
           git config user.name "pdnd-graph-bot"
           git config user.email "actions@github.com"
-          # Modalità non distruttiva: la pipeline aggiorna l'ANTEPRIMA, non il grafo live.
-          # Il grafo curato (src/data/pdnd-data.json) resta intatto.
+          git checkout -b "$BRANCH"
           git add pipeline/pdnd-data.preview.json pipeline/last-run-report.md pipeline/ai-cache.json
-          if git diff --cached --quiet; then
-            echo "Nessuna modifica."
+          git commit -m "chore: aggiornamento anteprima grafo PDND"
+          git push -f -u origin "$BRANCH"
+          if [ -z "$(gh pr list --head "$BRANCH" --state open --json number -q '.[0].number')" ]; then
+            gh pr create --base main --head "$BRANCH" \
+              --title "Aggiornamento anteprima grafo PDND" \
+              --body "Aggiornamento automatico dell'anteprima (\`pipeline/pdnd-data.preview.json\`). Il grafo live non è toccato. Rivedi il report e mergia per versionare l'anteprima."
           else
-            git commit -m "chore: aggiornamento anteprima grafo PDND [skip ci]"
-            git push
+            echo "PR già aperta per $BRANCH: aggiornata col nuovo commit."
           fi
 
       - name: Pubblica report nel riepilogo

@@ -5,8 +5,7 @@
  * che non hanno né una categoria certificata né un override documentato.
  *
  * Caratteristiche pensate per una pipeline automatica affidabile:
- *  - ADAPTER AGNOSTICO: backend Anthropic API oppure modello locale
- *    OpenAI-compatibile (es. llama.cpp sul DGX Spark).
+ *  - ADAPTER PLUGGABLE: backend GitHub Models oppure Anthropic API.
  *  - CACHE per catalogId: un e-service già inferito non viene re-inferito,
  *    così il grafo è stabile e l'AI gira solo sui servizi nuovi.
  *  - SOGLIA DI CONFIDENZA: gli archi sotto soglia vengono scartati.
@@ -17,14 +16,15 @@
  *    restituisce ciò che ha (cache) senza interrompere la pipeline.
  *
  * Variabili d'ambiente:
- *  - INFERENCE_ENGINE       "github" | "anthropic" | "local"
+ *  - INFERENCE_ENGINE       "github" (default nel workflow) | "anthropic"
  *  - GITHUB_TOKEN           per engine "github" (presente di default nelle Actions
  *                           con permesso "models: read"); modello via GITHUB_MODEL
  *                           (default "openai/gpt-4.1")
  *  - ANTHROPIC_API_KEY      per engine "anthropic"; modello via ANTHROPIC_MODEL
- *  - INFERENCE_BASE_URL     per engine "local" (es. http://localhost:8080/v1)
  *  - INFERENCE_MIN_CONF     soglia confidenza 0-1 (default 0.55)
- *  - INFERENCE_MAX_CALLS    tetto chiamate per run (default 200, salvaguardia costi/limiti)
+ *  - INFERENCE_MAX_CALLS    tetto chiamate per run (default 200)
+ *  - INFERENCE_DELAY_MS     pausa tra chiamate in ms (default 1500)
+ *  - INFERENCE_MAX_RETRIES  retry su 429/503 con backoff (default 4)
  */
 
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
@@ -32,6 +32,10 @@ import { readFileSync, writeFileSync, existsSync } from "node:fs";
 const MIN_CONF = parseFloat(process.env.INFERENCE_MIN_CONF || "0.55");
 const MAX_CALLS = parseInt(process.env.INFERENCE_MAX_CALLS || "200", 10);
 const ENGINE = process.env.INFERENCE_ENGINE || "anthropic";
+const DELAY_MS = parseInt(process.env.INFERENCE_DELAY_MS || "1500", 10);   // pausa tra chiamate (rate limit)
+const MAX_RETRIES = parseInt(process.env.INFERENCE_MAX_RETRIES || "4", 10); // tentativi su 429/503
+
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 const SYSTEM_PROMPT = `Sei un assistente esperto di interoperabilità della Pubblica Amministrazione italiana e della Piattaforma Digitale Nazionale Dati (PDND).
 
@@ -92,56 +96,45 @@ async function callAnthropic(system, user) {
   return data.content.map(b => b.text || "").join("");
 }
 
-async function callLocal(system, user) {
-  const base = process.env.INFERENCE_BASE_URL;
-  if (!base) throw new Error("INFERENCE_BASE_URL mancante");
-  const res = await fetch(`${base}/chat/completions`, {
-    method: "POST",
-    headers: { "content-type": "application/json" },
-    body: JSON.stringify({
-      model: process.env.INFERENCE_MODEL || "local",
-      temperature: 0,
-      max_tokens: 400,
-      messages: [
-        { role: "system", content: system },
-        { role: "user", content: user },
-      ],
-    }),
-  });
-  if (!res.ok) throw new Error(`Local HTTP ${res.status}`);
-  const data = await res.json();
-  return data.choices?.[0]?.message?.content || "";
-}
-
 async function callGitHub(system, user) {
   // GitHub Models: API OpenAI-compatibile, autenticata col GITHUB_TOKEN delle Actions.
   // Richiede il permesso "models: read" nel workflow.
   const token = process.env.GITHUB_TOKEN || process.env.GH_TOKEN;
   if (!token) throw new Error("GITHUB_TOKEN mancante");
-  const res = await fetch("https://models.github.ai/inference/chat/completions", {
-    method: "POST",
-    headers: {
-      "content-type": "application/json",
-      "authorization": `Bearer ${token}`,
-      "x-github-api-version": "2026-03-10",
-    },
-    body: JSON.stringify({
-      model: process.env.GITHUB_MODEL || "openai/gpt-4.1",
-      temperature: 0,
-      max_tokens: 400,
-      messages: [
-        { role: "system", content: system },
-        { role: "user", content: user },
-      ],
-    }),
-  });
-  if (!res.ok) throw new Error(`GitHub Models HTTP ${res.status}`);
-  const data = await res.json();
-  return data.choices?.[0]?.message?.content || "";
+
+  for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
+    const res = await fetch("https://models.github.ai/inference/chat/completions", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        "authorization": `Bearer ${token}`,
+        "x-github-api-version": "2026-03-10",
+      },
+      body: JSON.stringify({
+        model: process.env.GITHUB_MODEL || "openai/gpt-4.1",
+        temperature: 0,
+        max_tokens: 400,
+        messages: [
+          { role: "system", content: system },
+          { role: "user", content: user },
+        ],
+      }),
+    });
+    // Rate limit o indisponibilità temporanea: backoff e riprova
+    if ((res.status === 429 || res.status === 503) && attempt < MAX_RETRIES) {
+      const retryAfter = parseInt(res.headers.get("retry-after") || "0", 10);
+      const wait = retryAfter > 0 ? retryAfter * 1000 : Math.min(30000, 2000 * 2 ** attempt);
+      await sleep(wait);
+      continue;
+    }
+    if (!res.ok) throw new Error(`GitHub Models HTTP ${res.status}`);
+    const data = await res.json();
+    return data.choices?.[0]?.message?.content || "";
+  }
+  throw new Error("GitHub Models: rate limit persistente dopo i retry");
 }
 
 const callModel = (s, u) => {
-  if (ENGINE === "local") return callLocal(s, u);
   if (ENGINE === "github") return callGitHub(s, u);
   return callAnthropic(s, u);
 };
@@ -168,6 +161,7 @@ export async function inferConnections(uncovered, nodes, cachePath) {
     }
     // Budget guard
     if (calls >= MAX_CALLS) continue;
+    if (calls > 0 && DELAY_MS > 0) await sleep(DELAY_MS);   // pausa tra chiamate per il rate limit
     calls++;
 
     try {

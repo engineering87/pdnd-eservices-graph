@@ -153,40 +153,30 @@ Caratteristiche pensate per l'affidabilità in pipeline automatica:
   archi certificati/documentati senza interrompersi.
 - **Determinismo** — temperatura 0.
 
-### Motore di inferenza (adapter pluggable)
+### Motore di inferenza
 
-Tre backend, selezionati da `INFERENCE_ENGINE`:
+Due backend, selezionati da `INFERENCE_ENGINE`:
 
-| Engine | Quando usarlo | Autenticazione |
-|--------|---------------|----------------|
-| `github` (consigliato) | Job mensile su GitHub Actions | `GITHUB_TOKEN` integrato + permesso `models: read` — **nessun secret esterno** |
-| `anthropic` | Se preferisci i modelli Claude | `ANTHROPIC_API_KEY` come secret |
-| `local` | Backfill grossi sul DGX Spark | endpoint OpenAI-compatibile (`llama.cpp`) |
+| Engine | Autenticazione |
+|--------|----------------|
+| `github` (default) | `GITHUB_TOKEN` integrato nelle Actions + permesso `models: read` |
+| `anthropic` | `ANTHROPIC_API_KEY` come secret |
 
 | Variabile | Valore |
 |-----------|--------|
-| `INFERENCE_ENGINE` | `github` (default workflow) · `anthropic` · `local` |
-| `GITHUB_TOKEN` | per engine `github` (già presente nelle Actions) |
-| `GITHUB_MODEL` | default `openai/gpt-4.1` (anche `openai/gpt-4o`, `meta/llama-3.1-...`, ecc.) |
+| `INFERENCE_ENGINE` | `github` (default) · `anthropic` |
+| `GITHUB_MODEL` | default `openai/gpt-4.1` |
 | `ANTHROPIC_API_KEY` / `ANTHROPIC_MODEL` | per engine `anthropic` |
-| `INFERENCE_BASE_URL` / `INFERENCE_MODEL` | per engine `local`, es. `http://localhost:8080/v1` |
 | `INFERENCE_MIN_CONF` | soglia confidenza, default `0.55` |
-| `INFERENCE_MAX_CALLS` | tetto chiamate per run, default `200` |
+| `INFERENCE_MAX_CALLS` | tetto chiamate per run |
+| `INFERENCE_DELAY_MS` | pausa tra chiamate (ms) |
+| `INFERENCE_MAX_RETRIES` | retry su 429/503 con backoff |
 
-**GitHub Models** è l'opzione di default: l'API è OpenAI-compatibile, gira con il
-`GITHUB_TOKEN` già disponibile nelle Actions (basta aggiungere `models: read` ai
-permessi del workflow, già fatto), ed è gratuita entro i rate limit del tier free.
-Con la cache, il job mensile processa solo i servizi nuovi e resta ampiamente
-dentro i limiti. Endpoint: `https://models.github.ai/inference/chat/completions`.
-
-Per i backfill grossi puoi puntare lo stesso script al tuo **DGX Spark**:
-
-```bash
-INFERENCE_ENGINE=local \
-INFERENCE_BASE_URL=http://localhost:8080/v1 \
-INFERENCE_MODEL=gemma-3-27b \
-node pipeline/build-graph-data.mjs --write
-```
+Con engine `github` l'inferenza usa il `GITHUB_TOKEN` già disponibile nelle Actions
+(serve il permesso `models: read`, già impostato nel workflow). Endpoint:
+`https://models.github.ai/inference/chat/completions`. La cache
+(`pipeline/ai-cache.json`) evita di re-inferire gli e-service già elaborati, così
+ogni run elabora solo i servizi nuovi.
 
 ### Disattivare l'AI
 

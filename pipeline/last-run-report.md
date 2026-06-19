@@ -1,6 +1,6 @@
 # Report aggiornamento grafo PDND
 
-Data: 2026-06-19T17:32:39.323Z
+Data: 2026-06-19T20:34:26.811Z
 Modalità: DRY-RUN
 
 ## Download catalogo

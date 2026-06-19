@@ -1,19 +1,20 @@
 name: Promuovi anteprima a grafo live
 
 # Sostituisce il grafo live (src/data/pdnd-data.json) con l'anteprima generata
-# dalla pipeline (pipeline/pdnd-data.preview.json). È un'azione DELIBERATA:
-# si lancia solo manualmente e richiede una conferma esplicita.
+# dalla pipeline. Azione DELIBERATA: solo manuale, con conferma esplicita.
+# Apre una Pull Request verso main (branch protetto).
 
 on:
   workflow_dispatch:
     inputs:
       conferma:
-        description: 'Scrivi PROMUOVI (in maiuscolo) per confermare la sostituzione del grafo live'
+        description: 'Scrivi PROMUOVI (in maiuscolo) per confermare'
         required: true
         default: ''
 
 permissions:
   contents: write
+  pull-requests: write
 
 jobs:
   promote:
@@ -25,24 +26,20 @@ jobs:
       - name: Verifica conferma
         run: |
           if [ "${{ github.event.inputs.conferma }}" != "PROMUOVI" ]; then
-            echo "::error::Conferma non valida. Per procedere, rilancia scrivendo esattamente PROMUOVI."
+            echo "::error::Conferma non valida. Rilancia scrivendo esattamente PROMUOVI."
             exit 1
           fi
 
       - name: Verifica esistenza e validità dell'anteprima
         run: |
           if [ ! -f pipeline/pdnd-data.preview.json ]; then
-            echo "::error::pipeline/pdnd-data.preview.json non trovato. Esegui prima la pipeline di aggiornamento."
+            echo "::error::pipeline/pdnd-data.preview.json non trovato. Esegui prima l'aggiornamento."
             exit 1
           fi
           node -e '
             const d = require("./pipeline/pdnd-data.preview.json");
-            if (!Array.isArray(d.enti) || !Array.isArray(d.eservices)) {
-              console.error("::error::Anteprima malformata: enti/eservices mancanti."); process.exit(1);
-            }
-            if (d.enti.length === 0 || d.eservices.length === 0) {
-              console.error("::error::Anteprima vuota: nodi o e-service a zero."); process.exit(1);
-            }
+            if (!Array.isArray(d.enti) || !Array.isArray(d.eservices)) { console.error("::error::Anteprima malformata."); process.exit(1); }
+            if (d.enti.length === 0 || d.eservices.length === 0) { console.error("::error::Anteprima vuota."); process.exit(1); }
             console.log(`Anteprima valida: ${d.enti.length} nodi, ${d.eservices.length} e-service`);
           '
 
@@ -53,34 +50,36 @@ jobs:
             const read = (p) => { try { return require(p); } catch { return {enti:[],eservices:[]}; } };
             const live = read("./src/data/pdnd-data.json");
             const prev = read("./pipeline/pdnd-data.preview.json");
-            const out = [
-              "## Promozione anteprima → grafo live",
-              "",
-              "| | Nodi | E-service |",
-              "|---|---|---|",
+            const out = ["## Promozione anteprima → grafo live","","| | Nodi | E-service |","|---|---|---|",
               `| Live attuale | ${live.enti.length} | ${live.eservices.length} |`,
-              `| Anteprima (nuovo) | ${prev.enti.length} | ${prev.eservices.length} |`,
-            ].join("\n");
+              `| Anteprima (nuovo) | ${prev.enti.length} | ${prev.eservices.length} |`].join("\n");
             fs.writeFileSync(process.env.GITHUB_STEP_SUMMARY, out + "\n");
           '
 
-      - name: Backup del grafo curato e promozione
+      - name: Backup, promozione e Pull Request
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          set -e
           if [ -f src/data/pdnd-data.json ]; then
             cp src/data/pdnd-data.json src/data/pdnd-data.curated-backup.json
-            echo "Backup salvato: src/data/pdnd-data.curated-backup.json"
           fi
           cp pipeline/pdnd-data.preview.json src/data/pdnd-data.json
-          echo "Anteprima promossa a grafo live."
-
-      - name: Commit
-        run: |
+          if git diff --quiet -- src/data/pdnd-data.json src/data/pdnd-data.curated-backup.json; then
+            echo "Il grafo live era già allineato all'anteprima."
+            exit 0
+          fi
+          BRANCH="automation/promote-live"
           git config user.name "pdnd-graph-bot"
           git config user.email "actions@github.com"
+          git checkout -b "$BRANCH"
           git add src/data/pdnd-data.json src/data/pdnd-data.curated-backup.json
-          if git diff --cached --quiet; then
-            echo "Nessuna differenza: il grafo live era già allineato all'anteprima."
+          git commit -m "chore: promozione anteprima a grafo live"
+          git push -f -u origin "$BRANCH"
+          if [ -z "$(gh pr list --head "$BRANCH" --state open --json number -q '.[0].number')" ]; then
+            gh pr create --base main --head "$BRANCH" \
+              --title "Promozione anteprima a grafo live" \
+              --body "Sostituzione del grafo live con l'anteprima della pipeline. Backup del curato in \`src/data/pdnd-data.curated-backup.json\`. Rivedi e mergia per pubblicare."
           else
-            git commit -m "chore: promozione anteprima a grafo live"
-            git push
+            echo "PR di promozione già aperta: aggiornata."
           fi
