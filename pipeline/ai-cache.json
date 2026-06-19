@@ -1,0 +1,150 @@
+{
+  "88f03670-80c9-4495-a24b-d6d582b584da": {
+    "fruitori": [
+      "comuni_agg",
+      "regioni_agg",
+      "c_milano",
+      "c_roma",
+      "c_napoli",
+      "c_bologna",
+      "c_genova",
+      "c_padova"
+    ],
+    "confidenza": 0.78,
+    "motivazione": "I servizi sociali di accoglienza per adulti e anziani sono gestiti da Comuni e Regioni, che necessitano di verificare le prestazioni INPS tramite codice fiscale."
+  },
+  "9b2bf50d-9a4f-49bc-8473-1b87408b70ea": {
+    "fruitori": [
+      "comuni_agg",
+      "regioni_agg",
+      "c_milano",
+      "c_roma",
+      "c_napoli",
+      "c_bologna",
+      "c_genova",
+      "c_padova",
+      "ade",
+      "ade_riscossione"
+    ],
+    "confidenza": 0.78,
+    "motivazione": "Le agevolazioni per servizi pubblici (es. bonus tariffe) sono erogate e verificate principalmente da Comuni e Regioni, con riscontri fiscali da AdE."
+  },
+  "6832ec2f-cacf-483b-92fd-149219c4f06a": {
+    "fruitori": [
+      "mur",
+      "cineca",
+      "r_lombardia",
+      "r_lazio",
+      "r_campania",
+      "r_toscana",
+      "r_emilia",
+      "r_piemonte",
+      "r_veneto",
+      "r_puglia",
+      "regioni_agg"
+    ],
+    "confidenza": 0.7,
+    "motivazione": "Le agevolazioni per tasse universitarie sono gestite da università (Cineca/MUR) ed enti regionali per il diritto allo studio, che necessitano dei dati INPS per verificare i requisiti."
+  },
+  "2dd25168-da15-485e-bef8-21003b03d2b3": {
+    "fruitori": [
+      "comuni_agg",
+      "c_milano",
+      "c_roma",
+      "c_napoli",
+      "c_bologna",
+      "c_genova",
+      "c_padova"
+    ],
+    "confidenza": 0.7,
+    "motivazione": "Le agevolazioni tributarie comunali sono gestite dai Comuni, che consultano i dati INPS per verificare i requisiti dei cittadini."
+  },
+  "54a312be-ab6b-4627-a73e-1f07e0b20914": {
+    "fruitori": [
+      "comuni_agg",
+      "c_milano",
+      "c_roma",
+      "c_napoli",
+      "c_bologna",
+      "c_genova",
+      "c_padova"
+    ],
+    "confidenza": 0.7,
+    "motivazione": "L'ANNCSU (Archivio Nazionale Numeri Civici e Strade Urbane) è aggiornato principalmente dai Comuni, titolari della toponomastica e degli accessi/numeri civici."
+  },
+  "a51198a6-0b08-4958-9d80-6fb6d49e4bbc": {
+    "fruitori": [
+      "anac",
+      "inps",
+      "comuni_agg",
+      "regioni_agg",
+      "mit",
+      "ade",
+      "unioncamere",
+      "c_milano",
+      "c_roma",
+      "c_napoli",
+      "c_bologna",
+      "c_genova",
+      "c_padova"
+    ],
+    "confidenza": 0.78,
+    "motivazione": "Il DURC è consultato da stazioni appaltanti e PA (ANAC, comuni, regioni, INPS, enti aggiudicatori) per verificare la regolarità contributiva nelle procedure di appalto e affidamento."
+  },
+  "673e99b9-f7cc-4e1c-b319-677340d53956": {
+    "fruitori": [
+      "mef",
+      "ade",
+      "ade_riscossione",
+      "mit",
+      "min_interno",
+      "inps",
+      "inail",
+      "comuni_agg",
+      "regioni_agg",
+      "r_lombardia",
+      "r_lazio",
+      "r_campania",
+      "r_sicilia",
+      "r_toscana",
+      "r_emilia",
+      "r_piemonte",
+      "r_veneto",
+      "r_puglia",
+      "c_milano",
+      "c_roma",
+      "c_napoli",
+      "c_bologna",
+      "c_genova",
+      "adm",
+      "ag_demanio"
+    ],
+    "confidenza": 0.7,
+    "motivazione": "Il CIG è usato dalle stazioni appaltanti pubbliche (enti centrali, regioni, comuni) per verifiche su appalti e pagamenti tracciabili."
+  },
+  "0340d951-558c-499a-9ec5-08ef6da84104": {
+    "fruitori": [
+      "comuni_agg",
+      "regioni_agg",
+      "mef",
+      "mit",
+      "r_lombardia",
+      "r_lazio",
+      "r_campania",
+      "r_toscana",
+      "r_emilia",
+      "r_piemonte",
+      "r_veneto",
+      "r_puglia",
+      "c_milano",
+      "c_roma",
+      "c_napoli",
+      "c_bologna",
+      "c_genova",
+      "ade",
+      "ag_demanio"
+    ],
+    "confidenza": 0.78,
+    "motivazione": "I dati sui CIG e le stazioni appaltanti servono a tutte le PA che operano come committenti pubblici per verifiche su gare e appalti."
+  }
+}

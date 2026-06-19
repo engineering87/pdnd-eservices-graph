@@ -1,38 +1,78 @@
 # Report aggiornamento grafo PDND
 
-Data: 2026-06-19T21:54:32.537Z
+Data: 2026-06-19T22:50:15.393Z
 Modalità: WRITE
 
 ## Download catalogo
 - Righe catalogo: **15011**
 
 ## Risultato
-- Nodi (enti): **52** (prima: 48)
-- E-service: **218** (prima: 218)
-- Nuovi e-service: **0**
-- E-service rimossi: **0**
-- E-service senza fruitori: **96**
+- Nodi (enti): **54** (prima: 51)
+- E-service: **218** (prima: 86)
+- Nuovi e-service: **218**
+- E-service rimossi: **86**
+- E-service senza fruitori: **86**
 
 ### Archi per provenienza
-- 📄 Documentata (override): **0**
+- 📄 Documentata (override): **6**
 - ✅ Certificata (attributes): **379**
-- 🤖 Inferita (AI): **0**
+- 🤖 Inferita (AI): **35**
 
-ℹ️  Inferenza AI disattivata (--no-ai).
+_Inferenza AI ristretta all'allowlist: 8 e-service permessi._
+
+### Inferenza AI
+- Engine: anthropic · soglia confidenza: 0.6
+- Nuove chiamate: 8 · accettate: 8 · da cache: 0 · scartate: 0 · errori: 0
+
+### Nuovi e-service
+- Min. Interno (ANPR) — ANPR API INTEGRAZIONE INAD
+- Min. Interno (ANPR) — ANPR-Certificazione
+- Min. Interno (ANPR) — C001–servizioNotifica
+- Min. Interno (ANPR) — C001–servizioNotifica-approvazione_automatica
+- Min. Interno (ANPR) — C002-servizioComunicazione
+- Min. Interno (ANPR) — C002-servizioComunicazione-approvazione_automatica
+- Min. Interno (ANPR) — C003-servizioVerificaDichGeneralita
+- Min. Interno (ANPR) — C003-servizioVerificaDichGeneralita-approvazione_…
+- INPS — Certificazioni di diritto a pensione per MIM
+- INPS — Comunicazioni Obbligatorie
+- INPS — Consultazione Acc. Adulti Anziani - WaaS
+- INPS — Consultazione Adozione Internazionale – WaaS
+- INPS — Consultazione Adozione Nazionale Minori - WaaS
+- INPS — Consultazione Agevolazioni Servizi Pubb. - WaaS
+- INPS — Consultazione Agevolazioni Tasse Univ. - WaaS
+- INPS — Consultazione Agevolazioni Tributarie - WaaS
+- Agenzia delle Entrate — Aggiornamento catalogo immobili Agenzia del Deman…
+- Agenzia delle Entrate — Aggiornamento catalogo immobili Dipartimento Teso…
+- Agenzia delle Entrate — ANNCSU - Aggiornamento accessi
+- Agenzia delle Entrate — ANNCSU - Aggiornamento coordinate
+- Agenzia delle Entrate — ANNCSU - Aggiornamento coordinate per grandi Comu…
+- Agenzia delle Entrate — ANNCSU - Aggiornamento interni
+- Agenzia delle Entrate — ANNCSU - Aggiornamento odonimi
+- Agenzia delle Entrate — ANNCSU - Consultazione per altre PPAA
+- AgID — analytics-services_SDG
+- AgID — arch-common-service_SDG
+- AgID — data-service-directory_SDG
+- AgID — Download massivo AOO-UO ed Esito - IPA Area Riser…
+- AgID — evidence-broker_SDG
+- AgID — INAD API INTEGRAZIONE ANPR
+- AgID — INAD CONSULTAZIONE DD
+- AgID — INAD CONSULTAZIONE DD - PagoPA
+- INAIL — comobb
+- INAIL — INAIL_Gra_Durc
+- INAIL — pdnd.mlps.tassi
+- INAIL — Richiesta Certificato del Debito
+- Unioncamere — ACCREDITAMENTO SUAP ED ENTI-TERZI - SUITE DI BLAC…
+- Unioncamere — CATALOGO - GESTIONE ISTANZA - BACKOFFICE
+- Unioncamere — CATALOGO - GESTIONE ISTANZA - COMUNICA
+- Unioncamere — CATALOGO - GESTIONE ISTANZA - ENTI TERZI
 
 ### E-service senza archi (aggiungi override in connections-overrides.json)
-- Consultazione Acc. Adulti Anziani - WaaS (88f03670-80c9-4495-a24b-d6d582b584da)
 - Consultazione Adozione Internazionale – WaaS (423385e8-1a06-4b26-bafb-33b1af64a0a6)
 - Consultazione Adozione Nazionale Minori - WaaS (5c9248fd-1cb8-4dec-b68c-bfd0dededaf0)
-- Consultazione Agevolazioni Servizi Pubb. - WaaS (9b2bf50d-9a4f-49bc-8473-1b87408b70ea)
-- Consultazione Agevolazioni Tasse Univ. - WaaS (6832ec2f-cacf-483b-92fd-149219c4f06a)
-- Consultazione Agevolazioni Tributarie - WaaS (2dd25168-da15-485e-bef8-21003b03d2b3)
-- ANNCSU - Aggiornamento interni (54a312be-ab6b-4627-a73e-1f07e0b20914)
 - analytics-services_SDG (7afa3f39-5c80-45b2-a314-5b3ecda1bfea)
 - arch-common-service_SDG (c80fc0c7-e532-4222-bab3-478bb311be4b)
 - data-service-directory_SDG (f9650b99-dca2-4304-b3f0-105ef27e81e3)
 - evidence-broker_SDG (36e210c7-0da5-481c-904e-6f47fda61ed1)
-- INAIL_Gra_Durc (a51198a6-0b08-4958-9d80-6fb6d49e4bbc)
 - Richiesta Certificato del Debito (e85c57f7-5d94-45ad-b88b-9e81dc837a62)
 - ACCREDITAMENTO SUAP ED ENTI-TERZI - SUITE DI BLACK-BOX-TEST (e37dde23-93f2-4c8f-89a2-472cd0d4f380)
 - CATALOGO - GESTIONE ISTANZA - COMUNICA (5cc5a9be-9336-40ef-a87e-e044b19aeabf)
@@ -41,8 +81,6 @@ Modalità: WRITE
 - RGS - SIBI - Interrogazione elenco singole disposizioni (896e9437-b9f9-44d6-9107-28ca8f5d8374)
 - RGS - SIBI - Invio disposizioni - ricezione (18a4257f-4705-4f26-a06e-6c1b18a8ed3f)
 - RGS - SIBI - Rendicontazioni (43a82074-c4ec-4fd1-80cb-91221f4b8801)
-- APICIG (673e99b9-f7cc-4e1c-b319-677340d53956)
-- APICIG2 (0340d951-558c-499a-9ec5-08ef6da84104)
 - Verifica esito richiesta fascicolo e invio decisione (da7ec4f9-163b-40a1-93a6-80a545b5102c)
 - Servizio per la fornitura della Situazione Debitoria (622683b6-83e1-4adc-984d-7f9e70d4265c)
 - Revoca Wallet Instance (3820c986-ed71-44c3-b13b-a403ebfef91e)
@@ -61,8 +99,16 @@ Modalità: WRITE
 - Consultazione balneabilità laghi (2f07a53b-d3f5-4ab5-9834-8da30abca54a)
 - ARPAL-Alims Dati Analisi (43aadda6-04bc-4ca8-84dd-e768a0ec4447)
 - ARPAL-Alims Dati Servizio (b8b48c3f-d4de-4eb6-9ec9-94eae91a9605)
-- … e altri 56
+- ARPAL-Balneazione Cambi Stato (d7dc8738-8a05-4a4a-a24f-4b044d222745)
+- ARPAL-Balneazione Rete (7e9c5e42-5c72-4edd-bdd7-adc379ea0699)
+- Consultazione aree candidate al bando Italia 5G (548a3b48-ebbb-4c23-b8e3-3231908291b1)
+- Consultazione Aziende Agrobiodiversità (1a1d7b26-14e9-4f41-a265-50aee228b5a4)
+- Consultazione Bacini Sottesi (51913793-f898-4e79-b20c-b2703ebd8b9b)
+- Attestato formazione personale regionale - IT Wallet (08d35082-da90-4677-ab26-a4b1bf300d34)
+- Attestazione trasparenza apprendimenti - IT Wallet (73061316-8b48-4174-b204-4aaa6246d0c4)
+- Certificato qualificazione professionale- IT Wallet (6782534b-e537-4f0e-beb3-1360c3cea4fa)
+- … e altri 46
 
-✅ Scritta l'anteprima: /home/claude/repo/pipeline/pdnd-data.preview.json
+✅ Scritta l'anteprima: /home/runner/work/pdnd-eservices-graph/pdnd-eservices-graph/pipeline/pdnd-data.preview.json
 ℹ️  Il grafo live (src/data/pdnd-data.json) NON è stato modificato.
    Per promuovere l'anteprima a dato live, vedi pipeline/README.md.
