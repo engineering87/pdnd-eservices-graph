@@ -21,6 +21,9 @@
  *                           con permesso "models: read"); modello via GITHUB_MODEL
  *                           (default "openai/gpt-4.1")
  *  - ANTHROPIC_API_KEY      per engine "anthropic"; modello via ANTHROPIC_MODEL
+ *  - ANTHROPIC_EFFORT       livello di ragionamento Opus 4.7/4.8 (default "low";
+ *                           NB: per questi modelli 'temperature' va omessa)
+ *  - ANTHROPIC_MAX_TOKENS   tetto token di output (default 2048)
  *  - INFERENCE_MIN_CONF     soglia confidenza 0-1 (default 0.55)
  *  - INFERENCE_MAX_CALLS    tetto chiamate per run (default 200)
  *  - INFERENCE_DELAY_MS     pausa tra chiamate in ms (default 1500)
@@ -76,7 +79,19 @@ function extractJSON(text) {
 async function callAnthropic(system, user) {
   const key = process.env.ANTHROPIC_API_KEY;
   if (!key) throw new Error("ANTHROPIC_API_KEY mancante");
+  const effort = process.env.ANTHROPIC_EFFORT ?? "low";          // low: task semplice, costo/latency minimi
+  const maxTokens = parseInt(process.env.ANTHROPIC_MAX_TOKENS || "2048", 10);
   for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
+    // NB: 'temperature' NON va impostata. Opus 4.7/4.8 restituiscono 400 con
+    // sampling params (temperature/top_p/top_k) non-default. Il comportamento si
+    // guida via prompting ed 'effort' (output_config).
+    const payload = {
+      model: process.env.ANTHROPIC_MODEL || "claude-sonnet-4-6",
+      max_tokens: maxTokens,
+      system,
+      messages: [{ role: "user", content: user }],
+    };
+    if (effort) payload.output_config = { effort };
     const res = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
       headers: {
@@ -84,13 +99,7 @@ async function callAnthropic(system, user) {
         "x-api-key": key,
         "anthropic-version": "2023-06-01",
       },
-      body: JSON.stringify({
-        model: process.env.ANTHROPIC_MODEL || "claude-sonnet-4-6",
-        max_tokens: 400,
-        temperature: 0,
-        system,
-        messages: [{ role: "user", content: user }],
-      }),
+      body: JSON.stringify(payload),
     });
     // Rate limit (429) o overload (529): backoff e riprova
     if ((res.status === 429 || res.status === 529) && attempt < MAX_RETRIES) {
@@ -99,8 +108,12 @@ async function callAnthropic(system, user) {
       await sleep(wait);
       continue;
     }
-    if (!res.ok) throw new Error(`Anthropic HTTP ${res.status}`);
+    if (!res.ok) {
+      const body = await res.text().catch(() => "");
+      throw new Error(`Anthropic HTTP ${res.status}${body ? ": " + body.replace(/\s+/g, " ").slice(0, 200) : ""}`);
+    }
     const data = await res.json();
+    // Estrae solo i blocchi di testo (eventuali blocchi di thinking sono ignorati)
     return data.content.map(b => b.text || "").join("");
   }
   throw new Error("Anthropic: rate limit/overload persistente dopo i retry");
