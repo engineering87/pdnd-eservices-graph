@@ -1,0 +1,15 @@
+{
+  "_comment": "Allowlist dei catalogId su cui è permessa l'inferenza AI. Se non vuota, l'AI gira SOLO su questi e-service (gli altri restano certificati o senza archi). Mantiene l'inferenza in un perimetro curato e auditabile.",
+  "allow": [
+    "88f03670-80c9-4495-a24b-d6d582b584da",
+    "9b2bf50d-9a4f-49bc-8473-1b87408b70ea",
+    "6832ec2f-cacf-483b-92fd-149219c4f06a",
+    "2dd25168-da15-485e-bef8-21003b03d2b3",
+    "54a312be-ab6b-4627-a73e-1f07e0b20914",
+    "a51198a6-0b08-4958-9d80-6fb6d49e4bbc",
+    "673e99b9-f7cc-4e1c-b319-677340d53956",
+    "0340d951-558c-499a-9ec5-08ef6da84104",
+    "1f0bdc23-544c-4c8a-a620-fadca0c0a77b",
+    "3bac69b0-9d84-45bb-b36b-80e9ae9d4c81"
+  ]
+}

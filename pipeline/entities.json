@@ -550,6 +550,38 @@
       "categoria": "Comuni Aggregati",
       "descrizione": "~7.500 Comuni aderenti — servizi standard aggregati",
       "produces": false
+    },
+    {
+      "id": "ipzs",
+      "ipaCodes": [],
+      "name": "Ist. Poligrafico e Zecca",
+      "categoria": "Società pubblica",
+      "descrizione": "Istituto Poligrafico e Zecca dello Stato — IT-Wallet, documenti",
+      "produces": false
+    },
+    {
+      "id": "adm",
+      "ipaCodes": [],
+      "name": "Ag. Dogane e Monopoli",
+      "categoria": "Fisco",
+      "descrizione": "Agenzia delle Dogane e dei Monopoli",
+      "produces": false
+    },
+    {
+      "id": "notariato",
+      "ipaCodes": [],
+      "name": "Consiglio Naz. Notariato",
+      "categoria": "Ordini",
+      "descrizione": "Consiglio Nazionale del Notariato",
+      "produces": false
+    },
+    {
+      "id": "poste",
+      "ipaCodes": [],
+      "name": "Poste Italiane",
+      "categoria": "Società pubblica",
+      "descrizione": "Poste Italiane S.p.A.",
+      "produces": false
     }
   ]
 }

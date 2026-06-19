@@ -1,15 +1,191 @@
 {
-  "_comment": "Mappa le categorie di enti autorizzati alla fruizione (attributes.certified) sui nodi del grafo, come baseline deterministica degli archi. Gli id devono esistere in entities.json. Override in connections-overrides.json hanno precedenza.",
+  "_comment": "Mappa nomi del campo attributes.certified del catalogo PDND sui nodi del grafo. Categorie ampie → aggregati rappresentativi (eleggibilita di classe); enti nominati → nodi specifici. Override in connections-overrides.json hanno precedenza. Nomi non presenti qui non generano archi certificati.",
   "map": {
-    "Comuni e loro Consorzi e Associazioni": ["comuni_agg"],
-    "Unioni di Comuni e loro Consorzi e Associazioni": ["comuni_agg"],
-    "Citta' Metropolitane": ["comuni_agg"],
-    "Pubbliche Amministrazioni": ["comuni_agg"],
-    "Regioni, Province Autonome e loro Consorzi e Associazioni": ["r_lombardia", "r_lazio", "r_campania", "r_emilia", "r_toscana", "r_veneto", "r_piemonte"],
-    "Istituto Nazionale Previdenza Sociale - INPS": ["inps"],
-    "MINISTERO DELL'UNIVERSITA' E DELLA RICERCA": ["mur"],
-    "Cineca Consorzio Interuniversitario": ["cineca"],
-    "Ministero delle infrastrutture e dei trasporti": ["mit"],
-    "Presidenza del Consiglio dei Ministri, Ministeri e Avvocatura dello Stato": ["min_interno", "mlps", "mef", "min_cultura", "min_giustizia", "min_istruzione"]
+    "Pubbliche Amministrazioni": [
+      "comuni_agg"
+    ],
+    "Comuni e loro Consorzi e Associazioni": [
+      "comuni_agg"
+    ],
+    "Unioni di Comuni e loro Consorzi e Associazioni": [
+      "comuni_agg"
+    ],
+    "Citta' Metropolitane": [
+      "comuni_agg"
+    ],
+    "Comunita' Montane e loro Consorzi e Associazioni": [
+      "comuni_agg"
+    ],
+    "Province e loro Consorzi e Associazioni": [
+      "comuni_agg"
+    ],
+    "Regioni, Province Autonome e loro Consorzi e Associazioni": [
+      "r_lombardia",
+      "r_lazio",
+      "r_campania",
+      "r_emilia",
+      "r_toscana",
+      "r_veneto",
+      "r_piemonte"
+    ],
+    "Presidenza del Consiglio dei Ministri, Ministeri e Avvocatura dello Stato": [
+      "min_interno",
+      "mlps",
+      "mef",
+      "min_cultura",
+      "min_giustizia",
+      "min_istruzione"
+    ],
+    "Enti di Previdenza ed Assistenza Sociale in Conto Economico Consolidato pubblici": [
+      "inps",
+      "inail"
+    ],
+    "suap_backoffice": [
+      "comuni_agg"
+    ],
+    "suap_frontoffice": [
+      "comuni_agg"
+    ],
+    "suap_enteterzo": [
+      "comuni_agg"
+    ],
+    "sue_backoffice": [
+      "comuni_agg"
+    ],
+    "sue_frontoffice": [
+      "comuni_agg"
+    ],
+    "sue_enteterzo": [
+      "comuni_agg"
+    ],
+    "SSU_COMUNICA": [
+      "unioncamere"
+    ],
+    "SSU_REGISTRO_IMPRESE": [
+      "unioncamere"
+    ],
+    "SDG": [
+      "agid"
+    ],
+    "Istituto Nazionale Previdenza Sociale - INPS": [
+      "inps"
+    ],
+    "Agenzia delle Entrate": [
+      "ade"
+    ],
+    "Ministero della Cultura": [
+      "min_cultura"
+    ],
+    "Regione Campania": [
+      "r_campania"
+    ],
+    "Ministero dell'istruzione e del merito": [
+      "min_istruzione"
+    ],
+    "Ministero del Lavoro e delle Politiche Sociali": [
+      "mlps"
+    ],
+    "Autorita' Nazionale Anticorruzione - A.N.AC.": [
+      "anac"
+    ],
+    "Agenzia per L'Italia Digitale": [
+      "agid"
+    ],
+    "PagoPA S.p.A.": [
+      "pagopa"
+    ],
+    "Agenzia del Demanio": [
+      "ag_demanio"
+    ],
+    "MINISTERO DELL'UNIVERSITA' E DELLA RICERCA": [
+      "mur"
+    ],
+    "Cineca Consorzio Interuniversitario": [
+      "cineca"
+    ],
+    "Ministero delle infrastrutture e dei trasporti": [
+      "mit"
+    ],
+    "Regione Autonoma Friuli-Venezia Giulia": [
+      "r_friuli"
+    ],
+    "Regione Basilicata": [
+      "r_basilicata"
+    ],
+    "Regione del Veneto": [
+      "r_veneto"
+    ],
+    "Ministero dell'Economia e delle Finanze": [
+      "mef"
+    ],
+    "Ministero dell'Interno": [
+      "min_interno"
+    ],
+    "Agenzia delle Dogane e dei Monopoli": [
+      "adm"
+    ],
+    "Istituto Poligrafico e Zecca dello Stato S.P.A.": [
+      "ipzs"
+    ],
+    "Consiglio Nazionale del Notariato": [
+      "notariato"
+    ],
+    "Poste Italiane Spa": [
+      "poste"
+    ],
+    "Comune di Milano": [
+      "c_milano"
+    ],
+    "Comune di Napoli": [
+      "c_napoli"
+    ],
+    "Comune di Bologna": [
+      "c_bologna"
+    ],
+    "Comune di Genova": [
+      "c_genova"
+    ],
+    "Comune di Padova": [
+      "c_padova"
+    ],
+    "ROMA CAPITALE": [
+      "c_roma"
+    ],
+    "Comune di Lucca": [
+      "comuni_agg"
+    ],
+    "Comune di Modena": [
+      "comuni_agg"
+    ],
+    "Comune di Brescia": [
+      "comuni_agg"
+    ],
+    "Comune di Verona": [
+      "comuni_agg"
+    ],
+    "Comune di Venezia": [
+      "comuni_agg"
+    ],
+    "Comune di Ravenna": [
+      "comuni_agg"
+    ],
+    "Comune di Perugia": [
+      "comuni_agg"
+    ],
+    "Comune di Palermo": [
+      "comuni_agg"
+    ],
+    "Comune di Marsala": [
+      "comuni_agg"
+    ],
+    "Comune di Firenze": [
+      "comuni_agg"
+    ],
+    "Comune di Catania": [
+      "comuni_agg"
+    ],
+    "Citta' Metropolitana di Milano": [
+      "c_milano"
+    ]
   }
 }

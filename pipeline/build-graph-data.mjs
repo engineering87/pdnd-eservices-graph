@@ -91,8 +91,8 @@ function certifiedCategories(attributesRaw) {
     const a = JSON.parse(attributesRaw || "{}");
     const out = [];
     for (const c of a.certified || []) {
-      const nm = c?.single?.name || (Array.isArray(c?.group) ? c.group[0]?.name : null);
-      if (nm) out.push(nm);
+      if (c?.single?.name) out.push(c.single.name);
+      else if (Array.isArray(c?.group)) for (const m of c.group) if (m?.name) out.push(m.name);
     }
     return out;
   } catch {
@@ -202,9 +202,16 @@ async function main() {
     }
   }
 
-  // 4b. Inferenza AI per gli e-service ancora senza archi (origine: inferita)
+  // 4b. Inferenza AI per gli e-service ancora senza archi (origine: inferita).
+  // Se inference-allowlist.json contiene catalogId, l'AI gira SOLO su quelli:
+  // perimetro curato e auditabile, l'inferenza non si espande ai nuovi servizi.
   let aiStats = null;
-  const uncovered = eservices.filter(s => s.fruitori.length === 0);
+  let allowSet = null;
+  try {
+    const al = loadJSON(join(__dirname, "inference-allowlist.json"));
+    if (Array.isArray(al.allow) && al.allow.length) allowSet = new Set(al.allow);
+  } catch { /* nessun allowlist: l'AI considera tutti i servizi scoperti */ }
+  const uncovered = eservices.filter(s => s.fruitori.length === 0 && (!allowSet || allowSet.has(s.catalogId)));
   if (USE_AI && uncovered.length > 0) {
     const nodeVocab = entities.map(({ id, name, categoria }) => ({ id, name, categoria }));
     try {
@@ -286,6 +293,7 @@ async function main() {
   say(`- ✅ Certificata (attributes): **${byOrigine.certificata}**`);
   say(`- 🤖 Inferita (AI): **${byOrigine.inferita}**`);
   if (aiStats) {
+    if (allowSet) say(`\n_Inferenza AI ristretta all'allowlist: ${allowSet.size} e-service permessi._`);
     if (aiStats.error) say(`\n⚠️  Inferenza AI non eseguita: ${aiStats.error} (la pipeline è proseguita senza)`);
     else say(`\n### Inferenza AI\n- Engine: ${aiStats.engine} · soglia confidenza: ${aiStats.minConf}\n- Nuove chiamate: ${aiStats.calls} · accettate: ${aiStats.fresh} · da cache: ${aiStats.fromCache} · scartate: ${aiStats.dropped} · errori: ${aiStats.errors}${aiStats.errors > 0 && aiStats.lastError ? `\n- Ultimo errore: \`${aiStats.lastError}\`` : ""}`);
   } else if (!USE_AI) {
