@@ -289,6 +289,17 @@ tracciati singolarmente e non campioni di un insieme. La normalizzazione si appl
 conservano i nomi puntuali, perché in quei casi l’ente è ancorato rispettivamente
 al campo `attributes.certified` del catalogo o a una fonte ufficiale.
 
+**Riproducibilità (inferenze congelate).** Per garantire che il grafo sia
+riproducibile, le inferenze del modello non sono rigenerate a ogni esecuzione: una
+volta prodotte e normalizzate, vengono fissate nel file versionato
+`pipeline/connections-frozen.json` e riapplicate in modo deterministico. La
+pipeline non effettua quindi chiamate AI a runtime per impostazione predefinita
+(l’allowlist `inference-allowlist.json` è vuota); il modello viene riusato solo come
+strumento di scoperta, in modo esplicito, aggiungendo un catalogId all’allowlist.
+Gli archi così congelati restano dichiarati come stime (origine *inferita*,
+tratteggiati) e non come fatti documentati.
+
+
 
 ### 3.5 Tipi di servizio (service-type) vs endpoint del catalogo
 

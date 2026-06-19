@@ -136,6 +136,10 @@ async function main() {
   const entities = loadJSON(join(__dirname, "entities.json")).entities;
   const categoryMap = loadJSON(join(__dirname, "category-map.json")).map;
   const overrides = loadJSON(join(__dirname, "connections-overrides.json")).overrides;
+  // Layer congelato: inferenze AI curate e fissate nel dato versionato (deterministico).
+  let frozen = {};
+  try { frozen = loadJSON(join(__dirname, "connections-frozen.json")).frozen || {}; }
+  catch { /* nessun file frozen: nessuna inferenza congelata */ }
   const validNodeIds = new Set(entities.map(e => e.id));
 
   // Previous data (for drop guard + diff). Confronta con l'anteprima precedente;
@@ -173,7 +177,7 @@ async function main() {
 
     for (const r of pool) {
       const id = shortId(ent.id, r.id);
-      // Determina fruitori e provenienza: override (documentata) > baseline certified (certificata)
+      // Determina fruitori e provenienza: override (documentata) > certified (certificata) > frozen (inferita)
       let fruitori = [], origine = null;
       if (overrides[r.id]) {
         fruitori = overrides[r.id].filter(n => validNodeIds.has(n) && n !== ent.id);
@@ -184,6 +188,13 @@ async function main() {
         for (const c of cats) (categoryMap[c] || []).forEach(n => { if (validNodeIds.has(n) && n !== ent.id) set.add(n); });
         fruitori = [...set];
         if (fruitori.length) origine = "certificata";
+      }
+      // Inferenze congelate: applicate solo se non già coperte da override o certificato.
+      // Sono stime curate fissate nel dato (origine "inferita"), così il grafo resta
+      // deterministico senza dipendere da una chiamata AI a runtime.
+      if (!fruitori.length && frozen[r.id]) {
+        fruitori = frozen[r.id].filter(n => validNodeIds.has(n) && n !== ent.id);
+        if (fruitori.length) origine = "inferita";
       }
 
       eservices.push({
@@ -202,16 +213,19 @@ async function main() {
     }
   }
 
-  // 4b. Inferenza AI per gli e-service ancora senza archi (origine: inferita).
-  // Se inference-allowlist.json contiene catalogId, l'AI gira SOLO su quelli:
-  // perimetro curato e auditabile, l'inferenza non si espande ai nuovi servizi.
+  // 4b. Inferenza AI a runtime (origine: inferita), SOLO sui catalogId in allowlist.
+  // Semantica: allowlist vuota o assente => nessuna inferenza a runtime. Le inferenze
+  // curate vivono nel file frozen (deterministiche); l'AI live va riabilitata in modo
+  // esplicito aggiungendo un catalogId all'allowlist.
   let aiStats = null;
   let allowSet = null;
   try {
     const al = loadJSON(join(__dirname, "inference-allowlist.json"));
     if (Array.isArray(al.allow) && al.allow.length) allowSet = new Set(al.allow);
-  } catch { /* nessun allowlist: l'AI considera tutti i servizi scoperti */ }
-  const uncovered = eservices.filter(s => s.fruitori.length === 0 && (!allowSet || allowSet.has(s.catalogId)));
+  } catch { /* nessun allowlist: nessuna inferenza a runtime */ }
+  const uncovered = allowSet
+    ? eservices.filter(s => s.fruitori.length === 0 && allowSet.has(s.catalogId))
+    : [];
   if (USE_AI && uncovered.length > 0) {
     const nodeVocab = entities.map(({ id, name, categoria }) => ({ id, name, categoria }));
     try {

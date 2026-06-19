@@ -1,0 +1,14 @@
+{
+  "_comment": "Inferenze AI CONGELATE. Stime erogatore->fruitore prodotte una volta dal modello (Opus) e fissate qui nel dato versionato, così il grafo è deterministico e riproducibile senza chiamate AI a runtime. Restano dichiarate come stime: in uscita portano origine 'inferita' (tratteggiate nel grafo), non sono fatti documentati. Si applicano solo agli e-service non coperti da override (documentata) o da campo certified (certificata). Per ri-derivarle da capo, aggiungere il catalogId a inference-allowlist.json. Chiave = catalogId; valore = id-nodo fruitori (devono esistere in entities.json).",
+  "_snapshot": "2026-06-19 — Opus 4.8, post-collasso su aggregati (comuni_agg/regioni_agg) e con enti distinti nominati.",
+  "frozen": {
+    "88f03670-80c9-4495-a24b-d6d582b584da": ["comuni_agg", "regioni_agg"],
+    "9b2bf50d-9a4f-49bc-8473-1b87408b70ea": ["comuni_agg", "regioni_agg", "ade", "ade_riscossione"],
+    "6832ec2f-cacf-483b-92fd-149219c4f06a": ["mur", "cineca", "regioni_agg"],
+    "2dd25168-da15-485e-bef8-21003b03d2b3": ["comuni_agg"],
+    "54a312be-ab6b-4627-a73e-1f07e0b20914": ["comuni_agg"],
+    "a51198a6-0b08-4958-9d80-6fb6d49e4bbc": ["anac", "inps", "comuni_agg", "regioni_agg", "mit", "ade", "unioncamere"],
+    "673e99b9-f7cc-4e1c-b319-677340d53956": ["mef", "ade", "ade_riscossione", "mit", "min_interno", "inps", "inail", "comuni_agg", "regioni_agg", "adm", "ag_demanio"],
+    "0340d951-558c-499a-9ec5-08ef6da84104": ["comuni_agg", "regioni_agg", "mef", "mit", "ade", "ag_demanio"]
+  }
+}
