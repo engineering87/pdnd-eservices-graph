@@ -1,0 +1,1806 @@
+{
+  "49cb628f-be12-4eb5-8c3a-e469db43440b": {
+    "fruitori": [
+      "agid"
+    ],
+    "confidenza": 0.82,
+    "motivazione": "INAD (Indice Nazionale dei Domicili Digitali) è gestito da AgID, che fruisce delle API ANPR per sincronizzare i domicili digitali."
+  },
+  "936f081c-141e-4601-a9aa-4a6b5437bbfe": {
+    "fruitori": [
+      "inps",
+      "ade",
+      "ade_riscossione",
+      "inail",
+      "min_giustizia",
+      "mlps",
+      "unioncamere",
+      "c_milano",
+      "c_roma",
+      "c_napoli",
+      "c_bologna",
+      "c_genova",
+      "c_padova",
+      "comuni_agg",
+      "r_lombardia",
+      "r_lazio",
+      "r_campania",
+      "r_toscana",
+      "r_veneto",
+      "r_emilia",
+      "r_piemonte",
+      "r_puglia",
+      "r_sicilia"
+    ],
+    "confidenza": 0.85,
+    "motivazione": "I certificati anagrafici ANPR sono consultati da enti previdenziali, fiscali, giudiziari, lavoro e da comuni/regioni per istruttoria pratiche e verifica residenza/stato civile."
+  },
+  "e9ed562f-cc12-46ab-91e3-e8199bee9728": {
+    "fruitori": [],
+    "confidenza": 0.2,
+    "motivazione": "La descrizione generica 'servizio di Notifica' non consente di dedurre con ragionevole certezza specifiche categorie di enti fruitori."
+  },
+  "c0e20947-7c1a-416e-9abf-0dfbfb3fec24": {
+    "fruitori": [],
+    "confidenza": 0.15,
+    "motivazione": "La descrizione generica 'servizio di Comunicazione' non consente di dedurre con ragionevole certezza la funzione e quindi i fruitori specifici."
+  },
+  "c08ebda5-1641-4258-a70f-f12b50c6016c": {
+    "fruitori": [
+      "inps",
+      "ade",
+      "mef",
+      "min_giustizia",
+      "ade_riscossione",
+      "mlps",
+      "inail",
+      "comuni_agg",
+      "r_lombardia",
+      "r_lazio",
+      "r_campania"
+    ],
+    "confidenza": 0.4,
+    "motivazione": "La verifica delle generalità dichiarate è un servizio anagrafico/identità del Min. Interno utile a numerosi enti per controlli su istanze e dati dei cittadini, ma la lista precisa dei fruitori non è u"
+  },
+  "ea3e08b5-47d2-47e4-bcd8-9fe7a988a3c9": {
+    "fruitori": [
+      "inps",
+      "ade",
+      "inail",
+      "mef",
+      "ade_riscossione",
+      "mlps",
+      "r_lombardia",
+      "r_lazio",
+      "r_campania",
+      "r_sicilia",
+      "r_friuli",
+      "pa_bolzano",
+      "r_liguria",
+      "r_toscana",
+      "r_molise",
+      "r_puglia",
+      "pa_trento",
+      "r_abruzzo",
+      "r_emilia",
+      "r_piemonte",
+      "r_veneto",
+      "r_marche",
+      "r_umbria",
+      "r_vda",
+      "r_basilicata",
+      "r_sardegna",
+      "r_calabria",
+      "c_milano",
+      "c_roma",
+      "c_napoli",
+      "c_bologna",
+      "c_genova",
+      "c_padova",
+      "comuni_agg"
+    ],
+    "confidenza": 0.6,
+    "motivazione": "La verifica delle dichiarazioni di generalità anagrafiche è utile a un'ampia platea di enti che devono validare l'identità dei cittadini nei propri procedimenti."
+  },
+  "88f03670-80c9-4495-a24b-d6d582b584da": {
+    "fruitori": [
+      "c_milano",
+      "c_roma",
+      "c_napoli",
+      "c_bologna",
+      "c_genova",
+      "c_padova",
+      "comuni_agg",
+      "r_lombardia",
+      "r_lazio",
+      "r_campania",
+      "r_toscana",
+      "r_emilia",
+      "r_piemonte",
+      "r_veneto",
+      "mlps"
+    ],
+    "confidenza": 0.7,
+    "motivazione": "I dati su prestazioni di accoglienza per adulti e anziani sono tipicamente usati dai servizi sociali di Comuni e Regioni per verifiche socio-assistenziali."
+  },
+  "423385e8-1a06-4b26-bafb-33b1af64a0a6": {
+    "fruitori": [
+      "min_giustizia",
+      "comuni_agg",
+      "min_interno"
+    ],
+    "confidenza": 0.4,
+    "motivazione": "I dati sull'adozione internazionale possono servire ai comuni per servizi sociali/anagrafe e al Ministero della Giustizia (tribunali minorenni) per pratiche di adozione."
+  },
+  "5c9248fd-1cb8-4dec-b68c-bfd0dededaf0": {
+    "fruitori": [
+      "min_giustizia",
+      "c_milano",
+      "c_roma",
+      "c_napoli",
+      "c_bologna",
+      "c_genova",
+      "c_padova",
+      "comuni_agg"
+    ],
+    "confidenza": 0.5,
+    "motivazione": "I servizi sociali comunali e il Tribunale dei Minorenni (Min. Giustizia) verificano le prestazioni di adozione nazionale a fini istruttori e di sostegno."
+  },
+  "9b2bf50d-9a4f-49bc-8473-1b87408b70ea": {
+    "fruitori": [
+      "c_milano",
+      "c_roma",
+      "c_napoli",
+      "c_bologna",
+      "c_genova",
+      "c_padova",
+      "comuni_agg",
+      "r_lombardia",
+      "r_lazio",
+      "r_campania",
+      "r_toscana",
+      "r_emilia",
+      "r_piemonte",
+      "r_veneto"
+    ],
+    "confidenza": 0.7,
+    "motivazione": "Le agevolazioni sui servizi di pubblica utilità sono gestite e verificate principalmente da Comuni e Regioni che erogano i benefici ai cittadini."
+  },
+  "6832ec2f-cacf-483b-92fd-149219c4f06a": {
+    "fruitori": [
+      "mur",
+      "cineca",
+      "r_lombardia",
+      "r_lazio",
+      "r_campania",
+      "r_toscana",
+      "r_emilia",
+      "r_piemonte",
+      "r_veneto",
+      "r_puglia",
+      "r_sicilia"
+    ],
+    "confidenza": 0.6,
+    "motivazione": "Le agevolazioni sulle tasse universitarie interessano università/MUR, Cineca e gli enti regionali per il diritto allo studio (DSU)."
+  },
+  "2dd25168-da15-485e-bef8-21003b03d2b3": {
+    "fruitori": [
+      "c_milano",
+      "c_roma",
+      "c_napoli",
+      "c_bologna",
+      "c_genova",
+      "c_padova",
+      "comuni_agg"
+    ],
+    "confidenza": 0.7,
+    "motivazione": "Le agevolazioni tributarie comunali sono gestite dai Comuni, principali fruitori della verifica delle prestazioni INPS legate a tributi locali."
+  },
+  "6445be6b-0d1d-4a20-970d-ac2326c7bfff": {
+    "fruitori": [
+      "mef",
+      "ade_riscossione",
+      "comuni_agg",
+      "istat",
+      "min_interno"
+    ],
+    "confidenza": 0.4,
+    "motivazione": "Il catalogo degli immobili demaniali interessa principalmente enti fiscali/finanziari ed enti territoriali per gestione patrimoniale e tributaria."
+  },
+  "652f6ef7-6a89-4cb4-891f-21215731e0d2": {
+    "fruitori": [
+      "mef",
+      "ag_demanio",
+      "ade_riscossione",
+      "sogei"
+    ],
+    "confidenza": 0.45,
+    "motivazione": "Il catalogo immobili pubblici interessa principalmente MEF/Tesoro, Agenzia del Demanio per la gestione patrimoniale e Sogei come gestore tecnico, oltre alla riscossione per fini fiscali."
+  },
+  "c41f8c3c-375b-4162-9505-6862c6c75e7a": {
+    "fruitori": [
+      "c_milano",
+      "c_roma",
+      "c_napoli",
+      "c_bologna",
+      "c_genova",
+      "c_padova",
+      "comuni_agg",
+      "min_interno"
+    ],
+    "confidenza": 0.78,
+    "motivazione": "L'ANNCSU gestita da AdE è alimentata dai grandi Comuni che aggiornano stradario/numerazione civica e relative coordinate, con interesse di ANPR per la toponomastica."
+  },
+  "54a312be-ab6b-4627-a73e-1f07e0b20914": {
+    "fruitori": [
+      "comuni_agg",
+      "c_milano",
+      "c_roma",
+      "c_napoli",
+      "c_bologna",
+      "c_genova",
+      "c_padova",
+      "min_interno"
+    ],
+    "confidenza": 0.7,
+    "motivazione": "ANNCSU (Archivio Nazionale Numeri Civici e Strade Urbane) è alimentato e aggiornato dai Comuni, principali responsabili della toponomastica e degli accessi interni."
+  },
+  "7afa3f39-5c80-45b2-a314-5b3ecda1bfea": {
+    "fruitori": [],
+    "confidenza": 0.2,
+    "motivazione": "Il servizio di analytics SDG di AgID è uno strumento trasversale potenzialmente usato da qualunque PA, quindi non è possibile dedurre fruitori specifici tra i nodi disponibili."
+  },
+  "c80fc0c7-e532-4222-bab3-478bb311be4b": {
+    "fruitori": [
+      "min_interno",
+      "ade",
+      "inps",
+      "unioncamere",
+      "comuni_agg",
+      "r_lombardia",
+      "r_lazio",
+      "r_campania",
+      "r_emilia"
+    ],
+    "confidenza": 0.3,
+    "motivazione": "Il servizio SDG/OOTS per lo scambio transfrontaliero di evidenze coinvolge potenzialmente le amministrazioni che detengono evidenze certificate (registri, anagrafe, fisco, imprese), ma i fruitori spec"
+  },
+  "f9650b99-dca2-4304-b3f0-105ef27e81e3": {
+    "fruitori": [],
+    "confidenza": 0.2,
+    "motivazione": "Il servizio SDG (Single Digital Gateway) di AgID è un componente infrastrutturale per il sistema OOTS la cui fruizione cross-border non è chiaramente associabile a specifiche categorie di enti nel voc"
+  },
+  "36e210c7-0da5-481c-904e-6f47fda61ed1": {
+    "fruitori": [
+      "r_lombardia",
+      "r_lazio",
+      "r_campania",
+      "r_sicilia",
+      "r_friuli",
+      "pa_bolzano",
+      "r_liguria",
+      "r_toscana",
+      "r_molise",
+      "r_puglia",
+      "pa_trento",
+      "r_abruzzo",
+      "r_emilia",
+      "r_piemonte",
+      "r_veneto",
+      "r_marche",
+      "r_umbria",
+      "r_vda",
+      "r_basilicata",
+      "r_sardegna",
+      "r_calabria",
+      "c_milano",
+      "c_roma",
+      "c_napoli",
+      "c_bologna",
+      "c_genova",
+      "c_padova",
+      "comuni_agg"
+    ],
+    "confidenza": 0.55,
+    "motivazione": "L'Evidence Broker SDG espone requisiti dei procedimenti amministrativi, utili soprattutto a Regioni e Comuni che gestiscono procedimenti per cittadini e imprese nel quadro Single Digital Gateway."
+  },
+  "99263b13-8546-4a21-b207-f7fe85bb0b50": {
+    "fruitori": [
+      "min_interno"
+    ],
+    "confidenza": 0.6,
+    "motivazione": "L'integrazione tecnica tra ANPR (gestito dal Min. Interno) e INAD richiede principalmente la fruizione da parte del titolare di ANPR per allineare i domicili digitali con l'anagrafe."
+  },
+  "2d97cffc-27cb-4705-a21d-9e1084aec9e3": {
+    "fruitori": [
+      "min_interno",
+      "inps",
+      "ade",
+      "inail",
+      "unioncamere",
+      "mef",
+      "anac",
+      "mit_dgmot",
+      "min_giustizia",
+      "ade_riscossione",
+      "mlps",
+      "mit",
+      "r_lombardia",
+      "r_lazio",
+      "r_campania",
+      "r_sicilia",
+      "r_friuli",
+      "pa_bolzano",
+      "r_liguria",
+      "r_toscana",
+      "r_molise",
+      "r_puglia",
+      "pa_trento",
+      "r_abruzzo",
+      "r_emilia",
+      "r_piemonte",
+      "r_veneto",
+      "r_marche",
+      "r_umbria",
+      "r_vda",
+      "r_basilicata",
+      "r_sardegna",
+      "r_calabria",
+      "c_milano",
+      "c_roma",
+      "c_napoli",
+      "c_bologna",
+      "c_genova",
+      "c_padova",
+      "comuni_agg"
+    ],
+    "confidenza": 0.85,
+    "motivazione": "La consultazione dei domicili digitali INAD è destinata a tutte le PA e gestori di pubblici servizi che inviano notifiche/comunicazioni ai cittadini."
+  },
+  "0fd99b5d-e6b7-492f-8e11-dae1411cabbf": {
+    "fruitori": [
+      "min_interno",
+      "inps",
+      "ade",
+      "inail",
+      "unioncamere",
+      "mef",
+      "anac",
+      "mit_dgmot",
+      "min_giustizia",
+      "ade_riscossione",
+      "mlps",
+      "mit",
+      "dfp",
+      "ag_demanio",
+      "r_lombardia",
+      "r_lazio",
+      "r_campania",
+      "r_sicilia",
+      "r_friuli",
+      "pa_bolzano",
+      "r_liguria",
+      "r_toscana",
+      "r_molise",
+      "r_puglia",
+      "pa_trento",
+      "r_abruzzo",
+      "r_emilia",
+      "r_piemonte",
+      "r_veneto",
+      "r_marche",
+      "r_umbria",
+      "r_vda",
+      "r_basilicata",
+      "r_sardegna",
+      "r_calabria",
+      "c_milano",
+      "c_roma",
+      "c_napoli",
+      "c_bologna",
+      "c_genova",
+      "c_padova",
+      "comuni_agg"
+    ],
+    "confidenza": 0.85,
+    "motivazione": "La consultazione dei domicili digitali INAD è di interesse trasversale per tutte le PA e i gestori di pubblici servizi che inviano comunicazioni ufficiali ai cittadini."
+  },
+  "27d0b921-bd8b-4c17-b5dd-761a6fff7cb8": {
+    "fruitori": [
+      "inps",
+      "mlps"
+    ],
+    "confidenza": 0.3,
+    "motivazione": "Le comunicazioni obbligatorie sui rapporti di lavoro interessano gli enti previdenziali e il Ministero del Lavoro, ma il flusso descritto è una ricezione interna a INAIL difficile da mappare su fruito"
+  },
+  "a51198a6-0b08-4958-9d80-6fb6d49e4bbc": {
+    "fruitori": [
+      "anac",
+      "inps",
+      "mlps",
+      "ade",
+      "unioncamere",
+      "comuni_agg",
+      "r_lombardia",
+      "r_lazio",
+      "r_campania",
+      "r_veneto",
+      "r_emilia",
+      "r_piemonte",
+      "r_toscana",
+      "r_puglia",
+      "r_sicilia"
+    ],
+    "confidenza": 0.62,
+    "motivazione": "Il DURC (regolarità contributiva) è consultato da stazioni appaltanti e enti che gestiscono contratti pubblici e verifiche su imprese: ANAC, INPS, Min. Lavoro, Agenzia Entrate, Camere di commercio, Co"
+  },
+  "16444299-2354-44c9-b587-bcb29ee29a0f": {
+    "fruitori": [
+      "mlps",
+      "inps"
+    ],
+    "confidenza": 0.45,
+    "motivazione": "Servizio INAIL sui tassi (probabilmente assicurativi/INAIL) verosimilmente fruito dal Ministero del Lavoro e dall'INPS per coordinamento previdenziale e politiche del lavoro."
+  },
+  "e85c57f7-5d94-45ad-b88b-9e81dc837a62": {
+    "fruitori": [
+      "ade_riscossione",
+      "ade",
+      "anac",
+      "mef"
+    ],
+    "confidenza": 0.45,
+    "motivazione": "Il certificato di regolarità/debito contributivo INAIL è tipicamente consultato per verifiche di regolarità nelle gare e per riscossione coattiva, quindi utile ad ANAC, AdE Riscossione, Agenzia Entrat"
+  },
+  "e37dde23-93f2-4c8f-89a2-472cd0d4f380": {
+    "fruitori": [
+      "comuni_agg",
+      "c_milano",
+      "c_roma",
+      "c_napoli",
+      "c_bologna",
+      "c_genova",
+      "c_padova"
+    ],
+    "confidenza": 0.55,
+    "motivazione": "Lo SUAP è gestito dai Comuni, che insieme agli enti terzi necessitano dei black-box-test di accreditamento alla piattaforma camerale."
+  },
+  "8d75b585-715c-40a0-a9c5-7108b8cbd5dc": {
+    "fruitori": [
+      "c_milano",
+      "c_roma",
+      "c_napoli",
+      "c_bologna",
+      "c_genova",
+      "c_padova",
+      "comuni_agg"
+    ],
+    "confidenza": 0.78,
+    "motivazione": "Il SUAP è una funzione comunale, quindi i Back Office che recuperano e aggiornano le istanze sono tipicamente i Comuni titolari dello sportello unico."
+  },
+  "5cc5a9be-9336-40ef-a87e-e044b19aeabf": {
+    "fruitori": [],
+    "confidenza": 0.2,
+    "motivazione": "ComUnica è il sistema interno del sistema camerale (Registro Imprese) per la Comunicazione Unica d'impresa e non corrisponde ad alcun nodo presente nella lista dei fruitori disponibili."
+  },
+  "1bcf7afa-dcc6-4674-8f2c-978da051d065": {
+    "fruitori": [],
+    "confidenza": 0.2,
+    "motivazione": "Il servizio è un'API tecnica interna rivolta ai Back Office di 'Enti Terzi' generici per la gestione del descrittore istanza, senza indicazioni sufficienti per identificare categorie specifiche di fru"
+  },
+  "16e87af1-d005-491d-88ae-e02a0f45174d": {
+    "fruitori": [
+      "c_milano",
+      "c_roma",
+      "c_napoli",
+      "c_bologna",
+      "c_genova",
+      "c_padova",
+      "comuni_agg"
+    ],
+    "confidenza": 0.72,
+    "motivazione": "Il SUAP è gestito dai Comuni che, tramite i propri Front Office, recuperano e aggiornano i descrittori delle istanze nel sistema camerale di Unioncamere."
+  },
+  "48df8b36-2173-45bc-9337-bd3127f00911": {
+    "fruitori": [],
+    "confidenza": 0.2,
+    "motivazione": "Si tratta di un'API tecnica interna di gestione catalogo/descrittore istanza del Registro Imprese, senza fruitori esterni chiaramente deducibili dal dominio."
+  },
+  "df6de05b-f7aa-441b-9deb-39011c23fbfc": {
+    "fruitori": [
+      "comuni_agg",
+      "c_milano",
+      "c_roma",
+      "c_napoli",
+      "c_bologna",
+      "c_genova",
+      "c_padova"
+    ],
+    "confidenza": 0.55,
+    "motivazione": "Lo SUAP/sportello unico è gestito dai Comuni, che hanno interesse a verificare la data di attivazione dello sportello per la municipalità."
+  },
+  "7a850b8b-4307-491f-9534-771e212d4c45": {
+    "fruitori": [],
+    "confidenza": 0.2,
+    "motivazione": "Un servizio di catalogo metadati interno dei procedimenti camerali non ha fruitori chiaramente deducibili tra i nodi elencati."
+  },
+  "a957566b-e0b3-4c8a-a8f8-e3713261bcfb": {
+    "fruitori": [
+      "ade",
+      "ag_demanio",
+      "istat"
+    ],
+    "confidenza": 0.35,
+    "motivazione": "I dati sul patrimonio immobiliare del Demanio interessano principalmente l'Agenzia del Demanio che li gestisce, il Fisco per finalità catastali/fiscali e l'ISTAT per finalità statistiche, ma l'inferen"
+  },
+  "dfd69963-a321-4484-bc69-bc8d2ea62f58": {
+    "fruitori": [],
+    "confidenza": 0.2,
+    "motivazione": "SIBI è un sistema interno della RGS/MEF per disposizioni e flussi di pagamento, i cui fruitori specifici non sono ragionevolmente deducibili tra i nodi disponibili."
+  },
+  "896e9437-b9f9-44d6-9107-28ca8f5d8374": {
+    "fruitori": [],
+    "confidenza": 0.2,
+    "motivazione": "Il servizio SIBI riguarda la gestione interna dei pagamenti/disposizioni della RGS-MEF, tipicamente ad uso interno o di Sogei, senza fruitori esterni chiaramente deducibili."
+  },
+  "18a4257f-4705-4f26-a06e-6c1b18a8ed3f": {
+    "fruitori": [],
+    "confidenza": 0.2,
+    "motivazione": "Il servizio SIBI per disposizioni OPI riguarda flussi tesoreria/SIOPE tipicamente gestiti internamente al MEF/Sogei e dalla Banca d'Italia, fruitori non chiaramente deducibili tra i nodi disponibili."
+  },
+  "43a82074-c4ec-4fd1-80cb-91221f4b8801": {
+    "fruitori": [],
+    "confidenza": 0.2,
+    "motivazione": "Servizio interno MEF/Sogei sulle rendicontazioni SIBI, i cui fruitori non sono deducibili con sufficiente certezza dal vocabolario disponibile."
+  },
+  "7fbf061c-097e-477d-8ff0-c53a63f31522": {
+    "fruitori": [
+      "ade"
+    ],
+    "confidenza": 0.6,
+    "motivazione": "Si tratta di un e-service di callback verso l'Agenzia delle Entrate per acquisire le risposte sugli atti non definitivamente accertati, quindi il fruitore principale è AdE."
+  },
+  "0181b4fe-909c-442f-a2d8-de34daa56c73": {
+    "fruitori": [
+      "ade"
+    ],
+    "confidenza": 0.6,
+    "motivazione": "Il servizio di callback ANAC acquisisce le risposte ai dati reddituali, quindi è l'Agenzia delle Entrate che invia le risposte e interagisce come controparte tecnica."
+  },
+  "5ae8c18d-18aa-4e4b-8bae-53e7e71e6f22": {
+    "fruitori": [
+      "ade"
+    ],
+    "confidenza": 0.4,
+    "motivazione": "Trattandosi di un callback che acquisisce le risposte di AdE alle richieste di regolarità fiscale, il flusso coinvolge l'Agenzia delle Entrate, ma il pattern di callback rende incerta l'identificazion"
+  },
+  "673e99b9-f7cc-4e1c-b319-677340d53956": {
+    "fruitori": [
+      "min_interno",
+      "inps",
+      "ade",
+      "inail",
+      "unioncamere",
+      "mef",
+      "mit_dgmot",
+      "min_giustizia",
+      "min_cultura",
+      "mur",
+      "ade_riscossione",
+      "istat",
+      "mlps",
+      "mit",
+      "dfp",
+      "ag_demanio",
+      "min_istruzione",
+      "r_lombardia",
+      "r_lazio",
+      "r_campania",
+      "r_sicilia",
+      "r_friuli",
+      "pa_bolzano",
+      "r_liguria",
+      "r_toscana",
+      "r_molise",
+      "r_puglia",
+      "pa_trento",
+      "r_abruzzo",
+      "r_emilia",
+      "r_piemonte",
+      "r_veneto",
+      "r_marche",
+      "r_umbria",
+      "r_vda",
+      "r_basilicata",
+      "r_sardegna",
+      "r_calabria",
+      "c_milano",
+      "c_roma",
+      "c_napoli",
+      "c_bologna",
+      "c_genova",
+      "c_padova",
+      "comuni_agg"
+    ],
+    "confidenza": 0.78,
+    "motivazione": "Tutte le stazioni appaltanti pubbliche (ministeri, regioni, comuni ed enti) utilizzano i dati CIG/smartCIG per la gestione e verifica delle procedure di gara."
+  },
+  "0340d951-558c-499a-9ec5-08ef6da84104": {
+    "fruitori": [
+      "min_interno",
+      "inps",
+      "ade",
+      "mef",
+      "mit",
+      "mlps",
+      "ag_demanio",
+      "r_lombardia",
+      "r_lazio",
+      "r_campania",
+      "r_sicilia",
+      "r_friuli",
+      "pa_bolzano",
+      "r_liguria",
+      "r_toscana",
+      "r_molise",
+      "r_puglia",
+      "pa_trento",
+      "r_abruzzo",
+      "r_emilia",
+      "r_piemonte",
+      "r_veneto",
+      "r_marche",
+      "r_umbria",
+      "r_vda",
+      "r_basilicata",
+      "r_sardegna",
+      "r_calabria",
+      "c_milano",
+      "c_roma",
+      "c_napoli",
+      "c_bologna",
+      "c_genova",
+      "c_padova",
+      "comuni_agg"
+    ],
+    "confidenza": 0.7,
+    "motivazione": "Le informazioni su CIG e stazioni appaltanti sono utili a tutte le PA che operano come stazioni appaltanti o effettuano verifiche su gare e appalti."
+  },
+  "b028dc1a-d494-4450-b2b6-4afaa6acec89": {
+    "fruitori": [
+      "min_interno",
+      "anac",
+      "inps",
+      "mlps",
+      "comuni_agg"
+    ],
+    "confidenza": 0.55,
+    "motivazione": "Il certificato giudiziale serve a enti che verificano requisiti morali/antimafia per autorizzazioni, gare e procedimenti amministrativi."
+  },
+  "e2c2b882-79ae-4d10-9e5b-cc723fb98a2f": {
+    "fruitori": [
+      "min_interno"
+    ],
+    "confidenza": 0.4,
+    "motivazione": "L'art. 32 D.P.R. 313/2002 riguarda il casellario giudiziale e le sanzioni amministrative, dato di interesse principalmente per le autorità di pubblica sicurezza, ma l'inferenza sui fruitori resta debo"
+  },
+  "da7ec4f9-163b-40a1-93a6-80a545b5102c": {
+    "fruitori": [
+      "mef"
+    ],
+    "confidenza": 0.55,
+    "motivazione": "La Giustizia Tributaria è incardinata presso il MEF, che gestisce i flussi del processo tributario telematico con la Corte di Cassazione."
+  },
+  "2415b4f3-e401-405e-a3b0-fa16ab180e25": {
+    "fruitori": [
+      "c_milano",
+      "c_roma",
+      "c_napoli",
+      "c_bologna",
+      "c_genova",
+      "c_padova",
+      "comuni_agg",
+      "unioncamere"
+    ],
+    "confidenza": 0.72,
+    "motivazione": "Il servizio SUAP 'Ente Terzo' del MiC è tipicamente consumato dai SUAP comunali (e dalle Camere di Commercio tramite Unioncamere) per acquisire pareri/endoprocedimenti culturali nei procedimenti unici"
+  },
+  "06a2d800-1f5f-46d0-8602-d1ed7eabedf6": {
+    "fruitori": [
+      "inps",
+      "ade",
+      "min_istruzione",
+      "mlps",
+      "inail"
+    ],
+    "confidenza": 0.5,
+    "motivazione": "La verifica delle iscrizioni a Istituti di Formazione Superiore è utile a enti previdenziali, fiscali e del lavoro per controllo requisiti, benefici e prestazioni."
+  },
+  "b943e5ed-1cdc-4010-8bd7-da6ee221b923": {
+    "fruitori": [
+      "min_interno",
+      "inps",
+      "ade",
+      "mlps",
+      "min_istruzione",
+      "unioncamere"
+    ],
+    "confidenza": 0.55,
+    "motivazione": "La verifica dei titoli di formazione superiore è utile a enti che controllano requisiti, prestazioni previdenziali, posizioni fiscali e mercato del lavoro."
+  },
+  "d6d7b30f-5931-4a8e-93d5-ad3734e380ca": {
+    "fruitori": [
+      "min_istruzione",
+      "min_cultura",
+      "cineca",
+      "istat",
+      "inps"
+    ],
+    "confidenza": 0.35,
+    "motivazione": "Enti del comparto istruzione/cultura e statistico potrebbero consultare l'elenco degli istituti AFAM, ma l'inferenza è debole."
+  },
+  "622683b6-83e1-4adc-984d-7f9e70d4265c": {
+    "fruitori": [
+      "unioncamere"
+    ],
+    "confidenza": 0.4,
+    "motivazione": "La composizione negoziata della crisi d'impresa è gestita tramite le Camere di Commercio, per cui Unioncamere è il candidato più plausibile tra i nodi disponibili, anche se l'esperto è una figura prof"
+  },
+  "3820c986-ed71-44c3-b13b-a403ebfef91e": {
+    "fruitori": [
+      "min_interno",
+      "agid"
+    ],
+    "confidenza": 0.3,
+    "motivazione": "La revoca della Wallet Instance del IT-Wallet coinvolge potenzialmente gli enti emittenti di credenziali come Ministero Interno e il coordinamento AgID, ma i fruitori effettivi non sono chiaramente de"
+  },
+  "cfc8a94d-001a-4ab6-bb5c-2509b2a68af1": {
+    "fruitori": [
+      "min_interno",
+      "inps",
+      "ade",
+      "ade_riscossione",
+      "inail",
+      "mef",
+      "min_giustizia",
+      "mit_dgmot",
+      "r_lombardia",
+      "r_lazio",
+      "r_campania",
+      "r_sicilia",
+      "r_friuli",
+      "pa_bolzano",
+      "r_liguria",
+      "r_toscana",
+      "r_molise",
+      "r_puglia",
+      "pa_trento",
+      "r_abruzzo",
+      "r_emilia",
+      "r_piemonte",
+      "r_veneto",
+      "r_marche",
+      "r_umbria",
+      "r_vda",
+      "r_basilicata",
+      "r_sardegna",
+      "r_calabria",
+      "c_milano",
+      "c_roma",
+      "c_napoli",
+      "c_bologna",
+      "c_genova",
+      "c_padova",
+      "comuni_agg"
+    ],
+    "confidenza": 0.85,
+    "motivazione": "SEND è una piattaforma trasversale per l'invio di notifiche a valore legale, usata potenzialmente da tutte le PA mittenti (enti centrali, regioni, comuni)."
+  },
+  "dc9cdf88-1696-4b90-b29e-c116cc0f8c24": {
+    "fruitori": [],
+    "confidenza": 0.2,
+    "motivazione": "Il servizio SEND è destinato alle Società a controllo pubblico, categoria non presente tra i nodi disponibili che includono solo enti pubblici come ministeri, regioni e comuni."
+  },
+  "bf9bfde5-fdcb-4554-8951-9846d8d0b651": {
+    "fruitori": [
+      "min_interno",
+      "inps",
+      "ade",
+      "ade_riscossione",
+      "mit_dgmot",
+      "r_lombardia",
+      "r_lazio",
+      "r_campania",
+      "r_sicilia",
+      "r_friuli",
+      "pa_bolzano",
+      "r_liguria",
+      "r_toscana",
+      "r_molise",
+      "r_puglia",
+      "pa_trento",
+      "r_abruzzo",
+      "r_emilia",
+      "r_piemonte",
+      "r_veneto",
+      "r_marche",
+      "r_umbria",
+      "r_vda",
+      "r_basilicata",
+      "r_sardegna",
+      "r_calabria",
+      "c_milano",
+      "c_roma",
+      "c_napoli",
+      "c_bologna",
+      "c_genova",
+      "c_padova",
+      "comuni_agg"
+    ],
+    "confidenza": 0.85,
+    "motivazione": "SEND è usato da un'ampia platea di PA (enti centrali, regioni e comuni) per inviare notifiche a valore legale a cittadini e imprese."
+  },
+  "a8bea178-21e3-4db3-86dd-7d5557629267": {
+    "fruitori": [],
+    "confidenza": 0.2,
+    "motivazione": "Il servizio è alimentato in input dall'Ente Nazionale del Microcredito, non presente tra i nodi disponibili, e i fruitori reali non sono deducibili tra quelli elencati."
+  },
+  "fcceb326-4823-4842-9934-5b87c93eaacc": {
+    "fruitori": [
+      "min_interno",
+      "ade",
+      "istat"
+    ],
+    "confidenza": 0.4,
+    "motivazione": "I dati su arrivi/partenze di navi, merci e passeggeri interessano controlli di frontiera/sicurezza (Min. Interno), aspetti doganali (AdE) e finalità statistiche (ISTAT)."
+  },
+  "f834bd31-33de-494e-a282-2193aef1f950": {
+    "fruitori": [
+      "min_interno"
+    ],
+    "confidenza": 0.2,
+    "motivazione": "Servizio molto specialistico della Guardia Costiera sulle merci pericolose in container portuale; i fruitori sono difficilmente deducibili dai nodi disponibili, al più organi di controllo come il Min."
+  },
+  "6a08a25e-7abf-4eba-8dfd-f3612495cf33": {
+    "fruitori": [
+      "min_interno"
+    ],
+    "confidenza": 0.25,
+    "motivazione": "Dati su merci pericolose in porto sono di interesse per autorità di sicurezza/controllo come il Min. Interno, ma i fruitori specifici (es. autorità portuali) non sono nella lista."
+  },
+  "ed695f13-30e8-4601-a25f-d38b0f5cf6c0": {
+    "fruitori": [
+      "min_interno",
+      "ispra"
+    ],
+    "confidenza": 0.25,
+    "motivazione": "Dati su merci pericolose liquide imbarcate possono interessare le forze di controllo del territorio e gli enti ambientali, ma i fruitori non sono chiaramente deducibili dal vocabolario disponibile."
+  },
+  "33c54126-6b1a-46d4-bc71-7b3893961de1": {
+    "fruitori": [
+      "min_interno"
+    ],
+    "confidenza": 0.2,
+    "motivazione": "Servizio molto specifico della Guardia Costiera su merci pericolose in porto; possibile fruizione da forze dell'ordine/sicurezza, ma i fruitori non sono chiaramente deducibili tra i nodi disponibili."
+  },
+  "6904a356-e949-4f83-ad66-9db8e241a567": {
+    "fruitori": [
+      "min_interno"
+    ],
+    "confidenza": 0.2,
+    "motivazione": "Servizio molto specialistico della Guardia Costiera su merci pericolose portuali; i possibili fruitori istituzionali (es. forze di sicurezza) non sono chiaramente deducibili dal vocabolario disponibil"
+  },
+  "8e964886-7dfd-45b0-a791-e4e9bf9ed80b": {
+    "fruitori": [
+      "min_interno"
+    ],
+    "confidenza": 0.2,
+    "motivazione": "Servizio specialistico della Guardia Costiera su merci pericolose in porto, di interesse limitato; possibile coinvolgimento di forze/autorità ma fruitori non chiaramente deducibili dal vocabolario dis"
+  },
+  "463cf9fe-9d72-463e-922d-e200ba45fdae": {
+    "fruitori": [
+      "inps",
+      "min_interno",
+      "comuni_agg",
+      "ade",
+      "mlps"
+    ],
+    "confidenza": 0.55,
+    "motivazione": "L'accertamento della frequenza scolastica serve a INPS e Comuni per verifica requisiti di prestazioni sociali/borse, ad ANPR/Interno e al fisco per controlli su benefici."
+  },
+  "78fd67d2-a23e-46f4-8ff0-734c04b54feb": {
+    "fruitori": [
+      "mur",
+      "cineca",
+      "inps",
+      "mlps",
+      "unioncamere",
+      "min_interno",
+      "comuni_agg"
+    ],
+    "confidenza": 0.6,
+    "motivazione": "L'accertamento dei titoli di studio interessa enti previdenziali/lavoro, università e camere di commercio per concorsi, assunzioni e verifiche autocertificazioni."
+  },
+  "282b1ee0-eb3f-49f4-bd3a-9860b8055b97": {
+    "fruitori": [
+      "inps",
+      "min_interno",
+      "comuni_agg",
+      "ade"
+    ],
+    "confidenza": 0.55,
+    "motivazione": "La verifica della frequenza scolastica serve a INPS (assegni/benefici), comuni (servizi sociali e scolastici), Agenzia Entrate e anagrafe per controlli su prestazioni e residenza."
+  },
+  "9fa25829-952e-4fcc-be76-5c206a82d377": {
+    "fruitori": [
+      "ag_demanio",
+      "mit",
+      "r_lazio",
+      "r_campania",
+      "r_sicilia",
+      "r_liguria",
+      "r_toscana",
+      "r_puglia",
+      "r_abruzzo",
+      "r_emilia",
+      "r_veneto",
+      "r_marche",
+      "r_calabria",
+      "r_sardegna",
+      "r_friuli",
+      "r_molise",
+      "r_basilicata",
+      "r_vda",
+      "c_genova",
+      "comuni_agg"
+    ],
+    "confidenza": 0.5,
+    "motivazione": "I dati di assetto costiero interessano la gestione del demanio marittimo, le pianificazioni di trasporto/infrastrutture e soprattutto le Regioni e i Comuni costieri competenti sulla fascia litoranea."
+  },
+  "27394ada-473a-460c-9252-18ac11413cb1": {
+    "fruitori": [
+      "min_cultura",
+      "istat",
+      "r_lombardia",
+      "r_lazio",
+      "r_campania",
+      "r_sicilia",
+      "r_friuli",
+      "pa_bolzano",
+      "r_liguria",
+      "r_toscana",
+      "r_molise",
+      "r_puglia",
+      "pa_trento",
+      "r_abruzzo",
+      "r_emilia",
+      "r_piemonte",
+      "r_veneto",
+      "r_marche",
+      "r_umbria",
+      "r_vda",
+      "r_basilicata",
+      "r_sardegna",
+      "r_calabria"
+    ],
+    "confidenza": 0.4,
+    "motivazione": "I dati su natura e biodiversità servono principalmente alle Regioni e Province autonome per pianificazione territoriale/ambientale, oltre a usi statistici e culturali."
+  },
+  "b23ddedb-f276-4f03-9d27-1e138daf2ccd": {
+    "fruitori": [
+      "min_cultura",
+      "istat",
+      "r_lombardia",
+      "r_lazio",
+      "r_campania",
+      "r_sicilia",
+      "r_friuli",
+      "pa_bolzano",
+      "r_liguria",
+      "r_toscana",
+      "r_molise",
+      "r_puglia",
+      "pa_trento",
+      "r_abruzzo",
+      "r_emilia",
+      "r_piemonte",
+      "r_veneto",
+      "r_marche",
+      "r_umbria",
+      "r_vda",
+      "r_basilicata",
+      "r_sardegna",
+      "r_calabria"
+    ],
+    "confidenza": 0.5,
+    "motivazione": "Dati ambientali e di biodiversità sono tipicamente fruiti da regioni e province autonome competenti per pianificazione territoriale e tutela ambientale."
+  },
+  "a3925fd6-bfa3-4747-a1ae-66970e8a7ba1": {
+    "fruitori": [
+      "min_cultura",
+      "istat",
+      "r_lombardia",
+      "r_lazio",
+      "r_campania",
+      "r_sicilia",
+      "r_friuli",
+      "pa_bolzano",
+      "r_liguria",
+      "r_toscana",
+      "r_molise",
+      "r_puglia",
+      "pa_trento",
+      "r_abruzzo",
+      "r_emilia",
+      "r_piemonte",
+      "r_veneto",
+      "r_marche",
+      "r_umbria",
+      "r_vda",
+      "r_basilicata",
+      "r_sardegna",
+      "r_calabria"
+    ],
+    "confidenza": 0.5,
+    "motivazione": "I dati sulla biodiversità su griglia sono tipicamente utilizzati da regioni e province autonome per pianificazione ambientale e gestione aree protette, oltre a fini statistici."
+  },
+  "529d65d0-f130-4054-b068-3f61a46556c0": {
+    "fruitori": [
+      "min_cultura",
+      "istat",
+      "r_lombardia",
+      "r_lazio",
+      "r_campania",
+      "r_sicilia",
+      "r_friuli",
+      "pa_bolzano",
+      "r_liguria",
+      "r_toscana",
+      "r_molise",
+      "r_puglia",
+      "pa_trento",
+      "r_abruzzo",
+      "r_emilia",
+      "r_piemonte",
+      "r_veneto",
+      "r_marche",
+      "r_umbria",
+      "r_vda",
+      "r_basilicata",
+      "r_sardegna",
+      "r_calabria"
+    ],
+    "confidenza": 0.45,
+    "motivazione": "I dati sulla biodiversità sono utili principalmente a Regioni e Province autonome per pianificazione ambientale/territoriale, oltre a usi statistici e culturali."
+  },
+  "7e6483a7-18ca-4657-a1ee-038c1a0ec786": {
+    "fruitori": [
+      "unioncamere"
+    ],
+    "confidenza": 0.2,
+    "motivazione": "Un registro informativo degli agriturismi potrebbe interessare Unioncamere per il collegamento con le imprese del settore, ma i fruitori non sono chiaramente deducibili."
+  },
+  "755958d0-d94b-49eb-b348-30e7885877ea": {
+    "fruitori": [
+      "min_interno",
+      "ispra",
+      "c_milano",
+      "comuni_agg"
+    ],
+    "confidenza": 0.55,
+    "motivazione": "Le allerte di protezione civile sono utili principalmente ai comuni lombardi (es. Milano e aggregati) per la gestione emergenze, oltre a enti con competenze ambientali e di sicurezza."
+  },
+  "bc3b0ded-e6ef-4ec4-8de8-a4ad898c5db1": {
+    "fruitori": [
+      "mit_dgmot",
+      "mit",
+      "c_milano",
+      "comuni_agg"
+    ],
+    "confidenza": 0.55,
+    "motivazione": "Le cartografie per trasporti eccezionali interessano la Motorizzazione, il MIT e gli enti locali competenti sulla viabilità e rilascio autorizzazioni."
+  },
+  "6610f1a6-9a1e-49fd-ba95-a1b4b0f1dd75": {
+    "fruitori": [
+      "ispra",
+      "istat",
+      "ag_demanio",
+      "comuni_agg",
+      "c_roma"
+    ],
+    "confidenza": 0.4,
+    "motivazione": "Dati cartografici su acque ferme sono utili a enti ambientali/statistici (ISPRA, ISTAT), al Demanio per gestione beni idrici e ai comuni del territorio laziale per pianificazione."
+  },
+  "7149d510-1af9-4fb7-9a6f-df89106ef485": {
+    "fruitori": [
+      "agid",
+      "pagopa"
+    ],
+    "confidenza": 0.3,
+    "motivazione": "Le statistiche di utilizzo di un sistema di wallet/identità digitale interessano gli enti nazionali che governano l'ecosistema digitale, ma l'inferenza resta debole."
+  },
+  "a50cb57d-f739-44d2-9385-791458367390": {
+    "fruitori": [
+      "pagopa"
+    ],
+    "confidenza": 0.4,
+    "motivazione": "Servizio IT-Wallet che alimenta il portafoglio digitale gestito da PagoPA come unico fruitore plausibile tra i nodi disponibili."
+  },
+  "bc96a293-9c15-473c-ae75-bf0a13a41387": {
+    "fruitori": [
+      "agid",
+      "pagopa"
+    ],
+    "confidenza": 0.6,
+    "motivazione": "Servizio per IT-Wallet, tipicamente fruito dalle piattaforme di gestione del portafoglio digitale (AgID/PagoPA) per popolare gli attributi del wallet."
+  },
+  "7c7898bc-628f-458e-b4ec-1a2624ec48d4": {
+    "fruitori": [
+      "agid",
+      "pagopa"
+    ],
+    "confidenza": 0.6,
+    "motivazione": "Servizio IT-Wallet per attestati elettronici, tipicamente fruito dall'infrastruttura del portafoglio digitale gestita da AgID e PagoPA."
+  },
+  "f821d1f5-ef08-42b6-83ac-04f7e8f8b035": {
+    "fruitori": [
+      "inps",
+      "ade",
+      "min_interno"
+    ],
+    "confidenza": 0.3,
+    "motivazione": "Dati anagrafici e di rapporto dei medici convenzionati possono interessare enti previdenziali e fiscali, ma i fruitori non sono chiaramente deducibili dalla descrizione."
+  },
+  "e8927064-9592-4ce2-95b5-a34bcd9f70cd": {
+    "fruitori": [
+      "pagopa",
+      "agid",
+      "mlps"
+    ],
+    "confidenza": 0.55,
+    "motivazione": "Il servizio alimenta IT-Wallet (gestito da PagoPA/AgID) con attestati di formazione, ambito di interesse anche del Ministero del Lavoro per le politiche formative."
+  },
+  "2023e8d8-4c39-4abb-861b-079c237bc566": {
+    "fruitori": [],
+    "confidenza": 0.2,
+    "motivazione": "Servizio di consultazione badge dipendenti interno all'ente erogatore (IT-Wallet su attributi del personale), senza fruitori esterni ragionevolmente deducibili dal vocabolario."
+  },
+  "ee491435-c4af-46e9-9759-0fcb23d08503": {
+    "fruitori": [
+      "pa_trento",
+      "comuni_agg"
+    ],
+    "confidenza": 0.4,
+    "motivazione": "L'attestato di bilinguismo è un requisito tipico per impieghi pubblici in Alto Adige, quindi rilevante per enti territoriali limitrofi e PA che verificano i requisiti, ma l'utenza è fortemente locale."
+  },
+  "5683abe0-6aca-41ed-800b-8894052107ac": {
+    "fruitori": [
+      "pa_trento",
+      "r_veneto",
+      "comuni_agg"
+    ],
+    "confidenza": 0.35,
+    "motivazione": "L'attestato di appartenenza al gruppo linguistico ladino riguarda l'area dolomitica (Bolzano, Trento, Veneto), utile a enti locali limitrofi per procedure linguistiche."
+  },
+  "dcb4aee9-bd6c-40a3-a466-d40d7e8837b9": {
+    "fruitori": [
+      "ispra",
+      "comuni_agg"
+    ],
+    "confidenza": 0.3,
+    "motivazione": "Dati ambientali su tutela acqua potabile possono interessare enti ambientali e comuni del territorio, ma l'ambito è locale e provinciale rendendo i fruitori incerti."
+  },
+  "2f07a53b-d3f5-4ab5-9834-8da30abca54a": {
+    "fruitori": [
+      "ispra"
+    ],
+    "confidenza": 0.3,
+    "motivazione": "I dati di balneabilità rilevati a livello provinciale confluiscono tipicamente verso enti ambientali nazionali come ISPRA, ma i fruitori puntuali non sono chiaramente deducibili dal vocabolario."
+  },
+  "43aadda6-04bc-4ca8-84dd-e768a0ec4447": {
+    "fruitori": [
+      "ispra",
+      "c_genova"
+    ],
+    "confidenza": 0.25,
+    "motivazione": "I dati di analisi di laboratorio ambientale ARPAL potrebbero interessare ISPRA (rete nazionale agenzie ambientali) e i comuni liguri come Genova, ma l'inferenza è debole."
+  },
+  "b8b48c3f-d4de-4eb6-9ec9-94eae91a9605": {
+    "fruitori": [
+      "c_genova",
+      "ispra"
+    ],
+    "confidenza": 0.3,
+    "motivazione": "Servizio ARPAL ligure su analisi di laboratorio: probabili fruitori sono enti del territorio ligure e agenzie ambientali, ma l'inferenza è debole."
+  },
+  "d7dc8738-8a05-4a4a-a24f-4b044d222745": {
+    "fruitori": [
+      "ispra",
+      "c_genova"
+    ],
+    "confidenza": 0.4,
+    "motivazione": "I dati sullo stato delle reti balneari sono di interesse per ISPRA (monitoraggio ambientale nazionale) e per i comuni costieri liguri come Genova competenti sulla balneazione."
+  },
+  "7e9c5e42-5c72-4edd-bdd7-adc379ea0699": {
+    "fruitori": [
+      "ispra",
+      "c_genova",
+      "comuni_agg"
+    ],
+    "confidenza": 0.4,
+    "motivazione": "Dati di balneazione liguri rilevanti per ISPRA (ambiente/acque) e per i comuni costieri liguri che gestiscono balneazione."
+  },
+  "d068b30a-ceef-4e50-a2ac-3c4624ae66ac": {
+    "fruitori": [
+      "mlps",
+      "inps",
+      "inail"
+    ],
+    "confidenza": 0.7,
+    "motivazione": "Le comunicazioni obbligatorie di assunzione/variazione/cessazione confluiscono nel sistema del Ministero del Lavoro e sono di interesse per INPS e INAIL ai fini previdenziali e assicurativi."
+  },
+  "548a3b48-ebbb-4c23-b8e3-3231908291b1": {
+    "fruitori": [
+      "mit",
+      "agid"
+    ],
+    "confidenza": 0.2,
+    "motivazione": "Un servizio di consultazione geografica delle aree candidate al bando Italia 5G potrebbe interessare enti con competenze su infrastrutture e digitale, ma i fruitori reali non sono chiaramente deducibi"
+  },
+  "1a1d7b26-14e9-4f41-a265-50aee228b5a4": {
+    "fruitori": [],
+    "confidenza": 0.2,
+    "motivazione": "Servizio di consultazione geografica di nicchia su agrobiodiversità senza fruitori istituzionali chiaramente deducibili tra i nodi disponibili."
+  },
+  "51913793-f898-4e79-b20c-b2703ebd8b9b": {
+    "fruitori": [
+      "ispra",
+      "ag_demanio",
+      "comuni_agg"
+    ],
+    "confidenza": 0.35,
+    "motivazione": "Dati geografici idrografici utili a enti ambientali/demaniali e comuni toscani per pianificazione territoriale, ma il dato è prevalentemente regionale e di nicchia."
+  },
+  "08d35082-da90-4677-ab26-a4b1bf300d34": {
+    "fruitori": [
+      "agid",
+      "pagopa"
+    ],
+    "confidenza": 0.3,
+    "motivazione": "L'attestato per IT Wallet è destinato all'infrastruttura del portafoglio digitale nazionale gestita da AgID/PagoPA, mentre i fruitori specifici non sono chiaramente deducibili."
+  },
+  "73061316-8b48-4174-b204-4aaa6246d0c4": {
+    "fruitori": [
+      "agid",
+      "mlps",
+      "min_istruzione",
+      "mur"
+    ],
+    "confidenza": 0.55,
+    "motivazione": "Le attestazioni di trasparenza degli apprendimenti confluiscono nell'IT Wallet (gestito da AgID) e interessano gli enti competenti su lavoro e formazione."
+  },
+  "6782534b-e537-4f0e-beb3-1360c3cea4fa": {
+    "fruitori": [
+      "pagopa",
+      "agid",
+      "mlps"
+    ],
+    "confidenza": 0.55,
+    "motivazione": "Servizio per IT Wallet sui certificati di qualificazione professionale: PagoPA/AgID per l'infrastruttura del wallet e il Min. Lavoro come ente competente sulle qualificazioni professionali."
+  },
+  "049d7f88-4c96-4c42-bd2d-8c5859cdf7d8": {
+    "fruitori": [
+      "mlps",
+      "min_istruzione",
+      "mur",
+      "agid",
+      "inps"
+    ],
+    "confidenza": 0.55,
+    "motivazione": "La certificazione delle competenze nell'IT Wallet interessa enti del lavoro, istruzione/università e digitale che verificano qualifiche e competenze dei cittadini."
+  },
+  "1f0bdc23-544c-4c8a-a620-fadca0c0a77b": {
+    "fruitori": [
+      "mlps",
+      "inps",
+      "inail"
+    ],
+    "confidenza": 0.78,
+    "motivazione": "Le comunicazioni obbligatorie di assunzione confluiscono al Ministero del Lavoro e sono rilevanti per INPS e INAIL ai fini previdenziali e assicurativi."
+  },
+  "3bac69b0-9d84-45bb-b36b-80e9ae9d4c81": {
+    "fruitori": [
+      "mlps",
+      "inps",
+      "inail"
+    ],
+    "confidenza": 0.75,
+    "motivazione": "Le Comunicazioni Obbligatorie UNILAV confluiscono nel sistema del Ministero del Lavoro e sono utilizzate da INPS e INAIL per fini previdenziali e assicurativi."
+  },
+  "632318ab-ae37-45c7-a18a-2540e86f34ec": {
+    "fruitori": [],
+    "confidenza": 0.2,
+    "motivazione": "L'albo pretorio è uno strumento di pubblicità legale rivolto principalmente ai cittadini, non un flusso di interoperabilità tipico tra enti, quindi i fruitori istituzionali non sono ragionevolmente de"
+  },
+  "5c428447-64e1-466a-b202-b7b6cc9fd3cb": {
+    "fruitori": [
+      "comuni_agg",
+      "inps",
+      "mlps"
+    ],
+    "confidenza": 0.5,
+    "motivazione": "I beneficiari del RED pugliese sono gestiti a livello di ambiti/comuni del territorio e i dati su sostegno al reddito interessano INPS e Ministero del Lavoro per controlli e integrazione delle misure "
+  },
+  "db1d118f-4b35-4146-aa19-402a9eb80649": {
+    "fruitori": [
+      "ispra",
+      "min_cultura",
+      "comuni_agg",
+      "pa_bolzano"
+    ],
+    "confidenza": 0.4,
+    "motivazione": "Dati ambientali/paesaggistici sugli alberi monumentali utili a enti ambientali (ISPRA), tutela del paesaggio (Min. Cultura) e amministrazioni locali del territorio per pianificazione e tutela."
+  },
+  "3070b462-a3f4-41f2-a7be-21633067aa16": {
+    "fruitori": [
+      "min_cultura",
+      "comuni_agg",
+      "ade",
+      "ag_demanio"
+    ],
+    "confidenza": 0.45,
+    "motivazione": "I dati sui beni archeologici e vincoli catastali interessano il Ministero della Cultura per la tutela e i Comuni/Agenzie per pianificazione urbanistica e gestione patrimoniale del territorio."
+  },
+  "5096cbaf-4d0e-467f-9352-38fea642a2a1": {
+    "fruitori": [
+      "min_cultura",
+      "ag_demanio",
+      "comuni_agg",
+      "ispra",
+      "pa_bolzano"
+    ],
+    "confidenza": 0.55,
+    "motivazione": "I vincoli architettonici interessano il Ministero della Cultura, il Demanio, gli enti territoriali (comuni e provincia confinante di Bolzano) e ISPRA per pianificazione e tutela del territorio."
+  },
+  "79b4ac47-c7d3-4b24-acca-ffeb999470d6": {
+    "fruitori": [
+      "ispra",
+      "pa_bolzano",
+      "comuni_agg"
+    ],
+    "confidenza": 0.3,
+    "motivazione": "Dati geografici su opere di consolidamento di bacini montani interessano enti ambientali e territoriali limitrofi, ma l'inferenza è debole per uno strato informativo locale."
+  },
+  "15c080d0-2f68-40f7-83a6-47d946b1c603": {
+    "fruitori": [
+      "pagopa",
+      "agid"
+    ],
+    "confidenza": 0.55,
+    "motivazione": "Servizio IT Wallet per attributi cittadino, tipicamente integrato nell'infrastruttura del wallet gestita da PagoPA/AgID."
+  },
+  "a7bba1e3-4017-4bcb-9d8c-cb4cf6684a08": {
+    "fruitori": [
+      "pagopa",
+      "agid"
+    ],
+    "confidenza": 0.3,
+    "motivazione": "Servizio legato a IT-Wallet (APE, attestati di prestazione energetica) probabilmente integrato dalle piattaforme digitali nazionali, ma i fruitori specifici non sono chiaramente deducibili."
+  },
+  "ecb3574f-848d-433e-9724-2a6a3c671bab": {
+    "fruitori": [
+      "pagopa",
+      "agid",
+      "comuni_agg"
+    ],
+    "confidenza": 0.45,
+    "motivazione": "Un attestato professionale erogato per IT Wallet è tipicamente fruito dall'infrastruttura del wallet (PagoPA/AgID) e da comuni che verificano abilitazioni turistiche, ma l'inferenza resta debole."
+  },
+  "a2789991-8e4a-44ca-9945-7c0ef553e0ec": {
+    "fruitori": [
+      "pagopa",
+      "agid"
+    ],
+    "confidenza": 0.45,
+    "motivazione": "L'emissione di attestazioni elettroniche per IT-Wallet coinvolge tipicamente PagoPA (gestore del wallet) e AgID come soggetti tecnici dell'ecosistema."
+  },
+  "2ab7da50-a2bb-4bd8-9d27-a073273e28e7": {
+    "fruitori": [
+      "agid",
+      "pagopa"
+    ],
+    "confidenza": 0.3,
+    "motivazione": "Un attestato EAA per IT-Wallet coinvolge tipicamente l'infrastruttura del wallet/identità digitale gestita da AgID e i pagamenti via PagoPA, ma i fruitori specifici non sono chiaramente deducibili."
+  },
+  "fd1cb63b-33fd-4580-8ce2-9b17259f4e98": {
+    "fruitori": [
+      "pagopa"
+    ],
+    "confidenza": 0.3,
+    "motivazione": "L'emissione di EAA/Open Badge per IT-Wallet coinvolge l'infrastruttura del wallet nazionale gestita da PagoPA, ma i fruitori effettivi non sono chiaramente deducibili."
+  },
+  "fc275cb0-0acb-41c1-9491-fc001442dd35": {
+    "fruitori": [
+      "comuni_agg",
+      "unioncamere"
+    ],
+    "confidenza": 0.55,
+    "motivazione": "L'anagrafica delle aree pubbliche e mercati interessa principalmente i Comuni che gestiscono il commercio su aree pubbliche e le Camere di Commercio per le imprese coinvolte."
+  },
+  "e4d74527-cf64-4fc9-8b01-463548665a23": {
+    "fruitori": [
+      "ispra",
+      "min_cultura",
+      "comuni_agg",
+      "min_interno"
+    ],
+    "confidenza": 0.4,
+    "motivazione": "Dati su aree protette e Rete Natura 2000 interessano enti ambientali (ISPRA), tutela culturale/paesaggistica e comuni territorialmente coinvolti per pianificazione e vincoli."
+  },
+  "f99b9550-3ab1-417d-a297-d55bfa0e50bb": {
+    "fruitori": [
+      "istat"
+    ],
+    "confidenza": 0.4,
+    "motivazione": "I dati sui movimenti turistici regionali sono tipicamente utilizzati da ISTAT per le statistiche ufficiali sul turismo."
+  },
+  "5faaca20-1ccf-467b-9da3-854b5b04cf9b": {
+    "fruitori": [
+      "istat"
+    ],
+    "confidenza": 0.55,
+    "motivazione": "I dati sui movimenti turistici regionali alimentano tipicamente le statistiche ufficiali ISTAT sul turismo."
+  },
+  "ad6a71ef-056f-483c-ac46-b0d12e10357c": {
+    "fruitori": [
+      "comuni_agg",
+      "c_padova"
+    ],
+    "confidenza": 0.6,
+    "motivazione": "I BackOffice SUAP sono gestiti dai Comuni, principali fruitori delle API degli Enti Terzi per il sistema degli sportelli unici."
+  },
+  "3958c6e7-50bc-4f6c-92b7-a0ca0239bc23": {
+    "fruitori": [
+      "c_padova",
+      "comuni_agg"
+    ],
+    "confidenza": 0.45,
+    "motivazione": "Il servizio di gestione targhe/PassBLU per la sosta è tipicamente fruito dai comuni veneti (incluso Padova) per la gestione di permessi e controllo accessi."
+  },
+  "7cbe3d9b-7564-48e9-b715-20c17ff9e270": {
+    "fruitori": [
+      "c_padova",
+      "comuni_agg"
+    ],
+    "confidenza": 0.55,
+    "motivazione": "Il conferimento di targhe nel circuito ZTL regionale del Veneto è tipicamente usato dai comuni veneti per la gestione degli accessi alle zone a traffico limitato."
+  },
+  "d63cbac6-940c-4de1-94bc-fe78d1d6f877": {
+    "fruitori": [
+      "min_cultura"
+    ],
+    "confidenza": 0.4,
+    "motivazione": "Il Ministero della Cultura potrebbe consultare i dati sui beni dell'archeologia industriale per scopi di tutela e catalogazione, ma il dato è prevalentemente regionale e di consultazione interna."
+  },
+  "3ec92b8c-2bf5-4dc5-bb39-a674542c12a0": {
+    "fruitori": [
+      "agid",
+      "pagopa"
+    ],
+    "confidenza": 0.4,
+    "motivazione": "L'emissione di attestazioni elettroniche EAA in IT-Wallet coinvolge l'infrastruttura nazionale gestita da AgID e PagoPA, ma i fruitori specifici non sono chiaramente deducibili dalla sola descrizione."
+  },
+  "9b10f40d-0512-4ca5-9e9b-8f8e1cee2b57": {
+    "fruitori": [
+      "pagopa",
+      "min_interno"
+    ],
+    "confidenza": 0.6,
+    "motivazione": "Servizio IT Wallet che fornisce attributi/attestati al wallet digitale gestito da PagoPA/IO e all'ecosistema identità del Min. Interno per l'emissione delle credenziali al cittadino."
+  },
+  "20df12f7-e603-47be-951c-dcb4e1872ced": {
+    "fruitori": [
+      "pagopa",
+      "agid"
+    ],
+    "confidenza": 0.6,
+    "motivazione": "Servizio IT-Wallet per l'inclusione dell'attestato nel wallet digitale, gestito tramite l'infrastruttura PagoPA/AgID."
+  },
+  "ae42671f-d8f1-4b2f-82a1-fd43e6d036a6": {
+    "fruitori": [],
+    "confidenza": 0.2,
+    "motivazione": "Servizio interno alla gestione del Catalogo Enti regionale dell'Umbria, senza fruitori esterni chiaramente deducibili."
+  },
+  "da4847c6-da15-42cb-89b4-56918491e87d": {
+    "fruitori": [],
+    "confidenza": 0.2,
+    "motivazione": "Servizio interno al catalogo regionale dell'Umbria, fruitori esterni non ragionevolmente deducibili dalla descrizione."
+  },
+  "86222887-3b24-40e5-b7cb-525529186ebd": {
+    "fruitori": [],
+    "confidenza": 0.2,
+    "motivazione": "Servizio interno alla gestione del Catalogo regionale umbro, senza fruitori esterni chiaramente deducibili dal vocabolario."
+  },
+  "56a35ca2-f565-4560-a4c6-31fe8ce926f4": {
+    "fruitori": [],
+    "confidenza": 0.2,
+    "motivazione": "Servizio interno al catalogo regionale dell'Umbria, fruitori esterni non chiaramente deducibili."
+  },
+  "e11340aa-b9b4-4aeb-a46e-da8f3e11862d": {
+    "fruitori": [
+      "min_istruzione",
+      "istat"
+    ],
+    "confidenza": 0.3,
+    "motivazione": "La distribuzione degli alunni per istituzione scolastica interessa il Ministero dell'Istruzione e l'ISTAT per finalità statistiche, ma l'inferenza è debole trattandosi di dato locale valdostano."
+  },
+  "fe66fb1d-1ab4-47d6-9b8a-c7898b9c8471": {
+    "fruitori": [
+      "min_istruzione"
+    ],
+    "confidenza": 0.3,
+    "motivazione": "La consultazione alunni per ordine scolastico potrebbe interessare il Ministero dell'Istruzione, ma i fruitori reali sono per lo più scuole ed enti locali valdostani non presenti nel vocabolario."
+  },
+  "0493d746-3aa5-4863-8ca9-71cb356034c2": {
+    "fruitori": [],
+    "confidenza": 0.2,
+    "motivazione": "Servizio di consultazione ambulatori e prestazioni prenotabili a prevalente uso interno regionale/sanitario, senza fruitori esterni chiaramente deducibili dal vocabolario fornito."
+  },
+  "3da29f0f-0cca-480c-8676-19f8e71de416": {
+    "fruitori": [
+      "ade",
+      "ag_demanio",
+      "ade_riscossione",
+      "comuni_agg"
+    ],
+    "confidenza": 0.45,
+    "motivazione": "La consultazione dei beni immobili regionali interessa fisco, demanio, riscossione e comuni per verifiche patrimoniali e catastali."
+  },
+  "37197101-90a5-461a-b195-ea1745d4ca1c": {
+    "fruitori": [
+      "pagopa",
+      "agid"
+    ],
+    "confidenza": 0.55,
+    "motivazione": "Servizio relativo all'attributo professionale di accompagnatore turistico per IT-Wallet, verosimilmente fruito dall'infrastruttura digitale nazionale (PagoPA per IT-Wallet e AgID)."
+  },
+  "ae96b524-c14b-4380-a69f-9227ed1fffa6": {
+    "fruitori": [
+      "anac"
+    ],
+    "confidenza": 0.2,
+    "motivazione": "La pubblicazione di atti amministrativi è di interesse generale ma i fruitori specifici via PDND non sono chiaramente deducibili, con possibile rilievo per ANAC in materia di trasparenza."
+  },
+  "9cede9eb-8dac-48ac-aaf2-43c5f773d21d": {
+    "fruitori": [],
+    "confidenza": 0.2,
+    "motivazione": "Servizio informativo di pubblicazione avvisi/bandi regionali rivolto a cittadini e imprese, non a un'evidente categoria di enti fruitori in interoperabilità."
+  },
+  "8cd1d814-e303-44e6-a8ad-fc497b0d4e18": {
+    "fruitori": [
+      "unioncamere",
+      "comuni_agg",
+      "istat"
+    ],
+    "confidenza": 0.4,
+    "motivazione": "Le anagrafiche di imprese e stabilimenti alimentari interessano principalmente registri imprese, controlli sanitari comunali e finalità statistiche, ma l'inferenza resta incerta."
+  },
+  "ccfb6374-b384-4ac8-a9f6-0d6fb68ba497": {
+    "fruitori": [
+      "anac",
+      "ade",
+      "inps",
+      "unioncamere",
+      "mef"
+    ],
+    "confidenza": 0.55,
+    "motivazione": "Gli atti di concessione di aiuti alle imprese (RNA/trasparenza) interessano enti di controllo anticorruzione, fisco, previdenza e camere di commercio per verifiche e incroci."
+  },
+  "375046d9-de94-4046-9483-1eb58fd12fce": {
+    "fruitori": [],
+    "confidenza": 0.15,
+    "motivazione": "La consultazione di una Carta dei Servizi è tipicamente un servizio informativo rivolto a cittadini più che un e-service interoperabile tra enti, quindi i fruitori tra PA non sono ragionevolmente dedu"
+  },
+  "114c2738-54ce-4da4-bd82-94acd6c19a5f": {
+    "fruitori": [
+      "anac"
+    ],
+    "confidenza": 0.3,
+    "motivazione": "La pubblicità dei criteri di concessione sovvenzioni è funzionale ai controlli anticorruzione/trasparenza, ma i fruitori specifici non sono chiaramente deducibili."
+  },
+  "98df9ca7-9f3c-48f0-a0c7-971b47aea69b": {
+    "fruitori": [
+      "anac",
+      "mef",
+      "ade",
+      "dfp",
+      "istat"
+    ],
+    "confidenza": 0.4,
+    "motivazione": "Dati su enti di diritto privato controllati interessano organi di controllo e trasparenza (ANAC), monitoraggio finanziario (MEF), fiscale (AdE), funzione pubblica (DFP) e statistico (ISTAT)."
+  },
+  "20cd619a-c108-4633-a395-670cae03ca67": {
+    "fruitori": [
+      "r_lombardia",
+      "ispra",
+      "istat",
+      "ag_demanio",
+      "comuni_agg"
+    ],
+    "confidenza": 0.4,
+    "motivazione": "Dati cartografici/territoriali del gemello digitale comunale interessano la regione di riferimento, enti ambientali/statistici e altri enti che gestiscono territorio e demanio."
+  },
+  "c783f89e-6d0b-4d54-ac27-60e55dcac33e": {
+    "fruitori": [],
+    "confidenza": 0.2,
+    "motivazione": "Servizio molto specifico e locale sugli avvisi di manomissione scavi di Milano, senza chiari fruitori deducibili tra i nodi disponibili."
+  },
+  "90452419-aef4-459f-aedc-37a066dd8680": {
+    "fruitori": [
+      "r_lombardia",
+      "istat",
+      "ispra"
+    ],
+    "confidenza": 0.4,
+    "motivazione": "Dati geografici sui confini comunali sono utili a regione di appartenenza ed enti statistici/ambientali, ma l'utilizzo è generico e poco prevedibile."
+  },
+  "fab939d5-bb08-47c9-881f-c93ea2f66cdd": {
+    "fruitori": [
+      "istat",
+      "r_lombardia",
+      "min_interno"
+    ],
+    "confidenza": 0.35,
+    "motivazione": "Il layer dei confini municipali può servire a ISTAT per fini statistici/censuari, alla Regione Lombardia per pianificazione territoriale e al Ministero dell'Interno per riferimenti amministrativi loca"
+  },
+  "2a11ae82-452e-4c39-b300-40ed217c84f4": {
+    "fruitori": [
+      "min_interno",
+      "istat",
+      "ade",
+      "r_lazio",
+      "comuni_agg"
+    ],
+    "confidenza": 0.55,
+    "motivazione": "I dati toponomastici sui numeri civici sono tipicamente fruiti da ANPR, ISTAT, fisco, regione di riferimento e altri enti per la georeferenziazione degli indirizzi."
+  },
+  "0d81de35-169c-468a-9af1-0f471e856f61": {
+    "fruitori": [
+      "min_cultura",
+      "ispra",
+      "istat",
+      "r_lazio"
+    ],
+    "confidenza": 0.4,
+    "motivazione": "Dati geospaziali sui siti UNESCO interessano principalmente cultura, ambiente, statistica e la regione territorialmente competente."
+  },
+  "5833ad41-2564-4b1f-8cac-f921cf77f862": {
+    "fruitori": [
+      "ispra",
+      "r_lazio"
+    ],
+    "confidenza": 0.2,
+    "motivazione": "Un servizio comunale su aree verdi potrebbe interessare enti ambientali e regionali, ma la descrizione è troppo generica per un'inferenza solida."
+  },
+  "0713baa0-3567-4a13-ac30-0b82ae4f7b60": {
+    "fruitori": [
+      "ispra",
+      "r_lazio",
+      "istat"
+    ],
+    "confidenza": 0.3,
+    "motivazione": "Dati geospaziali sulle aree verdi comunali sono potenzialmente utili per enti ambientali e statistici e per la Regione, ma i fruitori non sono chiaramente deducibili."
+  },
+  "2d16cc90-96bc-4650-a9af-bf2498d6939f": {
+    "fruitori": [
+      "ade",
+      "ade_riscossione",
+      "r_campania",
+      "ispra",
+      "anac"
+    ],
+    "confidenza": 0.35,
+    "motivazione": "I dati su pratiche edilizie e stato immobiliare interessano fisco/catasto, riscossione, la regione di riferimento e enti ambientali/di controllo, ma l'inferenza è debole."
+  },
+  "0e4097be-4396-4f35-a820-be1e89b2691d": {
+    "fruitori": [
+      "min_interno",
+      "r_campania",
+      "ispra",
+      "comuni_agg"
+    ],
+    "confidenza": 0.4,
+    "motivazione": "Un servizio OGC di Protezione Civile fornisce dati geospaziali utili al coordinamento emergenze con Ministero Interno, Regione Campania, enti ambientali e comuni del territorio."
+  },
+  "19692c8f-25b6-4a66-bd76-49b3a89afd59": {
+    "fruitori": [
+      "min_interno",
+      "istat",
+      "r_campania",
+      "comuni_agg",
+      "ade"
+    ],
+    "confidenza": 0.45,
+    "motivazione": "Stradario e civici sono dati utili per ANPR, statistiche territoriali, fisco e altri enti che necessitano di normalizzare indirizzi sul territorio comunale."
+  },
+  "927e5493-320c-4bff-add2-93fdb7af4832": {
+    "fruitori": [
+      "r_campania",
+      "istat",
+      "ispra"
+    ],
+    "confidenza": 0.3,
+    "motivazione": "Dati di trasformazioni urbanistiche possono interessare la Regione Campania per pianificazione territoriale ed enti statistici/ambientali, ma i fruitori reali sono difficilmente deducibili con certezz"
+  },
+  "242bbc81-cf94-42ef-a47f-23c90efff025": {
+    "fruitori": [
+      "istat",
+      "mit",
+      "r_emilia",
+      "comuni_agg"
+    ],
+    "confidenza": 0.4,
+    "motivazione": "Il grafo stradale comunale può interessare enti statistici, di trasporto, la Regione e altri comuni per pianificazione e interoperabilità territoriale, ma i fruitori reali sono difficili da circoscriv"
+  },
+  "91b9f081-1e8d-4d3d-b620-0f5d23f72ba6": {
+    "fruitori": [
+      "ade",
+      "ag_demanio",
+      "r_emilia",
+      "istat"
+    ],
+    "confidenza": 0.4,
+    "motivazione": "Dati catastali/edilizi locali utili a fisco e demanio per accertamenti immobiliari, alla Regione per pianificazione territoriale e a ISTAT per finalità statistiche."
+  },
+  "46035466-f9cb-446d-a608-82590eaf5c53": {
+    "fruitori": [
+      "min_cultura",
+      "r_emilia"
+    ],
+    "confidenza": 0.3,
+    "motivazione": "Un servizio di dati su eventi culturali locali ha pochi fruitori istituzionali evidenti, ma Ministero della Cultura e Regione Emilia-Romagna potrebbero aggregare informazioni culturali territoriali."
+  },
+  "305054a1-090e-4c3f-9568-f4fb4f9ae266": {
+    "fruitori": [
+      "min_interno",
+      "istat",
+      "ade",
+      "inps"
+    ],
+    "confidenza": 0.55,
+    "motivazione": "L'elenco ufficiale dei numeri civici è utile per ANPR (allineamento anagrafico), ISTAT (basi territoriali/censimento) e per fini fiscali/previdenziali legati alla residenza."
+  },
+  "4b71bf2c-6444-4a5d-82da-2417d0c26385": {
+    "fruitori": [
+      "unioncamere"
+    ],
+    "confidenza": 0.35,
+    "motivazione": "Il backoffice SUAP coinvolge tipicamente le Camere di Commercio (Unioncamere) e altri enti terzi nei procedimenti per attività produttive, ma i fruitori specifici non sono chiaramente deducibili dal v"
+  },
+  "3c129479-6c1a-4444-89c9-20ad1168eaad": {
+    "fruitori": [
+      "pa_trento",
+      "r_veneto",
+      "comuni_agg",
+      "ispra"
+    ],
+    "confidenza": 0.3,
+    "motivazione": "Dati cartografici/GIS interessano enti territoriali e ambientali, ma il riferimento PAT (Trento) con erogatore comune di Padova è incoerente, riducendo la solidità dell'inferenza."
+  },
+  "26cbaae3-8e81-46ff-8dd8-4d48af4e4360": {
+    "fruitori": [
+      "istat"
+    ],
+    "confidenza": 0.3,
+    "motivazione": "Dati statistici cimiteriali potrebbero interessare l'ISTAT per fini statistici, ma i fruitori sono difficilmente deducibili con certezza."
+  },
+  "7804034f-f0e6-4e39-bbd1-6ac4c36a7579": {
+    "fruitori": [
+      "anac",
+      "mit",
+      "r_veneto"
+    ],
+    "confidenza": 0.45,
+    "motivazione": "La consultazione delle opere di lavori pubblici interessa principalmente ANAC per la vigilanza sugli appalti, il MIT per le infrastrutture e la Regione Veneto per il monitoraggio territoriale."
+  }
+}

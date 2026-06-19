@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generato": "2026-06-19T17:32:21.993Z",
+    "generato": "2026-06-19T21:21:59.735Z",
     "fonte_enti": "github.com/italia/pdnd-opendata — aderenti.csv (CC0 1.0)",
     "fonte_eservices": "github.com/italia/pdnd-opendata — eservice_a_catalogo.csv (CC0 1.0)",
     "note_connessioni": "Ogni arco porta un campo 'origine': 'documentata' (override da fonti ufficiali), 'certificata' (campo attributes.certified del catalogo), 'inferita' (stima AI con confidenza, da rendere tratteggiata nel grafo). Il progetto si basa esclusivamente su informazioni già pubbliche; gli archi inferiti sono dichiarati come stime e non come fatti documentati.",
@@ -24,28 +24,28 @@
     {
       "id": "ade",
       "name": "Agenzia delle Entrate",
-      "tipo": "Erogatore",
+      "tipo": "Erogatore/Fruitore",
       "categoria": "Fisco",
       "descrizione": "Servizi fiscali, catastali, ANNCSU"
     },
     {
       "id": "agid",
       "name": "AgID",
-      "tipo": "Erogatore",
+      "tipo": "Erogatore/Fruitore",
       "categoria": "Digitale",
       "descrizione": "Agenzia per l'Italia Digitale — INAD, Indice PA"
     },
     {
       "id": "inail",
       "name": "INAIL",
-      "tipo": "Erogatore",
+      "tipo": "Erogatore/Fruitore",
       "categoria": "Lavoro",
       "descrizione": "Istituto Naz. Assicurazione Infortuni sul Lavoro"
     },
     {
       "id": "unioncamere",
       "name": "Unioncamere",
-      "tipo": "Erogatore",
+      "tipo": "Erogatore/Fruitore",
       "categoria": "Imprese",
       "descrizione": "Unione Camere di Commercio — Registro Imprese, SSU"
     },
@@ -59,9 +59,16 @@
     {
       "id": "anac",
       "name": "ANAC",
-      "tipo": "Erogatore",
+      "tipo": "Erogatore/Fruitore",
       "categoria": "Anticorruzione",
       "descrizione": "Aut. Naz. Anticorruzione — Contratti Pubblici, SIMOG"
+    },
+    {
+      "id": "mit_dgmot",
+      "name": "MIT – Motorizzazione",
+      "tipo": "Fruitore",
+      "categoria": "Trasporti",
+      "descrizione": "DG Motorizzazione — Veicoli, Patenti, CUDE"
     },
     {
       "id": "min_giustizia",
@@ -80,28 +87,28 @@
     {
       "id": "mur",
       "name": "MUR",
-      "tipo": "Erogatore",
+      "tipo": "Erogatore/Fruitore",
       "categoria": "Ministero",
       "descrizione": "Min. Università e Ricerca — ANIS"
     },
     {
       "id": "ade_riscossione",
       "name": "AdE Riscossione",
-      "tipo": "Erogatore",
+      "tipo": "Erogatore/Fruitore",
       "categoria": "Fisco",
       "descrizione": "Agenzia delle Entrate — Riscossione"
     },
     {
       "id": "istat",
       "name": "ISTAT",
-      "tipo": "Erogatore",
+      "tipo": "Erogatore/Fruitore",
       "categoria": "Statistica",
       "descrizione": "Istituto Nazionale di Statistica"
     },
     {
       "id": "pagopa",
       "name": "PagoPA",
-      "tipo": "Erogatore",
+      "tipo": "Erogatore/Fruitore",
       "categoria": "Digitale",
       "descrizione": "PagoPA S.p.A. — Gestore infrastruttura PDND"
     },
@@ -113,23 +120,30 @@
       "descrizione": "Min. Lavoro e Politiche Sociali — 122 endpoint nel catalogo"
     },
     {
+      "id": "cineca",
+      "name": "Cineca",
+      "tipo": "Fruitore",
+      "categoria": "Tecnologia",
+      "descrizione": "Consorzio Interuniversitario — Servizi IFS"
+    },
+    {
       "id": "mit",
       "name": "MIT",
-      "tipo": "Erogatore",
+      "tipo": "Erogatore/Fruitore",
       "categoria": "Trasporti",
       "descrizione": "Min. Infrastrutture e Trasporti — 66 endpoint nel catalogo"
     },
     {
       "id": "dfp",
       "name": "Dip. Funzione Pubblica",
-      "tipo": "Erogatore",
+      "tipo": "Erogatore/Fruitore",
       "categoria": "Ministero",
       "descrizione": "Dipartimento della Funzione Pubblica — PCM"
     },
     {
       "id": "ag_demanio",
       "name": "Agenzia del Demanio",
-      "tipo": "Erogatore",
+      "tipo": "Erogatore/Fruitore",
       "categoria": "Fisco",
       "descrizione": "Agenzia del Demanio — patrimonio dello Stato"
     },
@@ -171,28 +185,28 @@
     {
       "id": "r_sicilia",
       "name": "Reg. Siciliana",
-      "tipo": "Erogatore",
+      "tipo": "Erogatore/Fruitore",
       "categoria": "Regione",
       "descrizione": "Regione Siciliana — Sanità territoriale"
     },
     {
       "id": "r_friuli",
       "name": "Reg. FVG",
-      "tipo": "Erogatore",
+      "tipo": "Erogatore/Fruitore",
       "categoria": "Regione",
       "descrizione": "Regione Autonoma Friuli-Venezia Giulia — 51 endpoint nel catalogo"
     },
     {
       "id": "pa_bolzano",
       "name": "Prov. Aut. Bolzano",
-      "tipo": "Erogatore",
+      "tipo": "Erogatore/Fruitore",
       "categoria": "Regione",
       "descrizione": "Provincia Autonoma di Bolzano — Dati ambientali"
     },
     {
       "id": "r_liguria",
       "name": "Reg. Liguria",
-      "tipo": "Erogatore",
+      "tipo": "Erogatore/Fruitore",
       "categoria": "Regione",
       "descrizione": "Regione Liguria — 60 endpoint nel catalogo"
     },
@@ -206,28 +220,28 @@
     {
       "id": "r_molise",
       "name": "Reg. Molise",
-      "tipo": "Erogatore",
+      "tipo": "Erogatore/Fruitore",
       "categoria": "Regione",
       "descrizione": "Regione Molise — 48 endpoint nel catalogo"
     },
     {
       "id": "r_puglia",
       "name": "Reg. Puglia",
-      "tipo": "Erogatore",
+      "tipo": "Erogatore/Fruitore",
       "categoria": "Regione",
       "descrizione": "Regione Puglia — 45 endpoint nel catalogo"
     },
     {
       "id": "pa_trento",
       "name": "Prov. Aut. Trento",
-      "tipo": "Erogatore",
+      "tipo": "Erogatore/Fruitore",
       "categoria": "Regione",
       "descrizione": "Provincia Autonoma di Trento — 45 endpoint nel catalogo"
     },
     {
       "id": "r_abruzzo",
       "name": "Reg. Abruzzo",
-      "tipo": "Erogatore",
+      "tipo": "Erogatore/Fruitore",
       "categoria": "Regione",
       "descrizione": "Regione Abruzzo — 45 endpoint nel catalogo"
     },
@@ -255,84 +269,84 @@
     {
       "id": "r_marche",
       "name": "Reg. Marche",
-      "tipo": "Erogatore",
+      "tipo": "Erogatore/Fruitore",
       "categoria": "Regione",
       "descrizione": "Regione Marche — 37 endpoint nel catalogo"
     },
     {
       "id": "r_umbria",
       "name": "Reg. Umbria",
-      "tipo": "Erogatore",
+      "tipo": "Erogatore/Fruitore",
       "categoria": "Regione",
       "descrizione": "Regione Umbria — 32 endpoint nel catalogo"
     },
     {
       "id": "r_vda",
       "name": "Reg. Valle d'Aosta",
-      "tipo": "Erogatore",
+      "tipo": "Erogatore/Fruitore",
       "categoria": "Regione",
       "descrizione": "Regione Autonoma Valle d'Aosta — 32 endpoint nel catalogo"
     },
     {
       "id": "r_basilicata",
       "name": "Reg. Basilicata",
-      "tipo": "Erogatore",
+      "tipo": "Erogatore/Fruitore",
       "categoria": "Regione",
       "descrizione": "Regione Basilicata — 31 endpoint nel catalogo"
     },
     {
       "id": "r_sardegna",
       "name": "Reg. Sardegna",
-      "tipo": "Erogatore",
+      "tipo": "Erogatore/Fruitore",
       "categoria": "Regione",
       "descrizione": "Regione Autonoma della Sardegna — 30 endpoint nel catalogo"
     },
     {
       "id": "r_calabria",
       "name": "Reg. Calabria",
-      "tipo": "Erogatore",
+      "tipo": "Erogatore/Fruitore",
       "categoria": "Regione",
       "descrizione": "Regione Calabria — 27 endpoint nel catalogo"
     },
     {
       "id": "c_milano",
       "name": "Comune di Milano",
-      "tipo": "Erogatore",
+      "tipo": "Erogatore/Fruitore",
       "categoria": "Comune",
       "descrizione": "Comune di Milano"
     },
     {
       "id": "c_roma",
       "name": "Comune di Roma",
-      "tipo": "Erogatore",
+      "tipo": "Erogatore/Fruitore",
       "categoria": "Comune",
       "descrizione": "Comune di Roma Capitale"
     },
     {
       "id": "c_napoli",
       "name": "Comune di Napoli",
-      "tipo": "Erogatore",
+      "tipo": "Erogatore/Fruitore",
       "categoria": "Comune",
       "descrizione": "Comune di Napoli"
     },
     {
       "id": "c_bologna",
       "name": "Comune di Bologna",
-      "tipo": "Erogatore",
+      "tipo": "Erogatore/Fruitore",
       "categoria": "Comune",
       "descrizione": "Comune di Bologna"
     },
     {
       "id": "c_genova",
       "name": "Comune di Genova",
-      "tipo": "Erogatore",
+      "tipo": "Erogatore/Fruitore",
       "categoria": "Comune",
       "descrizione": "Comune di Genova"
     },
     {
       "id": "c_padova",
       "name": "Comune di Padova",
-      "tipo": "Erogatore",
+      "tipo": "Erogatore/Fruitore",
       "categoria": "Comune",
       "descrizione": "Comune di Padova"
     },
@@ -349,23 +363,151 @@
       "id": "min_interno_49cb628f",
       "nome": "ANPR API INTEGRAZIONE INAD",
       "erogatore": "min_interno",
-      "fruitori": [],
-      "archi": [],
+      "fruitori": [
+        "agid"
+      ],
+      "archi": [
+        {
+          "fruitore": "agid",
+          "origine": "inferita"
+        }
+      ],
       "versione": "2",
       "stato": "Attivo",
       "descrizione": "API esposte da ANPR ad INAD per la sincronizzazione dei domicili digitali",
-      "catalogId": "49cb628f-be12-4eb5-8c3a-e469db43440b"
+      "catalogId": "49cb628f-be12-4eb5-8c3a-e469db43440b",
+      "ai_confidenza": 0.82,
+      "ai_motivazione": "INAD (Indice Nazionale dei Domicili Digitali) è gestito da AgID, che fruisce delle API ANPR per sincronizzare i domicili digitali."
     },
     {
       "id": "min_interno_936f081c",
       "nome": "ANPR-Certificazione",
       "erogatore": "min_interno",
-      "fruitori": [],
-      "archi": [],
+      "fruitori": [
+        "inps",
+        "ade",
+        "ade_riscossione",
+        "inail",
+        "min_giustizia",
+        "mlps",
+        "unioncamere",
+        "c_milano",
+        "c_roma",
+        "c_napoli",
+        "c_bologna",
+        "c_genova",
+        "c_padova",
+        "comuni_agg",
+        "r_lombardia",
+        "r_lazio",
+        "r_campania",
+        "r_toscana",
+        "r_veneto",
+        "r_emilia",
+        "r_piemonte",
+        "r_puglia",
+        "r_sicilia"
+      ],
+      "archi": [
+        {
+          "fruitore": "inps",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "ade",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "ade_riscossione",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "inail",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "min_giustizia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "mlps",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "unioncamere",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_milano",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_roma",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_napoli",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_bologna",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_genova",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_padova",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "comuni_agg",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_lombardia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_lazio",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_campania",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_toscana",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_veneto",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_emilia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_piemonte",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_puglia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_sicilia",
+          "origine": "inferita"
+        }
+      ],
       "versione": "1",
       "stato": "Attivo",
       "descrizione": "Servizio per l'emissione dei certificati anagrafici",
-      "catalogId": "936f081c-141e-4601-a9aa-4a6b5437bbfe"
+      "catalogId": "936f081c-141e-4601-a9aa-4a6b5437bbfe",
+      "ai_confidenza": 0.85,
+      "ai_motivazione": "I certificati anagrafici ANPR sono consultati da enti previdenziali, fiscali, giudiziari, lavoro e da comuni/regioni per istruttoria pratiche e verifica residenza/stato civile."
     },
     {
       "id": "min_interno_579dcb3b",
@@ -480,12 +622,186 @@
       "id": "min_interno_ea3e08b5",
       "nome": "C003-servizioVerificaDichGeneralita-approvazione_automatica",
       "erogatore": "min_interno",
-      "fruitori": [],
-      "archi": [],
+      "fruitori": [
+        "inps",
+        "ade",
+        "inail",
+        "mef",
+        "ade_riscossione",
+        "mlps",
+        "r_lombardia",
+        "r_lazio",
+        "r_campania",
+        "r_sicilia",
+        "r_friuli",
+        "pa_bolzano",
+        "r_liguria",
+        "r_toscana",
+        "r_molise",
+        "r_puglia",
+        "pa_trento",
+        "r_abruzzo",
+        "r_emilia",
+        "r_piemonte",
+        "r_veneto",
+        "r_marche",
+        "r_umbria",
+        "r_vda",
+        "r_basilicata",
+        "r_sardegna",
+        "r_calabria",
+        "c_milano",
+        "c_roma",
+        "c_napoli",
+        "c_bologna",
+        "c_genova",
+        "c_padova",
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "inps",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "ade",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "inail",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "mef",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "ade_riscossione",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "mlps",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_lombardia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_lazio",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_campania",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_sicilia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_friuli",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "pa_bolzano",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_liguria",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_toscana",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_molise",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_puglia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "pa_trento",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_abruzzo",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_emilia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_piemonte",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_veneto",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_marche",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_umbria",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_vda",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_basilicata",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_sardegna",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_calabria",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_milano",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_roma",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_napoli",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_bologna",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_genova",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_padova",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "comuni_agg",
+          "origine": "inferita"
+        }
+      ],
       "versione": "2",
       "stato": "Attivo",
       "descrizione": "C003-servizioVerificaDichGeneralita",
-      "catalogId": "ea3e08b5-47d2-47e4-bcd8-9fe7a988a3c9"
+      "catalogId": "ea3e08b5-47d2-47e4-bcd8-9fe7a988a3c9",
+      "ai_confidenza": 0.6,
+      "ai_motivazione": "La verifica delle dichiarazioni di generalità anagrafiche è utile a un'ampia platea di enti che devono validare l'identità dei cittadini nei propri procedimenti."
     },
     {
       "id": "inps_34043187",
@@ -545,12 +861,91 @@
       "id": "inps_88f03670",
       "nome": "Consultazione Acc. Adulti Anziani - WaaS",
       "erogatore": "inps",
-      "fruitori": [],
-      "archi": [],
+      "fruitori": [
+        "c_milano",
+        "c_roma",
+        "c_napoli",
+        "c_bologna",
+        "c_genova",
+        "c_padova",
+        "comuni_agg",
+        "r_lombardia",
+        "r_lazio",
+        "r_campania",
+        "r_toscana",
+        "r_emilia",
+        "r_piemonte",
+        "r_veneto",
+        "mlps"
+      ],
+      "archi": [
+        {
+          "fruitore": "c_milano",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_roma",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_napoli",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_bologna",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_genova",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_padova",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "comuni_agg",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_lombardia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_lazio",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_campania",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_toscana",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_emilia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_piemonte",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_veneto",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "mlps",
+          "origine": "inferita"
+        }
+      ],
       "versione": "3",
       "stato": "Attivo",
       "descrizione": "Servizio che prende in input il codice fiscale del cittadino e restituisce i dati della prestazione Servizio di accoglienza di adulti e anz…",
-      "catalogId": "88f03670-80c9-4495-a24b-d6d582b584da"
+      "catalogId": "88f03670-80c9-4495-a24b-d6d582b584da",
+      "ai_confidenza": 0.7,
+      "ai_motivazione": "I dati su prestazioni di accoglienza per adulti e anziani sono tipicamente usati dai servizi sociali di Comuni e Regioni per verifiche socio-assistenziali."
     },
     {
       "id": "inps_423385e8",
@@ -578,34 +973,206 @@
       "id": "inps_9b2bf50d",
       "nome": "Consultazione Agevolazioni Servizi Pubb. - WaaS",
       "erogatore": "inps",
-      "fruitori": [],
-      "archi": [],
+      "fruitori": [
+        "c_milano",
+        "c_roma",
+        "c_napoli",
+        "c_bologna",
+        "c_genova",
+        "c_padova",
+        "comuni_agg",
+        "r_lombardia",
+        "r_lazio",
+        "r_campania",
+        "r_toscana",
+        "r_emilia",
+        "r_piemonte",
+        "r_veneto"
+      ],
+      "archi": [
+        {
+          "fruitore": "c_milano",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_roma",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_napoli",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_bologna",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_genova",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_padova",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "comuni_agg",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_lombardia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_lazio",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_campania",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_toscana",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_emilia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_piemonte",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_veneto",
+          "origine": "inferita"
+        }
+      ],
       "versione": "3",
       "stato": "Attivo",
       "descrizione": "Servizio che prende in input il codice fiscale del cittadino e restituisce i dati della prestazione Agevolazioni per i servizi di pubblica …",
-      "catalogId": "9b2bf50d-9a4f-49bc-8473-1b87408b70ea"
+      "catalogId": "9b2bf50d-9a4f-49bc-8473-1b87408b70ea",
+      "ai_confidenza": 0.7,
+      "ai_motivazione": "Le agevolazioni sui servizi di pubblica utilità sono gestite e verificate principalmente da Comuni e Regioni che erogano i benefici ai cittadini."
     },
     {
       "id": "inps_6832ec2f",
       "nome": "Consultazione Agevolazioni Tasse Univ. - WaaS",
       "erogatore": "inps",
-      "fruitori": [],
-      "archi": [],
+      "fruitori": [
+        "mur",
+        "cineca",
+        "r_lombardia",
+        "r_lazio",
+        "r_campania",
+        "r_toscana",
+        "r_emilia",
+        "r_piemonte",
+        "r_veneto",
+        "r_puglia",
+        "r_sicilia"
+      ],
+      "archi": [
+        {
+          "fruitore": "mur",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "cineca",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_lombardia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_lazio",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_campania",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_toscana",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_emilia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_piemonte",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_veneto",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_puglia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_sicilia",
+          "origine": "inferita"
+        }
+      ],
       "versione": "3",
       "stato": "Attivo",
       "descrizione": "Servizio che prende in input il codice fiscale del cittadino e restituisce i dati della prestazione Agevolazioni per tasse universitarie.",
-      "catalogId": "6832ec2f-cacf-483b-92fd-149219c4f06a"
+      "catalogId": "6832ec2f-cacf-483b-92fd-149219c4f06a",
+      "ai_confidenza": 0.6,
+      "ai_motivazione": "Le agevolazioni sulle tasse universitarie interessano università/MUR, Cineca e gli enti regionali per il diritto allo studio (DSU)."
     },
     {
       "id": "inps_2dd25168",
       "nome": "Consultazione Agevolazioni Tributarie - WaaS",
       "erogatore": "inps",
-      "fruitori": [],
-      "archi": [],
+      "fruitori": [
+        "c_milano",
+        "c_roma",
+        "c_napoli",
+        "c_bologna",
+        "c_genova",
+        "c_padova",
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "c_milano",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_roma",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_napoli",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_bologna",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_genova",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_padova",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "comuni_agg",
+          "origine": "inferita"
+        }
+      ],
       "versione": "3",
       "stato": "Attivo",
       "descrizione": "Servizio che prende in input il codice fiscale del cittadino e restituisce i dati della prestazione Agevolazioni tributarie comunali (nette…",
-      "catalogId": "2dd25168-da15-485e-bef8-21003b03d2b3"
+      "catalogId": "2dd25168-da15-485e-bef8-21003b03d2b3",
+      "ai_confidenza": 0.7,
+      "ai_motivazione": "Le agevolazioni tributarie comunali sono gestite dai Comuni, principali fruitori della verifica delle prestazioni INPS legate a tributi locali."
     },
     {
       "id": "ade_6445be6b",
@@ -669,23 +1236,111 @@
       "id": "ade_c41f8c3c",
       "nome": "ANNCSU - Aggiornamento coordinate per grandi Comuni",
       "erogatore": "ade",
-      "fruitori": [],
-      "archi": [],
+      "fruitori": [
+        "c_milano",
+        "c_roma",
+        "c_napoli",
+        "c_bologna",
+        "c_genova",
+        "c_padova",
+        "comuni_agg",
+        "min_interno"
+      ],
+      "archi": [
+        {
+          "fruitore": "c_milano",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_roma",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_napoli",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_bologna",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_genova",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_padova",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "comuni_agg",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "min_interno",
+          "origine": "inferita"
+        }
+      ],
       "versione": "1",
       "stato": "Attivo",
       "descrizione": "Aggiornamento delle coordinate geografiche (longitudine, latitudine e quota) degli accessi con un'unica tipologia di operazione che aggiung…",
-      "catalogId": "c41f8c3c-375b-4162-9505-6862c6c75e7a"
+      "catalogId": "c41f8c3c-375b-4162-9505-6862c6c75e7a",
+      "ai_confidenza": 0.78,
+      "ai_motivazione": "L'ANNCSU gestita da AdE è alimentata dai grandi Comuni che aggiornano stradario/numerazione civica e relative coordinate, con interesse di ANPR per la toponomastica."
     },
     {
       "id": "ade_54a312be",
       "nome": "ANNCSU - Aggiornamento interni",
       "erogatore": "ade",
-      "fruitori": [],
-      "archi": [],
+      "fruitori": [
+        "comuni_agg",
+        "c_milano",
+        "c_roma",
+        "c_napoli",
+        "c_bologna",
+        "c_genova",
+        "c_padova",
+        "min_interno"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_milano",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_roma",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_napoli",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_bologna",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_genova",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_padova",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "min_interno",
+          "origine": "inferita"
+        }
+      ],
       "versione": "1",
       "stato": "Attivo",
       "descrizione": "Aggiornamento degli accessi interni con operazioni di inserimento, aggiornamento e soppressione. Il servizio non è utilizzabile per modific…",
-      "catalogId": "54a312be-ab6b-4627-a73e-1f07e0b20914"
+      "catalogId": "54a312be-ab6b-4627-a73e-1f07e0b20914",
+      "ai_confidenza": 0.7,
+      "ai_motivazione": "ANNCSU (Archivio Nazionale Numeri Civici e Strade Urbane) è alimentato e aggiornato dai Comuni, principali responsabili della toponomastica e degli accessi interni."
     },
     {
       "id": "ade_3dca862b",
@@ -789,34 +1444,461 @@
       "id": "agid_99263b13",
       "nome": "INAD API INTEGRAZIONE ANPR",
       "erogatore": "agid",
-      "fruitori": [],
-      "archi": [],
+      "fruitori": [
+        "min_interno"
+      ],
+      "archi": [
+        {
+          "fruitore": "min_interno",
+          "origine": "inferita"
+        }
+      ],
       "versione": "2",
       "stato": "Attivo",
       "descrizione": "Servizi di integrazione tra ANPR e INAD",
-      "catalogId": "99263b13-8546-4a21-b207-f7fe85bb0b50"
+      "catalogId": "99263b13-8546-4a21-b207-f7fe85bb0b50",
+      "ai_confidenza": 0.6,
+      "ai_motivazione": "L'integrazione tecnica tra ANPR (gestito dal Min. Interno) e INAD richiede principalmente la fruizione da parte del titolare di ANPR per allineare i domicili digitali con l'anagrafe."
     },
     {
       "id": "agid_2d97cffc",
       "nome": "INAD CONSULTAZIONE DD",
       "erogatore": "agid",
-      "fruitori": [],
-      "archi": [],
+      "fruitori": [
+        "min_interno",
+        "inps",
+        "ade",
+        "inail",
+        "unioncamere",
+        "mef",
+        "anac",
+        "mit_dgmot",
+        "min_giustizia",
+        "ade_riscossione",
+        "mlps",
+        "mit",
+        "r_lombardia",
+        "r_lazio",
+        "r_campania",
+        "r_sicilia",
+        "r_friuli",
+        "pa_bolzano",
+        "r_liguria",
+        "r_toscana",
+        "r_molise",
+        "r_puglia",
+        "pa_trento",
+        "r_abruzzo",
+        "r_emilia",
+        "r_piemonte",
+        "r_veneto",
+        "r_marche",
+        "r_umbria",
+        "r_vda",
+        "r_basilicata",
+        "r_sardegna",
+        "r_calabria",
+        "c_milano",
+        "c_roma",
+        "c_napoli",
+        "c_bologna",
+        "c_genova",
+        "c_padova",
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "min_interno",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "inps",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "ade",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "inail",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "unioncamere",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "mef",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "anac",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "mit_dgmot",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "min_giustizia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "ade_riscossione",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "mlps",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "mit",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_lombardia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_lazio",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_campania",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_sicilia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_friuli",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "pa_bolzano",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_liguria",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_toscana",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_molise",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_puglia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "pa_trento",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_abruzzo",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_emilia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_piemonte",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_veneto",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_marche",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_umbria",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_vda",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_basilicata",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_sardegna",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_calabria",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_milano",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_roma",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_napoli",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_bologna",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_genova",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_padova",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "comuni_agg",
+          "origine": "inferita"
+        }
+      ],
       "versione": "2",
       "stato": "Attivo",
       "descrizione": "e-service per la consultazione dei domicili digitali presenti nell'INAD per le Pubbliche Amministrazioni e Gestori dei Pubblici Servizi ai …",
-      "catalogId": "2d97cffc-27cb-4705-a21d-9e1084aec9e3"
+      "catalogId": "2d97cffc-27cb-4705-a21d-9e1084aec9e3",
+      "ai_confidenza": 0.85,
+      "ai_motivazione": "La consultazione dei domicili digitali INAD è destinata a tutte le PA e gestori di pubblici servizi che inviano notifiche/comunicazioni ai cittadini."
     },
     {
       "id": "agid_0fd99b5d",
       "nome": "INAD CONSULTAZIONE DD - PagoPA",
       "erogatore": "agid",
-      "fruitori": [],
-      "archi": [],
+      "fruitori": [
+        "min_interno",
+        "inps",
+        "ade",
+        "inail",
+        "unioncamere",
+        "mef",
+        "anac",
+        "mit_dgmot",
+        "min_giustizia",
+        "ade_riscossione",
+        "mlps",
+        "mit",
+        "dfp",
+        "ag_demanio",
+        "r_lombardia",
+        "r_lazio",
+        "r_campania",
+        "r_sicilia",
+        "r_friuli",
+        "pa_bolzano",
+        "r_liguria",
+        "r_toscana",
+        "r_molise",
+        "r_puglia",
+        "pa_trento",
+        "r_abruzzo",
+        "r_emilia",
+        "r_piemonte",
+        "r_veneto",
+        "r_marche",
+        "r_umbria",
+        "r_vda",
+        "r_basilicata",
+        "r_sardegna",
+        "r_calabria",
+        "c_milano",
+        "c_roma",
+        "c_napoli",
+        "c_bologna",
+        "c_genova",
+        "c_padova",
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "min_interno",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "inps",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "ade",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "inail",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "unioncamere",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "mef",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "anac",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "mit_dgmot",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "min_giustizia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "ade_riscossione",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "mlps",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "mit",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "dfp",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "ag_demanio",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_lombardia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_lazio",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_campania",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_sicilia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_friuli",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "pa_bolzano",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_liguria",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_toscana",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_molise",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_puglia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "pa_trento",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_abruzzo",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_emilia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_piemonte",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_veneto",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_marche",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_umbria",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_vda",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_basilicata",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_sardegna",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_calabria",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_milano",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_roma",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_napoli",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_bologna",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_genova",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_padova",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "comuni_agg",
+          "origine": "inferita"
+        }
+      ],
       "versione": "1",
       "stato": "Attivo",
       "descrizione": "e-service per la consultazione dei domicili digitali presenti nell'INAD per le Pubbliche Amministrazioni e Gestori dei Pubblici Servizi ai …",
-      "catalogId": "0fd99b5d-e6b7-492f-8e11-dae1411cabbf"
+      "catalogId": "0fd99b5d-e6b7-492f-8e11-dae1411cabbf",
+      "ai_confidenza": 0.85,
+      "ai_motivazione": "La consultazione dei domicili digitali INAD è di interesse trasversale per tutte le PA e i gestori di pubblici servizi che inviano comunicazioni ufficiali ai cittadini."
     },
     {
       "id": "inail_27d0b921",
@@ -833,12 +1915,91 @@
       "id": "inail_a51198a6",
       "nome": "INAIL_Gra_Durc",
       "erogatore": "inail",
-      "fruitori": [],
-      "archi": [],
+      "fruitori": [
+        "anac",
+        "inps",
+        "mlps",
+        "ade",
+        "unioncamere",
+        "comuni_agg",
+        "r_lombardia",
+        "r_lazio",
+        "r_campania",
+        "r_veneto",
+        "r_emilia",
+        "r_piemonte",
+        "r_toscana",
+        "r_puglia",
+        "r_sicilia"
+      ],
+      "archi": [
+        {
+          "fruitore": "anac",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "inps",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "mlps",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "ade",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "unioncamere",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "comuni_agg",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_lombardia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_lazio",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_campania",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_veneto",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_emilia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_piemonte",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_toscana",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_puglia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_sicilia",
+          "origine": "inferita"
+        }
+      ],
       "versione": "1",
       "stato": "Attivo",
       "descrizione": "Risorse per la consultazione del Durc",
-      "catalogId": "a51198a6-0b08-4958-9d80-6fb6d49e4bbc"
+      "catalogId": "a51198a6-0b08-4958-9d80-6fb6d49e4bbc",
+      "ai_confidenza": 0.62,
+      "ai_motivazione": "Il DURC (regolarità contributiva) è consultato da stazioni appaltanti e enti che gestiscono contratti pubblici e verifiche su imprese: ANAC, INPS, Min. Lavoro, Agenzia Entrate, Camere di commercio, Co"
     },
     {
       "id": "inail_16444299",
@@ -877,12 +2038,51 @@
       "id": "unioncamere_8d75b585",
       "nome": "CATALOGO - GESTIONE ISTANZA - BACKOFFICE",
       "erogatore": "unioncamere",
-      "fruitori": [],
-      "archi": [],
+      "fruitori": [
+        "c_milano",
+        "c_roma",
+        "c_napoli",
+        "c_bologna",
+        "c_genova",
+        "c_padova",
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "c_milano",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_roma",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_napoli",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_bologna",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_genova",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_padova",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "comuni_agg",
+          "origine": "inferita"
+        }
+      ],
       "versione": "4",
       "stato": "Attivo",
       "descrizione": "API esposta ai Back Office SUAP per il recupero e l'aggiornamento del descrittore istanza",
-      "catalogId": "8d75b585-715c-40a0-a9c5-7108b8cbd5dc"
+      "catalogId": "8d75b585-715c-40a0-a9c5-7108b8cbd5dc",
+      "ai_confidenza": 0.78,
+      "ai_motivazione": "Il SUAP è una funzione comunale, quindi i Back Office che recuperano e aggiornano le istanze sono tipicamente i Comuni titolari dello sportello unico."
     },
     {
       "id": "unioncamere_5cc5a9be",
@@ -910,12 +2110,51 @@
       "id": "unioncamere_16e87af1",
       "nome": "CATALOGO - GESTIONE ISTANZA - FRONTOFFICE",
       "erogatore": "unioncamere",
-      "fruitori": [],
-      "archi": [],
+      "fruitori": [
+        "c_milano",
+        "c_roma",
+        "c_napoli",
+        "c_bologna",
+        "c_genova",
+        "c_padova",
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "c_milano",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_roma",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_napoli",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_bologna",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_genova",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_padova",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "comuni_agg",
+          "origine": "inferita"
+        }
+      ],
       "versione": "3",
       "stato": "Attivo",
       "descrizione": "API esposta ai Front Office SUAP per il recupero e l'aggiornamento del descrittore istanza",
-      "catalogId": "16e87af1-d005-491d-88ae-e02a0f45174d"
+      "catalogId": "16e87af1-d005-491d-88ae-e02a0f45174d",
+      "ai_confidenza": 0.72,
+      "ai_motivazione": "Il SUAP è gestito dai Comuni che, tramite i propri Front Office, recuperano e aggiornano i descrittori delle istanze nel sistema camerale di Unioncamere."
     },
     {
       "id": "unioncamere_48df8b36",
@@ -1009,23 +2248,41 @@
       "id": "anac_7fbf061c",
       "nome": "AdE - Callback Atti non definitivamente accertati - v2",
       "erogatore": "anac",
-      "fruitori": [],
-      "archi": [],
+      "fruitori": [
+        "ade"
+      ],
+      "archi": [
+        {
+          "fruitore": "ade",
+          "origine": "inferita"
+        }
+      ],
       "versione": "1",
       "stato": "Attivo",
       "descrizione": "Acquisizione da parte di AdE delle risposte alle richieste di Atti non definitivamente accertati - versione del 04/09/2024 con aggiornament…",
-      "catalogId": "7fbf061c-097e-477d-8ff0-c53a63f31522"
+      "catalogId": "7fbf061c-097e-477d-8ff0-c53a63f31522",
+      "ai_confidenza": 0.6,
+      "ai_motivazione": "Si tratta di un e-service di callback verso l'Agenzia delle Entrate per acquisire le risposte sugli atti non definitivamente accertati, quindi il fruitore principale è AdE."
     },
     {
       "id": "anac_0181b4fe",
       "nome": "AdE - Callback Redditi società di persone - v2",
       "erogatore": "anac",
-      "fruitori": [],
-      "archi": [],
+      "fruitori": [
+        "ade"
+      ],
+      "archi": [
+        {
+          "fruitore": "ade",
+          "origine": "inferita"
+        }
+      ],
       "versione": "1",
       "stato": "Attivo",
       "descrizione": "Acquisizione delle risposte da parte di Agenzia Entrate alle richieste di dati reddituali delle società di persone e delle ditte individuali",
-      "catalogId": "0181b4fe-909c-442f-a2d8-de34daa56c73"
+      "catalogId": "0181b4fe-909c-442f-a2d8-de34daa56c73",
+      "ai_confidenza": 0.6,
+      "ai_motivazione": "Il servizio di callback ANAC acquisisce le risposte ai dati reddituali, quindi è l'Agenzia delle Entrate che invia le risposte e interagisce come controparte tecnica."
     },
     {
       "id": "anac_5ae8c18d",
@@ -1042,23 +2299,431 @@
       "id": "anac_673e99b9",
       "nome": "APICIG",
       "erogatore": "anac",
-      "fruitori": [],
-      "archi": [],
+      "fruitori": [
+        "min_interno",
+        "inps",
+        "ade",
+        "inail",
+        "unioncamere",
+        "mef",
+        "mit_dgmot",
+        "min_giustizia",
+        "min_cultura",
+        "mur",
+        "ade_riscossione",
+        "istat",
+        "mlps",
+        "mit",
+        "dfp",
+        "ag_demanio",
+        "min_istruzione",
+        "r_lombardia",
+        "r_lazio",
+        "r_campania",
+        "r_sicilia",
+        "r_friuli",
+        "pa_bolzano",
+        "r_liguria",
+        "r_toscana",
+        "r_molise",
+        "r_puglia",
+        "pa_trento",
+        "r_abruzzo",
+        "r_emilia",
+        "r_piemonte",
+        "r_veneto",
+        "r_marche",
+        "r_umbria",
+        "r_vda",
+        "r_basilicata",
+        "r_sardegna",
+        "r_calabria",
+        "c_milano",
+        "c_roma",
+        "c_napoli",
+        "c_bologna",
+        "c_genova",
+        "c_padova",
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "min_interno",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "inps",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "ade",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "inail",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "unioncamere",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "mef",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "mit_dgmot",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "min_giustizia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "min_cultura",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "mur",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "ade_riscossione",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "istat",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "mlps",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "mit",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "dfp",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "ag_demanio",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "min_istruzione",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_lombardia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_lazio",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_campania",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_sicilia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_friuli",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "pa_bolzano",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_liguria",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_toscana",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_molise",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_puglia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "pa_trento",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_abruzzo",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_emilia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_piemonte",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_veneto",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_marche",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_umbria",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_vda",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_basilicata",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_sardegna",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_calabria",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_milano",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_roma",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_napoli",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_bologna",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_genova",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_padova",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "comuni_agg",
+          "origine": "inferita"
+        }
+      ],
       "versione": "1",
       "stato": "Attivo",
       "descrizione": "Il servizio è ad uso delle istituzioni pubbliche e restituisce i dati anagrafici di CIG e smartCIG",
-      "catalogId": "673e99b9-f7cc-4e1c-b319-677340d53956"
+      "catalogId": "673e99b9-f7cc-4e1c-b319-677340d53956",
+      "ai_confidenza": 0.78,
+      "ai_motivazione": "Tutte le stazioni appaltanti pubbliche (ministeri, regioni, comuni ed enti) utilizzano i dati CIG/smartCIG per la gestione e verifica delle procedure di gara."
     },
     {
       "id": "anac_0340d951",
       "nome": "APICIG2",
       "erogatore": "anac",
-      "fruitori": [],
-      "archi": [],
+      "fruitori": [
+        "min_interno",
+        "inps",
+        "ade",
+        "mef",
+        "mit",
+        "mlps",
+        "ag_demanio",
+        "r_lombardia",
+        "r_lazio",
+        "r_campania",
+        "r_sicilia",
+        "r_friuli",
+        "pa_bolzano",
+        "r_liguria",
+        "r_toscana",
+        "r_molise",
+        "r_puglia",
+        "pa_trento",
+        "r_abruzzo",
+        "r_emilia",
+        "r_piemonte",
+        "r_veneto",
+        "r_marche",
+        "r_umbria",
+        "r_vda",
+        "r_basilicata",
+        "r_sardegna",
+        "r_calabria",
+        "c_milano",
+        "c_roma",
+        "c_napoli",
+        "c_bologna",
+        "c_genova",
+        "c_padova",
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "min_interno",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "inps",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "ade",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "mef",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "mit",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "mlps",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "ag_demanio",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_lombardia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_lazio",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_campania",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_sicilia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_friuli",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "pa_bolzano",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_liguria",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_toscana",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_molise",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_puglia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "pa_trento",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_abruzzo",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_emilia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_piemonte",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_veneto",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_marche",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_umbria",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_vda",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_basilicata",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_sardegna",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_calabria",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_milano",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_roma",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_napoli",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_bologna",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_genova",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_padova",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "comuni_agg",
+          "origine": "inferita"
+        }
+      ],
       "versione": "1",
       "stato": "Attivo",
       "descrizione": "Il servizio, dato un CIG, restituisce le informazioni relative alla Stazione Appaltante, alla pubblicazione, al bando e agli incaricati Sec…",
-      "catalogId": "0340d951-558c-499a-9ec5-08ef6da84104"
+      "catalogId": "0340d951-558c-499a-9ec5-08ef6da84104",
+      "ai_confidenza": 0.7,
+      "ai_motivazione": "Le informazioni su CIG e stazioni appaltanti sono utili a tutte le PA che operano come stazioni appaltanti o effettuano verifiche su gare e appalti."
     },
     {
       "id": "min_giustizia_b028dc1a",
@@ -1135,12 +2800,56 @@
       "id": "min_cultura_2415b4f3",
       "nome": "Ente Terzo SUAP MiC",
       "erogatore": "min_cultura",
-      "fruitori": [],
-      "archi": [],
+      "fruitori": [
+        "c_milano",
+        "c_roma",
+        "c_napoli",
+        "c_bologna",
+        "c_genova",
+        "c_padova",
+        "comuni_agg",
+        "unioncamere"
+      ],
+      "archi": [
+        {
+          "fruitore": "c_milano",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_roma",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_napoli",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_bologna",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_genova",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_padova",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "comuni_agg",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "unioncamere",
+          "origine": "inferita"
+        }
+      ],
       "versione": "1",
       "stato": "Attivo",
       "descrizione": "Servizio Ente Terzo SUAP MiC",
-      "catalogId": "2415b4f3-e401-405e-a3b0-fa16ab180e25"
+      "catalogId": "2415b4f3-e401-405e-a3b0-fa16ab180e25",
+      "ai_confidenza": 0.72,
+      "ai_motivazione": "Il servizio SUAP 'Ente Terzo' del MiC è tipicamente consumato dai SUAP comunali (e dalle Camere di Commercio tramite Unioncamere) per acquisire pareri/endoprocedimenti culturali nei procedimenti unici"
     },
     {
       "id": "min_cultura_0d261160",
@@ -1447,12 +3156,196 @@
       "id": "pagopa_cfc8a94d",
       "nome": "SEND - Servizio Notifiche Digitali",
       "erogatore": "pagopa",
-      "fruitori": [],
-      "archi": [],
+      "fruitori": [
+        "min_interno",
+        "inps",
+        "ade",
+        "ade_riscossione",
+        "inail",
+        "mef",
+        "min_giustizia",
+        "mit_dgmot",
+        "r_lombardia",
+        "r_lazio",
+        "r_campania",
+        "r_sicilia",
+        "r_friuli",
+        "pa_bolzano",
+        "r_liguria",
+        "r_toscana",
+        "r_molise",
+        "r_puglia",
+        "pa_trento",
+        "r_abruzzo",
+        "r_emilia",
+        "r_piemonte",
+        "r_veneto",
+        "r_marche",
+        "r_umbria",
+        "r_vda",
+        "r_basilicata",
+        "r_sardegna",
+        "r_calabria",
+        "c_milano",
+        "c_roma",
+        "c_napoli",
+        "c_bologna",
+        "c_genova",
+        "c_padova",
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "min_interno",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "inps",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "ade",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "ade_riscossione",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "inail",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "mef",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "min_giustizia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "mit_dgmot",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_lombardia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_lazio",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_campania",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_sicilia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_friuli",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "pa_bolzano",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_liguria",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_toscana",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_molise",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_puglia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "pa_trento",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_abruzzo",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_emilia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_piemonte",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_veneto",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_marche",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_umbria",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_vda",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_basilicata",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_sardegna",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_calabria",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_milano",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_roma",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_napoli",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_bologna",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_genova",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_padova",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "comuni_agg",
+          "origine": "inferita"
+        }
+      ],
       "versione": "15",
       "stato": "Attivo",
       "descrizione": "Il servizio permette alle Pubbliche Amministrazioni di inviare comunicazioni a valore legale a persone fisiche e giuridiche.",
-      "catalogId": "cfc8a94d-001a-4ab6-bb5c-2509b2a68af1"
+      "catalogId": "cfc8a94d-001a-4ab6-bb5c-2509b2a68af1",
+      "ai_confidenza": 0.85,
+      "ai_motivazione": "SEND è una piattaforma trasversale per l'invio di notifiche a valore legale, usata potenzialmente da tutte le PA mittenti (enti centrali, regioni, comuni)."
     },
     {
       "id": "pagopa_dc9cdf88",
@@ -1469,12 +3362,181 @@
       "id": "pagopa_bf9bfde5",
       "nome": "SEND - Servizio Notifiche Digitali 24Q4.A",
       "erogatore": "pagopa",
-      "fruitori": [],
-      "archi": [],
+      "fruitori": [
+        "min_interno",
+        "inps",
+        "ade",
+        "ade_riscossione",
+        "mit_dgmot",
+        "r_lombardia",
+        "r_lazio",
+        "r_campania",
+        "r_sicilia",
+        "r_friuli",
+        "pa_bolzano",
+        "r_liguria",
+        "r_toscana",
+        "r_molise",
+        "r_puglia",
+        "pa_trento",
+        "r_abruzzo",
+        "r_emilia",
+        "r_piemonte",
+        "r_veneto",
+        "r_marche",
+        "r_umbria",
+        "r_vda",
+        "r_basilicata",
+        "r_sardegna",
+        "r_calabria",
+        "c_milano",
+        "c_roma",
+        "c_napoli",
+        "c_bologna",
+        "c_genova",
+        "c_padova",
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "min_interno",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "inps",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "ade",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "ade_riscossione",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "mit_dgmot",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_lombardia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_lazio",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_campania",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_sicilia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_friuli",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "pa_bolzano",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_liguria",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_toscana",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_molise",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_puglia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "pa_trento",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_abruzzo",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_emilia",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_piemonte",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_veneto",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_marche",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_umbria",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_vda",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_basilicata",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_sardegna",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "r_calabria",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_milano",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_roma",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_napoli",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_bologna",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_genova",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_padova",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "comuni_agg",
+          "origine": "inferita"
+        }
+      ],
       "versione": "1",
       "stato": "Sospeso",
       "descrizione": "Il servizio permette alle Pubbliche Amministrazioni di inviare comunicazioni a valore legale a persone fisiche e giuridiche.",
-      "catalogId": "bf9bfde5-fdcb-4554-8951-9846d8d0b651"
+      "catalogId": "bf9bfde5-fdcb-4554-8951-9846d8d0b651",
+      "ai_confidenza": 0.85,
+      "ai_motivazione": "SEND è usato da un'ampia platea di PA (enti centrali, regioni e comuni) per inviare notifiche a valore legale a cittadini e imprese."
     },
     {
       "id": "mlps_4c8075b3",
@@ -2112,12 +4174,51 @@
       "id": "min_istruzione_78fd67d2",
       "nome": "ANIST - Accertamento Titoli",
       "erogatore": "min_istruzione",
-      "fruitori": [],
-      "archi": [],
+      "fruitori": [
+        "mur",
+        "cineca",
+        "inps",
+        "mlps",
+        "unioncamere",
+        "min_interno",
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "mur",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "cineca",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "inps",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "mlps",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "unioncamere",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "min_interno",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "comuni_agg",
+          "origine": "inferita"
+        }
+      ],
       "versione": "2",
       "stato": "Attivo",
       "descrizione": "Servizi per accertare le informazioni dei titoli",
-      "catalogId": "78fd67d2-a23e-46f4-8ff0-734c04b54feb"
+      "catalogId": "78fd67d2-a23e-46f4-8ff0-734c04b54feb",
+      "ai_confidenza": 0.6,
+      "ai_motivazione": "L'accertamento dei titoli di studio interessa enti previdenziali/lavoro, università e camere di commercio per concorsi, assunzioni e verifiche autocertificazioni."
     },
     {
       "id": "min_istruzione_282b1ee0",
@@ -2327,23 +4428,51 @@
       "id": "r_campania_bc96a293",
       "nome": "IT-Wallet - RC038 - Tesserino raccolta funghi",
       "erogatore": "r_campania",
-      "fruitori": [],
-      "archi": [],
+      "fruitori": [
+        "agid",
+        "pagopa"
+      ],
+      "archi": [
+        {
+          "fruitore": "agid",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "pagopa",
+          "origine": "inferita"
+        }
+      ],
       "versione": "1",
       "stato": "Attivo",
       "descrizione": "Dato il codice fiscale del soggetto, il servizio restituisce i dati relativi all'Attestato Elettronico del Tesserino di abilitazione per la…",
-      "catalogId": "bc96a293-9c15-473c-ae75-bf0a13a41387"
+      "catalogId": "bc96a293-9c15-473c-ae75-bf0a13a41387",
+      "ai_confidenza": 0.6,
+      "ai_motivazione": "Servizio per IT-Wallet, tipicamente fruito dalle piattaforme di gestione del portafoglio digitale (AgID/PagoPA) per popolare gli attributi del wallet."
     },
     {
       "id": "r_campania_7c7898bc",
       "nome": "IT-Wallet - RC039 - Tesserino raccolta tartufi",
       "erogatore": "r_campania",
-      "fruitori": [],
-      "archi": [],
+      "fruitori": [
+        "agid",
+        "pagopa"
+      ],
+      "archi": [
+        {
+          "fruitore": "agid",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "pagopa",
+          "origine": "inferita"
+        }
+      ],
       "versione": "1",
       "stato": "Attivo",
       "descrizione": "Dato il codice fiscale del soggetto, il servizio restituisce i dati relativi all'Attestato Elettronico del Tesserino di abilitazione per la…",
-      "catalogId": "7c7898bc-628f-458e-b4ec-1a2624ec48d4"
+      "catalogId": "7c7898bc-628f-458e-b4ec-1a2624ec48d4",
+      "ai_confidenza": 0.6,
+      "ai_motivazione": "Servizio IT-Wallet per attestati elettronici, tipicamente fruito dall'infrastruttura del portafoglio digitale gestita da AgID e PagoPA."
     },
     {
       "id": "r_sicilia_54698fcd",
@@ -2560,12 +4689,31 @@
       "id": "r_toscana_d068b30a",
       "nome": "ComObblWS",
       "erogatore": "r_toscana",
-      "fruitori": [],
-      "archi": [],
+      "fruitori": [
+        "mlps",
+        "inps",
+        "inail"
+      ],
+      "archi": [
+        {
+          "fruitore": "mlps",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "inps",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "inail",
+          "origine": "inferita"
+        }
+      ],
       "versione": "1",
       "stato": "Attivo",
       "descrizione": "Comunicazioni Obbligatorie REST Service – Regione Toscana Invio e ricezione delle comunicazioni obbligatorie di assunzione, variazione e ce…",
-      "catalogId": "d068b30a-ceef-4e50-a2ac-3c4624ae66ac"
+      "catalogId": "d068b30a-ceef-4e50-a2ac-3c4624ae66ac",
+      "ai_confidenza": 0.7,
+      "ai_motivazione": "Le comunicazioni obbligatorie di assunzione/variazione/cessazione confluiscono nel sistema del Ministero del Lavoro e sono di interesse per INPS e INAIL ai fini previdenziali e assicurativi."
     },
     {
       "id": "r_toscana_548a3b48",
@@ -2648,23 +4796,61 @@
       "id": "r_puglia_1f0bdc23",
       "nome": "Comunicazione Obbligatoria Invio UniUrg",
       "erogatore": "r_puglia",
-      "fruitori": [],
-      "archi": [],
+      "fruitori": [
+        "mlps",
+        "inps",
+        "inail"
+      ],
+      "archi": [
+        {
+          "fruitore": "mlps",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "inps",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "inail",
+          "origine": "inferita"
+        }
+      ],
       "versione": "1",
       "stato": "Attivo",
       "descrizione": "COB - UniUrg: Invio del modulo per comunicare assunzioni urgenti legate a esigenze produttive, obbligatorio per tutti i datori di lavoro.",
-      "catalogId": "1f0bdc23-544c-4c8a-a620-fadca0c0a77b"
+      "catalogId": "1f0bdc23-544c-4c8a-a620-fadca0c0a77b",
+      "ai_confidenza": 0.78,
+      "ai_motivazione": "Le comunicazioni obbligatorie di assunzione confluiscono al Ministero del Lavoro e sono rilevanti per INPS e INAIL ai fini previdenziali e assicurativi."
     },
     {
       "id": "r_puglia_3bac69b0",
       "nome": "Comunicazioni Obbligatorie Invio UNILAV",
       "erogatore": "r_puglia",
-      "fruitori": [],
-      "archi": [],
+      "fruitori": [
+        "mlps",
+        "inps",
+        "inail"
+      ],
+      "archi": [
+        {
+          "fruitore": "mlps",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "inps",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "inail",
+          "origine": "inferita"
+        }
+      ],
       "versione": "1",
       "stato": "Attivo",
       "descrizione": "COB - Invio del modulo di comunicazione dell’assunzione dei lavoratori, della proroga, trasformazione e cessazione dei relativi rapporti di…",
-      "catalogId": "3bac69b0-9d84-45bb-b36b-80e9ae9d4c81"
+      "catalogId": "3bac69b0-9d84-45bb-b36b-80e9ae9d4c81",
+      "ai_confidenza": 0.75,
+      "ai_motivazione": "Le Comunicazioni Obbligatorie UNILAV confluiscono nel sistema del Ministero del Lavoro e sono utilizzate da INPS e INAIL per fini previdenziali e assicurativi."
     },
     {
       "id": "r_puglia_632318ab",
@@ -2900,12 +5086,26 @@
       "id": "r_veneto_ad6a71ef",
       "nome": "[RVE] BackOffice SUAP to Enti Terzi",
       "erogatore": "r_veneto",
-      "fruitori": [],
-      "archi": [],
+      "fruitori": [
+        "comuni_agg",
+        "c_padova"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "c_padova",
+          "origine": "inferita"
+        }
+      ],
       "versione": "1",
       "stato": "Attivo",
       "descrizione": "API rese disponibili dagli Enti Terzi di RVE ai BackOffice SUAP per il sistema informatico degli sportelli unici (SSU)",
-      "catalogId": "ad6a71ef-056f-483c-ac46-b0d12e10357c"
+      "catalogId": "ad6a71ef-056f-483c-ac46-b0d12e10357c",
+      "ai_confidenza": 0.6,
+      "ai_motivazione": "I BackOffice SUAP sono gestiti dai Comuni, principali fruitori delle API degli Enti Terzi per il sistema degli sportelli unici."
     },
     {
       "id": "r_veneto_3958c6e7",
@@ -2998,23 +5198,51 @@
       "id": "r_marche_9b10f40d",
       "nome": "IT Wallet - Attestato di Accompagnatore Turistico",
       "erogatore": "r_marche",
-      "fruitori": [],
-      "archi": [],
+      "fruitori": [
+        "pagopa",
+        "min_interno"
+      ],
+      "archi": [
+        {
+          "fruitore": "pagopa",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "min_interno",
+          "origine": "inferita"
+        }
+      ],
       "versione": "1",
       "stato": "Attivo",
       "descrizione": "Dato il codice fiscale di un cittadino, l'API restituisce i dataset di attestato operatore turistico a lui associati, conformemente alle sp…",
-      "catalogId": "9b10f40d-0512-4ca5-9e9b-8f8e1cee2b57"
+      "catalogId": "9b10f40d-0512-4ca5-9e9b-8f8e1cee2b57",
+      "ai_confidenza": 0.6,
+      "ai_motivazione": "Servizio IT Wallet che fornisce attributi/attestati al wallet digitale gestito da PagoPA/IO e all'ecosistema identità del Min. Interno per l'emissione delle credenziali al cittadino."
     },
     {
       "id": "r_marche_20df12f7",
       "nome": "IT-Wallet - Attestato di Accompagnatore di Media Montagna",
       "erogatore": "r_marche",
-      "fruitori": [],
-      "archi": [],
+      "fruitori": [
+        "pagopa",
+        "agid"
+      ],
+      "archi": [
+        {
+          "fruitore": "pagopa",
+          "origine": "inferita"
+        },
+        {
+          "fruitore": "agid",
+          "origine": "inferita"
+        }
+      ],
       "versione": "1",
       "stato": "Attivo",
       "descrizione": "Dato il codice fiscale di un cittadino, l'API restituisce i dataset di attestato di accompagnatore di media montagna a lui associati, confo…",
-      "catalogId": "20df12f7-e603-47be-951c-dcb4e1872ced"
+      "catalogId": "20df12f7-e603-47be-951c-dcb4e1872ced",
+      "ai_confidenza": 0.6,
+      "ai_motivazione": "Servizio IT-Wallet per l'inclusione dell'attestato nel wallet digitale, gestito tramite l'infrastruttura PagoPA/AgID."
     },
     {
       "id": "r_umbria_ae42671f",
