@@ -1,0 +1,47 @@
+cff-version: 1.2.0
+title: PDND E-Services Graph
+message: >-
+  Se utilizzi questo software, i suoi dati, o il modello che ne deriva,
+  cita il report tecnico indicato in preferred-citation.
+type: software
+authors:
+  - given-names: Francesco
+    family-names: Del Re
+    orcid: 'https://orcid.org/0009-0009-5524-6984'
+repository-code: 'https://github.com/engineering87/pdnd-eservices-graph'
+url: 'https://www.pdndgraph.it'
+abstract: >-
+  Visualizzazione interattiva del grafo diretto pesato degli e-service
+  sulla Piattaforma Digitale Nazionale Dati (PDND). I nodi rappresentano
+  gli enti aderenti, gli archi le relazioni erogatore verso fruitore, e il
+  peso il numero di e-service condivisi. Enti ed e-service provengono dai
+  dataset aperti ufficiali; le relazioni sono ricostruite da documentazione
+  pubblica, perche il dato puntuale delle connessioni non e pubblicato in
+  forma strutturata.
+keywords:
+  - PDND
+  - interoperabilita
+  - open government data
+  - graph theory
+  - weighted network
+  - public sector interoperability
+  - Italy
+license: AGPL-3.0-or-later
+version: 1.0.0
+date-released: '2026-05-03'
+preferred-citation:
+  type: report
+  title: >-
+    The PDND E-Service Network: A Graph-Based Model from Italian Open
+    Government Data
+  authors:
+    - given-names: Francesco
+      family-names: Del Re
+      orcid: 'https://orcid.org/0009-0009-5524-6984'
+  year: 2026
+  month: 5
+  publisher:
+    name: Zenodo
+  doi: 10.5281/zenodo.19989954
+  url: 'https://doi.org/10.5281/zenodo.19989954'
+  version: 1.0.0
