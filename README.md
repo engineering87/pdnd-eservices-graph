@@ -27,7 +27,9 @@ I nodi sono gli enti, gli archi le relazioni erogatore→fruitore, lo spessore i
 
 <div align="center">
 
-**51** enti &nbsp;·&nbsp; **86** tipi di e-service &nbsp;·&nbsp; **343** archi &nbsp;·&nbsp; densità **0,1345** &nbsp;·&nbsp; copertura **~89%** del catalogo
+**51** nodi (50 enti individuali + 1 aggregato) &nbsp;·&nbsp; **86** tipi di e-service &nbsp;·&nbsp; **343** archi &nbsp;·&nbsp; densità **0,1345** &nbsp;·&nbsp; copertura **~89%** del catalogo
+
+<sub>I nodi sono una selezione editoriale, non l'intero insieme degli enti aderenti. Vedi [Cosa rappresentano i 51 nodi](#cosa-rappresentano-i-51-nodi).</sub>
 
 </div>
 
@@ -77,7 +79,7 @@ Il progetto mantiene due livelli distinti, per separare l'automazione dal dato p
 
 | Livello | File | Aggiornato al | Contenuto |
 |---|---|---|---|
-| **Grafo live** (curato) | `src/data/pdnd-data.json` | **2 maggio 2026** | 51 enti, 86 tipi di e-service, 343 archi |
+| **Grafo live** (curato) | `src/data/pdnd-data.json` | **2 maggio 2026** | 51 nodi, 86 tipi di e-service, 343 archi |
 | **Anteprima** (automatica) | `pipeline/pdnd-data.preview.json` | 19 giugno 2026 | 54 enti, 218 e-service, non promossa |
 
 L'anteprima viene rigenerata dalla pipeline mensile ma **non sostituisce** il grafo live: la promozione è un atto manuale, deliberato, che segue l'ispezione del report di esecuzione. Questa separazione evita che un cambiamento automatico del catalogo cancelli relazioni ricostruite e documentate a mano.
@@ -101,7 +103,7 @@ Valori calcolati su `src/data/pdnd-data.json` allo snapshot del **2 maggio 2026*
 
 | Metrica | Valore |
 |---|---|
-| Nodi (enti) | **51** |
+| Nodi nel grafo | **51** (50 individuali + 1 aggregato) |
 | Tipi di e-service | **86** |
 | Archi distinti erogatore→fruitore | **343** |
 | Relazioni erogatore–fruitore totali | 570 |
@@ -113,8 +115,28 @@ Composizione dei nodi per ruolo: 31 Erogatore/Fruitore, 17 Erogatore, 3 Fruitore
 
 Composizione per categoria: 21 Regione, 7 Ministero, 6 Comune, 3 Fisco, 2 Digitale, 2 Trasporti, 2 Tecnologia, 2 Statistica, 1 Previdenza, 1 Lavoro, 1 Imprese, 1 Anticorruzione, 1 Cultura, 1 Comuni Aggregati.
 
+### Cosa rappresentano i 51 nodi
+
+> [!IMPORTANT]
+> **51 non è il numero degli enti aderenti alla PDND.** È il numero dei nodi di un modello che aggrega e seleziona deliberatamente. Leggere 51 come "51 enti su migliaia" è un fraintendimento del modello.
+
+I 51 nodi si compongono così:
+
+| | Cosa contiene |
+|---|---|
+| **50 nodi individuali** | Enti rappresentati uno a uno: ministeri, enti previdenziali e fiscali, autorità, 21 Regioni, e 6 grandi Comuni |
+| **1 nodo aggregato** (`comuni_agg`) | Circa **7.500 Comuni aderenti**, compressi in un solo nodo perché erogano gli stessi servizi standard replicati |
+
+Due scelte editoriali determinano questo insieme.
+
+**Aggregazione.** La maggior parte degli endpoint del catalogo sono servizi comunali standard replicati da ogni Comune: Albo Pretorio, SUAP, Protocollo, Demografici, Tributi, Civici, WaaS, IoT, Trasparenza. Rappresentarli uno per uno produrrebbe migliaia di nodi quasi identici e un grafo illeggibile, senza aggiungere informazione sulla struttura della rete. I 9 e-service attribuiti al nodo aggregato corrispondono a circa 6.380 endpoint reali del catalogo.
+
+**Selezione.** Lo snapshot del catalogo conta 6.388 producer distinti. Il modello ne rappresenta individualmente 50, scelti per rilevanza nella rete: gli hub erogatori nazionali, gli enti con ruolo strutturale nei domini funzionali della PA, le Regioni che superano i 25 endpoint a catalogo, e i Comuni che erogano servizi propri e non solo repliche standard. Bologna, Genova, e Padova compaiono come erogatori di servizi specifici; Milano, Roma, e Napoli come fruitori.
+
+La conseguenza pratica riguarda l'interpretazione delle metriche. Grado, centralità, e densità sono calcolati **su questo insieme selezionato**, non sull'universo degli aderenti. Un grado in uscita di 34 significa "eroga verso 34 dei 50 altri nodi del modello", dove uno di quei nodi ne rappresenta a sua volta migliaia. Sono indicatori della struttura della rete rappresentata, non censimenti dell'ecosistema. I criteri completi sono in [METODOLOGIA.md §3.1](METODOLOGIA.md#31-aggregazione-dei-comuni) e [§3.2](METODOLOGIA.md#32-selezione-degli-enti-rappresentati).
+
 > [!NOTE]
-> Ogni record in `eservices` rappresenta un **tipo di servizio**, non un singolo endpoint del catalogo PDND. I 9 e-service erogati dal nodo `comuni_agg` corrispondono a circa 6.380 endpoint reali del catalogo. Vedi [METODOLOGIA.md §3.5](METODOLOGIA.md#35-tipi-di-servizio-service-type-vs-endpoint-del-catalogo).
+> Analogamente, ogni record in `eservices` rappresenta un **tipo di servizio**, non un singolo endpoint del catalogo PDND. Vedi [METODOLOGIA.md §3.5](METODOLOGIA.md#35-tipi-di-servizio-service-type-vs-endpoint-del-catalogo).
 
 ## Perché un grafo
 
@@ -126,13 +148,13 @@ La visualizzazione usa un layout force-directed (Fruchterman-Reingold), che disp
 
 ## Cosa emerge dal grafo
 
-Alcune proprietà della rete diventano leggibili a colpo d'occhio. I valori seguenti sono calcolati sullo snapshot del 2 maggio 2026 e riproducibili con `npm run audit`.
+Alcune proprietà della rete diventano leggibili a colpo d'occhio. I valori seguenti sono calcolati sullo snapshot del 2 maggio 2026 e riproducibili con `npm run audit`. Vanno letti sul modello, non sull'universo degli aderenti: vedi [Cosa rappresentano i 51 nodi](#cosa-rappresentano-i-51-nodi).
 
-**La rete è fortemente asimmetrica.** ANPR eroga verso 34 dei 50 altri nodi e ne fruisce solo da 5. È il profilo puro dell'hub erogatore. All'estremo opposto, Comune di Milano e Comune di Roma compaiono con grado in uscita zero: fruiscono soltanto.
+**La rete è fortemente asimmetrica.** ANPR eroga verso 34 dei 50 altri nodi del modello e ne fruisce solo da 5. È il profilo puro dell'hub erogatore. All'estremo opposto, Comune di Milano e Comune di Roma compaiono con grado in uscita zero: fruiscono soltanto.
 
-**Pochi nodi reggono un quarto della rete.** I primi tre erogatori concentrano il 24,5% dei 343 archi totali. La densità del grafo è 0,1345, circa un ottavo delle connessioni teoricamente possibili, coerente con un'interoperabilità ancora incardinata su pochi snodi centrali.
+**Pochi nodi reggono un quarto della rete.** I primi tre erogatori concentrano il 24,5% dei 343 archi totali. La densità del grafo è 0,1345, circa un ottavo delle connessioni teoricamente possibili tra i nodi rappresentati, coerente con un'interoperabilità ancora incardinata su pochi snodi centrali.
 
-**Alcuni enti sono cerniere, non estremità.** INPS eroga verso 33 nodi e fruisce da 34: sta contemporaneamente al centro del welfare come fonte e come consumatore. Il nodo dei Comuni aggregati mostra il pattern complementare, con 37 archi in ingresso e 14 in uscita.
+**Alcuni enti sono cerniere, non estremità.** INPS eroga verso 33 nodi e fruisce da 34: sta contemporaneamente al centro del welfare come fonte e come consumatore. Il nodo aggregato dei Comuni mostra il pattern complementare, con 37 archi in ingresso e 14 in uscita, coerente con la sua natura di collettore di migliaia di enti fruitori.
 
 **I cluster tematici corrispondono ai domini della PA.** Welfare (INPS, Comuni, Ministero del Lavoro), fisco (Agenzia delle Entrate, MEF, Sogei), trasparenza (ANAC, AgID) si separano spontaneamente nel layout, senza che nessuna categoria sia stata usata per posizionarli.
 
@@ -141,7 +163,7 @@ La lettura pratica è diretta. I nodi ad alta centralità sono i punti la cui in
 ## Funzionalità
 
 - **Grafo force-directed** interattivo con simulazione fisica
-- **51 enti** e **86 tipi di e-service** derivati dal catalogo ufficiale PDND
+- **51 nodi** (50 enti individuali più 1 nodo che aggrega circa 7.500 Comuni) e **86 tipi di e-service** derivati dal catalogo ufficiale PDND
 - **343 archi** diretti erogatore→fruitore
 - **Drag & drop** dei nodi, **zoom** con scroll, **pan** con trascinamento
 - **Pannello dettagli** con elenco e-services erogati e fruiti per ogni ente
