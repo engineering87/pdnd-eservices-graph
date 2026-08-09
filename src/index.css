@@ -42,3 +42,10 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(100, 160, 220, 0.35);
 }
+
+/* Legende del grafo: visibili solo su viewport ampi. La media query segue il
+   viewport reale, quindi non dipende da uno stato JS che potrebbe non essere
+   allineato al montaggio. */
+@media (max-width: 767px) {
+  .graph-legend-desktop { display: none !important; }
+}
