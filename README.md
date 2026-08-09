@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="public/logo.svg" alt="PDND E-Services Graph" width="88" height="88">
+
 # PDND E-Services Graph
 
 **La rete dell'interoperabilità italiana, resa navigabile.**

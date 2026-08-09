@@ -41,7 +41,7 @@ export default function Header({ stats, activeTab, onTabChange, onAbout }) {
     <header style={{ background: "rgba(10,14,26,.85)", backdropFilter: "blur(16px)", borderBottom: "1px solid var(--border)", zIndex: 20, position: "relative" }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: m ? "10px 14px 8px" : "16px 28px 12px", flexWrap: "wrap", gap: m ? 10 : 16 }}>
         <div style={{ display: "flex", alignItems: "center", gap: m ? 10 : 14, flex: m ? "1 1 auto" : undefined }}>
-          <div aria-hidden="true" style={{ width: m ? 32 : 42, height: m ? 32 : 42, borderRadius: 4, background: "var(--pa-blue-deep)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: m ? 15 : 20, fontWeight: 700, color: "#fff", letterSpacing: -.5, flexShrink: 0 }}>P</div>
+          <img src="/logo.svg" alt="" width={m ? 32 : 42} height={m ? 32 : 42} style={{ display: "block", flexShrink: 0, borderRadius: m ? 7 : 9 }} />
           <div>
             <h1 style={{ fontSize: m ? 14 : 19, fontWeight: 700, letterSpacing: -.2, color: "var(--ink)" }}>PDND E-Services Graph</h1>
             {!m && <p style={{ fontSize: 12, color: "var(--ink-faint)", marginTop: 2, lineHeight: 1.4, maxWidth: 420 }}>Mappa interattiva dell'interoperabilità tra le Pubbliche Amministrazioni italiane</p>}

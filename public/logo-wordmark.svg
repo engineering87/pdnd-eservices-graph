@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 72" width="420" height="72" role="img" aria-label="PDND E-Services Graph">
+  <title>PDND E-Services Graph</title>
+  <rect x="4" y="4" width="64" height="64" rx="10" fill="#0b5cad"/>
+  <g stroke="#ffffff" stroke-linecap="round" fill="none" transform="translate(4,4)">
+    <line x1="24" y1="32" x2="46" y2="18" stroke-width="2.6" opacity=".95"/>
+    <line x1="24" y1="32" x2="47" y2="44" stroke-width="2.6" stroke-dasharray="7 3.5" opacity=".9"/>
+    <line x1="24" y1="32" x2="30" y2="52" stroke-width="2.2" stroke-dasharray="2.5 3" opacity=".8"/>
+  </g>
+  <g transform="translate(4,4)">
+    <circle cx="24" cy="32" r="8.5" fill="#ffffff"/>
+    <circle cx="46" cy="18" r="5" fill="#ffffff" opacity=".95"/>
+    <circle cx="47" cy="44" r="5.5" fill="#ffffff" opacity=".9"/>
+    <circle cx="30" cy="52" r="4" fill="#ffffff" opacity=".8"/>
+  </g>
+  <text x="86" y="35" font-family="'Titillium Web',-apple-system,'Segoe UI',sans-serif" font-size="25" font-weight="700" fill="#1a2b42">PDND E-Services Graph</text>
+  <text x="86" y="55" font-family="'Titillium Web',-apple-system,'Segoe UI',sans-serif" font-size="13" font-weight="400" fill="#5a6b80">Mappa dell'interoperabilità tra le Pubbliche Amministrazioni</text>
+</svg>
