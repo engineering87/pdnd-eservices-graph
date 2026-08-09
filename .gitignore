@@ -7,3 +7,6 @@ dist/
 Thumbs.db
 .vite/
 .cache-catalog.csv
+
+# Artefatto transitorio della pipeline (rigenerato a ogni run)
+pipeline/last-run-report.md

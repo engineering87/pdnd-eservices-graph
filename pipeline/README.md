@@ -1,5 +1,15 @@
 # Pipeline di aggiornamento automatico
 
+> **Quale dato è canonico.** Il grafo pubblicato su pdndgraph.it e citato dal
+> report Zenodo (DOI 10.5281/zenodo.19989954) è `src/data/pdnd-data.json`: il
+> modello curato **v1**, i cui archi sono ricostruiti da documentazione pubblica.
+> Questa pipeline produce `pipeline/pdnd-data.preview.json`, un modello **v2**
+> ancorato al campo `attributes.certified` del catalogo, con provenienza
+> dichiarata per singolo arco. La v2 **non è ancora promossa**: ha numeri
+> sensibilmente diversi dalla v1 e la sua pubblicazione richiede una nuova
+> versione del report. Non sostituire il dato live senza quella decisione.
+
+
 Questa cartella contiene la pipeline che mantiene aggiornato il grafo rispetto
 allo stato corrente del catalogo PDND, in modo automatico e senza intervento manuale.
 

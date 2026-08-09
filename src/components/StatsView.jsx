@@ -44,10 +44,15 @@ export default function StatsView({ graphData }) {
   const topEservices = useMemo(() =>
     [...PDND_DATA.eservices].sort((a, b) => b.fruitori.length - a.fruitori.length).slice(0, 10), []);
 
+  // Densità calcolata sugli archi DISTINTI erogatore→fruitore, coerente con la
+  // definizione del paper (|E| = coppie dirette distinte, non istanze per e-service).
   const density = useMemo(() => {
     const n = nodes.length;
-    const e = PDND_DATA.eservices.reduce((a, es) => a + es.fruitori.length, 0);
-    return (e / (n * (n - 1))).toFixed(3);
+    const distinct = new Set();
+    PDND_DATA.eservices.forEach((es) =>
+      (es.fruitori || []).forEach((f) => distinct.add(`${es.erogatore}->${f}`))
+    );
+    return (distinct.size / (n * (n - 1))).toFixed(4);
   }, [nodes]);
 
   return (

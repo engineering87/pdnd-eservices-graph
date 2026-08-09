@@ -317,9 +317,12 @@ Ogni arco generato dalla pipeline porta un campo `origine` che ne dichiara la fo
 |---|---|
 | `documentata` | Override da fonti ufficiali pubbliche (circolari, manuali, presentazioni) |
 | `certificata` | Derivata dal campo `attributes.certified` del catalogo |
+| `ricostruita` | Ricostruita da documentazione pubblica, senza provenienza per singolo arco |
 | `inferita` | Stima prodotta dal motore di inferenza, con punteggio di confidenza |
 
 Gli archi inferiti sono dichiarati come stime e non come fatti documentati. Il progetto si basa esclusivamente su informazioni già pubbliche.
+
+Il grafo attualmente pubblicato (`src/data/pdnd-data.json`, modello v1) non porta la provenienza per singolo arco: i suoi archi sono ricostruiti da documentazione pubblica secondo la [metodologia](METODOLOGIA.md) e vengono resi con origine `ricostruita`. Le origini `certificata` e `inferita` per singolo arco sono prodotte dalla pipeline nell'anteprima v2, non ancora promossa.
 
 ## Come aggiornare i dati
 

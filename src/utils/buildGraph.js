@@ -22,8 +22,12 @@ export function buildGraph(data) {
   const linkCounts = {};
 
   data.eservices.forEach((es) => {
-    // Usa `archi` (con provenienza) se presente, altrimenti `fruitori` (legacy)
-    const archi = es.archi || es.fruitori.map((f) => ({ fruitore: f, origine: "certificata" }));
+    // Usa `archi` (con provenienza) se presente, altrimenti `fruitori` (legacy).
+    // Il dato curato (v1) non porta provenienza per singolo arco: gli archi sono
+    // ricostruiti da documentazione pubblica (vedi meta.note_connessioni e
+    // METODOLOGIA.md), non certificati dal campo `attributes` del catalogo.
+    // L'origine di fallback è quindi "ricostruita", non "certificata".
+    const archi = es.archi || es.fruitori.map((f) => ({ fruitore: f, origine: "ricostruita" }));
     archi.forEach(({ fruitore, origine }) => {
       links.push({
         source: es.erogatore,
@@ -33,7 +37,7 @@ export function buildGraph(data) {
         versione: es.versione,
         stato: es.stato,
         descrizione: es.descrizione,
-        origine: origine || "certificata",
+        origine: origine || "ricostruita",
       });
       const key = [es.erogatore, fruitore].sort().join("--");
       linkCounts[key] = (linkCounts[key] || 0) + 1;

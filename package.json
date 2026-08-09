@@ -11,7 +11,8 @@
     "update-data": "node scripts/update-data.mjs",
     "audit": "node scripts/audit-model.mjs",
     "compare-catalog": "node scripts/compare-catalog.mjs",
-    "paper-metrics": "node scripts/compute-paper-metrics.mjs"
+    "paper-metrics": "node scripts/compute-paper-metrics.mjs",
+    "test": "node scripts/test-model.mjs"
   },
   "dependencies": {
     "react": "^19.2.5",
