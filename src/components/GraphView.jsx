@@ -238,20 +238,7 @@ export default function GraphView() {
 
   useEffect(() => {
     const rs = () => { const c = canvasRef.current?.parentElement; if (!c) return; setDim({ w: c.clientWidth, h: c.clientHeight }); if (canvasRef.current) { canvasRef.current.width = c.clientWidth * 2; canvasRef.current.height = c.clientHeight * 2; } };
-    rs();
-    // Il solo evento `resize` della finestra non basta: il contenitore cambia
-    // dimensione anche quando il layout si assesta dopo il montaggio o quando si
-    // torna su questa scheda, senza che la finestra venga ridimensionata. In quei
-    // casi il canvas resterebbe alla dimensione iniziale e il grafo apparirebbe
-    // decentrato. Il ResizeObserver segue il contenitore, non la finestra.
-    const c = canvasRef.current?.parentElement;
-    let ro;
-    if (c && typeof ResizeObserver !== "undefined") {
-      ro = new ResizeObserver(rs);
-      ro.observe(c);
-    }
-    window.addEventListener("resize", rs);
-    return () => { ro?.disconnect(); window.removeEventListener("resize", rs); };
+    rs(); window.addEventListener("resize", rs); return () => window.removeEventListener("resize", rs);
   }, []);
 
   // ── Render ──────────────────────────────────────────────────
@@ -273,26 +260,22 @@ export default function GraphView() {
         />
 
         {/* Legend */}
-        {(
-          <div className="graph-legend-desktop" style={{ position: "absolute", bottom: 12, left: 12, zIndex: 5, background: "rgba(10,14,26,.88)", borderRadius: 8, border: "1px solid rgba(100,160,220,.1)", padding: "8px 12px", display: "flex", flexWrap: "wrap", gap: "4px 12px", maxWidth: 380 }}>
+        <div className="graph-legend-desktop" style={{ position: "absolute", bottom: 12, left: 12, zIndex: 5, background: "rgba(10,14,26,.88)", borderRadius: 8, border: "1px solid rgba(100,160,220,.1)", padding: "8px 12px", display: "flex", flexWrap: "wrap", gap: "4px 12px", maxWidth: 380 }}>
             {Object.entries(CATEGORY_COLORS).map(([cat, col]) => (
               <div key={cat} style={{ display: "flex", alignItems: "center", gap: 4, fontSize: 9, cursor: "pointer", opacity: filterCat === "Tutte" || filterCat === cat ? 1 : .4 }} onClick={() => setFilterCat(filterCat === cat ? "Tutte" : cat)}>
                 <div style={{ width: 7, height: 7, borderRadius: "50%", background: col }} />
                 <span style={{ color: "#94a3b8" }}>{cat}</span>
               </div>
-            ))}
-          </div>
-        )}
+          ))}
+        </div>
 
         {/* Legenda provenienza archi */}
-        {(
-          <div className="graph-legend-desktop" style={{ position: "absolute", bottom: 12, right: 12, zIndex: 5, background: "rgba(10,14,26,.88)", borderRadius: 8, border: "1px solid rgba(100,160,220,.1)", padding: "8px 12px", display: "flex", flexDirection: "column", gap: 5, fontSize: 9, color: "#94a3b8" }}>
+        <div className="graph-legend-desktop" style={{ position: "absolute", bottom: 12, right: 12, zIndex: 5, background: "rgba(10,14,26,.88)", borderRadius: 8, border: "1px solid rgba(100,160,220,.1)", padding: "8px 12px", display: "flex", flexDirection: "column", gap: 5, fontSize: 9, color: "#94a3b8" }}>
             <div style={{ fontSize: 8, textTransform: "uppercase", letterSpacing: .6, color: "#64748b", marginBottom: 1 }}>Provenienza archi</div>
             <div style={{ display: "flex", alignItems: "center", gap: 6 }}><svg width="22" height="6"><line x1="0" y1="3" x2="22" y2="3" stroke="rgba(100,160,220,.9)" strokeWidth="1.6" /></svg><span>Documentata / Certificata</span></div>
             <div style={{ display: "flex", alignItems: "center", gap: 6 }}><svg width="22" height="6"><line x1="0" y1="3" x2="22" y2="3" stroke="rgba(100,160,220,.9)" strokeWidth="1.6" strokeDasharray="10,3" /></svg><span>Ricostruita (documentazione)</span></div>
             <div style={{ display: "flex", alignItems: "center", gap: 6 }}><svg width="22" height="6"><line x1="0" y1="3" x2="22" y2="3" stroke="rgba(100,160,220,.9)" strokeWidth="1.6" strokeDasharray="5,4" /></svg><span>Inferita (AI)</span></div>
-          </div>
-        )}
+        </div>
 
         {/* Detail panel */}
         {selNode && (
