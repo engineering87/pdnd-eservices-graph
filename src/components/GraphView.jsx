@@ -244,16 +244,22 @@ export default function GraphView() {
   // ── Render ──────────────────────────────────────────────────
 
   return (
-    <div style={{ flex: 1, display: "flex", flexDirection: "column", position: "relative", overflow: "hidden" }}>
+    <div style={{ flex: 1, minHeight: 0, display: "flex", flexDirection: "column", position: "relative", overflow: "hidden" }}>
       {/* Toolbar */}
       <div style={{ display: "flex", alignItems: "center", gap: 8, padding: m ? "6px 10px" : "6px 20px", background: "rgba(15,20,35,.5)", borderBottom: "1px solid rgba(100,160,220,.06)", flexWrap: "wrap", zIndex: 10 }}>
         <input type="text" placeholder="Cerca ente..." value={search} onChange={e => setSearch(e.target.value)} style={{ background: "rgba(30,40,60,.8)", border: "1px solid rgba(100,160,220,.2)", borderRadius: 6, padding: "5px 10px", color: "#e2e8f0", fontSize: 12, outline: "none", width: m ? 120 : 160, flex: m ? 1 : undefined }} />
         <select value={filterCat} onChange={e => setFilterCat(e.target.value)} style={{ background: "rgba(30,40,60,.8)", border: "1px solid rgba(100,160,220,.2)", borderRadius: 6, padding: "5px 8px", color: "#e2e8f0", fontSize: m ? 11 : 12, outline: "none" }}>{cats.map(c => <option key={c} value={c}>{c}</option>)}</select>
       </div>
 
-      {/* Canvas */}
-      <div style={{ flex: 1, position: "relative" }}>
+      {/* Canvas. `minHeight: 0` è necessario: in una colonna flex il valore
+          predefinito `min-height: auto` impedisce all'elemento di restringersi
+          sotto la dimensione del contenuto, quindi il contenitore resterebbe
+          alto quanto il canvas iniziale, sforando il viewport e spingendo fuori
+          schermo il bordo inferiore del grafo e le legende. */}
+      <div style={{ flex: 1, minHeight: 0, position: "relative" }}>
         <canvas ref={canvasRef} width={dim.w * 2} height={dim.h * 2}
+          role="img"
+          aria-label="Grafo dell'interoperabilità tra Pubbliche Amministrazioni sulla PDND. Il contenuto del grafo è disponibile in forma testuale nella sezione Statistiche."
           style={{ width: "100%", height: "100%", cursor: "grab", touchAction: "none" }}
           onMouseDown={onMD} onMouseMove={onMM} onMouseUp={onMU} onMouseLeave={onMU} onWheel={onWh}
           onTouchStart={onTS} onTouchMove={onTM} onTouchEnd={onTE} onTouchCancel={onTE}

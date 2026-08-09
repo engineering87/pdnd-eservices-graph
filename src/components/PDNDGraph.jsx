@@ -24,8 +24,8 @@ export default function PDNDGraph() {
     <div style={{
       width: "100%", height: "100vh",
       background: "linear-gradient(145deg,#0a0e1a 0%,#111827 40%,#0d1525 100%)",
-      fontFamily: "'DM Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif",
-      color: "#e2e8f0",
+      fontFamily: "'Titillium Web',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif",
+      color: "var(--ink)",
       display: "flex", flexDirection: "column", overflow: "hidden",
     }}>
       <Header

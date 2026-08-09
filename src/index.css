@@ -1,4 +1,36 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&display=swap');
+/* Titillium Web e Roboto Mono sono i caratteri del design system pubblico
+   italiano (.italia). Sono adottati qui per il registro tipografico, non per
+   suggerire alcuna affiliazione istituzionale: il progetto e' indipendente. */
+@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Roboto+Mono:wght@400;500;700&display=swap');
+
+:root {
+  /* Superfici */
+  --surface-0: #0a0e1a;
+  --surface-1: #111827;
+  --surface-2: #16203a;
+  --surface-raised: rgba(24, 33, 56, .55);
+  --border: rgba(120, 160, 210, .16);
+  --border-strong: rgba(120, 160, 210, .3);
+
+  /* Testo. I valori superano il rapporto di contrasto 4.5:1 richiesto dalle
+     WCAG 2.1 AA per il testo normale sul fondo --surface-0. */
+  --ink: #f1f5f9;
+  --ink-muted: #a8b6c8;
+  --ink-faint: #8b9bb0;
+
+  /* Accento istituzionale, derivato dal blu #0066CC del design system pubblico
+     e schiarito perche' su fondo scuro il valore canonico non raggiunge il
+     contrasto richiesto. */
+  --pa-blue: #4d94ff;
+  --pa-blue-deep: #0066cc;
+  --pa-blue-soft: rgba(77, 148, 255, .12);
+
+  /* Accento secondario, riservato ai riferimenti bibliografici (DOI, paper). */
+  --cite: #d4a843;
+
+  --radius: 6px;
+  --radius-sm: 4px;
+}
 
 *, *::before, *::after {
   margin: 0;
@@ -10,20 +42,46 @@ html, body, #root {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background: #0a0e1a;
+  background: var(--surface-0);
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
 }
 
 body {
-  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: 'Titillium Web', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Numeri e identificativi: cifre a larghezza fissa, cosi' i valori restano
+   allineati e non ballano quando cambiano. */
+.tabular {
+  font-family: 'Roboto Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-variant-numeric: tabular-nums;
+}
+
 ::selection {
-  background: rgba(6, 214, 160, 0.3);
+  background: rgba(77, 148, 255, .3);
   color: #fff;
+}
+
+/* Messa a fuoco visibile per la navigazione da tastiera. Senza questa regola i
+   controlli non segnalano dove si trova il fuoco: e' un requisito di
+   accessibilita', non un dettaglio estetico. */
+:focus-visible {
+  outline: 2px solid var(--pa-blue);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Rispetta la preferenza di sistema per il movimento ridotto. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 ::-webkit-scrollbar {
@@ -31,16 +89,16 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(15, 20, 35, 0.4);
+  background: rgba(15, 20, 35, .4);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(100, 160, 220, 0.2);
+  background: rgba(120, 160, 210, .22);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(100, 160, 220, 0.35);
+  background: rgba(120, 160, 210, .38);
 }
 
 /* Legende del grafo: visibili solo su viewport ampi. La media query segue il
@@ -48,4 +106,18 @@ body {
    allineato al montaggio. */
 @media (max-width: 767px) {
   .graph-legend-desktop { display: none !important; }
+}
+
+/* Contenuto per le sole tecnologie assistive: non visibile a schermo, letto
+   dagli screen reader. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
