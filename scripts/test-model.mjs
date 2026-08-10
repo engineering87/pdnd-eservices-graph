@@ -234,6 +234,41 @@ check("le rotte a percorso hanno la riscrittura lato server", () => {
     : "navigationFallback assente: /ente/... darebbe 404 in produzione";
 });
 
+// Regressione: un collegamento diretto a /ente/{id} mandava l'applicazione in
+// ciclo. Due effetti reattivi si osservavano a vicenda e, poiché in React le
+// modifiche di stato valgono dal render successivo, oscillavano indefinitamente
+// chiamando pushState a ogni giro. Il modello qui sotto riproduce il ciclo
+// render/effetti e verifica che lo schema adottato converga.
+check("un collegamento diretto a un ente non innesca un ciclo di render", () => {
+  const NODI = DATA.enti.map((e) => e.id);
+  let entityId = parseLocation("/ente/inps").entityId;
+  let selNode = null;
+  let prevEntity;
+  let push = 0;
+  for (let r = 0; r < 25; r++) {
+    let pendSel;
+    let cambia = false;
+    if (entityId !== prevEntity) {
+      prevEntity = entityId;
+      if (!entityId) {
+        if (selNode) { pendSel = null; cambia = true; }
+      } else if (selNode !== entityId && NODI.includes(entityId)) {
+        pendSel = entityId;
+        cambia = true;
+      }
+    }
+    // La selezione notifica solo su azione dell'utente, non tramite un effetto:
+    // è questa asimmetria a impedire l'oscillazione.
+    if (!cambia) {
+      if (selNode !== "inps") return `converge ma senza selezionare l'ente (selNode=${selNode})`;
+      if (push !== 0) return `converge ma con ${push} scritture nella cronologia`;
+      return true;
+    }
+    if (pendSel !== undefined) selNode = pendSel;
+  }
+  return "non converge entro 25 render: il collegamento diretto va in ciclo";
+});
+
 const totale = passed + failures.length;
 console.log(
   `\n${failures.length === 0 ? "Tutti i test superati" : "Test falliti"}: ${passed}/${totale}\n`

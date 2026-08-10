@@ -55,7 +55,6 @@ export default function GraphView({ entityId = null, onEntityChange }) {
   // riattiverebbe l'effetto a ogni selezione, riapplicando la selezione
   // dall'URL in ciclo. È la ragione per cui le due direzioni sono guardate dal
   // confronto sull'identificativo.
-  /* eslint-disable-next-line react-hooks/exhaustive-deps */
   useEffect(() => {
     if (!entityId) { setSelNode(cur => (cur ? null : cur)); return; }
     if (selNode && selNode.id === entityId) return;
@@ -73,13 +72,19 @@ export default function GraphView({ entityId = null, onEntityChange }) {
     return () => clearTimeout(id);
   }, [entityId]);
 
-  // selezione -> URL. `onEntityChange` è escluso dalle dipendenze di proposito:
-  // se il genitore lo ridefinisce a ogni render, includerlo farebbe scattare
-  // l'effetto in continuazione.
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => {
-    onEntityChange?.(selNode ? selNode.id : null);
-  }, [selNode]);
+  // selezione -> URL. La notifica è esplicita, legata alle azioni dell'utente,
+  // e non affidata a un effetto che osserva `selNode`.
+  //
+  // Un effetto reattivo qui produce un ciclo: al montaggio scatterebbe con
+  // `selNode` ancora nullo, cancellando l'ente dall'URL; l'effetto opposto
+  // reagirebbe azzerando la selezione, e i due continuerebbero a rincorrersi,
+  // chiamando pushState a ogni giro. Le due direzioni devono restare
+  // asimmetriche: l'URL guida la selezione, la selezione notifica solo quando
+  // è l'utente a cambiarla.
+  const selectNode = (n) => {
+    setSelNode(n);
+    onEntityChange?.(n ? n.id : null);
+  };
 
   // ── Simulation ──────────────────────────────────────────────
 
@@ -226,7 +231,7 @@ export default function GraphView({ entityId = null, onEntityChange }) {
   function findN(wx, wy) { for (let i = nodesRef.current.length - 1; i >= 0; i--) { const n = nodesRef.current[i], r = gR(n) + 4; if ((n.x - wx) ** 2 + (n.y - wy) ** 2 < r ** 2) return n; } return null; }
   const getXY = (e) => { const rc = canvasRef.current.getBoundingClientRect(); return { sx: (e.clientX - rc.left) * (canvasRef.current.width / rc.width), sy: (e.clientY - rc.top) * (canvasRef.current.height / rc.height) }; };
 
-  const onMD = e => { const { sx, sy } = getXY(e); const { x: wx, y: wy } = s2w(sx, sy), nd = findN(wx, wy); if (nd) { dragRef.current = { node: nd, ox: wx - nd.x, oy: wy - nd.y }; nd.fx = nd.x; nd.fy = nd.y; setSelNode(nd); simRef.current?.reheat(); } else { panRef.current = { sx: e.clientX, sy: e.clientY, tx: tRef.current.x, ty: tRef.current.y }; setSelNode(null); } };
+  const onMD = e => { const { sx, sy } = getXY(e); const { x: wx, y: wy } = s2w(sx, sy), nd = findN(wx, wy); if (nd) { dragRef.current = { node: nd, ox: wx - nd.x, oy: wy - nd.y }; nd.fx = nd.x; nd.fy = nd.y; selectNode(nd); simRef.current?.reheat(); } else { panRef.current = { sx: e.clientX, sy: e.clientY, tx: tRef.current.x, ty: tRef.current.y }; selectNode(null); } };
   const onMM = e => { const { sx, sy } = getXY(e); const { x: wx, y: wy } = s2w(sx, sy); if (dragRef.current) { dragRef.current.node.fx = wx - dragRef.current.ox; dragRef.current.node.fy = wy - dragRef.current.oy; simRef.current?.reheat(); } else if (panRef.current) { tRef.current.x = panRef.current.tx + e.clientX - panRef.current.sx; tRef.current.y = panRef.current.ty + e.clientY - panRef.current.sy; } else { const nd = findN(wx, wy); setHovNode(nd); canvasRef.current.style.cursor = nd ? "pointer" : "grab"; } };
   const onMU = () => { if (dragRef.current) { dragRef.current.node.fx = null; dragRef.current.node.fy = null; dragRef.current = null; simRef.current?.reheat(); } panRef.current = null; };
   const onWh = e => { e.preventDefault(); const { sx: mx, sy: my } = getXY(e); const t = tRef.current, f = e.deltaY < 0 ? 1.08 : .93, nk = Math.max(.15, Math.min(5, t.k * f)); t.x = mx - (mx - t.x) * (nk / t.k); t.y = my - (my - t.y) * (nk / t.k); t.k = nk; };
@@ -240,8 +245,8 @@ export default function GraphView({ entityId = null, onEntityChange }) {
     if (e.touches.length === 1) {
       const { sx, sy } = getTouchXY(e.touches[0]);
       const { x: wx, y: wy } = s2w(sx, sy), nd = findN(wx, wy);
-      if (nd) { dragRef.current = { node: nd, ox: wx - nd.x, oy: wy - nd.y }; nd.fx = nd.x; nd.fy = nd.y; setSelNode(nd); simRef.current?.reheat(); }
-      else { panRef.current = { sx: e.touches[0].clientX, sy: e.touches[0].clientY, tx: tRef.current.x, ty: tRef.current.y }; setSelNode(null); }
+      if (nd) { dragRef.current = { node: nd, ox: wx - nd.x, oy: wy - nd.y }; nd.fx = nd.x; nd.fy = nd.y; selectNode(nd); simRef.current?.reheat(); }
+      else { panRef.current = { sx: e.touches[0].clientX, sy: e.touches[0].clientY, tx: tRef.current.x, ty: tRef.current.y }; selectNode(null); }
     } else if (e.touches.length === 2) {
       const dx = e.touches[0].clientX - e.touches[1].clientX;
       const dy = e.touches[0].clientY - e.touches[1].clientY;
@@ -342,7 +347,7 @@ export default function GraphView({ entityId = null, onEntityChange }) {
             ...(m ? { left: 0, top: "40%", borderTop: "1px solid rgba(100,160,220,.1)", borderRadius: "14px 14px 0 0" } : { top: 0, width: 330, borderLeft: "1px solid rgba(100,160,220,.1)" }),
             background: "rgba(10,14,26,.96)", padding: 16, overflowY: "auto", backdropFilter: "blur(14px)", zIndex: 10,
           }}>
-            <button onClick={() => setSelNode(null)} aria-label="Chiudi dettaglio" style={{ position: "absolute", top: 10, right: 12, background: "none", border: "none", color: "var(--ink-faint)", fontSize: 16, cursor: "pointer", lineHeight: 1, zIndex: 1 }}>✕</button>
+            <button onClick={() => selectNode(null)} aria-label="Chiudi dettaglio" style={{ position: "absolute", top: 10, right: 12, background: "none", border: "none", color: "var(--ink-faint)", fontSize: 16, cursor: "pointer", lineHeight: 1, zIndex: 1 }}>✕</button>
             <button
               onClick={() => { navigator.clipboard?.writeText(window.location.href); setCopiato(true); setTimeout(() => setCopiato(false), 1800); }}
               title="Copia il collegamento diretto a questo ente"
