@@ -1,3 +1,12 @@
+/**
+ * Vista del grafo: simulazione a forze e disegno su canvas 2D.
+ *
+ * Il componente tiene la selezione allineata all'URL nelle due direzioni, così
+ * ogni ente è indirizzabile. Le posizioni dei nodi sono mutate in posto dalla
+ * simulazione e lette dal ciclo di disegno tramite ref, per evitare un render
+ * di React a ogni fotogramma.
+ */
+
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import PDND_DATA from "../data/pdnd-data.json";
 import { CATEGORY_COLORS } from "../constants/colors";
@@ -11,7 +20,7 @@ function lgt(hex, amount) {
   return `rgb(${Math.max(0, Math.min(255, (n >> 16) + amount))},${Math.max(0, Math.min(255, ((n >> 8) & 0xff) + amount))},${Math.max(0, Math.min(255, (n & 0xff) + amount))})`;
 }
 
-export default function GraphView() {
+export default function GraphView({ entityId = null, onEntityChange }) {
   const m = useIsMobile();
   const canvasRef = useRef(null);
   const [dim, setDim] = useState({ w: 960, h: 700 });
@@ -19,6 +28,7 @@ export default function GraphView() {
   const [hovNode, setHovNode] = useState(null);
   const [search, setSearch] = useState("");
   const [filterCat, setFilterCat] = useState("Tutte");
+  const [copiato, setCopiato] = useState(false);
   const simRef = useRef(null);
   const nodesRef = useRef([]);
   const linksRef = useRef([]);
@@ -30,6 +40,46 @@ export default function GraphView() {
   const graph = useRef(buildGraph(PDND_DATA));
   const cats = useMemo(() => ["Tutte", ...new Set(PDND_DATA.enti.map(e => e.categoria))], []);
   const lastTouchDist = useRef(null);
+
+  // ── Sincronizzazione con l'URL ──────────────────────────────
+  // Le due direzioni sono guardate dal confronto sull'identificativo: senza di
+  // esso la selezione aggiornerebbe l'URL, che riapplicherebbe la selezione, in
+  // ciclo.
+
+  // URL -> selezione. Il nodo viene anche portato al centro: un collegamento
+  // diretto che seleziona un ente lasciandolo fuori dall'inquadratura sarebbe
+  // inutile. La centratura è differita perché all'avvio le posizioni sono
+  // ancora casuali e la simulazione deve assestarsi.
+  //
+  // Le dipendenze sono volutamente limitate a `entityId`: includere `selNode`
+  // riattiverebbe l'effetto a ogni selezione, riapplicando la selezione
+  // dall'URL in ciclo. È la ragione per cui le due direzioni sono guardate dal
+  // confronto sull'identificativo.
+  /* eslint-disable-next-line react-hooks/exhaustive-deps */
+  useEffect(() => {
+    if (!entityId) { setSelNode(cur => (cur ? null : cur)); return; }
+    if (selNode && selNode.id === entityId) return;
+    const nd = graph.current.nodes.find(n => n.id === entityId);
+    if (!nd) return;
+    setSelNode(nd);
+    const centra = () => {
+      const cv = canvasRef.current;
+      if (!cv || nd.x == null) return;
+      const k = tRef.current.k;
+      tRef.current.x = cv.width / 2 - nd.x * k;
+      tRef.current.y = cv.height / 2 - nd.y * k;
+    };
+    const id = setTimeout(centra, 900);
+    return () => clearTimeout(id);
+  }, [entityId]);
+
+  // selezione -> URL. `onEntityChange` è escluso dalle dipendenze di proposito:
+  // se il genitore lo ridefinisce a ogni render, includerlo farebbe scattare
+  // l'effetto in continuazione.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    onEntityChange?.(selNode ? selNode.id : null);
+  }, [selNode]);
 
   // ── Simulation ──────────────────────────────────────────────
 
@@ -44,6 +94,8 @@ export default function GraphView() {
     tRef.current.x = (dim.w * 2) / 2 - cx * k;
     tRef.current.y = (dim.h * 2) / 2 - cy * k;
     simRef.current = mkSim(nodesRef.current, linksRef.current, cx, cy);
+    // `draw` è dichiarata più sotto: l'accesso è valido perché gli effetti
+    // vengono eseguiti dopo l'esecuzione del corpo del componente.
     draw();
     return () => { simRef.current.stop(); cancelAnimationFrame(afRef.current); };
   }, []);
@@ -142,7 +194,7 @@ export default function GraphView() {
       ctx.strokeStyle = "rgba(255,255,255,.12)"; ctx.lineWidth = 1.5; ctx.stroke();
 
       const fs = Math.max(8, Math.min(12, r * .6));
-      ctx.font = `600 ${fs}px 'DM Sans',-apple-system,sans-serif`;
+      ctx.font = `600 ${fs}px 'Titillium Web',-apple-system,sans-serif`;
       const textW = ctx.measureText(n.name).width;
       const labelY = n.y + r + fs + 4;
       ctx.fillStyle = "rgba(10,14,26,.75)";
@@ -157,7 +209,7 @@ export default function GraphView() {
         ctx.beginPath(); ctx.arc(bx, by, 8, 0, Math.PI * 2);
         ctx.fillStyle = n.erogati > 0 ? "#06d6a0" : "#118ab2"; ctx.fill();
         ctx.strokeStyle = "rgba(10,14,26,.6)"; ctx.lineWidth = 1.5; ctx.stroke();
-        ctx.font = "bold 8px 'DM Sans',sans-serif"; ctx.fillStyle = "#fff";
+        ctx.font = "bold 8px 'Titillium Web',sans-serif"; ctx.fillStyle = "#fff";
         ctx.textAlign = "center"; ctx.textBaseline = "middle";
         ctx.fillText(n.totalConnections, bx, by + .5);
       }
@@ -247,8 +299,8 @@ export default function GraphView() {
     <div style={{ flex: 1, minHeight: 0, display: "flex", flexDirection: "column", position: "relative", overflow: "hidden" }}>
       {/* Toolbar */}
       <div style={{ display: "flex", alignItems: "center", gap: 8, padding: m ? "6px 10px" : "6px 20px", background: "rgba(15,20,35,.5)", borderBottom: "1px solid rgba(100,160,220,.06)", flexWrap: "wrap", zIndex: 10 }}>
-        <input type="text" placeholder="Cerca ente..." value={search} onChange={e => setSearch(e.target.value)} style={{ background: "rgba(30,40,60,.8)", border: "1px solid rgba(100,160,220,.2)", borderRadius: 6, padding: "5px 10px", color: "#e2e8f0", fontSize: 12, outline: "none", width: m ? 120 : 160, flex: m ? 1 : undefined }} />
-        <select value={filterCat} onChange={e => setFilterCat(e.target.value)} style={{ background: "rgba(30,40,60,.8)", border: "1px solid rgba(100,160,220,.2)", borderRadius: 6, padding: "5px 8px", color: "#e2e8f0", fontSize: m ? 11 : 12, outline: "none" }}>{cats.map(c => <option key={c} value={c}>{c}</option>)}</select>
+        <input type="text" placeholder="Cerca ente..." value={search} onChange={e => setSearch(e.target.value)} style={{ background: "rgba(30,40,60,.8)", border: "1px solid rgba(100,160,220,.2)", borderRadius: 6, padding: "5px 10px", color: "var(--ink)", fontSize: 12, outline: "none", width: m ? 120 : 160, flex: m ? 1 : undefined }} />
+        <select value={filterCat} onChange={e => setFilterCat(e.target.value)} style={{ background: "rgba(30,40,60,.8)", border: "1px solid rgba(100,160,220,.2)", borderRadius: 6, padding: "5px 8px", color: "var(--ink)", fontSize: m ? 11 : 12, outline: "none" }}>{cats.map(c => <option key={c} value={c}>{c}</option>)}</select>
       </div>
 
       {/* Canvas. `minHeight: 0` è necessario: in una colonna flex il valore
@@ -270,14 +322,14 @@ export default function GraphView() {
             {Object.entries(CATEGORY_COLORS).map(([cat, col]) => (
               <div key={cat} style={{ display: "flex", alignItems: "center", gap: 4, fontSize: 9, cursor: "pointer", opacity: filterCat === "Tutte" || filterCat === cat ? 1 : .4 }} onClick={() => setFilterCat(filterCat === cat ? "Tutte" : cat)}>
                 <div style={{ width: 7, height: 7, borderRadius: "50%", background: col }} />
-                <span style={{ color: "#94a3b8" }}>{cat}</span>
+                <span style={{ color: "var(--ink-muted)" }}>{cat}</span>
               </div>
           ))}
         </div>
 
         {/* Legenda provenienza archi */}
-        <div className="graph-legend-desktop" style={{ position: "absolute", bottom: 12, right: 12, zIndex: 5, background: "rgba(10,14,26,.88)", borderRadius: 8, border: "1px solid rgba(100,160,220,.1)", padding: "8px 12px", display: "flex", flexDirection: "column", gap: 5, fontSize: 9, color: "#94a3b8" }}>
-            <div style={{ fontSize: 8, textTransform: "uppercase", letterSpacing: .6, color: "#64748b", marginBottom: 1 }}>Provenienza archi</div>
+        <div className="graph-legend-desktop" style={{ position: "absolute", bottom: 12, right: 12, zIndex: 5, background: "rgba(10,14,26,.88)", borderRadius: 8, border: "1px solid rgba(100,160,220,.1)", padding: "8px 12px", display: "flex", flexDirection: "column", gap: 5, fontSize: 9, color: "var(--ink-muted)" }}>
+            <div style={{ fontSize: 8, textTransform: "uppercase", letterSpacing: .6, color: "var(--ink-faint)", marginBottom: 1 }}>Provenienza archi</div>
             <div style={{ display: "flex", alignItems: "center", gap: 6 }}><svg width="22" height="6"><line x1="0" y1="3" x2="22" y2="3" stroke="rgba(100,160,220,.9)" strokeWidth="1.6" /></svg><span>Documentata / Certificata</span></div>
             <div style={{ display: "flex", alignItems: "center", gap: 6 }}><svg width="22" height="6"><line x1="0" y1="3" x2="22" y2="3" stroke="rgba(100,160,220,.9)" strokeWidth="1.6" strokeDasharray="10,3" /></svg><span>Ricostruita (documentazione)</span></div>
             <div style={{ display: "flex", alignItems: "center", gap: 6 }}><svg width="22" height="6"><line x1="0" y1="3" x2="22" y2="3" stroke="rgba(100,160,220,.9)" strokeWidth="1.6" strokeDasharray="5,4" /></svg><span>Inferita (AI)</span></div>
@@ -290,32 +342,37 @@ export default function GraphView() {
             ...(m ? { left: 0, top: "40%", borderTop: "1px solid rgba(100,160,220,.1)", borderRadius: "14px 14px 0 0" } : { top: 0, width: 330, borderLeft: "1px solid rgba(100,160,220,.1)" }),
             background: "rgba(10,14,26,.96)", padding: 16, overflowY: "auto", backdropFilter: "blur(14px)", zIndex: 10,
           }}>
-            <button onClick={() => setSelNode(null)} style={{ position: "absolute", top: 10, right: 12, background: "none", border: "none", color: "#64748b", fontSize: 16, cursor: "pointer", lineHeight: 1, zIndex: 1 }}>✕</button>
+            <button onClick={() => setSelNode(null)} aria-label="Chiudi dettaglio" style={{ position: "absolute", top: 10, right: 12, background: "none", border: "none", color: "var(--ink-faint)", fontSize: 16, cursor: "pointer", lineHeight: 1, zIndex: 1 }}>✕</button>
+            <button
+              onClick={() => { navigator.clipboard?.writeText(window.location.href); setCopiato(true); setTimeout(() => setCopiato(false), 1800); }}
+              title="Copia il collegamento diretto a questo ente"
+              style={{ position: "absolute", top: 10, right: 40, background: "none", border: "none", color: copiato ? "var(--pa-blue)" : "var(--ink-faint)", fontSize: 10, fontWeight: 600, cursor: "pointer", lineHeight: 1, zIndex: 1, fontFamily: "inherit", letterSpacing: .3 }}
+            >{copiato ? "COPIATO" : "COPIA LINK"}</button>
             {m && <div style={{ width: 36, height: 4, borderRadius: 2, background: "rgba(100,160,220,.2)", margin: "0 auto 12px" }} />}
             {(() => { const col = CATEGORY_COLORS[selNode.categoria] || "#667"; return (<div>
               <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 14 }}>
                 <div style={{ width: 38, height: 38, borderRadius: "50%", background: `linear-gradient(135deg,${col},${col}88)`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 15, fontWeight: 800, flexShrink: 0 }}>{selNode.name[0]}</div>
-                <div><div style={{ fontWeight: 700, fontSize: 14 }}>{selNode.name}</div><div style={{ fontSize: 10, color: "#64748b" }}>{selNode.categoria} · {selNode.tipo}</div></div>
+                <div><div style={{ fontWeight: 700, fontSize: 14 }}>{selNode.name}</div><div style={{ fontSize: 10, color: "var(--ink-faint)" }}>{selNode.categoria} · {selNode.tipo}</div></div>
               </div>
-              <div style={{ fontSize: 12, color: "#94a3b8", marginBottom: 14 }}>{selNode.descrizione}</div>
+              <div style={{ fontSize: 12, color: "var(--ink-muted)", marginBottom: 14 }}>{selNode.descrizione}</div>
               {selNode.id === "comuni_agg" && (
                 <div style={{ marginBottom: 14, padding: "10px 12px", borderRadius: 6, background: "rgba(255,209,102,.05)", border: "1px solid rgba(255,209,102,.18)" }}>
-                  <div style={{ fontSize: 10, fontWeight: 700, color: "#ffd166", textTransform: "uppercase", letterSpacing: .8, marginBottom: 4 }}>ⓘ Tipi di servizio</div>
-                  <div style={{ fontSize: 11, color: "#94a3b8", lineHeight: 1.55 }}>
-                    Gli e-service elencati qui sotto sono <strong style={{ color: "#e2e8f0" }}>tipi di servizio</strong> aggregati: nel catalogo PDND ciascuno corrisponde a centinaia o migliaia di endpoint reali, uno per ogni Comune che lo pubblica. Per i dettagli vedi <em>Metodologia</em>.
+                  <div style={{ fontSize: 10, fontWeight: 700, color: "var(--cite)", textTransform: "uppercase", letterSpacing: .8, marginBottom: 4 }}>ⓘ Tipi di servizio</div>
+                  <div style={{ fontSize: 11, color: "var(--ink-muted)", lineHeight: 1.55 }}>
+                    Gli e-service elencati qui sotto sono <strong style={{ color: "var(--ink)" }}>tipi di servizio</strong> aggregati: nel catalogo PDND ciascuno corrisponde a centinaia o migliaia di endpoint reali, uno per ogni Comune che lo pubblica. Per i dettagli vedi <em>Metodologia</em>.
                   </div>
                 </div>
               )}
               <div style={{ display: "flex", gap: 8, marginBottom: 16 }}>
-                {[["Erogati", selNode.erogati, "#06d6a0"], ["Fruiti", selNode.fruiti, "#118ab2"], ["Conn.", selNode.totalConnections, "#ef476f"]].map(([l, v, c]) => (
-                  <div key={l} style={{ flex: 1, textAlign: "center", padding: "6px 2px", background: "rgba(30,40,60,.5)", borderRadius: 6, border: `1px solid ${c}22` }}><div style={{ fontSize: 16, fontWeight: 800, color: c }}>{v}</div><div style={{ fontSize: 8, color: "#64748b", textTransform: "uppercase", letterSpacing: .5 }}>{l}</div></div>
+                {[["Erogati", selNode.erogati, "#06d6a0"], ["Fruiti", selNode.fruiti, "var(--pa-blue)"], ["Conn.", selNode.totalConnections, "#ef476f"]].map(([l, v, c]) => (
+                  <div key={l} style={{ flex: 1, textAlign: "center", padding: "6px 2px", background: "rgba(30,40,60,.5)", borderRadius: 6, border: `1px solid ${c}22` }}><div style={{ fontSize: 16, fontWeight: 800, color: c }}>{v}</div><div style={{ fontSize: 8, color: "var(--ink-faint)", textTransform: "uppercase", letterSpacing: .5 }}>{l}</div></div>
                 ))}
               </div>
               {selNode.servizi_erogati?.length > 0 && <div style={{ marginBottom: 14 }}><div style={{ fontSize: 10, fontWeight: 700, color: "#06d6a0", textTransform: "uppercase", letterSpacing: .8, marginBottom: 6 }}>E-Services Erogati ({selNode.servizi_erogati.length})</div>{selNode.servizi_erogati.map(es => (
-                <div key={es.id} style={{ padding: "6px 8px", marginBottom: 3, borderRadius: 5, background: "rgba(6,214,160,.05)", border: "1px solid rgba(6,214,160,.08)", fontSize: 11 }}><div style={{ fontWeight: 600 }}>{es.nome}</div>{es.descrizione && <div style={{ color: "#64748b", fontSize: 9, marginTop: 1 }}>{es.descrizione}</div>}<div style={{ color: "#4a6a5a", fontSize: 9, marginTop: 2 }}>v{es.versione} · {es.stato} · {es.fruitori.length} fruitori</div></div>
+                <div key={es.id} style={{ padding: "6px 8px", marginBottom: 3, borderRadius: 5, background: "rgba(6,214,160,.05)", border: "1px solid rgba(6,214,160,.08)", fontSize: 11 }}><div style={{ fontWeight: 600 }}>{es.nome}</div>{es.descrizione && <div style={{ color: "var(--ink-faint)", fontSize: 9, marginTop: 1 }}>{es.descrizione}</div>}<div style={{ color: "#4a6a5a", fontSize: 9, marginTop: 2 }}>v{es.versione} · {es.stato} · {es.fruitori.length} fruitori</div></div>
               ))}</div>}
-              {selNode.servizi_fruiti?.length > 0 && <div><div style={{ fontSize: 10, fontWeight: 700, color: "#118ab2", textTransform: "uppercase", letterSpacing: .8, marginBottom: 6 }}>E-Services Fruiti ({selNode.servizi_fruiti.length})</div>{selNode.servizi_fruiti.map(es => { const er = PDND_DATA.enti.find(e => e.id === es.erogatore); return (
-                <div key={es.id + selNode.id} style={{ padding: "6px 8px", marginBottom: 3, borderRadius: 5, background: "rgba(17,138,178,.05)", border: "1px solid rgba(17,138,178,.08)", fontSize: 11 }}><div style={{ fontWeight: 600 }}>{es.nome}</div><div style={{ color: "#64748b", fontSize: 9, marginTop: 1 }}>da {er?.name} · v{es.versione}</div></div>
+              {selNode.servizi_fruiti?.length > 0 && <div><div style={{ fontSize: 10, fontWeight: 700, color: "var(--pa-blue)", textTransform: "uppercase", letterSpacing: .8, marginBottom: 6 }}>E-Services Fruiti ({selNode.servizi_fruiti.length})</div>{selNode.servizi_fruiti.map(es => { const er = PDND_DATA.enti.find(e => e.id === es.erogatore); return (
+                <div key={es.id + selNode.id} style={{ padding: "6px 8px", marginBottom: 3, borderRadius: 5, background: "rgba(17,138,178,.05)", border: "1px solid rgba(17,138,178,.08)", fontSize: 11 }}><div style={{ fontWeight: 600 }}>{es.nome}</div><div style={{ color: "var(--ink-faint)", fontSize: 9, marginTop: 1 }}>da {er?.name} · v{es.versione}</div></div>
               ); })}</div>}
             </div>); })()}
           </div>

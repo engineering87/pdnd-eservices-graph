@@ -191,6 +191,49 @@ check("la topologia corrisponde al report (51 nodi, 86 e-service, 343 archi)", (
   return err.length === 0 || err.join(", ");
 });
 
+console.log("\nRotte e collegamenti diretti");
+
+const { parseLocation, buildPath } = await import(
+  path.join(ROOT, "src/utils/useUrlState.js")
+);
+
+check("le rotte note risolvono nella scheda giusta", () => {
+  const casi = [
+    ["/", "grafo", null], ["", "grafo", null],
+    ["/statistiche", "statistiche", null], ["/metodologia/", "metodologia", null],
+    ["/guida", "guida", null], ["/ente/inps", "grafo", "inps"],
+  ];
+  const bad = casi.filter(([p, tab, id]) => {
+    const r = parseLocation(p);
+    return r.tab !== tab || r.entityId !== id;
+  });
+  return bad.length === 0 || `${bad.length} rotte risolte male`;
+});
+
+check("una rotta sconosciuta ricade sul grafo", () => {
+  const r = parseLocation("/non-esiste");
+  return (r.tab === "grafo" && r.entityId === null) || "ricaduta errata";
+});
+
+check("percorso e stato sono reversibili", () => {
+  const bad = ["/", "/statistiche", "/guida", "/ente/inps", "/ente/r_lazio"].filter(
+    (p) => buildPath(parseLocation(p)) !== p
+  );
+  return bad.length === 0 || `non reversibili: ${bad.join(", ")}`;
+});
+
+check("ogni ente del dato ha un percorso valido", () => {
+  const bad = DATA.enti.filter((e) => parseLocation(buildPath({ tab: "grafo", entityId: e.id })).entityId !== e.id);
+  return bad.length === 0 || `${bad.length} enti con percorso non risolvibile`;
+});
+
+check("le rotte a percorso hanno la riscrittura lato server", () => {
+  const cfg = JSON.parse(fs.readFileSync(path.join(ROOT, "staticwebapp.config.json"), "utf8"));
+  return cfg.navigationFallback?.rewrite === "/index.html"
+    ? true
+    : "navigationFallback assente: /ente/... darebbe 404 in produzione";
+});
+
 const totale = passed + failures.length;
 console.log(
   `\n${failures.length === 0 ? "Tutti i test superati" : "Test falliti"}: ${passed}/${totale}\n`

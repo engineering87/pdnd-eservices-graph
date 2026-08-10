@@ -25,7 +25,7 @@
  */
 
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
-import { resolve, dirname, join } from 'node:path';
+import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -50,9 +50,12 @@ modelPath = modelPath
 // ───────────────────────────────────────────────────────────────────
 // Lettura modello
 // ───────────────────────────────────────────────────────────────────
-let model;
+// NOTA: il modello viene letto e validato, ma al momento non è usato nel
+// confronto: le metriche di copertura riportate più sotto sono calcolate dalla
+// sola mappatura del catalogo. La lettura resta come controllo di integrità del
+// file, e il confronto nodo per nodo è da completare.
 try {
-  model = JSON.parse(readFileSync(modelPath, 'utf8'));
+  JSON.parse(readFileSync(modelPath, 'utf8'));
 } catch (err) {
   console.error(`Cannot read model JSON at ${modelPath}: ${err.message}`);
   process.exit(1);
@@ -163,7 +166,6 @@ const sub = (s) => console.log(`\n  ${s}\n  ${'─'.repeat(s.length)}`);
   const total = rows.length;
   const published = rows.filter(r => stateKey && r[stateKey] === 'PUBLISHED').length;
   const suspended = rows.filter(r => stateKey && r[stateKey] === 'SUSPENDED').length;
-  const draft = rows.filter(r => stateKey && r[stateKey] === 'DRAFT').length;
   const distinctProducers = new Set(rows.map(r => r[producerKey])).size;
   console.log(`  Total endpoints in catalogue:     ${total}`);
   console.log(`  Published:                        ${published}`);

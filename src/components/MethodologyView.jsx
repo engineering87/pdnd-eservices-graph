@@ -1,8 +1,14 @@
+/**
+ * Metodologia: da dove vengono i dati, come sono ricostruite le relazioni fra
+ * erogatori e fruitori, quali aggregazioni sono applicate e quali limiti ne
+ * derivano. Rispecchia METODOLOGIA.md e il report pubblicato.
+ */
+
 function Section({ title, children }) {
   return (
     <div style={{ marginBottom: 28 }}>
-      <div style={{ fontSize: 15, fontWeight: 700, color: "#e2e8f0", marginBottom: 10, paddingBottom: 8, borderBottom: "1px solid rgba(100,160,220,.08)" }}>{title}</div>
-      <div style={{ fontSize: 13, color: "#94a3b8", lineHeight: 1.75 }}>{children}</div>
+      <div style={{ fontSize: 15, fontWeight: 700, color: "var(--ink)", marginBottom: 10, paddingBottom: 8, borderBottom: "1px solid rgba(100,160,220,.08)" }}>{title}</div>
+      <div style={{ fontSize: 13, color: "var(--ink-muted)", lineHeight: 1.75 }}>{children}</div>
     </div>
   );
 }
@@ -11,12 +17,12 @@ function Source({ name, url, desc, type }) {
   return (
     <div style={{ padding: "10px 14px", marginBottom: 6, borderRadius: 6, background: "rgba(30,40,60,.4)", border: "1px solid rgba(100,160,220,.06)" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 4 }}>
-        <span style={{ fontSize: 13, fontWeight: 600, color: "#e2e8f0" }}>{name}</span>
-        <span style={{ fontSize: 9, padding: "2px 8px", borderRadius: 3, fontWeight: 600, background: type === "ufficiale" ? "rgba(6,214,160,.1)" : "rgba(255,209,102,.1)", color: type === "ufficiale" ? "#06d6a0" : "#ffd166" }}>
+        <span style={{ fontSize: 13, fontWeight: 600, color: "var(--ink)" }}>{name}</span>
+        <span style={{ fontSize: 9, padding: "2px 8px", borderRadius: 3, fontWeight: 600, background: type === "ufficiale" ? "rgba(6,214,160,.1)" : "rgba(255,209,102,.1)", color: type === "ufficiale" ? "#06d6a0" : "var(--cite)" }}>
           {type === "ufficiale" ? "✓ Dato ufficiale" : "⚠ Ricostruzione"}
         </span>
       </div>
-      <div style={{ fontSize: 11, color: "#64748b" }}>{desc}</div>
+      <div style={{ fontSize: 11, color: "var(--ink-faint)" }}>{desc}</div>
       {url && <a href={url} target="_blank" rel="noopener" style={{ fontSize: 11, color: "#64b5f6", textDecoration: "none" }}>{url}</a>}
     </div>
   );
@@ -25,9 +31,9 @@ function Source({ name, url, desc, type }) {
 export default function MethodologyView() {
   return (
     <div style={{ flex: 1, overflowY: "auto", padding: "24px 28px", maxWidth: 800 }}>
-      <div style={{ fontSize: 10, color: "#475569", textTransform: "uppercase", letterSpacing: 1, marginBottom: 6 }}>Trasparenza metodologica</div>
+      <div style={{ fontSize: 10, color: "var(--ink-faint)", textTransform: "uppercase", letterSpacing: 1, marginBottom: 6 }}>Trasparenza metodologica</div>
       <div style={{ fontSize: 22, fontWeight: 700, color: "#f1f5f9", marginBottom: 6 }}>Come sono stati costruiti i dati</div>
-      <div style={{ fontSize: 13, color: "#64748b", marginBottom: 28, lineHeight: 1.6 }}>
+      <div style={{ fontSize: 13, color: "var(--ink-faint)", marginBottom: 28, lineHeight: 1.6 }}>
         Questo progetto si basa esclusivamente su informazioni già pubbliche, rielaborate e messe in relazione.
         Di seguito sono documentate le fonti, le scelte di rappresentazione e le limitazioni note.
       </div>
@@ -40,9 +46,9 @@ export default function MethodologyView() {
 
       <Section title="Ricostruzione delle connessioni">
         <div style={{ padding: "12px 16px", borderRadius: 8, background: "rgba(255,209,102,.04)", border: "1px solid rgba(255,209,102,.12)", marginBottom: 14 }}>
-          <div style={{ fontSize: 12, color: "#ffd166", fontWeight: 600, marginBottom: 6 }}>⚠ Nota importante</div>
-          <div style={{ fontSize: 12, color: "#94a3b8", lineHeight: 1.6 }}>
-            I dataset open data della PDND <strong style={{ color: "#e2e8f0" }}>non pubblicano</strong> le coppie puntuali erogatore–fruitore.
+          <div style={{ fontSize: 12, color: "var(--cite)", fontWeight: 600, marginBottom: 6 }}>⚠ Nota importante</div>
+          <div style={{ fontSize: 12, color: "var(--ink-muted)", lineHeight: 1.6 }}>
+            I dataset open data della PDND <strong style={{ color: "var(--ink)" }}>non pubblicano</strong> le coppie puntuali erogatore–fruitore.
             Le relazioni (archi) rappresentate nel grafo sono state ricostruite tramite modelli AI,
             incrociando le seguenti fonti documentali pubbliche:
           </div>
@@ -54,14 +60,14 @@ export default function MethodologyView() {
       </Section>
 
       <Section title="Aggregazione dei Comuni">
-        <div style={{ fontSize: 13, color: "#94a3b8", lineHeight: 1.75 }}>
+        <div style={{ fontSize: 13, color: "var(--ink-muted)", lineHeight: 1.75 }}>
           Il catalogo PDND contiene 2.000+ API, la maggior parte delle quali sono servizi standard replicati
           da ciascuno dei ~7.500 Comuni aderenti (Albo Pretorio, Pratiche SUAP, Numerazione Civica, ecc.).
           Rappresentarli tutti avrebbe prodotto un grafo illeggibile.
         </div>
         <div style={{ margin: "14px 0", padding: "12px 16px", borderRadius: 8, background: "rgba(30,40,60,.4)", border: "1px solid rgba(100,160,220,.06)" }}>
-          <div style={{ fontSize: 12, color: "#e2e8f0", fontWeight: 600, marginBottom: 8 }}>Scelta adottata</div>
-          <div style={{ fontSize: 12, color: "#94a3b8", lineHeight: 1.6 }}>
+          <div style={{ fontSize: 12, color: "var(--ink)", fontWeight: 600, marginBottom: 8 }}>Scelta adottata</div>
+          <div style={{ fontSize: 12, color: "var(--ink-muted)", lineHeight: 1.6 }}>
             I Comuni minori sono aggregati in un <strong style={{ color: "#4a7c91" }}>unico nodo</strong> chiamato "Comuni (aggregati)".
             6 grandi Comuni (Milano, Roma, Napoli, Bologna, Genova, Padova) sono mantenuti come nodi individuali
             perché erogano anche servizi specifici non standard.
@@ -70,14 +76,14 @@ export default function MethodologyView() {
       </Section>
 
       <Section title="Tipi di servizio vs endpoint del catalogo">
-        <div style={{ fontSize: 13, color: "#94a3b8", lineHeight: 1.75, marginBottom: 14 }}>
+        <div style={{ fontSize: 13, color: "var(--ink-muted)", lineHeight: 1.75, marginBottom: 14 }}>
           Una conseguenza diretta dell'aggregazione: ogni record nel grafo rappresenta un{" "}
-          <strong style={{ color: "#e2e8f0" }}>tipo di servizio</strong>, non un singolo endpoint del catalogo PDND.
+          <strong style={{ color: "var(--ink)" }}>tipo di servizio</strong>, non un singolo endpoint del catalogo PDND.
           Lo stesso servizio standardizzato (es. <em>Albo Pretorio</em>) compare nel grafo come un nodo solo
           ma corrisponde a centinaia o migliaia di endpoint reali nel catalogo, uno per ciascun Comune che lo pubblica.
         </div>
         <div style={{ padding: "12px 16px", borderRadius: 8, background: "rgba(30,40,60,.4)", border: "1px solid rgba(100,160,220,.06)", marginBottom: 14 }}>
-          <div style={{ fontSize: 11, color: "#64748b", marginBottom: 8 }}>Mappatura misurata sul catalogo per i 9 servizi standard del nodo aggregato (snapshot 2026-05)</div>
+          <div style={{ fontSize: 11, color: "var(--ink-faint)", marginBottom: 8 }}>Mappatura misurata sul catalogo per i 9 servizi standard del nodo aggregato (snapshot 2026-05)</div>
           {[
             ["Albo Pretorio Online", "1.451"],
             ["Pratiche SUAP", "1.429"],
@@ -95,23 +101,23 @@ export default function MethodologyView() {
             </div>
           ))}
           <div style={{ display: "flex", justifyContent: "space-between", padding: "8px 0 2px 0", fontSize: 12, fontWeight: 700, marginTop: 4 }}>
-            <span style={{ color: "#e2e8f0" }}>Totale endpoint coperti dal nodo aggregato</span>
+            <span style={{ color: "var(--ink)" }}>Totale endpoint coperti dal nodo aggregato</span>
             <span style={{ color: "#06d6a0" }}>6.382</span>
           </div>
         </div>
-        <div style={{ fontSize: 12, color: "#94a3b8", lineHeight: 1.6 }}>
-          Il catalogo PDND completo conta <strong style={{ color: "#e2e8f0" }}>14.102 API pubblicate</strong> da 6.388 enti distinti.
+        <div style={{ fontSize: 12, color: "var(--ink-muted)", lineHeight: 1.6 }}>
+          Il catalogo PDND completo conta <strong style={{ color: "var(--ink)" }}>14.102 API pubblicate</strong> da 6.388 enti distinti.
           Il modello rappresenta 86 tipi di servizio in 51 nodi: i 9 sopra (servizi standardizzati comunali) coprono 6.382 endpoint;
           gli altri 75 record corrispondono a servizi centrali, regionali o ministeriali, in maggioranza uno-a-uno con il catalogo.
           La copertura totale del modello è dell'<strong style={{ color: "#06d6a0" }}>~89%</strong>, misurabile lanciando{" "}
-          <code style={{ fontSize: 11, padding: "1px 5px", borderRadius: 3, background: "rgba(30,40,60,.6)", color: "#e2e8f0" }}>npm run compare-catalog</code>.
+          <code style={{ fontSize: 11, padding: "1px 5px", borderRadius: 3, background: "rgba(30,40,60,.6)", color: "var(--ink)" }}>npm run compare-catalog</code>.
         </div>
       </Section>
 
       <Section title="Utilizzo di modelli AI">
-        <div style={{ fontSize: 13, color: "#94a3b8", lineHeight: 1.75 }}>
+        <div style={{ fontSize: 13, color: "var(--ink-muted)", lineHeight: 1.75 }}>
           I modelli AI sono stati utilizzati come strumento per incrociare le fonti documentali, estrarre informazioni
-          da documenti non strutturati e collegare il campo <code style={{ fontSize: 11, padding: "1px 5px", borderRadius: 3, background: "rgba(30,40,60,.6)", color: "#e2e8f0" }}>attributes</code> del catalogo con la documentazione istituzionale.
+          da documenti non strutturati e collegare il campo <code style={{ fontSize: 11, padding: "1px 5px", borderRadius: 3, background: "rgba(30,40,60,.6)", color: "var(--ink)" }}>attributes</code> del catalogo con la documentazione istituzionale.
           I modelli non hanno generato informazioni autonomamente: ogni connessione è riconducibile a fonti pubbliche verificabili.
         </div>
       </Section>
@@ -133,14 +139,14 @@ export default function MethodologyView() {
       </Section>
 
       <Section title="Pubblicazione di riferimento">
-        <div style={{ fontSize: 13, color: "#94a3b8", lineHeight: 1.75, marginBottom: 12 }}>
+        <div style={{ fontSize: 13, color: "var(--ink-muted)", lineHeight: 1.75, marginBottom: 12 }}>
           La metodologia adottata in questo progetto è documentata nel paper:
         </div>
         <div style={{ padding: "14px 16px", borderRadius: 8, background: "rgba(30,40,60,.4)", border: "1px solid rgba(100,160,220,.1)", marginBottom: 12 }}>
-          <div style={{ fontSize: 13, color: "#e2e8f0", fontWeight: 600, marginBottom: 6, lineHeight: 1.4 }}>
+          <div style={{ fontSize: 13, color: "var(--ink)", fontWeight: 600, marginBottom: 6, lineHeight: 1.4 }}>
             The PDND E-Service Network: A Graph-Based Model from Italian Open Government Data
           </div>
-          <div style={{ fontSize: 12, color: "#94a3b8", marginBottom: 10 }}>
+          <div style={{ fontSize: 12, color: "var(--ink-muted)", marginBottom: 10 }}>
             Del Re, F. (2026). Zenodo.
           </div>
           <div style={{ display: "flex", gap: 10, flexWrap: "wrap", alignItems: "center" }}>
@@ -148,7 +154,7 @@ export default function MethodologyView() {
               href="https://doi.org/10.5281/zenodo.19989954"
               target="_blank"
               rel="noopener"
-              style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "6px 12px", borderRadius: 6, background: "rgba(255,209,102,.08)", border: "1px solid rgba(255,209,102,.25)", color: "#ffd166", fontSize: 12, fontWeight: 600, textDecoration: "none" }}
+              style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "6px 12px", borderRadius: 6, background: "rgba(255,209,102,.08)", border: "1px solid rgba(255,209,102,.25)", color: "var(--cite)", fontSize: 12, fontWeight: 600, textDecoration: "none" }}
             >
               <span style={{ fontSize: 11 }}>DOI</span>
               <span style={{ fontFamily: "monospace" }}>10.5281/zenodo.19989954</span>
@@ -163,13 +169,13 @@ export default function MethodologyView() {
             </a>
           </div>
         </div>
-        <div style={{ fontSize: 12, color: "#64748b", lineHeight: 1.6 }}>
+        <div style={{ fontSize: 12, color: "var(--ink-faint)", lineHeight: 1.6 }}>
           Il paper descrive il modello, le fonti, la pipeline di ricostruzione, il ruolo dei modelli linguistici come strumento di estrazione, e riporta la copertura misurata del modello rispetto al catalogo PDND ufficiale (~89% di 14.102 endpoint pubblicati). Licenza CC-BY 4.0.
         </div>
       </Section>
 
       <div style={{ padding: "14px 16px", borderRadius: 8, background: "rgba(100,160,220,.04)", border: "1px solid rgba(100,160,220,.1)" }}>
-        <div style={{ fontSize: 12, color: "#94a3b8", lineHeight: 1.6 }}>
+        <div style={{ fontSize: 12, color: "var(--ink-muted)", lineHeight: 1.6 }}>
           La documentazione completa è disponibile nel file{" "}
           <a href="https://github.com/engineering87/pdnd-eservices-graph/blob/main/METODOLOGIA.md" target="_blank" rel="noopener" style={{ color: "#64b5f6", textDecoration: "none", fontWeight: 600 }}>METODOLOGIA.md</a> del repository.
           Per segnalare correzioni o contribuire con dati più precisi, apri una{" "}

@@ -1,3 +1,9 @@
+/**
+ * Intestazione: marchio, indicatori sintetici del modello e navigazione fra le
+ * viste. Gli indicatori sono deliberatamente uniformi fra loro: la gerarchia
+ * passa da posizione e divisori, non dal colore.
+ */
+
 import { useIsMobile } from "../utils/useIsMobile";
 
 const TABS = [

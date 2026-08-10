@@ -1,3 +1,9 @@
+/**
+ * Piè di pagina: attribuzione, licenze e collegamento al report pubblicato.
+ * Le licenze sono due e vanno tenute distinte: AGPL-3.0 per il codice,
+ * CC0 1.0 per i dati di origine.
+ */
+
 import { useIsMobile } from "../utils/useIsMobile";
 
 export default function Footer() {

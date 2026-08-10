@@ -159,7 +159,7 @@ async function main() {
 
   // 4. Build e-services for tracked producers
   const eservices = [];
-  const newServices = [], versionChanges = [], noFruitori = [];
+  const newServices = [], noFruitori = [];
 
   for (const ent of entities) {
     if (!ent.produces) continue;

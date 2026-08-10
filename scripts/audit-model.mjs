@@ -23,7 +23,7 @@
  */
 
 import { readFileSync } from 'node:fs';
-import { resolve, dirname, join } from 'node:path';
+import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -49,7 +49,6 @@ const { enti = [], eservices = [], meta = {} } = data;
 // ───────────────────────────────────────────────────────────────────
 const entiById = new Map(enti.map(e => [e.id, e]));
 const nameOf = id => entiById.get(id)?.name ?? `<unknown:${id}>`;
-const tipoOf = id => entiById.get(id)?.tipo ?? '';
 
 // ───────────────────────────────────────────────────────────────────
 // Sezione 1 — Riepilogo strutturale

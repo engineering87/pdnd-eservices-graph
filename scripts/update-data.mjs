@@ -33,7 +33,6 @@ async function main() {
 
   const text = await res.text();
   const lines = text.split("\n").filter((l) => l.trim());
-  const header = lines[0].split(",");
 
   console.log(`✅ Scaricate ${lines.length - 1} righe\n`);
 
