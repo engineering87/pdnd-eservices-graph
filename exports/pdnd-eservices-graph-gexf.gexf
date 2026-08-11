@@ -1,0 +1,2437 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gexf xmlns="http://gexf.net/1.3" version="1.3">
+  <meta lastmodifieddate="2026-05-02">
+    <creator>PDND E-Services Graph</creator>
+    <description>Le relazioni erogatore-fruitore non sono pubblicate come open data e sono ricostruite da documentazione pubblica: vedere il campo origine di ogni arco. I nodi marcati aggregato=true rappresentano insiemi di enti (per esempio circa 7.500 Comuni in un solo nodo): le misure di grado su questo grafo non sono confrontabili con quelle di un grafo non aggregato.</description>
+  </meta>
+  <graph mode="static" defaultedgetype="directed">
+    <attributes class="node">
+      <attribute id="0" title="categoria" type="string"/>
+      <attribute id="1" title="tipo" type="string"/>
+      <attribute id="2" title="aggregato" type="boolean"/>
+    </attributes>
+    <attributes class="edge">
+      <attribute id="0" title="origine" type="string"/>
+      <attribute id="1" title="servizi" type="string"/>
+    </attributes>
+    <nodes>
+      <node id="min_interno" label="Min. Interno (ANPR)">
+        <attvalues>
+          <attvalue for="0" value="Ministero"/>
+          <attvalue for="1" value="Erogatore"/>
+          <attvalue for="2" value="false"/>
+        </attvalues>
+      </node>
+      <node id="inps" label="INPS">
+        <attvalues>
+          <attvalue for="0" value="Previdenza"/>
+          <attvalue for="1" value="Erogatore/Fruitore"/>
+          <attvalue for="2" value="false"/>
+        </attvalues>
+      </node>
+      <node id="ade" label="Agenzia delle Entrate">
+        <attvalues>
+          <attvalue for="0" value="Fisco"/>
+          <attvalue for="1" value="Erogatore/Fruitore"/>
+          <attvalue for="2" value="false"/>
+        </attvalues>
+      </node>
+      <node id="agid" label="AgID">
+        <attvalues>
+          <attvalue for="0" value="Digitale"/>
+          <attvalue for="1" value="Erogatore/Fruitore"/>
+          <attvalue for="2" value="false"/>
+        </attvalues>
+      </node>
+      <node id="inail" label="INAIL">
+        <attvalues>
+          <attvalue for="0" value="Lavoro"/>
+          <attvalue for="1" value="Erogatore"/>
+          <attvalue for="2" value="false"/>
+        </attvalues>
+      </node>
+      <node id="unioncamere" label="Unioncamere">
+        <attvalues>
+          <attvalue for="0" value="Imprese"/>
+          <attvalue for="1" value="Erogatore"/>
+          <attvalue for="2" value="false"/>
+        </attvalues>
+      </node>
+      <node id="mef" label="MEF">
+        <attvalues>
+          <attvalue for="0" value="Ministero"/>
+          <attvalue for="1" value="Erogatore/Fruitore"/>
+          <attvalue for="2" value="false"/>
+        </attvalues>
+      </node>
+      <node id="anac" label="ANAC">
+        <attvalues>
+          <attvalue for="0" value="Anticorruzione"/>
+          <attvalue for="1" value="Erogatore"/>
+          <attvalue for="2" value="false"/>
+        </attvalues>
+      </node>
+      <node id="mit_dgmot" label="MIT – Motorizzazione">
+        <attvalues>
+          <attvalue for="0" value="Trasporti"/>
+          <attvalue for="1" value="Erogatore"/>
+          <attvalue for="2" value="false"/>
+        </attvalues>
+      </node>
+      <node id="min_giustizia" label="Min. Giustizia">
+        <attvalues>
+          <attvalue for="0" value="Ministero"/>
+          <attvalue for="1" value="Erogatore"/>
+          <attvalue for="2" value="false"/>
+        </attvalues>
+      </node>
+      <node id="min_cultura" label="Min. Cultura (I.PaC)">
+        <attvalues>
+          <attvalue for="0" value="Cultura"/>
+          <attvalue for="1" value="Erogatore"/>
+          <attvalue for="2" value="false"/>
+        </attvalues>
+      </node>
+      <node id="mur" label="MUR">
+        <attvalues>
+          <attvalue for="0" value="Ministero"/>
+          <attvalue for="1" value="Erogatore/Fruitore"/>
+          <attvalue for="2" value="false"/>
+        </attvalues>
+      </node>
+      <node id="ade_riscossione" label="AdE Riscossione">
+        <attvalues>
+          <attvalue for="0" value="Fisco"/>
+          <attvalue for="1" value="Erogatore"/>
+          <attvalue for="2" value="false"/>
+        </attvalues>
+      </node>
+      <node id="sogei" label="Sogei">
+        <attvalues>
+          <attvalue for="0" value="Tecnologia"/>
+          <attvalue for="1" value="Erogatore"/>
+          <attvalue for="2" value="false"/>
+        </attvalues>
+      </node>
+      <node id="istat" label="ISTAT">
+        <attvalues>
+          <attvalue for="0" value="Statistica"/>
+          <attvalue for="1" value="Erogatore"/>
+          <attvalue for="2" value="false"/>
+        </attvalues>
+      </node>
+      <node id="pagopa" label="PagoPA">
+        <attvalues>
+          <attvalue for="0" value="Digitale"/>
+          <attvalue for="1" value="Erogatore"/>
+          <attvalue for="2" value="false"/>
+        </attvalues>
+      </node>
+      <node id="mlps" label="Min. Lavoro">
+        <attvalues>
+          <attvalue for="0" value="Ministero"/>
+          <attvalue for="1" value="Erogatore/Fruitore"/>
+          <attvalue for="2" value="false"/>
+        </attvalues>
+      </node>
+      <node id="cineca" label="Cineca">
+        <attvalues>
+          <attvalue for="0" value="Tecnologia"/>
+          <attvalue for="1" value="Erogatore"/>
+          <attvalue for="2" value="false"/>
+        </attvalues>
+      </node>
+      <node id="mit" label="MIT">
+        <attvalues>
+          <attvalue for="0" value="Trasporti"/>
+          <attvalue for="1" value="Erogatore"/>
+          <attvalue for="2" value="false"/>
+        </attvalues>
+      </node>
+      <node id="dfp" label="Dip. Funzione Pubblica">
+        <attvalues>
+          <attvalue for="0" value="Ministero"/>
+          <attvalue for="1" value="Erogatore"/>
+          <attvalue for="2" value="false"/>
+        </attvalues>
+      </node>
+      <node id="ag_demanio" label="Agenzia del Demanio">
+        <attvalues>
+          <attvalue for="0" value="Fisco"/>
+          <attvalue for="1" value="Erogatore"/>
+          <attvalue for="2" value="false"/>
+        </attvalues>
+      </node>
+      <node id="min_istruzione" label="Min. Istruzione">
+        <attvalues>
+          <attvalue for="0" value="Ministero"/>
+          <attvalue for="1" value="Erogatore/Fruitore"/>
+          <attvalue for="2" value="false"/>
+        </attvalues>
+      </node>
+      <node id="ispra" label="ISPRA">
+        <attvalues>
+          <attvalue for="0" value="Statistica"/>
+          <attvalue for="1" value="Erogatore"/>
+          <attvalue for="2" value="false"/>
+        </attvalues>
+      </node>
+      <node id="r_lombardia" label="Reg. Lombardia">
+        <attvalues>
+          <attvalue for="0" value="Regione"/>
+          <attvalue for="1" value="Erogatore/Fruitore"/>
+          <attvalue for="2" value="false"/>
+        </attvalues>
+      </node>
+      <node id="r_lazio" label="Reg. Lazio">
+        <attvalues>
+          <attvalue for="0" value="Regione"/>
+          <attvalue for="1" value="Erogatore/Fruitore"/>
+          <attvalue for="2" value="false"/>
+        </attvalues>
+      </node>
+      <node id="r_campania" label="Reg. Campania">
+        <attvalues>
+          <attvalue for="0" value="Regione"/>
+          <attvalue for="1" value="Erogatore/Fruitore"/>
+          <attvalue for="2" value="false"/>
+        </attvalues>
+      </node>
+      <node id="r_sicilia" label="Reg. Siciliana">
+        <attvalues>
+          <attvalue for="0" value="Regione"/>
+          <attvalue for="1" value="Erogatore/Fruitore"/>
+          <attvalue for="2" value="false"/>
+        </attvalues>
+      </node>
+      <node id="r_friuli" label="Reg. FVG">
+        <attvalues>
+          <attvalue for="0" value="Regione"/>
+          <attvalue for="1" value="Erogatore/Fruitore"/>
+          <attvalue for="2" value="false"/>
+        </attvalues>
+      </node>
+      <node id="pa_bolzano" label="Prov. Aut. Bolzano">
+        <attvalues>
+          <attvalue for="0" value="Regione"/>
+          <attvalue for="1" value="Erogatore"/>
+          <attvalue for="2" value="false"/>
+        </attvalues>
+      </node>
+      <node id="r_liguria" label="Reg. Liguria">
+        <attvalues>
+          <attvalue for="0" value="Regione"/>
+          <attvalue for="1" value="Erogatore/Fruitore"/>
+          <attvalue for="2" value="false"/>
+        </attvalues>
+      </node>
+      <node id="r_toscana" label="Reg. Toscana">
+        <attvalues>
+          <attvalue for="0" value="Regione"/>
+          <attvalue for="1" value="Erogatore/Fruitore"/>
+          <attvalue for="2" value="false"/>
+        </attvalues>
+      </node>
+      <node id="r_molise" label="Reg. Molise">
+        <attvalues>
+          <attvalue for="0" value="Regione"/>
+          <attvalue for="1" value="Erogatore/Fruitore"/>
+          <attvalue for="2" value="false"/>
+        </attvalues>
+      </node>
+      <node id="r_puglia" label="Reg. Puglia">
+        <attvalues>
+          <attvalue for="0" value="Regione"/>
+          <attvalue for="1" value="Erogatore/Fruitore"/>
+          <attvalue for="2" value="false"/>
+        </attvalues>
+      </node>
+      <node id="pa_trento" label="Prov. Aut. Trento">
+        <attvalues>
+          <attvalue for="0" value="Regione"/>
+          <attvalue for="1" value="Erogatore/Fruitore"/>
+          <attvalue for="2" value="false"/>
+        </attvalues>
+      </node>
+      <node id="r_abruzzo" label="Reg. Abruzzo">
+        <attvalues>
+          <attvalue for="0" value="Regione"/>
+          <attvalue for="1" value="Erogatore/Fruitore"/>
+          <attvalue for="2" value="false"/>
+        </attvalues>
+      </node>
+      <node id="r_emilia" label="Reg. Emilia-Romagna">
+        <attvalues>
+          <attvalue for="0" value="Regione"/>
+          <attvalue for="1" value="Erogatore/Fruitore"/>
+          <attvalue for="2" value="false"/>
+        </attvalues>
+      </node>
+      <node id="r_piemonte" label="Reg. Piemonte">
+        <attvalues>
+          <attvalue for="0" value="Regione"/>
+          <attvalue for="1" value="Erogatore/Fruitore"/>
+          <attvalue for="2" value="false"/>
+        </attvalues>
+      </node>
+      <node id="r_veneto" label="Reg. Veneto">
+        <attvalues>
+          <attvalue for="0" value="Regione"/>
+          <attvalue for="1" value="Erogatore/Fruitore"/>
+          <attvalue for="2" value="false"/>
+        </attvalues>
+      </node>
+      <node id="r_marche" label="Reg. Marche">
+        <attvalues>
+          <attvalue for="0" value="Regione"/>
+          <attvalue for="1" value="Erogatore/Fruitore"/>
+          <attvalue for="2" value="false"/>
+        </attvalues>
+      </node>
+      <node id="r_umbria" label="Reg. Umbria">
+        <attvalues>
+          <attvalue for="0" value="Regione"/>
+          <attvalue for="1" value="Erogatore/Fruitore"/>
+          <attvalue for="2" value="false"/>
+        </attvalues>
+      </node>
+      <node id="r_vda" label="Reg. Valle d'Aosta">
+        <attvalues>
+          <attvalue for="0" value="Regione"/>
+          <attvalue for="1" value="Erogatore/Fruitore"/>
+          <attvalue for="2" value="false"/>
+        </attvalues>
+      </node>
+      <node id="r_basilicata" label="Reg. Basilicata">
+        <attvalues>
+          <attvalue for="0" value="Regione"/>
+          <attvalue for="1" value="Erogatore/Fruitore"/>
+          <attvalue for="2" value="false"/>
+        </attvalues>
+      </node>
+      <node id="r_sardegna" label="Reg. Sardegna">
+        <attvalues>
+          <attvalue for="0" value="Regione"/>
+          <attvalue for="1" value="Erogatore/Fruitore"/>
+          <attvalue for="2" value="false"/>
+        </attvalues>
+      </node>
+      <node id="r_calabria" label="Reg. Calabria">
+        <attvalues>
+          <attvalue for="0" value="Regione"/>
+          <attvalue for="1" value="Erogatore/Fruitore"/>
+          <attvalue for="2" value="false"/>
+        </attvalues>
+      </node>
+      <node id="c_milano" label="Comune di Milano">
+        <attvalues>
+          <attvalue for="0" value="Comune"/>
+          <attvalue for="1" value="Fruitore"/>
+          <attvalue for="2" value="false"/>
+        </attvalues>
+      </node>
+      <node id="c_roma" label="Comune di Roma">
+        <attvalues>
+          <attvalue for="0" value="Comune"/>
+          <attvalue for="1" value="Fruitore"/>
+          <attvalue for="2" value="false"/>
+        </attvalues>
+      </node>
+      <node id="c_napoli" label="Comune di Napoli">
+        <attvalues>
+          <attvalue for="0" value="Comune"/>
+          <attvalue for="1" value="Fruitore"/>
+          <attvalue for="2" value="false"/>
+        </attvalues>
+      </node>
+      <node id="c_bologna" label="Comune di Bologna">
+        <attvalues>
+          <attvalue for="0" value="Comune"/>
+          <attvalue for="1" value="Erogatore/Fruitore"/>
+          <attvalue for="2" value="false"/>
+        </attvalues>
+      </node>
+      <node id="c_genova" label="Comune di Genova">
+        <attvalues>
+          <attvalue for="0" value="Comune"/>
+          <attvalue for="1" value="Erogatore/Fruitore"/>
+          <attvalue for="2" value="false"/>
+        </attvalues>
+      </node>
+      <node id="c_padova" label="Comune di Padova">
+        <attvalues>
+          <attvalue for="0" value="Comune"/>
+          <attvalue for="1" value="Erogatore/Fruitore"/>
+          <attvalue for="2" value="false"/>
+        </attvalues>
+      </node>
+      <node id="comuni_agg" label="Comuni (aggregati)">
+        <attvalues>
+          <attvalue for="0" value="Comuni Aggregati"/>
+          <attvalue for="1" value="Erogatore/Fruitore"/>
+          <attvalue for="2" value="true"/>
+        </attvalues>
+      </node>
+    </nodes>
+    <edges>
+      <edge id="e0" source="min_interno" target="c_milano" weight="5">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso"/>
+        </attvalues>
+      </edge>
+      <edge id="e1" source="min_interno" target="c_roma" weight="5">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso"/>
+        </attvalues>
+      </edge>
+      <edge id="e2" source="min_interno" target="c_napoli" weight="4">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico"/>
+        </attvalues>
+      </edge>
+      <edge id="e3" source="min_interno" target="c_bologna" weight="3">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione"/>
+        </attvalues>
+      </edge>
+      <edge id="e4" source="min_interno" target="c_genova" weight="3">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione"/>
+        </attvalues>
+      </edge>
+      <edge id="e5" source="min_interno" target="c_padova" weight="2">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="C001 – Servizio Notifica; ANPR – Verifica Autocertificazione"/>
+        </attvalues>
+      </edge>
+      <edge id="e6" source="min_interno" target="comuni_agg" weight="5">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso"/>
+        </attvalues>
+      </edge>
+      <edge id="e7" source="min_interno" target="r_lombardia" weight="4">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico"/>
+        </attvalues>
+      </edge>
+      <edge id="e8" source="min_interno" target="r_lazio" weight="3">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione"/>
+        </attvalues>
+      </edge>
+      <edge id="e9" source="min_interno" target="r_campania" weight="2">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="C001 – Servizio Notifica; ANPR – Verifica Autocertificazione"/>
+        </attvalues>
+      </edge>
+      <edge id="e10" source="min_interno" target="inps" weight="5">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso"/>
+        </attvalues>
+      </edge>
+      <edge id="e11" source="min_interno" target="ade" weight="4">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="C001 – Servizio Notifica; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso"/>
+        </attvalues>
+      </edge>
+      <edge id="e12" source="min_interno" target="r_liguria" weight="5">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso"/>
+        </attvalues>
+      </edge>
+      <edge id="e13" source="min_interno" target="r_toscana" weight="5">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso"/>
+        </attvalues>
+      </edge>
+      <edge id="e14" source="min_interno" target="r_molise" weight="5">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso"/>
+        </attvalues>
+      </edge>
+      <edge id="e15" source="min_interno" target="r_puglia" weight="5">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso"/>
+        </attvalues>
+      </edge>
+      <edge id="e16" source="min_interno" target="pa_trento" weight="5">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso"/>
+        </attvalues>
+      </edge>
+      <edge id="e17" source="min_interno" target="r_abruzzo" weight="5">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso"/>
+        </attvalues>
+      </edge>
+      <edge id="e18" source="min_interno" target="r_emilia" weight="5">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso"/>
+        </attvalues>
+      </edge>
+      <edge id="e19" source="min_interno" target="r_piemonte" weight="5">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso"/>
+        </attvalues>
+      </edge>
+      <edge id="e20" source="min_interno" target="r_veneto" weight="5">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso"/>
+        </attvalues>
+      </edge>
+      <edge id="e21" source="min_interno" target="r_marche" weight="5">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso"/>
+        </attvalues>
+      </edge>
+      <edge id="e22" source="min_interno" target="r_umbria" weight="5">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso"/>
+        </attvalues>
+      </edge>
+      <edge id="e23" source="min_interno" target="r_vda" weight="5">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso"/>
+        </attvalues>
+      </edge>
+      <edge id="e24" source="min_interno" target="r_basilicata" weight="5">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso"/>
+        </attvalues>
+      </edge>
+      <edge id="e25" source="min_interno" target="r_sardegna" weight="5">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso"/>
+        </attvalues>
+      </edge>
+      <edge id="e26" source="min_interno" target="r_calabria" weight="5">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso"/>
+        </attvalues>
+      </edge>
+      <edge id="e27" source="min_interno" target="r_friuli" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="ANPR – Verifica Autocertificazione"/>
+        </attvalues>
+      </edge>
+      <edge id="e28" source="min_interno" target="mef" weight="2">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico"/>
+        </attvalues>
+      </edge>
+      <edge id="e29" source="min_interno" target="mur" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="ANPR – Verifica Autocertificazione"/>
+        </attvalues>
+      </edge>
+      <edge id="e30" source="min_interno" target="agid" weight="2">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="ANPR – Verifica Autocertificazione; ANPR API Integrazione INAD"/>
+        </attvalues>
+      </edge>
+      <edge id="e31" source="min_interno" target="min_istruzione" weight="2">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico"/>
+        </attvalues>
+      </edge>
+      <edge id="e32" source="min_interno" target="mit_dgmot" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="ANPR – Accertamento Anagrafico"/>
+        </attvalues>
+      </edge>
+      <edge id="e33" source="min_interno" target="istat" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="ANPR – Accertamento Anagrafico"/>
+        </attvalues>
+      </edge>
+      <edge id="e34" source="inps" target="c_milano" weight="3">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Consultazione ISEE; SIUSS – Casellario Assistenza; Consultazione DURC"/>
+        </attvalues>
+      </edge>
+      <edge id="e35" source="inps" target="c_roma" weight="3">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Consultazione ISEE; SIUSS – Casellario Assistenza; Consultazione DURC"/>
+        </attvalues>
+      </edge>
+      <edge id="e36" source="inps" target="c_napoli" weight="3">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Consultazione ISEE; SIUSS – Casellario Assistenza; Consultazione DURC"/>
+        </attvalues>
+      </edge>
+      <edge id="e37" source="inps" target="c_bologna" weight="2">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Consultazione ISEE; SIUSS – Casellario Assistenza"/>
+        </attvalues>
+      </edge>
+      <edge id="e38" source="inps" target="c_genova" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Consultazione ISEE"/>
+        </attvalues>
+      </edge>
+      <edge id="e39" source="inps" target="c_padova" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Consultazione ISEE"/>
+        </attvalues>
+      </edge>
+      <edge id="e40" source="inps" target="comuni_agg" weight="3">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Consultazione ISEE; SIUSS – Casellario Assistenza; Consultazione DURC"/>
+        </attvalues>
+      </edge>
+      <edge id="e41" source="inps" target="r_lombardia" weight="5">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Consultazione ISEE; SIUSS – Casellario Assistenza; Casellario Lavoratori Attivi; Casellario Pensionati; Consultazione DURC"/>
+        </attvalues>
+      </edge>
+      <edge id="e42" source="inps" target="r_lazio" weight="3">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Consultazione ISEE; SIUSS – Casellario Assistenza; Consultazione DURC"/>
+        </attvalues>
+      </edge>
+      <edge id="e43" source="inps" target="r_campania" weight="2">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Consultazione ISEE; SIUSS – Casellario Assistenza"/>
+        </attvalues>
+      </edge>
+      <edge id="e44" source="inps" target="r_friuli" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Consultazione ISEE"/>
+        </attvalues>
+      </edge>
+      <edge id="e45" source="inps" target="mur" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Consultazione ISEE"/>
+        </attvalues>
+      </edge>
+      <edge id="e46" source="inps" target="r_liguria" weight="2">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Consultazione ISEE; SIUSS – Casellario Assistenza"/>
+        </attvalues>
+      </edge>
+      <edge id="e47" source="inps" target="r_toscana" weight="2">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Consultazione ISEE; SIUSS – Casellario Assistenza"/>
+        </attvalues>
+      </edge>
+      <edge id="e48" source="inps" target="r_molise" weight="2">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Consultazione ISEE; SIUSS – Casellario Assistenza"/>
+        </attvalues>
+      </edge>
+      <edge id="e49" source="inps" target="r_puglia" weight="2">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Consultazione ISEE; SIUSS – Casellario Assistenza"/>
+        </attvalues>
+      </edge>
+      <edge id="e50" source="inps" target="pa_trento" weight="2">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Consultazione ISEE; SIUSS – Casellario Assistenza"/>
+        </attvalues>
+      </edge>
+      <edge id="e51" source="inps" target="r_abruzzo" weight="2">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Consultazione ISEE; SIUSS – Casellario Assistenza"/>
+        </attvalues>
+      </edge>
+      <edge id="e52" source="inps" target="r_emilia" weight="2">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Consultazione ISEE; SIUSS – Casellario Assistenza"/>
+        </attvalues>
+      </edge>
+      <edge id="e53" source="inps" target="r_piemonte" weight="2">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Consultazione ISEE; SIUSS – Casellario Assistenza"/>
+        </attvalues>
+      </edge>
+      <edge id="e54" source="inps" target="r_veneto" weight="2">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Consultazione ISEE; SIUSS – Casellario Assistenza"/>
+        </attvalues>
+      </edge>
+      <edge id="e55" source="inps" target="r_marche" weight="2">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Consultazione ISEE; SIUSS – Casellario Assistenza"/>
+        </attvalues>
+      </edge>
+      <edge id="e56" source="inps" target="r_umbria" weight="2">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Consultazione ISEE; SIUSS – Casellario Assistenza"/>
+        </attvalues>
+      </edge>
+      <edge id="e57" source="inps" target="r_vda" weight="2">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Consultazione ISEE; SIUSS – Casellario Assistenza"/>
+        </attvalues>
+      </edge>
+      <edge id="e58" source="inps" target="r_basilicata" weight="2">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Consultazione ISEE; SIUSS – Casellario Assistenza"/>
+        </attvalues>
+      </edge>
+      <edge id="e59" source="inps" target="r_sardegna" weight="2">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Consultazione ISEE; SIUSS – Casellario Assistenza"/>
+        </attvalues>
+      </edge>
+      <edge id="e60" source="inps" target="r_calabria" weight="2">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Consultazione ISEE; SIUSS – Casellario Assistenza"/>
+        </attvalues>
+      </edge>
+      <edge id="e61" source="inps" target="mlps" weight="3">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="SIUSS – Casellario Assistenza; Casellario Lavoratori Attivi; Casellario Pensionati"/>
+        </attvalues>
+      </edge>
+      <edge id="e62" source="inps" target="ade" weight="2">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Casellario Lavoratori Attivi; Casellario Pensionati"/>
+        </attvalues>
+      </edge>
+      <edge id="e63" source="inps" target="mef" weight="2">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Casellario Lavoratori Attivi; Casellario Pensionati"/>
+        </attvalues>
+      </edge>
+      <edge id="e64" source="inps" target="inail" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Casellario Lavoratori Attivi"/>
+        </attvalues>
+      </edge>
+      <edge id="e65" source="inps" target="anac" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Consultazione DURC"/>
+        </attvalues>
+      </edge>
+      <edge id="e66" source="inps" target="unioncamere" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Consultazione DURC"/>
+        </attvalues>
+      </edge>
+      <edge id="e67" source="ade" target="inps" weight="2">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="VCF1 – Verifica Codice Fiscale; Verifica Partita IVA"/>
+        </attvalues>
+      </edge>
+      <edge id="e68" source="ade" target="c_milano" weight="4">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="VCF1 – Verifica Codice Fiscale; Verifica Partita IVA; ANNCSU – Anagrafe Immobiliare; Dati Catastali"/>
+        </attvalues>
+      </edge>
+      <edge id="e69" source="ade" target="c_roma" weight="4">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="VCF1 – Verifica Codice Fiscale; Verifica Partita IVA; ANNCSU – Anagrafe Immobiliare; Dati Catastali"/>
+        </attvalues>
+      </edge>
+      <edge id="e70" source="ade" target="c_napoli" weight="3">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="VCF1 – Verifica Codice Fiscale; ANNCSU – Anagrafe Immobiliare; Dati Catastali"/>
+        </attvalues>
+      </edge>
+      <edge id="e71" source="ade" target="c_bologna" weight="3">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="VCF1 – Verifica Codice Fiscale; ANNCSU – Anagrafe Immobiliare; Dati Catastali"/>
+        </attvalues>
+      </edge>
+      <edge id="e72" source="ade" target="c_genova" weight="2">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="VCF1 – Verifica Codice Fiscale; Dati Catastali"/>
+        </attvalues>
+      </edge>
+      <edge id="e73" source="ade" target="c_padova" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="VCF1 – Verifica Codice Fiscale"/>
+        </attvalues>
+      </edge>
+      <edge id="e74" source="ade" target="comuni_agg" weight="4">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="VCF1 – Verifica Codice Fiscale; Verifica Partita IVA; ANNCSU – Anagrafe Immobiliare; Dati Catastali"/>
+        </attvalues>
+      </edge>
+      <edge id="e75" source="ade" target="r_lombardia" weight="3">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="VCF1 – Verifica Codice Fiscale; ANNCSU – Anagrafe Immobiliare; Dati Catastali"/>
+        </attvalues>
+      </edge>
+      <edge id="e76" source="ade" target="r_lazio" weight="3">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="VCF1 – Verifica Codice Fiscale; ANNCSU – Anagrafe Immobiliare; Dati Catastali"/>
+        </attvalues>
+      </edge>
+      <edge id="e77" source="ade" target="r_campania" weight="2">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="VCF1 – Verifica Codice Fiscale; Dati Catastali"/>
+        </attvalues>
+      </edge>
+      <edge id="e78" source="ade" target="agid" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="VCF1 – Verifica Codice Fiscale"/>
+        </attvalues>
+      </edge>
+      <edge id="e79" source="ade" target="inail" weight="2">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="VCF1 – Verifica Codice Fiscale; Verifica Partita IVA"/>
+        </attvalues>
+      </edge>
+      <edge id="e80" source="ade" target="mef" weight="3">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="VCF1 – Verifica Codice Fiscale; Verifica Partita IVA; ANNCSU – Anagrafe Immobiliare"/>
+        </attvalues>
+      </edge>
+      <edge id="e81" source="ade" target="unioncamere" weight="2">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="VCF1 – Verifica Codice Fiscale; Verifica Partita IVA"/>
+        </attvalues>
+      </edge>
+      <edge id="e82" source="ade" target="anac" weight="2">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="VCF1 – Verifica Codice Fiscale; Verifica Partita IVA"/>
+        </attvalues>
+      </edge>
+      <edge id="e83" source="ade" target="istat" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="ANNCSU – Anagrafe Immobiliare"/>
+        </attvalues>
+      </edge>
+      <edge id="e84" source="agid" target="min_interno" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="INAD – Domicili Digitali"/>
+        </attvalues>
+      </edge>
+      <edge id="e85" source="agid" target="inps" weight="2">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="INAD – Domicili Digitali; Indice PA (IPA)"/>
+        </attvalues>
+      </edge>
+      <edge id="e86" source="agid" target="ade" weight="2">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="INAD – Domicili Digitali; Indice PA (IPA)"/>
+        </attvalues>
+      </edge>
+      <edge id="e87" source="agid" target="c_milano" weight="2">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="INAD – Domicili Digitali; Indice PA (IPA)"/>
+        </attvalues>
+      </edge>
+      <edge id="e88" source="agid" target="c_roma" weight="2">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="INAD – Domicili Digitali; Indice PA (IPA)"/>
+        </attvalues>
+      </edge>
+      <edge id="e89" source="agid" target="c_napoli" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="INAD – Domicili Digitali"/>
+        </attvalues>
+      </edge>
+      <edge id="e90" source="agid" target="comuni_agg" weight="2">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="INAD – Domicili Digitali; Indice PA (IPA)"/>
+        </attvalues>
+      </edge>
+      <edge id="e91" source="agid" target="r_lombardia" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="INAD – Domicili Digitali"/>
+        </attvalues>
+      </edge>
+      <edge id="e92" source="agid" target="pagopa" weight="2">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="INAD – Domicili Digitali; Indice PA (IPA)"/>
+        </attvalues>
+      </edge>
+      <edge id="e93" source="agid" target="anac" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Indice PA (IPA)"/>
+        </attvalues>
+      </edge>
+      <edge id="e94" source="agid" target="mef" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Indice PA (IPA)"/>
+        </attvalues>
+      </edge>
+      <edge id="e95" source="unioncamere" target="ade" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Registro Imprese"/>
+        </attvalues>
+      </edge>
+      <edge id="e96" source="unioncamere" target="inps" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Registro Imprese"/>
+        </attvalues>
+      </edge>
+      <edge id="e97" source="unioncamere" target="inail" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Registro Imprese"/>
+        </attvalues>
+      </edge>
+      <edge id="e98" source="unioncamere" target="c_milano" weight="5">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Registro Imprese; Catalogo SSU – Metadati; Catalogo SSU – BO SUAP; SSU – ComUnica; SSU – Registro Imprese (circolarità)"/>
+        </attvalues>
+      </edge>
+      <edge id="e99" source="unioncamere" target="c_roma" weight="5">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Registro Imprese; Catalogo SSU – Metadati; Catalogo SSU – BO SUAP; SSU – ComUnica; SSU – Registro Imprese (circolarità)"/>
+        </attvalues>
+      </edge>
+      <edge id="e100" source="unioncamere" target="c_bologna" weight="5">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Registro Imprese; Catalogo SSU – Metadati; Catalogo SSU – BO SUAP; SSU – ComUnica; SSU – Registro Imprese (circolarità)"/>
+        </attvalues>
+      </edge>
+      <edge id="e101" source="unioncamere" target="comuni_agg" weight="5">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Registro Imprese; Catalogo SSU – Metadati; Catalogo SSU – BO SUAP; SSU – ComUnica; SSU – Registro Imprese (circolarità)"/>
+        </attvalues>
+      </edge>
+      <edge id="e102" source="unioncamere" target="anac" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Registro Imprese"/>
+        </attvalues>
+      </edge>
+      <edge id="e103" source="unioncamere" target="mef" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Registro Imprese"/>
+        </attvalues>
+      </edge>
+      <edge id="e104" source="unioncamere" target="r_lombardia" weight="2">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Registro Imprese; Catalogo SSU – BO Enti Terzi"/>
+        </attvalues>
+      </edge>
+      <edge id="e105" source="unioncamere" target="c_napoli" weight="3">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Catalogo SSU – Metadati; Catalogo SSU – BO SUAP; SSU – Registro Imprese (circolarità)"/>
+        </attvalues>
+      </edge>
+      <edge id="e106" source="unioncamere" target="c_genova" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Catalogo SSU – Metadati"/>
+        </attvalues>
+      </edge>
+      <edge id="e107" source="unioncamere" target="min_interno" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Catalogo SSU – BO Enti Terzi"/>
+        </attvalues>
+      </edge>
+      <edge id="e108" source="unioncamere" target="r_lazio" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Catalogo SSU – BO Enti Terzi"/>
+        </attvalues>
+      </edge>
+      <edge id="e109" source="unioncamere" target="r_campania" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Catalogo SSU – BO Enti Terzi"/>
+        </attvalues>
+      </edge>
+      <edge id="e110" source="unioncamere" target="r_friuli" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Catalogo SSU – BO Enti Terzi"/>
+        </attvalues>
+      </edge>
+      <edge id="e111" source="unioncamere" target="r_sicilia" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Catalogo SSU – BO Enti Terzi"/>
+        </attvalues>
+      </edge>
+      <edge id="e112" source="inail" target="inps" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="INAIL – DURC"/>
+        </attvalues>
+      </edge>
+      <edge id="e113" source="inail" target="c_milano" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="INAIL – DURC"/>
+        </attvalues>
+      </edge>
+      <edge id="e114" source="inail" target="c_roma" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="INAIL – DURC"/>
+        </attvalues>
+      </edge>
+      <edge id="e115" source="inail" target="comuni_agg" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="INAIL – DURC"/>
+        </attvalues>
+      </edge>
+      <edge id="e116" source="inail" target="anac" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="INAIL – DURC"/>
+        </attvalues>
+      </edge>
+      <edge id="e117" source="inail" target="unioncamere" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="INAIL – DURC"/>
+        </attvalues>
+      </edge>
+      <edge id="e118" source="inail" target="r_lombardia" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="INAIL – DURC"/>
+        </attvalues>
+      </edge>
+      <edge id="e119" source="anac" target="c_milano" weight="2">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Banca Dati Contratti Pubblici; SIMOG"/>
+        </attvalues>
+      </edge>
+      <edge id="e120" source="anac" target="c_roma" weight="2">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Banca Dati Contratti Pubblici; SIMOG"/>
+        </attvalues>
+      </edge>
+      <edge id="e121" source="anac" target="c_napoli" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Banca Dati Contratti Pubblici"/>
+        </attvalues>
+      </edge>
+      <edge id="e122" source="anac" target="c_bologna" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Banca Dati Contratti Pubblici"/>
+        </attvalues>
+      </edge>
+      <edge id="e123" source="anac" target="comuni_agg" weight="2">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Banca Dati Contratti Pubblici; SIMOG"/>
+        </attvalues>
+      </edge>
+      <edge id="e124" source="anac" target="r_lombardia" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Banca Dati Contratti Pubblici"/>
+        </attvalues>
+      </edge>
+      <edge id="e125" source="anac" target="r_lazio" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Banca Dati Contratti Pubblici"/>
+        </attvalues>
+      </edge>
+      <edge id="e126" source="anac" target="mef" weight="2">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Banca Dati Contratti Pubblici; SIMOG"/>
+        </attvalues>
+      </edge>
+      <edge id="e127" source="anac" target="ade" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Banca Dati Contratti Pubblici"/>
+        </attvalues>
+      </edge>
+      <edge id="e128" source="mit_dgmot" target="c_milano" weight="3">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Consultazione Veicoli; Consultazione Patenti; CUDE – Contrassegno Disabili"/>
+        </attvalues>
+      </edge>
+      <edge id="e129" source="mit_dgmot" target="c_roma" weight="3">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Consultazione Veicoli; Consultazione Patenti; CUDE – Contrassegno Disabili"/>
+        </attvalues>
+      </edge>
+      <edge id="e130" source="mit_dgmot" target="c_napoli" weight="2">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Consultazione Veicoli; CUDE – Contrassegno Disabili"/>
+        </attvalues>
+      </edge>
+      <edge id="e131" source="mit_dgmot" target="comuni_agg" weight="3">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Consultazione Veicoli; Consultazione Patenti; CUDE – Contrassegno Disabili"/>
+        </attvalues>
+      </edge>
+      <edge id="e132" source="mit_dgmot" target="r_lombardia" weight="2">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Consultazione Veicoli; CUDE – Contrassegno Disabili"/>
+        </attvalues>
+      </edge>
+      <edge id="e133" source="mit_dgmot" target="inps" weight="2">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Consultazione Veicoli; Consultazione Patenti"/>
+        </attvalues>
+      </edge>
+      <edge id="e134" source="mit_dgmot" target="c_bologna" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="CUDE – Contrassegno Disabili"/>
+        </attvalues>
+      </edge>
+      <edge id="e135" source="min_giustizia" target="inps" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Casellario Giudiziale"/>
+        </attvalues>
+      </edge>
+      <edge id="e136" source="min_giustizia" target="ade" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Casellario Giudiziale"/>
+        </attvalues>
+      </edge>
+      <edge id="e137" source="min_giustizia" target="anac" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Casellario Giudiziale"/>
+        </attvalues>
+      </edge>
+      <edge id="e138" source="min_giustizia" target="c_milano" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Casellario Giudiziale"/>
+        </attvalues>
+      </edge>
+      <edge id="e139" source="min_giustizia" target="c_roma" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Casellario Giudiziale"/>
+        </attvalues>
+      </edge>
+      <edge id="e140" source="min_giustizia" target="comuni_agg" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Casellario Giudiziale"/>
+        </attvalues>
+      </edge>
+      <edge id="e141" source="min_giustizia" target="mef" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Casellario Giudiziale"/>
+        </attvalues>
+      </edge>
+      <edge id="e142" source="min_cultura" target="r_lombardia" weight="3">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="I.PaC – Gestione Risorse Digitali; I.PaC – Grafo Conoscenza; I.PaC – API IIIF"/>
+        </attvalues>
+      </edge>
+      <edge id="e143" source="min_cultura" target="r_lazio" weight="2">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="I.PaC – Gestione Risorse Digitali; I.PaC – Grafo Conoscenza"/>
+        </attvalues>
+      </edge>
+      <edge id="e144" source="min_cultura" target="r_campania" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="I.PaC – Gestione Risorse Digitali"/>
+        </attvalues>
+      </edge>
+      <edge id="e145" source="min_cultura" target="r_sicilia" weight="2">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="I.PaC – Gestione Risorse Digitali; I.PaC – Grafo Conoscenza"/>
+        </attvalues>
+      </edge>
+      <edge id="e146" source="min_cultura" target="mur" weight="3">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="I.PaC – Gestione Risorse Digitali; I.PaC – Grafo Conoscenza; I.PaC – API IIIF"/>
+        </attvalues>
+      </edge>
+      <edge id="e147" source="min_cultura" target="istat" weight="2">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="I.PaC – Grafo Conoscenza; I.PaC – API IIIF"/>
+        </attvalues>
+      </edge>
+      <edge id="e148" source="mef" target="inps" weight="2">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Anagrafe Dipendenti Pubblici; noiPA"/>
+        </attvalues>
+      </edge>
+      <edge id="e149" source="mef" target="ade" weight="2">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Anagrafe Dipendenti Pubblici; noiPA"/>
+        </attvalues>
+      </edge>
+      <edge id="e150" source="mef" target="istat" weight="2">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Anagrafe Dipendenti Pubblici; noiPA"/>
+        </attvalues>
+      </edge>
+      <edge id="e151" source="mef" target="agid" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Anagrafe Dipendenti Pubblici"/>
+        </attvalues>
+      </edge>
+      <edge id="e152" source="mef" target="mlps" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Anagrafe Dipendenti Pubblici"/>
+        </attvalues>
+      </edge>
+      <edge id="e153" source="ade_riscossione" target="c_milano" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Situazione Debitoria"/>
+        </attvalues>
+      </edge>
+      <edge id="e154" source="ade_riscossione" target="c_roma" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Situazione Debitoria"/>
+        </attvalues>
+      </edge>
+      <edge id="e155" source="ade_riscossione" target="comuni_agg" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Situazione Debitoria"/>
+        </attvalues>
+      </edge>
+      <edge id="e156" source="ade_riscossione" target="mef" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Situazione Debitoria"/>
+        </attvalues>
+      </edge>
+      <edge id="e157" source="ade_riscossione" target="ade" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Situazione Debitoria"/>
+        </attvalues>
+      </edge>
+      <edge id="e158" source="ade_riscossione" target="inps" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Situazione Debitoria"/>
+        </attvalues>
+      </edge>
+      <edge id="e159" source="mur" target="inps" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="ANIS – Anagrafe Studenti"/>
+        </attvalues>
+      </edge>
+      <edge id="e160" source="mur" target="mef" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="ANIS – Anagrafe Studenti"/>
+        </attvalues>
+      </edge>
+      <edge id="e161" source="mur" target="istat" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="ANIS – Anagrafe Studenti"/>
+        </attvalues>
+      </edge>
+      <edge id="e162" source="mur" target="mlps" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="ANIS – Anagrafe Studenti"/>
+        </attvalues>
+      </edge>
+      <edge id="e163" source="cineca" target="mur" weight="3">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="IFS01 – Offerta Formativa; IFS02 – Iscrizioni Accademiche; IFS03 – Titoli Accademici"/>
+        </attvalues>
+      </edge>
+      <edge id="e164" source="cineca" target="inps" weight="3">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="IFS01 – Offerta Formativa; IFS02 – Iscrizioni Accademiche; IFS03 – Titoli Accademici"/>
+        </attvalues>
+      </edge>
+      <edge id="e165" source="cineca" target="istat" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="IFS01 – Offerta Formativa"/>
+        </attvalues>
+      </edge>
+      <edge id="e166" source="cineca" target="mef" weight="2">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="IFS02 – Iscrizioni Accademiche; IFS03 – Titoli Accademici"/>
+        </attvalues>
+      </edge>
+      <edge id="e167" source="cineca" target="mlps" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="IFS03 – Titoli Accademici"/>
+        </attvalues>
+      </edge>
+      <edge id="e168" source="istat" target="r_lombardia" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Dati Statistici Territoriali"/>
+        </attvalues>
+      </edge>
+      <edge id="e169" source="istat" target="r_lazio" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Dati Statistici Territoriali"/>
+        </attvalues>
+      </edge>
+      <edge id="e170" source="istat" target="r_campania" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Dati Statistici Territoriali"/>
+        </attvalues>
+      </edge>
+      <edge id="e171" source="istat" target="r_sicilia" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Dati Statistici Territoriali"/>
+        </attvalues>
+      </edge>
+      <edge id="e172" source="istat" target="c_milano" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Dati Statistici Territoriali"/>
+        </attvalues>
+      </edge>
+      <edge id="e173" source="istat" target="c_roma" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Dati Statistici Territoriali"/>
+        </attvalues>
+      </edge>
+      <edge id="e174" source="istat" target="mef" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Dati Statistici Territoriali"/>
+        </attvalues>
+      </edge>
+      <edge id="e175" source="istat" target="agid" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Dati Statistici Territoriali"/>
+        </attvalues>
+      </edge>
+      <edge id="e176" source="istat" target="min_interno" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Dati Statistici Territoriali"/>
+        </attvalues>
+      </edge>
+      <edge id="e177" source="sogei" target="ade" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Fatturazione Elettronica"/>
+        </attvalues>
+      </edge>
+      <edge id="e178" source="sogei" target="mef" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Fatturazione Elettronica"/>
+        </attvalues>
+      </edge>
+      <edge id="e179" source="sogei" target="unioncamere" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Fatturazione Elettronica"/>
+        </attvalues>
+      </edge>
+      <edge id="e180" source="sogei" target="c_milano" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Fatturazione Elettronica"/>
+        </attvalues>
+      </edge>
+      <edge id="e181" source="sogei" target="c_roma" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Fatturazione Elettronica"/>
+        </attvalues>
+      </edge>
+      <edge id="e182" source="sogei" target="comuni_agg" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Fatturazione Elettronica"/>
+        </attvalues>
+      </edge>
+      <edge id="e183" source="pagopa" target="min_interno" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="PDND – Gestione Voucher"/>
+        </attvalues>
+      </edge>
+      <edge id="e184" source="pagopa" target="inps" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="PDND – Gestione Voucher"/>
+        </attvalues>
+      </edge>
+      <edge id="e185" source="pagopa" target="ade" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="PDND – Gestione Voucher"/>
+        </attvalues>
+      </edge>
+      <edge id="e186" source="pagopa" target="agid" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="PDND – Gestione Voucher"/>
+        </attvalues>
+      </edge>
+      <edge id="e187" source="pagopa" target="unioncamere" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="PDND – Gestione Voucher"/>
+        </attvalues>
+      </edge>
+      <edge id="e188" source="pagopa" target="inail" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="PDND – Gestione Voucher"/>
+        </attvalues>
+      </edge>
+      <edge id="e189" source="pagopa" target="anac" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="PDND – Gestione Voucher"/>
+        </attvalues>
+      </edge>
+      <edge id="e190" source="pagopa" target="mef" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="PDND – Gestione Voucher"/>
+        </attvalues>
+      </edge>
+      <edge id="e191" source="r_sicilia" target="r_lombardia" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Consultazione Trasferimenti COT"/>
+        </attvalues>
+      </edge>
+      <edge id="e192" source="r_sicilia" target="r_lazio" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Consultazione Trasferimenti COT"/>
+        </attvalues>
+      </edge>
+      <edge id="e193" source="r_sicilia" target="r_campania" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Consultazione Trasferimenti COT"/>
+        </attvalues>
+      </edge>
+      <edge id="e194" source="r_sicilia" target="mlps" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Consultazione Trasferimenti COT"/>
+        </attvalues>
+      </edge>
+      <edge id="e195" source="r_sicilia" target="inps" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Consultazione Trasferimenti COT"/>
+        </attvalues>
+      </edge>
+      <edge id="e196" source="r_friuli" target="c_milano" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Consultazione Dettaglio Pratiche"/>
+        </attvalues>
+      </edge>
+      <edge id="e197" source="r_friuli" target="comuni_agg" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Consultazione Dettaglio Pratiche"/>
+        </attvalues>
+      </edge>
+      <edge id="e198" source="r_friuli" target="r_lombardia" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Consultazione Dettaglio Pratiche"/>
+        </attvalues>
+      </edge>
+      <edge id="e199" source="pa_bolzano" target="istat" weight="4">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Qualità Acque Fiumi; Qualità Acque Laghi; Ricerca Derivazioni d'Acqua; Ricerca Aree Nettarifere"/>
+        </attvalues>
+      </edge>
+      <edge id="e200" source="pa_bolzano" target="r_lombardia" weight="4">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Qualità Acque Fiumi; Qualità Acque Laghi; Ricerca Derivazioni d'Acqua; Ricerca Aree Nettarifere"/>
+        </attvalues>
+      </edge>
+      <edge id="e201" source="pa_bolzano" target="r_friuli" weight="2">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Qualità Acque Fiumi; Ricerca Derivazioni d'Acqua"/>
+        </attvalues>
+      </edge>
+      <edge id="e202" source="comuni_agg" target="inps" weight="2">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="WaaS – Welfare as a Service; Servizi Demografici"/>
+        </attvalues>
+      </edge>
+      <edge id="e203" source="comuni_agg" target="mlps" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="WaaS – Welfare as a Service"/>
+        </attvalues>
+      </edge>
+      <edge id="e204" source="comuni_agg" target="agid" weight="3">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Albo Pretorio Online; Amministrazione Trasparente; Protocollo Informatico"/>
+        </attvalues>
+      </edge>
+      <edge id="e205" source="comuni_agg" target="pagopa" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Albo Pretorio Online"/>
+        </attvalues>
+      </edge>
+      <edge id="e206" source="comuni_agg" target="unioncamere" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Pratiche SUAP"/>
+        </attvalues>
+      </edge>
+      <edge id="e207" source="comuni_agg" target="r_lombardia" weight="3">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Pratiche SUAP; Protocollo Informatico; Dati Sensori IoT"/>
+        </attvalues>
+      </edge>
+      <edge id="e208" source="comuni_agg" target="r_lazio" weight="2">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Pratiche SUAP; Protocollo Informatico"/>
+        </attvalues>
+      </edge>
+      <edge id="e209" source="comuni_agg" target="r_campania" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Pratiche SUAP"/>
+        </attvalues>
+      </edge>
+      <edge id="e210" source="comuni_agg" target="ade" weight="3">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Numerazione Civica / Stradario; Servizi Demografici; Tributi e Posizioni Debitorie"/>
+        </attvalues>
+      </edge>
+      <edge id="e211" source="comuni_agg" target="istat" weight="3">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Numerazione Civica / Stradario; Servizi Demografici; Dati Sensori IoT"/>
+        </attvalues>
+      </edge>
+      <edge id="e212" source="comuni_agg" target="min_interno" weight="2">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Numerazione Civica / Stradario; Servizi Demografici"/>
+        </attvalues>
+      </edge>
+      <edge id="e213" source="comuni_agg" target="anac" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Amministrazione Trasparente"/>
+        </attvalues>
+      </edge>
+      <edge id="e214" source="comuni_agg" target="ade_riscossione" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Tributi e Posizioni Debitorie"/>
+        </attvalues>
+      </edge>
+      <edge id="e215" source="comuni_agg" target="mef" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Tributi e Posizioni Debitorie"/>
+        </attvalues>
+      </edge>
+      <edge id="e216" source="c_bologna" target="ade" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Ricerca Edifici (catasto CT)"/>
+        </attvalues>
+      </edge>
+      <edge id="e217" source="c_bologna" target="r_lombardia" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Ricerca Edifici (catasto CT)"/>
+        </attvalues>
+      </edge>
+      <edge id="e218" source="c_bologna" target="istat" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Ricerca Edifici (catasto CT)"/>
+        </attvalues>
+      </edge>
+      <edge id="e219" source="c_bologna" target="anac" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Ricerca Gare e Appalti"/>
+        </attvalues>
+      </edge>
+      <edge id="e220" source="c_bologna" target="mef" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Ricerca Gare e Appalti"/>
+        </attvalues>
+      </edge>
+      <edge id="e221" source="c_genova" target="agid" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Protocollo – Conferma Protocollazione"/>
+        </attvalues>
+      </edge>
+      <edge id="e222" source="c_genova" target="comuni_agg" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Protocollo – Conferma Protocollazione"/>
+        </attvalues>
+      </edge>
+      <edge id="e223" source="c_genova" target="r_lombardia" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Protocollo – Conferma Protocollazione"/>
+        </attvalues>
+      </edge>
+      <edge id="e224" source="c_padova" target="istat" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Dati Statistici Cimiteri"/>
+        </attvalues>
+      </edge>
+      <edge id="e225" source="c_padova" target="r_lombardia" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Dati Statistici Cimiteri"/>
+        </attvalues>
+      </edge>
+      <edge id="e226" source="mlps" target="inps" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Lavoro e Politiche Sociali"/>
+        </attvalues>
+      </edge>
+      <edge id="e227" source="mlps" target="comuni_agg" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Lavoro e Politiche Sociali"/>
+        </attvalues>
+      </edge>
+      <edge id="e228" source="mlps" target="r_lombardia" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Lavoro e Politiche Sociali"/>
+        </attvalues>
+      </edge>
+      <edge id="e229" source="mlps" target="r_lazio" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Lavoro e Politiche Sociali"/>
+        </attvalues>
+      </edge>
+      <edge id="e230" source="mlps" target="r_campania" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Lavoro e Politiche Sociali"/>
+        </attvalues>
+      </edge>
+      <edge id="e231" source="mlps" target="r_sicilia" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Lavoro e Politiche Sociali"/>
+        </attvalues>
+      </edge>
+      <edge id="e232" source="mlps" target="r_emilia" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Lavoro e Politiche Sociali"/>
+        </attvalues>
+      </edge>
+      <edge id="e233" source="mlps" target="r_piemonte" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Lavoro e Politiche Sociali"/>
+        </attvalues>
+      </edge>
+      <edge id="e234" source="mlps" target="r_veneto" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Lavoro e Politiche Sociali"/>
+        </attvalues>
+      </edge>
+      <edge id="e235" source="mlps" target="r_toscana" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Lavoro e Politiche Sociali"/>
+        </attvalues>
+      </edge>
+      <edge id="e236" source="mlps" target="r_puglia" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Lavoro e Politiche Sociali"/>
+        </attvalues>
+      </edge>
+      <edge id="e237" source="mlps" target="r_liguria" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Lavoro e Politiche Sociali"/>
+        </attvalues>
+      </edge>
+      <edge id="e238" source="mlps" target="istat" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Lavoro e Politiche Sociali"/>
+        </attvalues>
+      </edge>
+      <edge id="e239" source="mit" target="mit_dgmot" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Infrastrutture e Trasporti"/>
+        </attvalues>
+      </edge>
+      <edge id="e240" source="mit" target="comuni_agg" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Infrastrutture e Trasporti"/>
+        </attvalues>
+      </edge>
+      <edge id="e241" source="mit" target="r_lombardia" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Infrastrutture e Trasporti"/>
+        </attvalues>
+      </edge>
+      <edge id="e242" source="mit" target="r_lazio" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Infrastrutture e Trasporti"/>
+        </attvalues>
+      </edge>
+      <edge id="e243" source="mit" target="r_campania" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Infrastrutture e Trasporti"/>
+        </attvalues>
+      </edge>
+      <edge id="e244" source="mit" target="r_emilia" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Infrastrutture e Trasporti"/>
+        </attvalues>
+      </edge>
+      <edge id="e245" source="mit" target="istat" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Infrastrutture e Trasporti"/>
+        </attvalues>
+      </edge>
+      <edge id="e246" source="dfp" target="mef" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Funzione Pubblica – Anagrafe Prestazioni"/>
+        </attvalues>
+      </edge>
+      <edge id="e247" source="dfp" target="inps" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Funzione Pubblica – Anagrafe Prestazioni"/>
+        </attvalues>
+      </edge>
+      <edge id="e248" source="dfp" target="comuni_agg" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Funzione Pubblica – Anagrafe Prestazioni"/>
+        </attvalues>
+      </edge>
+      <edge id="e249" source="dfp" target="istat" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Funzione Pubblica – Anagrafe Prestazioni"/>
+        </attvalues>
+      </edge>
+      <edge id="e250" source="ag_demanio" target="mef" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Demanio – Patrimonio Pubblico"/>
+        </attvalues>
+      </edge>
+      <edge id="e251" source="ag_demanio" target="ade" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Demanio – Patrimonio Pubblico"/>
+        </attvalues>
+      </edge>
+      <edge id="e252" source="ag_demanio" target="comuni_agg" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Demanio – Patrimonio Pubblico"/>
+        </attvalues>
+      </edge>
+      <edge id="e253" source="ag_demanio" target="r_lombardia" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Demanio – Patrimonio Pubblico"/>
+        </attvalues>
+      </edge>
+      <edge id="e254" source="r_lombardia" target="comuni_agg" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Lombardia"/>
+        </attvalues>
+      </edge>
+      <edge id="e255" source="r_lombardia" target="c_milano" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Lombardia"/>
+        </attvalues>
+      </edge>
+      <edge id="e256" source="r_lombardia" target="mlps" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Lombardia"/>
+        </attvalues>
+      </edge>
+      <edge id="e257" source="r_lombardia" target="inps" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Lombardia"/>
+        </attvalues>
+      </edge>
+      <edge id="e258" source="r_lombardia" target="istat" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Lombardia"/>
+        </attvalues>
+      </edge>
+      <edge id="e259" source="r_lazio" target="comuni_agg" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Lazio"/>
+        </attvalues>
+      </edge>
+      <edge id="e260" source="r_lazio" target="c_roma" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Lazio"/>
+        </attvalues>
+      </edge>
+      <edge id="e261" source="r_lazio" target="mlps" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Lazio"/>
+        </attvalues>
+      </edge>
+      <edge id="e262" source="r_lazio" target="inps" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Lazio"/>
+        </attvalues>
+      </edge>
+      <edge id="e263" source="r_lazio" target="istat" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Lazio"/>
+        </attvalues>
+      </edge>
+      <edge id="e264" source="r_campania" target="comuni_agg" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Campania"/>
+        </attvalues>
+      </edge>
+      <edge id="e265" source="r_campania" target="c_napoli" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Campania"/>
+        </attvalues>
+      </edge>
+      <edge id="e266" source="r_campania" target="mlps" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Campania"/>
+        </attvalues>
+      </edge>
+      <edge id="e267" source="r_campania" target="inps" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Campania"/>
+        </attvalues>
+      </edge>
+      <edge id="e268" source="r_campania" target="istat" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Campania"/>
+        </attvalues>
+      </edge>
+      <edge id="e269" source="r_liguria" target="comuni_agg" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Liguria"/>
+        </attvalues>
+      </edge>
+      <edge id="e270" source="r_liguria" target="c_genova" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Liguria"/>
+        </attvalues>
+      </edge>
+      <edge id="e271" source="r_liguria" target="mlps" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Liguria"/>
+        </attvalues>
+      </edge>
+      <edge id="e272" source="r_liguria" target="inps" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Liguria"/>
+        </attvalues>
+      </edge>
+      <edge id="e273" source="r_liguria" target="istat" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Liguria"/>
+        </attvalues>
+      </edge>
+      <edge id="e274" source="r_toscana" target="comuni_agg" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Toscana"/>
+        </attvalues>
+      </edge>
+      <edge id="e275" source="r_toscana" target="mlps" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Toscana"/>
+        </attvalues>
+      </edge>
+      <edge id="e276" source="r_toscana" target="inps" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Toscana"/>
+        </attvalues>
+      </edge>
+      <edge id="e277" source="r_toscana" target="istat" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Toscana"/>
+        </attvalues>
+      </edge>
+      <edge id="e278" source="r_molise" target="comuni_agg" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Molise"/>
+        </attvalues>
+      </edge>
+      <edge id="e279" source="r_molise" target="mlps" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Molise"/>
+        </attvalues>
+      </edge>
+      <edge id="e280" source="r_molise" target="inps" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Molise"/>
+        </attvalues>
+      </edge>
+      <edge id="e281" source="r_molise" target="istat" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Molise"/>
+        </attvalues>
+      </edge>
+      <edge id="e282" source="r_puglia" target="comuni_agg" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Puglia"/>
+        </attvalues>
+      </edge>
+      <edge id="e283" source="r_puglia" target="mlps" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Puglia"/>
+        </attvalues>
+      </edge>
+      <edge id="e284" source="r_puglia" target="inps" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Puglia"/>
+        </attvalues>
+      </edge>
+      <edge id="e285" source="r_puglia" target="istat" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Puglia"/>
+        </attvalues>
+      </edge>
+      <edge id="e286" source="pa_trento" target="comuni_agg" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Provincia Aut. Trento"/>
+        </attvalues>
+      </edge>
+      <edge id="e287" source="pa_trento" target="mlps" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Provincia Aut. Trento"/>
+        </attvalues>
+      </edge>
+      <edge id="e288" source="pa_trento" target="inps" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Provincia Aut. Trento"/>
+        </attvalues>
+      </edge>
+      <edge id="e289" source="pa_trento" target="istat" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Provincia Aut. Trento"/>
+        </attvalues>
+      </edge>
+      <edge id="e290" source="r_abruzzo" target="comuni_agg" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Abruzzo"/>
+        </attvalues>
+      </edge>
+      <edge id="e291" source="r_abruzzo" target="mlps" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Abruzzo"/>
+        </attvalues>
+      </edge>
+      <edge id="e292" source="r_abruzzo" target="inps" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Abruzzo"/>
+        </attvalues>
+      </edge>
+      <edge id="e293" source="r_abruzzo" target="istat" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Abruzzo"/>
+        </attvalues>
+      </edge>
+      <edge id="e294" source="r_emilia" target="comuni_agg" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Emilia-Romagna"/>
+        </attvalues>
+      </edge>
+      <edge id="e295" source="r_emilia" target="c_bologna" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Emilia-Romagna"/>
+        </attvalues>
+      </edge>
+      <edge id="e296" source="r_emilia" target="mlps" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Emilia-Romagna"/>
+        </attvalues>
+      </edge>
+      <edge id="e297" source="r_emilia" target="inps" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Emilia-Romagna"/>
+        </attvalues>
+      </edge>
+      <edge id="e298" source="r_emilia" target="istat" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Emilia-Romagna"/>
+        </attvalues>
+      </edge>
+      <edge id="e299" source="r_piemonte" target="comuni_agg" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Piemonte"/>
+        </attvalues>
+      </edge>
+      <edge id="e300" source="r_piemonte" target="mlps" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Piemonte"/>
+        </attvalues>
+      </edge>
+      <edge id="e301" source="r_piemonte" target="inps" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Piemonte"/>
+        </attvalues>
+      </edge>
+      <edge id="e302" source="r_piemonte" target="istat" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Piemonte"/>
+        </attvalues>
+      </edge>
+      <edge id="e303" source="r_veneto" target="comuni_agg" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Veneto"/>
+        </attvalues>
+      </edge>
+      <edge id="e304" source="r_veneto" target="c_padova" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Veneto"/>
+        </attvalues>
+      </edge>
+      <edge id="e305" source="r_veneto" target="mlps" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Veneto"/>
+        </attvalues>
+      </edge>
+      <edge id="e306" source="r_veneto" target="inps" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Veneto"/>
+        </attvalues>
+      </edge>
+      <edge id="e307" source="r_veneto" target="istat" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Veneto"/>
+        </attvalues>
+      </edge>
+      <edge id="e308" source="r_marche" target="comuni_agg" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Marche"/>
+        </attvalues>
+      </edge>
+      <edge id="e309" source="r_marche" target="mlps" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Marche"/>
+        </attvalues>
+      </edge>
+      <edge id="e310" source="r_marche" target="inps" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Marche"/>
+        </attvalues>
+      </edge>
+      <edge id="e311" source="r_marche" target="istat" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Marche"/>
+        </attvalues>
+      </edge>
+      <edge id="e312" source="r_umbria" target="comuni_agg" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Umbria"/>
+        </attvalues>
+      </edge>
+      <edge id="e313" source="r_umbria" target="mlps" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Umbria"/>
+        </attvalues>
+      </edge>
+      <edge id="e314" source="r_umbria" target="inps" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Umbria"/>
+        </attvalues>
+      </edge>
+      <edge id="e315" source="r_umbria" target="istat" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Umbria"/>
+        </attvalues>
+      </edge>
+      <edge id="e316" source="r_vda" target="comuni_agg" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Valle d'Aosta"/>
+        </attvalues>
+      </edge>
+      <edge id="e317" source="r_vda" target="mlps" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Valle d'Aosta"/>
+        </attvalues>
+      </edge>
+      <edge id="e318" source="r_vda" target="inps" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Valle d'Aosta"/>
+        </attvalues>
+      </edge>
+      <edge id="e319" source="r_vda" target="istat" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Valle d'Aosta"/>
+        </attvalues>
+      </edge>
+      <edge id="e320" source="r_basilicata" target="comuni_agg" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Basilicata"/>
+        </attvalues>
+      </edge>
+      <edge id="e321" source="r_basilicata" target="mlps" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Basilicata"/>
+        </attvalues>
+      </edge>
+      <edge id="e322" source="r_basilicata" target="inps" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Basilicata"/>
+        </attvalues>
+      </edge>
+      <edge id="e323" source="r_basilicata" target="istat" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Basilicata"/>
+        </attvalues>
+      </edge>
+      <edge id="e324" source="r_sardegna" target="comuni_agg" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Sardegna"/>
+        </attvalues>
+      </edge>
+      <edge id="e325" source="r_sardegna" target="mlps" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Sardegna"/>
+        </attvalues>
+      </edge>
+      <edge id="e326" source="r_sardegna" target="inps" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Sardegna"/>
+        </attvalues>
+      </edge>
+      <edge id="e327" source="r_sardegna" target="istat" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Sardegna"/>
+        </attvalues>
+      </edge>
+      <edge id="e328" source="r_calabria" target="comuni_agg" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Calabria"/>
+        </attvalues>
+      </edge>
+      <edge id="e329" source="r_calabria" target="mlps" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Calabria"/>
+        </attvalues>
+      </edge>
+      <edge id="e330" source="r_calabria" target="inps" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Calabria"/>
+        </attvalues>
+      </edge>
+      <edge id="e331" source="r_calabria" target="istat" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Regione Calabria"/>
+        </attvalues>
+      </edge>
+      <edge id="e332" source="min_istruzione" target="comuni_agg" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Istruzione Scolastica"/>
+        </attvalues>
+      </edge>
+      <edge id="e333" source="min_istruzione" target="mur" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Istruzione Scolastica"/>
+        </attvalues>
+      </edge>
+      <edge id="e334" source="min_istruzione" target="istat" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Istruzione Scolastica"/>
+        </attvalues>
+      </edge>
+      <edge id="e335" source="min_istruzione" target="mlps" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Servizi Istruzione Scolastica"/>
+        </attvalues>
+      </edge>
+      <edge id="e336" source="ispra" target="comuni_agg" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Dati Ambientali e Protezione"/>
+        </attvalues>
+      </edge>
+      <edge id="e337" source="ispra" target="istat" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Dati Ambientali e Protezione"/>
+        </attvalues>
+      </edge>
+      <edge id="e338" source="ispra" target="r_lombardia" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Dati Ambientali e Protezione"/>
+        </attvalues>
+      </edge>
+      <edge id="e339" source="ispra" target="r_lazio" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Dati Ambientali e Protezione"/>
+        </attvalues>
+      </edge>
+      <edge id="e340" source="ispra" target="r_emilia" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Dati Ambientali e Protezione"/>
+        </attvalues>
+      </edge>
+      <edge id="e341" source="ispra" target="pa_bolzano" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Dati Ambientali e Protezione"/>
+        </attvalues>
+      </edge>
+      <edge id="e342" source="ispra" target="pa_trento" weight="1">
+        <attvalues>
+          <attvalue for="0" value="ricostruita"/>
+          <attvalue for="1" value="Dati Ambientali e Protezione"/>
+        </attvalues>
+      </edge>
+    </edges>
+  </graph>
+</gexf>

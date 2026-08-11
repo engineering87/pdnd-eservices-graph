@@ -1,0 +1,52 @@
+id,label,categoria,tipo,aggregato,descrizione
+min_interno,Min. Interno (ANPR),Ministero,Erogatore,false,Anagrafe Nazionale della Popolazione Residente
+inps,INPS,Previdenza,Erogatore/Fruitore,false,Istituto Nazionale della Previdenza Sociale
+ade,Agenzia delle Entrate,Fisco,Erogatore/Fruitore,false,"Servizi fiscali, catastali, ANNCSU"
+agid,AgID,Digitale,Erogatore/Fruitore,false,"Agenzia per l'Italia Digitale — INAD, Indice PA"
+inail,INAIL,Lavoro,Erogatore,false,Istituto Naz. Assicurazione Infortuni sul Lavoro
+unioncamere,Unioncamere,Imprese,Erogatore,false,"Unione Camere di Commercio — Registro Imprese, SSU"
+mef,MEF,Ministero,Erogatore/Fruitore,false,"Min. Economia e Finanze — noiPA, Anagrafe Dip. Pubblici"
+anac,ANAC,Anticorruzione,Erogatore,false,"Aut. Naz. Anticorruzione — Contratti Pubblici, SIMOG"
+mit_dgmot,MIT – Motorizzazione,Trasporti,Erogatore,false,"DG Motorizzazione — Veicoli, Patenti, CUDE"
+min_giustizia,Min. Giustizia,Ministero,Erogatore,false,Casellario Giudiziale
+min_cultura,Min. Cultura (I.PaC),Cultura,Erogatore,false,Infrastruttura del Patrimonio Culturale — 16+ API
+mur,MUR,Ministero,Erogatore/Fruitore,false,Min. Università e Ricerca — ANIS
+ade_riscossione,AdE Riscossione,Fisco,Erogatore,false,Agenzia delle Entrate — Riscossione
+sogei,Sogei,Tecnologia,Erogatore,false,Partner tecnologico MEF — Fatturazione elettronica
+istat,ISTAT,Statistica,Erogatore,false,Istituto Nazionale di Statistica
+pagopa,PagoPA,Digitale,Erogatore,false,PagoPA S.p.A. — Gestore infrastruttura PDND
+mlps,Min. Lavoro,Ministero,Erogatore/Fruitore,false,Min. Lavoro e Politiche Sociali — 122 endpoint nel catalogo
+cineca,Cineca,Tecnologia,Erogatore,false,Consorzio Interuniversitario — Servizi IFS
+mit,MIT,Trasporti,Erogatore,false,Min. Infrastrutture e Trasporti — 66 endpoint nel catalogo
+dfp,Dip. Funzione Pubblica,Ministero,Erogatore,false,Dipartimento della Funzione Pubblica — PCM
+ag_demanio,Agenzia del Demanio,Fisco,Erogatore,false,Agenzia del Demanio — patrimonio dello Stato
+min_istruzione,Min. Istruzione,Ministero,Erogatore/Fruitore,false,Min. Istruzione e del Merito — 13 endpoint nel catalogo
+ispra,ISPRA,Statistica,Erogatore,false,Ist. Superiore Protezione e Ricerca Ambientale — 17 endpoint
+r_lombardia,Reg. Lombardia,Regione,Erogatore/Fruitore,false,Regione Lombardia — 42 endpoint nel catalogo
+r_lazio,Reg. Lazio,Regione,Erogatore/Fruitore,false,Regione Lazio — 35 endpoint nel catalogo
+r_campania,Reg. Campania,Regione,Erogatore/Fruitore,false,Regione Campania — 50 endpoint nel catalogo
+r_sicilia,Reg. Siciliana,Regione,Erogatore/Fruitore,false,Regione Siciliana — Sanità territoriale
+r_friuli,Reg. FVG,Regione,Erogatore/Fruitore,false,Regione Autonoma Friuli-Venezia Giulia — 51 endpoint nel catalogo
+pa_bolzano,Prov. Aut. Bolzano,Regione,Erogatore,false,Provincia Autonoma di Bolzano — Dati ambientali
+r_liguria,Reg. Liguria,Regione,Erogatore/Fruitore,false,Regione Liguria — 60 endpoint nel catalogo
+r_toscana,Reg. Toscana,Regione,Erogatore/Fruitore,false,Regione Toscana — 53 endpoint nel catalogo
+r_molise,Reg. Molise,Regione,Erogatore/Fruitore,false,Regione Molise — 48 endpoint nel catalogo
+r_puglia,Reg. Puglia,Regione,Erogatore/Fruitore,false,Regione Puglia — 45 endpoint nel catalogo
+pa_trento,Prov. Aut. Trento,Regione,Erogatore/Fruitore,false,Provincia Autonoma di Trento — 45 endpoint nel catalogo
+r_abruzzo,Reg. Abruzzo,Regione,Erogatore/Fruitore,false,Regione Abruzzo — 45 endpoint nel catalogo
+r_emilia,Reg. Emilia-Romagna,Regione,Erogatore/Fruitore,false,Regione Emilia-Romagna — 41 endpoint nel catalogo
+r_piemonte,Reg. Piemonte,Regione,Erogatore/Fruitore,false,Regione Piemonte — 41 endpoint nel catalogo
+r_veneto,Reg. Veneto,Regione,Erogatore/Fruitore,false,Regione del Veneto — 40 endpoint nel catalogo
+r_marche,Reg. Marche,Regione,Erogatore/Fruitore,false,Regione Marche — 37 endpoint nel catalogo
+r_umbria,Reg. Umbria,Regione,Erogatore/Fruitore,false,Regione Umbria — 32 endpoint nel catalogo
+r_vda,Reg. Valle d'Aosta,Regione,Erogatore/Fruitore,false,Regione Autonoma Valle d'Aosta — 32 endpoint nel catalogo
+r_basilicata,Reg. Basilicata,Regione,Erogatore/Fruitore,false,Regione Basilicata — 31 endpoint nel catalogo
+r_sardegna,Reg. Sardegna,Regione,Erogatore/Fruitore,false,Regione Autonoma della Sardegna — 30 endpoint nel catalogo
+r_calabria,Reg. Calabria,Regione,Erogatore/Fruitore,false,Regione Calabria — 27 endpoint nel catalogo
+c_milano,Comune di Milano,Comune,Fruitore,false,Comune di Milano
+c_roma,Comune di Roma,Comune,Fruitore,false,Comune di Roma Capitale
+c_napoli,Comune di Napoli,Comune,Fruitore,false,Comune di Napoli
+c_bologna,Comune di Bologna,Comune,Erogatore/Fruitore,false,Comune di Bologna
+c_genova,Comune di Genova,Comune,Erogatore/Fruitore,false,Comune di Genova
+c_padova,Comune di Padova,Comune,Erogatore/Fruitore,false,Comune di Padova
+comuni_agg,Comuni (aggregati),Comuni Aggregati,Erogatore/Fruitore,true,~7.500 Comuni aderenti — servizi standard aggregati

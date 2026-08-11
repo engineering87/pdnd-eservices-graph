@@ -1,0 +1,2097 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns
+         http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+  <!-- PDND E-Services Graph. Fonte: https://github.com/engineering87/pdnd-eservices-graph -->
+  <!-- DOI: 10.5281/zenodo.19989954. Codice AGPL-3.0, dati di origine CC0 1.0 (italia/pdnd-opendata). Snapshot: 2026-05-02 -->
+  <!-- Le relazioni erogatore-fruitore non sono pubblicate come open data e sono ricostruite da documentazione pubblica: vedere il campo origine di ogni arco. I nodi marcati aggregato=true rappresentano insiemi di enti (per esempio circa 7.500 Comuni in un solo nodo): le misure di grado su questo grafo non sono confrontabili con quelle di un grafo non aggregato. -->
+  <key id="n_label" for="node" attr.name="label" attr.type="string"/>
+  <key id="n_categoria" for="node" attr.name="categoria" attr.type="string"/>
+  <key id="n_tipo" for="node" attr.name="tipo" attr.type="string"/>
+  <key id="n_aggregato" for="node" attr.name="aggregato" attr.type="boolean"/>
+  <key id="n_descrizione" for="node" attr.name="descrizione" attr.type="string"/>
+  <key id="e_weight" for="edge" attr.name="weight" attr.type="int"/>
+  <key id="e_origine" for="edge" attr.name="origine" attr.type="string"/>
+  <key id="e_servizi" for="edge" attr.name="servizi" attr.type="string"/>
+  <key id="g_avvertenza" for="graph" attr.name="avvertenza" attr.type="string"/>
+  <key id="g_fonte" for="graph" attr.name="fonte" attr.type="string"/>
+  <key id="g_doi" for="graph" attr.name="doi" attr.type="string"/>
+  <graph id="PDND" edgedefault="directed">
+    <data key="g_avvertenza">Le relazioni erogatore-fruitore non sono pubblicate come open data e sono ricostruite da documentazione pubblica: vedere il campo origine di ogni arco. I nodi marcati aggregato=true rappresentano insiemi di enti (per esempio circa 7.500 Comuni in un solo nodo): le misure di grado su questo grafo non sono confrontabili con quelle di un grafo non aggregato.</data>
+    <data key="g_fonte">https://github.com/engineering87/pdnd-eservices-graph</data>
+    <data key="g_doi">10.5281/zenodo.19989954</data>
+    <node id="min_interno">
+      <data key="n_label">Min. Interno (ANPR)</data>
+      <data key="n_categoria">Ministero</data>
+      <data key="n_tipo">Erogatore</data>
+      <data key="n_aggregato">false</data>
+      <data key="n_descrizione">Anagrafe Nazionale della Popolazione Residente</data>
+    </node>
+    <node id="inps">
+      <data key="n_label">INPS</data>
+      <data key="n_categoria">Previdenza</data>
+      <data key="n_tipo">Erogatore/Fruitore</data>
+      <data key="n_aggregato">false</data>
+      <data key="n_descrizione">Istituto Nazionale della Previdenza Sociale</data>
+    </node>
+    <node id="ade">
+      <data key="n_label">Agenzia delle Entrate</data>
+      <data key="n_categoria">Fisco</data>
+      <data key="n_tipo">Erogatore/Fruitore</data>
+      <data key="n_aggregato">false</data>
+      <data key="n_descrizione">Servizi fiscali, catastali, ANNCSU</data>
+    </node>
+    <node id="agid">
+      <data key="n_label">AgID</data>
+      <data key="n_categoria">Digitale</data>
+      <data key="n_tipo">Erogatore/Fruitore</data>
+      <data key="n_aggregato">false</data>
+      <data key="n_descrizione">Agenzia per l'Italia Digitale — INAD, Indice PA</data>
+    </node>
+    <node id="inail">
+      <data key="n_label">INAIL</data>
+      <data key="n_categoria">Lavoro</data>
+      <data key="n_tipo">Erogatore</data>
+      <data key="n_aggregato">false</data>
+      <data key="n_descrizione">Istituto Naz. Assicurazione Infortuni sul Lavoro</data>
+    </node>
+    <node id="unioncamere">
+      <data key="n_label">Unioncamere</data>
+      <data key="n_categoria">Imprese</data>
+      <data key="n_tipo">Erogatore</data>
+      <data key="n_aggregato">false</data>
+      <data key="n_descrizione">Unione Camere di Commercio — Registro Imprese, SSU</data>
+    </node>
+    <node id="mef">
+      <data key="n_label">MEF</data>
+      <data key="n_categoria">Ministero</data>
+      <data key="n_tipo">Erogatore/Fruitore</data>
+      <data key="n_aggregato">false</data>
+      <data key="n_descrizione">Min. Economia e Finanze — noiPA, Anagrafe Dip. Pubblici</data>
+    </node>
+    <node id="anac">
+      <data key="n_label">ANAC</data>
+      <data key="n_categoria">Anticorruzione</data>
+      <data key="n_tipo">Erogatore</data>
+      <data key="n_aggregato">false</data>
+      <data key="n_descrizione">Aut. Naz. Anticorruzione — Contratti Pubblici, SIMOG</data>
+    </node>
+    <node id="mit_dgmot">
+      <data key="n_label">MIT – Motorizzazione</data>
+      <data key="n_categoria">Trasporti</data>
+      <data key="n_tipo">Erogatore</data>
+      <data key="n_aggregato">false</data>
+      <data key="n_descrizione">DG Motorizzazione — Veicoli, Patenti, CUDE</data>
+    </node>
+    <node id="min_giustizia">
+      <data key="n_label">Min. Giustizia</data>
+      <data key="n_categoria">Ministero</data>
+      <data key="n_tipo">Erogatore</data>
+      <data key="n_aggregato">false</data>
+      <data key="n_descrizione">Casellario Giudiziale</data>
+    </node>
+    <node id="min_cultura">
+      <data key="n_label">Min. Cultura (I.PaC)</data>
+      <data key="n_categoria">Cultura</data>
+      <data key="n_tipo">Erogatore</data>
+      <data key="n_aggregato">false</data>
+      <data key="n_descrizione">Infrastruttura del Patrimonio Culturale — 16+ API</data>
+    </node>
+    <node id="mur">
+      <data key="n_label">MUR</data>
+      <data key="n_categoria">Ministero</data>
+      <data key="n_tipo">Erogatore/Fruitore</data>
+      <data key="n_aggregato">false</data>
+      <data key="n_descrizione">Min. Università e Ricerca — ANIS</data>
+    </node>
+    <node id="ade_riscossione">
+      <data key="n_label">AdE Riscossione</data>
+      <data key="n_categoria">Fisco</data>
+      <data key="n_tipo">Erogatore</data>
+      <data key="n_aggregato">false</data>
+      <data key="n_descrizione">Agenzia delle Entrate — Riscossione</data>
+    </node>
+    <node id="sogei">
+      <data key="n_label">Sogei</data>
+      <data key="n_categoria">Tecnologia</data>
+      <data key="n_tipo">Erogatore</data>
+      <data key="n_aggregato">false</data>
+      <data key="n_descrizione">Partner tecnologico MEF — Fatturazione elettronica</data>
+    </node>
+    <node id="istat">
+      <data key="n_label">ISTAT</data>
+      <data key="n_categoria">Statistica</data>
+      <data key="n_tipo">Erogatore</data>
+      <data key="n_aggregato">false</data>
+      <data key="n_descrizione">Istituto Nazionale di Statistica</data>
+    </node>
+    <node id="pagopa">
+      <data key="n_label">PagoPA</data>
+      <data key="n_categoria">Digitale</data>
+      <data key="n_tipo">Erogatore</data>
+      <data key="n_aggregato">false</data>
+      <data key="n_descrizione">PagoPA S.p.A. — Gestore infrastruttura PDND</data>
+    </node>
+    <node id="mlps">
+      <data key="n_label">Min. Lavoro</data>
+      <data key="n_categoria">Ministero</data>
+      <data key="n_tipo">Erogatore/Fruitore</data>
+      <data key="n_aggregato">false</data>
+      <data key="n_descrizione">Min. Lavoro e Politiche Sociali — 122 endpoint nel catalogo</data>
+    </node>
+    <node id="cineca">
+      <data key="n_label">Cineca</data>
+      <data key="n_categoria">Tecnologia</data>
+      <data key="n_tipo">Erogatore</data>
+      <data key="n_aggregato">false</data>
+      <data key="n_descrizione">Consorzio Interuniversitario — Servizi IFS</data>
+    </node>
+    <node id="mit">
+      <data key="n_label">MIT</data>
+      <data key="n_categoria">Trasporti</data>
+      <data key="n_tipo">Erogatore</data>
+      <data key="n_aggregato">false</data>
+      <data key="n_descrizione">Min. Infrastrutture e Trasporti — 66 endpoint nel catalogo</data>
+    </node>
+    <node id="dfp">
+      <data key="n_label">Dip. Funzione Pubblica</data>
+      <data key="n_categoria">Ministero</data>
+      <data key="n_tipo">Erogatore</data>
+      <data key="n_aggregato">false</data>
+      <data key="n_descrizione">Dipartimento della Funzione Pubblica — PCM</data>
+    </node>
+    <node id="ag_demanio">
+      <data key="n_label">Agenzia del Demanio</data>
+      <data key="n_categoria">Fisco</data>
+      <data key="n_tipo">Erogatore</data>
+      <data key="n_aggregato">false</data>
+      <data key="n_descrizione">Agenzia del Demanio — patrimonio dello Stato</data>
+    </node>
+    <node id="min_istruzione">
+      <data key="n_label">Min. Istruzione</data>
+      <data key="n_categoria">Ministero</data>
+      <data key="n_tipo">Erogatore/Fruitore</data>
+      <data key="n_aggregato">false</data>
+      <data key="n_descrizione">Min. Istruzione e del Merito — 13 endpoint nel catalogo</data>
+    </node>
+    <node id="ispra">
+      <data key="n_label">ISPRA</data>
+      <data key="n_categoria">Statistica</data>
+      <data key="n_tipo">Erogatore</data>
+      <data key="n_aggregato">false</data>
+      <data key="n_descrizione">Ist. Superiore Protezione e Ricerca Ambientale — 17 endpoint</data>
+    </node>
+    <node id="r_lombardia">
+      <data key="n_label">Reg. Lombardia</data>
+      <data key="n_categoria">Regione</data>
+      <data key="n_tipo">Erogatore/Fruitore</data>
+      <data key="n_aggregato">false</data>
+      <data key="n_descrizione">Regione Lombardia — 42 endpoint nel catalogo</data>
+    </node>
+    <node id="r_lazio">
+      <data key="n_label">Reg. Lazio</data>
+      <data key="n_categoria">Regione</data>
+      <data key="n_tipo">Erogatore/Fruitore</data>
+      <data key="n_aggregato">false</data>
+      <data key="n_descrizione">Regione Lazio — 35 endpoint nel catalogo</data>
+    </node>
+    <node id="r_campania">
+      <data key="n_label">Reg. Campania</data>
+      <data key="n_categoria">Regione</data>
+      <data key="n_tipo">Erogatore/Fruitore</data>
+      <data key="n_aggregato">false</data>
+      <data key="n_descrizione">Regione Campania — 50 endpoint nel catalogo</data>
+    </node>
+    <node id="r_sicilia">
+      <data key="n_label">Reg. Siciliana</data>
+      <data key="n_categoria">Regione</data>
+      <data key="n_tipo">Erogatore/Fruitore</data>
+      <data key="n_aggregato">false</data>
+      <data key="n_descrizione">Regione Siciliana — Sanità territoriale</data>
+    </node>
+    <node id="r_friuli">
+      <data key="n_label">Reg. FVG</data>
+      <data key="n_categoria">Regione</data>
+      <data key="n_tipo">Erogatore/Fruitore</data>
+      <data key="n_aggregato">false</data>
+      <data key="n_descrizione">Regione Autonoma Friuli-Venezia Giulia — 51 endpoint nel catalogo</data>
+    </node>
+    <node id="pa_bolzano">
+      <data key="n_label">Prov. Aut. Bolzano</data>
+      <data key="n_categoria">Regione</data>
+      <data key="n_tipo">Erogatore</data>
+      <data key="n_aggregato">false</data>
+      <data key="n_descrizione">Provincia Autonoma di Bolzano — Dati ambientali</data>
+    </node>
+    <node id="r_liguria">
+      <data key="n_label">Reg. Liguria</data>
+      <data key="n_categoria">Regione</data>
+      <data key="n_tipo">Erogatore/Fruitore</data>
+      <data key="n_aggregato">false</data>
+      <data key="n_descrizione">Regione Liguria — 60 endpoint nel catalogo</data>
+    </node>
+    <node id="r_toscana">
+      <data key="n_label">Reg. Toscana</data>
+      <data key="n_categoria">Regione</data>
+      <data key="n_tipo">Erogatore/Fruitore</data>
+      <data key="n_aggregato">false</data>
+      <data key="n_descrizione">Regione Toscana — 53 endpoint nel catalogo</data>
+    </node>
+    <node id="r_molise">
+      <data key="n_label">Reg. Molise</data>
+      <data key="n_categoria">Regione</data>
+      <data key="n_tipo">Erogatore/Fruitore</data>
+      <data key="n_aggregato">false</data>
+      <data key="n_descrizione">Regione Molise — 48 endpoint nel catalogo</data>
+    </node>
+    <node id="r_puglia">
+      <data key="n_label">Reg. Puglia</data>
+      <data key="n_categoria">Regione</data>
+      <data key="n_tipo">Erogatore/Fruitore</data>
+      <data key="n_aggregato">false</data>
+      <data key="n_descrizione">Regione Puglia — 45 endpoint nel catalogo</data>
+    </node>
+    <node id="pa_trento">
+      <data key="n_label">Prov. Aut. Trento</data>
+      <data key="n_categoria">Regione</data>
+      <data key="n_tipo">Erogatore/Fruitore</data>
+      <data key="n_aggregato">false</data>
+      <data key="n_descrizione">Provincia Autonoma di Trento — 45 endpoint nel catalogo</data>
+    </node>
+    <node id="r_abruzzo">
+      <data key="n_label">Reg. Abruzzo</data>
+      <data key="n_categoria">Regione</data>
+      <data key="n_tipo">Erogatore/Fruitore</data>
+      <data key="n_aggregato">false</data>
+      <data key="n_descrizione">Regione Abruzzo — 45 endpoint nel catalogo</data>
+    </node>
+    <node id="r_emilia">
+      <data key="n_label">Reg. Emilia-Romagna</data>
+      <data key="n_categoria">Regione</data>
+      <data key="n_tipo">Erogatore/Fruitore</data>
+      <data key="n_aggregato">false</data>
+      <data key="n_descrizione">Regione Emilia-Romagna — 41 endpoint nel catalogo</data>
+    </node>
+    <node id="r_piemonte">
+      <data key="n_label">Reg. Piemonte</data>
+      <data key="n_categoria">Regione</data>
+      <data key="n_tipo">Erogatore/Fruitore</data>
+      <data key="n_aggregato">false</data>
+      <data key="n_descrizione">Regione Piemonte — 41 endpoint nel catalogo</data>
+    </node>
+    <node id="r_veneto">
+      <data key="n_label">Reg. Veneto</data>
+      <data key="n_categoria">Regione</data>
+      <data key="n_tipo">Erogatore/Fruitore</data>
+      <data key="n_aggregato">false</data>
+      <data key="n_descrizione">Regione del Veneto — 40 endpoint nel catalogo</data>
+    </node>
+    <node id="r_marche">
+      <data key="n_label">Reg. Marche</data>
+      <data key="n_categoria">Regione</data>
+      <data key="n_tipo">Erogatore/Fruitore</data>
+      <data key="n_aggregato">false</data>
+      <data key="n_descrizione">Regione Marche — 37 endpoint nel catalogo</data>
+    </node>
+    <node id="r_umbria">
+      <data key="n_label">Reg. Umbria</data>
+      <data key="n_categoria">Regione</data>
+      <data key="n_tipo">Erogatore/Fruitore</data>
+      <data key="n_aggregato">false</data>
+      <data key="n_descrizione">Regione Umbria — 32 endpoint nel catalogo</data>
+    </node>
+    <node id="r_vda">
+      <data key="n_label">Reg. Valle d'Aosta</data>
+      <data key="n_categoria">Regione</data>
+      <data key="n_tipo">Erogatore/Fruitore</data>
+      <data key="n_aggregato">false</data>
+      <data key="n_descrizione">Regione Autonoma Valle d'Aosta — 32 endpoint nel catalogo</data>
+    </node>
+    <node id="r_basilicata">
+      <data key="n_label">Reg. Basilicata</data>
+      <data key="n_categoria">Regione</data>
+      <data key="n_tipo">Erogatore/Fruitore</data>
+      <data key="n_aggregato">false</data>
+      <data key="n_descrizione">Regione Basilicata — 31 endpoint nel catalogo</data>
+    </node>
+    <node id="r_sardegna">
+      <data key="n_label">Reg. Sardegna</data>
+      <data key="n_categoria">Regione</data>
+      <data key="n_tipo">Erogatore/Fruitore</data>
+      <data key="n_aggregato">false</data>
+      <data key="n_descrizione">Regione Autonoma della Sardegna — 30 endpoint nel catalogo</data>
+    </node>
+    <node id="r_calabria">
+      <data key="n_label">Reg. Calabria</data>
+      <data key="n_categoria">Regione</data>
+      <data key="n_tipo">Erogatore/Fruitore</data>
+      <data key="n_aggregato">false</data>
+      <data key="n_descrizione">Regione Calabria — 27 endpoint nel catalogo</data>
+    </node>
+    <node id="c_milano">
+      <data key="n_label">Comune di Milano</data>
+      <data key="n_categoria">Comune</data>
+      <data key="n_tipo">Fruitore</data>
+      <data key="n_aggregato">false</data>
+      <data key="n_descrizione">Comune di Milano</data>
+    </node>
+    <node id="c_roma">
+      <data key="n_label">Comune di Roma</data>
+      <data key="n_categoria">Comune</data>
+      <data key="n_tipo">Fruitore</data>
+      <data key="n_aggregato">false</data>
+      <data key="n_descrizione">Comune di Roma Capitale</data>
+    </node>
+    <node id="c_napoli">
+      <data key="n_label">Comune di Napoli</data>
+      <data key="n_categoria">Comune</data>
+      <data key="n_tipo">Fruitore</data>
+      <data key="n_aggregato">false</data>
+      <data key="n_descrizione">Comune di Napoli</data>
+    </node>
+    <node id="c_bologna">
+      <data key="n_label">Comune di Bologna</data>
+      <data key="n_categoria">Comune</data>
+      <data key="n_tipo">Erogatore/Fruitore</data>
+      <data key="n_aggregato">false</data>
+      <data key="n_descrizione">Comune di Bologna</data>
+    </node>
+    <node id="c_genova">
+      <data key="n_label">Comune di Genova</data>
+      <data key="n_categoria">Comune</data>
+      <data key="n_tipo">Erogatore/Fruitore</data>
+      <data key="n_aggregato">false</data>
+      <data key="n_descrizione">Comune di Genova</data>
+    </node>
+    <node id="c_padova">
+      <data key="n_label">Comune di Padova</data>
+      <data key="n_categoria">Comune</data>
+      <data key="n_tipo">Erogatore/Fruitore</data>
+      <data key="n_aggregato">false</data>
+      <data key="n_descrizione">Comune di Padova</data>
+    </node>
+    <node id="comuni_agg">
+      <data key="n_label">Comuni (aggregati)</data>
+      <data key="n_categoria">Comuni Aggregati</data>
+      <data key="n_tipo">Erogatore/Fruitore</data>
+      <data key="n_aggregato">true</data>
+      <data key="n_descrizione">~7.500 Comuni aderenti — servizi standard aggregati</data>
+    </node>
+    <edge id="e0" source="min_interno" target="c_milano">
+      <data key="e_weight">5</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso</data>
+    </edge>
+    <edge id="e1" source="min_interno" target="c_roma">
+      <data key="e_weight">5</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso</data>
+    </edge>
+    <edge id="e2" source="min_interno" target="c_napoli">
+      <data key="e_weight">4</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico</data>
+    </edge>
+    <edge id="e3" source="min_interno" target="c_bologna">
+      <data key="e_weight">3</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione</data>
+    </edge>
+    <edge id="e4" source="min_interno" target="c_genova">
+      <data key="e_weight">3</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione</data>
+    </edge>
+    <edge id="e5" source="min_interno" target="c_padova">
+      <data key="e_weight">2</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">C001 – Servizio Notifica; ANPR – Verifica Autocertificazione</data>
+    </edge>
+    <edge id="e6" source="min_interno" target="comuni_agg">
+      <data key="e_weight">5</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso</data>
+    </edge>
+    <edge id="e7" source="min_interno" target="r_lombardia">
+      <data key="e_weight">4</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico</data>
+    </edge>
+    <edge id="e8" source="min_interno" target="r_lazio">
+      <data key="e_weight">3</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione</data>
+    </edge>
+    <edge id="e9" source="min_interno" target="r_campania">
+      <data key="e_weight">2</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">C001 – Servizio Notifica; ANPR – Verifica Autocertificazione</data>
+    </edge>
+    <edge id="e10" source="min_interno" target="inps">
+      <data key="e_weight">5</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso</data>
+    </edge>
+    <edge id="e11" source="min_interno" target="ade">
+      <data key="e_weight">4</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">C001 – Servizio Notifica; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso</data>
+    </edge>
+    <edge id="e12" source="min_interno" target="r_liguria">
+      <data key="e_weight">5</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso</data>
+    </edge>
+    <edge id="e13" source="min_interno" target="r_toscana">
+      <data key="e_weight">5</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso</data>
+    </edge>
+    <edge id="e14" source="min_interno" target="r_molise">
+      <data key="e_weight">5</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso</data>
+    </edge>
+    <edge id="e15" source="min_interno" target="r_puglia">
+      <data key="e_weight">5</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso</data>
+    </edge>
+    <edge id="e16" source="min_interno" target="pa_trento">
+      <data key="e_weight">5</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso</data>
+    </edge>
+    <edge id="e17" source="min_interno" target="r_abruzzo">
+      <data key="e_weight">5</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso</data>
+    </edge>
+    <edge id="e18" source="min_interno" target="r_emilia">
+      <data key="e_weight">5</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso</data>
+    </edge>
+    <edge id="e19" source="min_interno" target="r_piemonte">
+      <data key="e_weight">5</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso</data>
+    </edge>
+    <edge id="e20" source="min_interno" target="r_veneto">
+      <data key="e_weight">5</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso</data>
+    </edge>
+    <edge id="e21" source="min_interno" target="r_marche">
+      <data key="e_weight">5</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso</data>
+    </edge>
+    <edge id="e22" source="min_interno" target="r_umbria">
+      <data key="e_weight">5</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso</data>
+    </edge>
+    <edge id="e23" source="min_interno" target="r_vda">
+      <data key="e_weight">5</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso</data>
+    </edge>
+    <edge id="e24" source="min_interno" target="r_basilicata">
+      <data key="e_weight">5</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso</data>
+    </edge>
+    <edge id="e25" source="min_interno" target="r_sardegna">
+      <data key="e_weight">5</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso</data>
+    </edge>
+    <edge id="e26" source="min_interno" target="r_calabria">
+      <data key="e_weight">5</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso</data>
+    </edge>
+    <edge id="e27" source="min_interno" target="r_friuli">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">ANPR – Verifica Autocertificazione</data>
+    </edge>
+    <edge id="e28" source="min_interno" target="mef">
+      <data key="e_weight">2</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico</data>
+    </edge>
+    <edge id="e29" source="min_interno" target="mur">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">ANPR – Verifica Autocertificazione</data>
+    </edge>
+    <edge id="e30" source="min_interno" target="agid">
+      <data key="e_weight">2</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">ANPR – Verifica Autocertificazione; ANPR API Integrazione INAD</data>
+    </edge>
+    <edge id="e31" source="min_interno" target="min_istruzione">
+      <data key="e_weight">2</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico</data>
+    </edge>
+    <edge id="e32" source="min_interno" target="mit_dgmot">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">ANPR – Accertamento Anagrafico</data>
+    </edge>
+    <edge id="e33" source="min_interno" target="istat">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">ANPR – Accertamento Anagrafico</data>
+    </edge>
+    <edge id="e34" source="inps" target="c_milano">
+      <data key="e_weight">3</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Consultazione ISEE; SIUSS – Casellario Assistenza; Consultazione DURC</data>
+    </edge>
+    <edge id="e35" source="inps" target="c_roma">
+      <data key="e_weight">3</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Consultazione ISEE; SIUSS – Casellario Assistenza; Consultazione DURC</data>
+    </edge>
+    <edge id="e36" source="inps" target="c_napoli">
+      <data key="e_weight">3</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Consultazione ISEE; SIUSS – Casellario Assistenza; Consultazione DURC</data>
+    </edge>
+    <edge id="e37" source="inps" target="c_bologna">
+      <data key="e_weight">2</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Consultazione ISEE; SIUSS – Casellario Assistenza</data>
+    </edge>
+    <edge id="e38" source="inps" target="c_genova">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Consultazione ISEE</data>
+    </edge>
+    <edge id="e39" source="inps" target="c_padova">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Consultazione ISEE</data>
+    </edge>
+    <edge id="e40" source="inps" target="comuni_agg">
+      <data key="e_weight">3</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Consultazione ISEE; SIUSS – Casellario Assistenza; Consultazione DURC</data>
+    </edge>
+    <edge id="e41" source="inps" target="r_lombardia">
+      <data key="e_weight">5</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Consultazione ISEE; SIUSS – Casellario Assistenza; Casellario Lavoratori Attivi; Casellario Pensionati; Consultazione DURC</data>
+    </edge>
+    <edge id="e42" source="inps" target="r_lazio">
+      <data key="e_weight">3</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Consultazione ISEE; SIUSS – Casellario Assistenza; Consultazione DURC</data>
+    </edge>
+    <edge id="e43" source="inps" target="r_campania">
+      <data key="e_weight">2</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Consultazione ISEE; SIUSS – Casellario Assistenza</data>
+    </edge>
+    <edge id="e44" source="inps" target="r_friuli">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Consultazione ISEE</data>
+    </edge>
+    <edge id="e45" source="inps" target="mur">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Consultazione ISEE</data>
+    </edge>
+    <edge id="e46" source="inps" target="r_liguria">
+      <data key="e_weight">2</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Consultazione ISEE; SIUSS – Casellario Assistenza</data>
+    </edge>
+    <edge id="e47" source="inps" target="r_toscana">
+      <data key="e_weight">2</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Consultazione ISEE; SIUSS – Casellario Assistenza</data>
+    </edge>
+    <edge id="e48" source="inps" target="r_molise">
+      <data key="e_weight">2</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Consultazione ISEE; SIUSS – Casellario Assistenza</data>
+    </edge>
+    <edge id="e49" source="inps" target="r_puglia">
+      <data key="e_weight">2</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Consultazione ISEE; SIUSS – Casellario Assistenza</data>
+    </edge>
+    <edge id="e50" source="inps" target="pa_trento">
+      <data key="e_weight">2</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Consultazione ISEE; SIUSS – Casellario Assistenza</data>
+    </edge>
+    <edge id="e51" source="inps" target="r_abruzzo">
+      <data key="e_weight">2</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Consultazione ISEE; SIUSS – Casellario Assistenza</data>
+    </edge>
+    <edge id="e52" source="inps" target="r_emilia">
+      <data key="e_weight">2</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Consultazione ISEE; SIUSS – Casellario Assistenza</data>
+    </edge>
+    <edge id="e53" source="inps" target="r_piemonte">
+      <data key="e_weight">2</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Consultazione ISEE; SIUSS – Casellario Assistenza</data>
+    </edge>
+    <edge id="e54" source="inps" target="r_veneto">
+      <data key="e_weight">2</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Consultazione ISEE; SIUSS – Casellario Assistenza</data>
+    </edge>
+    <edge id="e55" source="inps" target="r_marche">
+      <data key="e_weight">2</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Consultazione ISEE; SIUSS – Casellario Assistenza</data>
+    </edge>
+    <edge id="e56" source="inps" target="r_umbria">
+      <data key="e_weight">2</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Consultazione ISEE; SIUSS – Casellario Assistenza</data>
+    </edge>
+    <edge id="e57" source="inps" target="r_vda">
+      <data key="e_weight">2</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Consultazione ISEE; SIUSS – Casellario Assistenza</data>
+    </edge>
+    <edge id="e58" source="inps" target="r_basilicata">
+      <data key="e_weight">2</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Consultazione ISEE; SIUSS – Casellario Assistenza</data>
+    </edge>
+    <edge id="e59" source="inps" target="r_sardegna">
+      <data key="e_weight">2</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Consultazione ISEE; SIUSS – Casellario Assistenza</data>
+    </edge>
+    <edge id="e60" source="inps" target="r_calabria">
+      <data key="e_weight">2</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Consultazione ISEE; SIUSS – Casellario Assistenza</data>
+    </edge>
+    <edge id="e61" source="inps" target="mlps">
+      <data key="e_weight">3</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">SIUSS – Casellario Assistenza; Casellario Lavoratori Attivi; Casellario Pensionati</data>
+    </edge>
+    <edge id="e62" source="inps" target="ade">
+      <data key="e_weight">2</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Casellario Lavoratori Attivi; Casellario Pensionati</data>
+    </edge>
+    <edge id="e63" source="inps" target="mef">
+      <data key="e_weight">2</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Casellario Lavoratori Attivi; Casellario Pensionati</data>
+    </edge>
+    <edge id="e64" source="inps" target="inail">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Casellario Lavoratori Attivi</data>
+    </edge>
+    <edge id="e65" source="inps" target="anac">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Consultazione DURC</data>
+    </edge>
+    <edge id="e66" source="inps" target="unioncamere">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Consultazione DURC</data>
+    </edge>
+    <edge id="e67" source="ade" target="inps">
+      <data key="e_weight">2</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">VCF1 – Verifica Codice Fiscale; Verifica Partita IVA</data>
+    </edge>
+    <edge id="e68" source="ade" target="c_milano">
+      <data key="e_weight">4</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">VCF1 – Verifica Codice Fiscale; Verifica Partita IVA; ANNCSU – Anagrafe Immobiliare; Dati Catastali</data>
+    </edge>
+    <edge id="e69" source="ade" target="c_roma">
+      <data key="e_weight">4</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">VCF1 – Verifica Codice Fiscale; Verifica Partita IVA; ANNCSU – Anagrafe Immobiliare; Dati Catastali</data>
+    </edge>
+    <edge id="e70" source="ade" target="c_napoli">
+      <data key="e_weight">3</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">VCF1 – Verifica Codice Fiscale; ANNCSU – Anagrafe Immobiliare; Dati Catastali</data>
+    </edge>
+    <edge id="e71" source="ade" target="c_bologna">
+      <data key="e_weight">3</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">VCF1 – Verifica Codice Fiscale; ANNCSU – Anagrafe Immobiliare; Dati Catastali</data>
+    </edge>
+    <edge id="e72" source="ade" target="c_genova">
+      <data key="e_weight">2</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">VCF1 – Verifica Codice Fiscale; Dati Catastali</data>
+    </edge>
+    <edge id="e73" source="ade" target="c_padova">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">VCF1 – Verifica Codice Fiscale</data>
+    </edge>
+    <edge id="e74" source="ade" target="comuni_agg">
+      <data key="e_weight">4</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">VCF1 – Verifica Codice Fiscale; Verifica Partita IVA; ANNCSU – Anagrafe Immobiliare; Dati Catastali</data>
+    </edge>
+    <edge id="e75" source="ade" target="r_lombardia">
+      <data key="e_weight">3</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">VCF1 – Verifica Codice Fiscale; ANNCSU – Anagrafe Immobiliare; Dati Catastali</data>
+    </edge>
+    <edge id="e76" source="ade" target="r_lazio">
+      <data key="e_weight">3</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">VCF1 – Verifica Codice Fiscale; ANNCSU – Anagrafe Immobiliare; Dati Catastali</data>
+    </edge>
+    <edge id="e77" source="ade" target="r_campania">
+      <data key="e_weight">2</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">VCF1 – Verifica Codice Fiscale; Dati Catastali</data>
+    </edge>
+    <edge id="e78" source="ade" target="agid">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">VCF1 – Verifica Codice Fiscale</data>
+    </edge>
+    <edge id="e79" source="ade" target="inail">
+      <data key="e_weight">2</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">VCF1 – Verifica Codice Fiscale; Verifica Partita IVA</data>
+    </edge>
+    <edge id="e80" source="ade" target="mef">
+      <data key="e_weight">3</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">VCF1 – Verifica Codice Fiscale; Verifica Partita IVA; ANNCSU – Anagrafe Immobiliare</data>
+    </edge>
+    <edge id="e81" source="ade" target="unioncamere">
+      <data key="e_weight">2</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">VCF1 – Verifica Codice Fiscale; Verifica Partita IVA</data>
+    </edge>
+    <edge id="e82" source="ade" target="anac">
+      <data key="e_weight">2</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">VCF1 – Verifica Codice Fiscale; Verifica Partita IVA</data>
+    </edge>
+    <edge id="e83" source="ade" target="istat">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">ANNCSU – Anagrafe Immobiliare</data>
+    </edge>
+    <edge id="e84" source="agid" target="min_interno">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">INAD – Domicili Digitali</data>
+    </edge>
+    <edge id="e85" source="agid" target="inps">
+      <data key="e_weight">2</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">INAD – Domicili Digitali; Indice PA (IPA)</data>
+    </edge>
+    <edge id="e86" source="agid" target="ade">
+      <data key="e_weight">2</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">INAD – Domicili Digitali; Indice PA (IPA)</data>
+    </edge>
+    <edge id="e87" source="agid" target="c_milano">
+      <data key="e_weight">2</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">INAD – Domicili Digitali; Indice PA (IPA)</data>
+    </edge>
+    <edge id="e88" source="agid" target="c_roma">
+      <data key="e_weight">2</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">INAD – Domicili Digitali; Indice PA (IPA)</data>
+    </edge>
+    <edge id="e89" source="agid" target="c_napoli">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">INAD – Domicili Digitali</data>
+    </edge>
+    <edge id="e90" source="agid" target="comuni_agg">
+      <data key="e_weight">2</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">INAD – Domicili Digitali; Indice PA (IPA)</data>
+    </edge>
+    <edge id="e91" source="agid" target="r_lombardia">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">INAD – Domicili Digitali</data>
+    </edge>
+    <edge id="e92" source="agid" target="pagopa">
+      <data key="e_weight">2</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">INAD – Domicili Digitali; Indice PA (IPA)</data>
+    </edge>
+    <edge id="e93" source="agid" target="anac">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Indice PA (IPA)</data>
+    </edge>
+    <edge id="e94" source="agid" target="mef">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Indice PA (IPA)</data>
+    </edge>
+    <edge id="e95" source="unioncamere" target="ade">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Registro Imprese</data>
+    </edge>
+    <edge id="e96" source="unioncamere" target="inps">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Registro Imprese</data>
+    </edge>
+    <edge id="e97" source="unioncamere" target="inail">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Registro Imprese</data>
+    </edge>
+    <edge id="e98" source="unioncamere" target="c_milano">
+      <data key="e_weight">5</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Registro Imprese; Catalogo SSU – Metadati; Catalogo SSU – BO SUAP; SSU – ComUnica; SSU – Registro Imprese (circolarità)</data>
+    </edge>
+    <edge id="e99" source="unioncamere" target="c_roma">
+      <data key="e_weight">5</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Registro Imprese; Catalogo SSU – Metadati; Catalogo SSU – BO SUAP; SSU – ComUnica; SSU – Registro Imprese (circolarità)</data>
+    </edge>
+    <edge id="e100" source="unioncamere" target="c_bologna">
+      <data key="e_weight">5</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Registro Imprese; Catalogo SSU – Metadati; Catalogo SSU – BO SUAP; SSU – ComUnica; SSU – Registro Imprese (circolarità)</data>
+    </edge>
+    <edge id="e101" source="unioncamere" target="comuni_agg">
+      <data key="e_weight">5</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Registro Imprese; Catalogo SSU – Metadati; Catalogo SSU – BO SUAP; SSU – ComUnica; SSU – Registro Imprese (circolarità)</data>
+    </edge>
+    <edge id="e102" source="unioncamere" target="anac">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Registro Imprese</data>
+    </edge>
+    <edge id="e103" source="unioncamere" target="mef">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Registro Imprese</data>
+    </edge>
+    <edge id="e104" source="unioncamere" target="r_lombardia">
+      <data key="e_weight">2</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Registro Imprese; Catalogo SSU – BO Enti Terzi</data>
+    </edge>
+    <edge id="e105" source="unioncamere" target="c_napoli">
+      <data key="e_weight">3</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Catalogo SSU – Metadati; Catalogo SSU – BO SUAP; SSU – Registro Imprese (circolarità)</data>
+    </edge>
+    <edge id="e106" source="unioncamere" target="c_genova">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Catalogo SSU – Metadati</data>
+    </edge>
+    <edge id="e107" source="unioncamere" target="min_interno">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Catalogo SSU – BO Enti Terzi</data>
+    </edge>
+    <edge id="e108" source="unioncamere" target="r_lazio">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Catalogo SSU – BO Enti Terzi</data>
+    </edge>
+    <edge id="e109" source="unioncamere" target="r_campania">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Catalogo SSU – BO Enti Terzi</data>
+    </edge>
+    <edge id="e110" source="unioncamere" target="r_friuli">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Catalogo SSU – BO Enti Terzi</data>
+    </edge>
+    <edge id="e111" source="unioncamere" target="r_sicilia">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Catalogo SSU – BO Enti Terzi</data>
+    </edge>
+    <edge id="e112" source="inail" target="inps">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">INAIL – DURC</data>
+    </edge>
+    <edge id="e113" source="inail" target="c_milano">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">INAIL – DURC</data>
+    </edge>
+    <edge id="e114" source="inail" target="c_roma">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">INAIL – DURC</data>
+    </edge>
+    <edge id="e115" source="inail" target="comuni_agg">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">INAIL – DURC</data>
+    </edge>
+    <edge id="e116" source="inail" target="anac">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">INAIL – DURC</data>
+    </edge>
+    <edge id="e117" source="inail" target="unioncamere">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">INAIL – DURC</data>
+    </edge>
+    <edge id="e118" source="inail" target="r_lombardia">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">INAIL – DURC</data>
+    </edge>
+    <edge id="e119" source="anac" target="c_milano">
+      <data key="e_weight">2</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Banca Dati Contratti Pubblici; SIMOG</data>
+    </edge>
+    <edge id="e120" source="anac" target="c_roma">
+      <data key="e_weight">2</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Banca Dati Contratti Pubblici; SIMOG</data>
+    </edge>
+    <edge id="e121" source="anac" target="c_napoli">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Banca Dati Contratti Pubblici</data>
+    </edge>
+    <edge id="e122" source="anac" target="c_bologna">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Banca Dati Contratti Pubblici</data>
+    </edge>
+    <edge id="e123" source="anac" target="comuni_agg">
+      <data key="e_weight">2</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Banca Dati Contratti Pubblici; SIMOG</data>
+    </edge>
+    <edge id="e124" source="anac" target="r_lombardia">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Banca Dati Contratti Pubblici</data>
+    </edge>
+    <edge id="e125" source="anac" target="r_lazio">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Banca Dati Contratti Pubblici</data>
+    </edge>
+    <edge id="e126" source="anac" target="mef">
+      <data key="e_weight">2</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Banca Dati Contratti Pubblici; SIMOG</data>
+    </edge>
+    <edge id="e127" source="anac" target="ade">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Banca Dati Contratti Pubblici</data>
+    </edge>
+    <edge id="e128" source="mit_dgmot" target="c_milano">
+      <data key="e_weight">3</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Consultazione Veicoli; Consultazione Patenti; CUDE – Contrassegno Disabili</data>
+    </edge>
+    <edge id="e129" source="mit_dgmot" target="c_roma">
+      <data key="e_weight">3</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Consultazione Veicoli; Consultazione Patenti; CUDE – Contrassegno Disabili</data>
+    </edge>
+    <edge id="e130" source="mit_dgmot" target="c_napoli">
+      <data key="e_weight">2</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Consultazione Veicoli; CUDE – Contrassegno Disabili</data>
+    </edge>
+    <edge id="e131" source="mit_dgmot" target="comuni_agg">
+      <data key="e_weight">3</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Consultazione Veicoli; Consultazione Patenti; CUDE – Contrassegno Disabili</data>
+    </edge>
+    <edge id="e132" source="mit_dgmot" target="r_lombardia">
+      <data key="e_weight">2</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Consultazione Veicoli; CUDE – Contrassegno Disabili</data>
+    </edge>
+    <edge id="e133" source="mit_dgmot" target="inps">
+      <data key="e_weight">2</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Consultazione Veicoli; Consultazione Patenti</data>
+    </edge>
+    <edge id="e134" source="mit_dgmot" target="c_bologna">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">CUDE – Contrassegno Disabili</data>
+    </edge>
+    <edge id="e135" source="min_giustizia" target="inps">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Casellario Giudiziale</data>
+    </edge>
+    <edge id="e136" source="min_giustizia" target="ade">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Casellario Giudiziale</data>
+    </edge>
+    <edge id="e137" source="min_giustizia" target="anac">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Casellario Giudiziale</data>
+    </edge>
+    <edge id="e138" source="min_giustizia" target="c_milano">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Casellario Giudiziale</data>
+    </edge>
+    <edge id="e139" source="min_giustizia" target="c_roma">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Casellario Giudiziale</data>
+    </edge>
+    <edge id="e140" source="min_giustizia" target="comuni_agg">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Casellario Giudiziale</data>
+    </edge>
+    <edge id="e141" source="min_giustizia" target="mef">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Casellario Giudiziale</data>
+    </edge>
+    <edge id="e142" source="min_cultura" target="r_lombardia">
+      <data key="e_weight">3</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">I.PaC – Gestione Risorse Digitali; I.PaC – Grafo Conoscenza; I.PaC – API IIIF</data>
+    </edge>
+    <edge id="e143" source="min_cultura" target="r_lazio">
+      <data key="e_weight">2</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">I.PaC – Gestione Risorse Digitali; I.PaC – Grafo Conoscenza</data>
+    </edge>
+    <edge id="e144" source="min_cultura" target="r_campania">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">I.PaC – Gestione Risorse Digitali</data>
+    </edge>
+    <edge id="e145" source="min_cultura" target="r_sicilia">
+      <data key="e_weight">2</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">I.PaC – Gestione Risorse Digitali; I.PaC – Grafo Conoscenza</data>
+    </edge>
+    <edge id="e146" source="min_cultura" target="mur">
+      <data key="e_weight">3</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">I.PaC – Gestione Risorse Digitali; I.PaC – Grafo Conoscenza; I.PaC – API IIIF</data>
+    </edge>
+    <edge id="e147" source="min_cultura" target="istat">
+      <data key="e_weight">2</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">I.PaC – Grafo Conoscenza; I.PaC – API IIIF</data>
+    </edge>
+    <edge id="e148" source="mef" target="inps">
+      <data key="e_weight">2</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Anagrafe Dipendenti Pubblici; noiPA</data>
+    </edge>
+    <edge id="e149" source="mef" target="ade">
+      <data key="e_weight">2</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Anagrafe Dipendenti Pubblici; noiPA</data>
+    </edge>
+    <edge id="e150" source="mef" target="istat">
+      <data key="e_weight">2</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Anagrafe Dipendenti Pubblici; noiPA</data>
+    </edge>
+    <edge id="e151" source="mef" target="agid">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Anagrafe Dipendenti Pubblici</data>
+    </edge>
+    <edge id="e152" source="mef" target="mlps">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Anagrafe Dipendenti Pubblici</data>
+    </edge>
+    <edge id="e153" source="ade_riscossione" target="c_milano">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Situazione Debitoria</data>
+    </edge>
+    <edge id="e154" source="ade_riscossione" target="c_roma">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Situazione Debitoria</data>
+    </edge>
+    <edge id="e155" source="ade_riscossione" target="comuni_agg">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Situazione Debitoria</data>
+    </edge>
+    <edge id="e156" source="ade_riscossione" target="mef">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Situazione Debitoria</data>
+    </edge>
+    <edge id="e157" source="ade_riscossione" target="ade">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Situazione Debitoria</data>
+    </edge>
+    <edge id="e158" source="ade_riscossione" target="inps">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Situazione Debitoria</data>
+    </edge>
+    <edge id="e159" source="mur" target="inps">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">ANIS – Anagrafe Studenti</data>
+    </edge>
+    <edge id="e160" source="mur" target="mef">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">ANIS – Anagrafe Studenti</data>
+    </edge>
+    <edge id="e161" source="mur" target="istat">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">ANIS – Anagrafe Studenti</data>
+    </edge>
+    <edge id="e162" source="mur" target="mlps">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">ANIS – Anagrafe Studenti</data>
+    </edge>
+    <edge id="e163" source="cineca" target="mur">
+      <data key="e_weight">3</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">IFS01 – Offerta Formativa; IFS02 – Iscrizioni Accademiche; IFS03 – Titoli Accademici</data>
+    </edge>
+    <edge id="e164" source="cineca" target="inps">
+      <data key="e_weight">3</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">IFS01 – Offerta Formativa; IFS02 – Iscrizioni Accademiche; IFS03 – Titoli Accademici</data>
+    </edge>
+    <edge id="e165" source="cineca" target="istat">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">IFS01 – Offerta Formativa</data>
+    </edge>
+    <edge id="e166" source="cineca" target="mef">
+      <data key="e_weight">2</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">IFS02 – Iscrizioni Accademiche; IFS03 – Titoli Accademici</data>
+    </edge>
+    <edge id="e167" source="cineca" target="mlps">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">IFS03 – Titoli Accademici</data>
+    </edge>
+    <edge id="e168" source="istat" target="r_lombardia">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Dati Statistici Territoriali</data>
+    </edge>
+    <edge id="e169" source="istat" target="r_lazio">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Dati Statistici Territoriali</data>
+    </edge>
+    <edge id="e170" source="istat" target="r_campania">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Dati Statistici Territoriali</data>
+    </edge>
+    <edge id="e171" source="istat" target="r_sicilia">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Dati Statistici Territoriali</data>
+    </edge>
+    <edge id="e172" source="istat" target="c_milano">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Dati Statistici Territoriali</data>
+    </edge>
+    <edge id="e173" source="istat" target="c_roma">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Dati Statistici Territoriali</data>
+    </edge>
+    <edge id="e174" source="istat" target="mef">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Dati Statistici Territoriali</data>
+    </edge>
+    <edge id="e175" source="istat" target="agid">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Dati Statistici Territoriali</data>
+    </edge>
+    <edge id="e176" source="istat" target="min_interno">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Dati Statistici Territoriali</data>
+    </edge>
+    <edge id="e177" source="sogei" target="ade">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Fatturazione Elettronica</data>
+    </edge>
+    <edge id="e178" source="sogei" target="mef">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Fatturazione Elettronica</data>
+    </edge>
+    <edge id="e179" source="sogei" target="unioncamere">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Fatturazione Elettronica</data>
+    </edge>
+    <edge id="e180" source="sogei" target="c_milano">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Fatturazione Elettronica</data>
+    </edge>
+    <edge id="e181" source="sogei" target="c_roma">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Fatturazione Elettronica</data>
+    </edge>
+    <edge id="e182" source="sogei" target="comuni_agg">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Fatturazione Elettronica</data>
+    </edge>
+    <edge id="e183" source="pagopa" target="min_interno">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">PDND – Gestione Voucher</data>
+    </edge>
+    <edge id="e184" source="pagopa" target="inps">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">PDND – Gestione Voucher</data>
+    </edge>
+    <edge id="e185" source="pagopa" target="ade">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">PDND – Gestione Voucher</data>
+    </edge>
+    <edge id="e186" source="pagopa" target="agid">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">PDND – Gestione Voucher</data>
+    </edge>
+    <edge id="e187" source="pagopa" target="unioncamere">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">PDND – Gestione Voucher</data>
+    </edge>
+    <edge id="e188" source="pagopa" target="inail">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">PDND – Gestione Voucher</data>
+    </edge>
+    <edge id="e189" source="pagopa" target="anac">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">PDND – Gestione Voucher</data>
+    </edge>
+    <edge id="e190" source="pagopa" target="mef">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">PDND – Gestione Voucher</data>
+    </edge>
+    <edge id="e191" source="r_sicilia" target="r_lombardia">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Consultazione Trasferimenti COT</data>
+    </edge>
+    <edge id="e192" source="r_sicilia" target="r_lazio">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Consultazione Trasferimenti COT</data>
+    </edge>
+    <edge id="e193" source="r_sicilia" target="r_campania">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Consultazione Trasferimenti COT</data>
+    </edge>
+    <edge id="e194" source="r_sicilia" target="mlps">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Consultazione Trasferimenti COT</data>
+    </edge>
+    <edge id="e195" source="r_sicilia" target="inps">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Consultazione Trasferimenti COT</data>
+    </edge>
+    <edge id="e196" source="r_friuli" target="c_milano">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Consultazione Dettaglio Pratiche</data>
+    </edge>
+    <edge id="e197" source="r_friuli" target="comuni_agg">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Consultazione Dettaglio Pratiche</data>
+    </edge>
+    <edge id="e198" source="r_friuli" target="r_lombardia">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Consultazione Dettaglio Pratiche</data>
+    </edge>
+    <edge id="e199" source="pa_bolzano" target="istat">
+      <data key="e_weight">4</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Qualità Acque Fiumi; Qualità Acque Laghi; Ricerca Derivazioni d'Acqua; Ricerca Aree Nettarifere</data>
+    </edge>
+    <edge id="e200" source="pa_bolzano" target="r_lombardia">
+      <data key="e_weight">4</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Qualità Acque Fiumi; Qualità Acque Laghi; Ricerca Derivazioni d'Acqua; Ricerca Aree Nettarifere</data>
+    </edge>
+    <edge id="e201" source="pa_bolzano" target="r_friuli">
+      <data key="e_weight">2</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Qualità Acque Fiumi; Ricerca Derivazioni d'Acqua</data>
+    </edge>
+    <edge id="e202" source="comuni_agg" target="inps">
+      <data key="e_weight">2</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">WaaS – Welfare as a Service; Servizi Demografici</data>
+    </edge>
+    <edge id="e203" source="comuni_agg" target="mlps">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">WaaS – Welfare as a Service</data>
+    </edge>
+    <edge id="e204" source="comuni_agg" target="agid">
+      <data key="e_weight">3</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Albo Pretorio Online; Amministrazione Trasparente; Protocollo Informatico</data>
+    </edge>
+    <edge id="e205" source="comuni_agg" target="pagopa">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Albo Pretorio Online</data>
+    </edge>
+    <edge id="e206" source="comuni_agg" target="unioncamere">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Pratiche SUAP</data>
+    </edge>
+    <edge id="e207" source="comuni_agg" target="r_lombardia">
+      <data key="e_weight">3</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Pratiche SUAP; Protocollo Informatico; Dati Sensori IoT</data>
+    </edge>
+    <edge id="e208" source="comuni_agg" target="r_lazio">
+      <data key="e_weight">2</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Pratiche SUAP; Protocollo Informatico</data>
+    </edge>
+    <edge id="e209" source="comuni_agg" target="r_campania">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Pratiche SUAP</data>
+    </edge>
+    <edge id="e210" source="comuni_agg" target="ade">
+      <data key="e_weight">3</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Numerazione Civica / Stradario; Servizi Demografici; Tributi e Posizioni Debitorie</data>
+    </edge>
+    <edge id="e211" source="comuni_agg" target="istat">
+      <data key="e_weight">3</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Numerazione Civica / Stradario; Servizi Demografici; Dati Sensori IoT</data>
+    </edge>
+    <edge id="e212" source="comuni_agg" target="min_interno">
+      <data key="e_weight">2</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Numerazione Civica / Stradario; Servizi Demografici</data>
+    </edge>
+    <edge id="e213" source="comuni_agg" target="anac">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Amministrazione Trasparente</data>
+    </edge>
+    <edge id="e214" source="comuni_agg" target="ade_riscossione">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Tributi e Posizioni Debitorie</data>
+    </edge>
+    <edge id="e215" source="comuni_agg" target="mef">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Tributi e Posizioni Debitorie</data>
+    </edge>
+    <edge id="e216" source="c_bologna" target="ade">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Ricerca Edifici (catasto CT)</data>
+    </edge>
+    <edge id="e217" source="c_bologna" target="r_lombardia">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Ricerca Edifici (catasto CT)</data>
+    </edge>
+    <edge id="e218" source="c_bologna" target="istat">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Ricerca Edifici (catasto CT)</data>
+    </edge>
+    <edge id="e219" source="c_bologna" target="anac">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Ricerca Gare e Appalti</data>
+    </edge>
+    <edge id="e220" source="c_bologna" target="mef">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Ricerca Gare e Appalti</data>
+    </edge>
+    <edge id="e221" source="c_genova" target="agid">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Protocollo – Conferma Protocollazione</data>
+    </edge>
+    <edge id="e222" source="c_genova" target="comuni_agg">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Protocollo – Conferma Protocollazione</data>
+    </edge>
+    <edge id="e223" source="c_genova" target="r_lombardia">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Protocollo – Conferma Protocollazione</data>
+    </edge>
+    <edge id="e224" source="c_padova" target="istat">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Dati Statistici Cimiteri</data>
+    </edge>
+    <edge id="e225" source="c_padova" target="r_lombardia">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Dati Statistici Cimiteri</data>
+    </edge>
+    <edge id="e226" source="mlps" target="inps">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Lavoro e Politiche Sociali</data>
+    </edge>
+    <edge id="e227" source="mlps" target="comuni_agg">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Lavoro e Politiche Sociali</data>
+    </edge>
+    <edge id="e228" source="mlps" target="r_lombardia">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Lavoro e Politiche Sociali</data>
+    </edge>
+    <edge id="e229" source="mlps" target="r_lazio">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Lavoro e Politiche Sociali</data>
+    </edge>
+    <edge id="e230" source="mlps" target="r_campania">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Lavoro e Politiche Sociali</data>
+    </edge>
+    <edge id="e231" source="mlps" target="r_sicilia">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Lavoro e Politiche Sociali</data>
+    </edge>
+    <edge id="e232" source="mlps" target="r_emilia">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Lavoro e Politiche Sociali</data>
+    </edge>
+    <edge id="e233" source="mlps" target="r_piemonte">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Lavoro e Politiche Sociali</data>
+    </edge>
+    <edge id="e234" source="mlps" target="r_veneto">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Lavoro e Politiche Sociali</data>
+    </edge>
+    <edge id="e235" source="mlps" target="r_toscana">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Lavoro e Politiche Sociali</data>
+    </edge>
+    <edge id="e236" source="mlps" target="r_puglia">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Lavoro e Politiche Sociali</data>
+    </edge>
+    <edge id="e237" source="mlps" target="r_liguria">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Lavoro e Politiche Sociali</data>
+    </edge>
+    <edge id="e238" source="mlps" target="istat">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Lavoro e Politiche Sociali</data>
+    </edge>
+    <edge id="e239" source="mit" target="mit_dgmot">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Infrastrutture e Trasporti</data>
+    </edge>
+    <edge id="e240" source="mit" target="comuni_agg">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Infrastrutture e Trasporti</data>
+    </edge>
+    <edge id="e241" source="mit" target="r_lombardia">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Infrastrutture e Trasporti</data>
+    </edge>
+    <edge id="e242" source="mit" target="r_lazio">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Infrastrutture e Trasporti</data>
+    </edge>
+    <edge id="e243" source="mit" target="r_campania">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Infrastrutture e Trasporti</data>
+    </edge>
+    <edge id="e244" source="mit" target="r_emilia">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Infrastrutture e Trasporti</data>
+    </edge>
+    <edge id="e245" source="mit" target="istat">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Infrastrutture e Trasporti</data>
+    </edge>
+    <edge id="e246" source="dfp" target="mef">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Funzione Pubblica – Anagrafe Prestazioni</data>
+    </edge>
+    <edge id="e247" source="dfp" target="inps">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Funzione Pubblica – Anagrafe Prestazioni</data>
+    </edge>
+    <edge id="e248" source="dfp" target="comuni_agg">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Funzione Pubblica – Anagrafe Prestazioni</data>
+    </edge>
+    <edge id="e249" source="dfp" target="istat">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Funzione Pubblica – Anagrafe Prestazioni</data>
+    </edge>
+    <edge id="e250" source="ag_demanio" target="mef">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Demanio – Patrimonio Pubblico</data>
+    </edge>
+    <edge id="e251" source="ag_demanio" target="ade">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Demanio – Patrimonio Pubblico</data>
+    </edge>
+    <edge id="e252" source="ag_demanio" target="comuni_agg">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Demanio – Patrimonio Pubblico</data>
+    </edge>
+    <edge id="e253" source="ag_demanio" target="r_lombardia">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Demanio – Patrimonio Pubblico</data>
+    </edge>
+    <edge id="e254" source="r_lombardia" target="comuni_agg">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Lombardia</data>
+    </edge>
+    <edge id="e255" source="r_lombardia" target="c_milano">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Lombardia</data>
+    </edge>
+    <edge id="e256" source="r_lombardia" target="mlps">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Lombardia</data>
+    </edge>
+    <edge id="e257" source="r_lombardia" target="inps">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Lombardia</data>
+    </edge>
+    <edge id="e258" source="r_lombardia" target="istat">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Lombardia</data>
+    </edge>
+    <edge id="e259" source="r_lazio" target="comuni_agg">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Lazio</data>
+    </edge>
+    <edge id="e260" source="r_lazio" target="c_roma">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Lazio</data>
+    </edge>
+    <edge id="e261" source="r_lazio" target="mlps">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Lazio</data>
+    </edge>
+    <edge id="e262" source="r_lazio" target="inps">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Lazio</data>
+    </edge>
+    <edge id="e263" source="r_lazio" target="istat">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Lazio</data>
+    </edge>
+    <edge id="e264" source="r_campania" target="comuni_agg">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Campania</data>
+    </edge>
+    <edge id="e265" source="r_campania" target="c_napoli">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Campania</data>
+    </edge>
+    <edge id="e266" source="r_campania" target="mlps">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Campania</data>
+    </edge>
+    <edge id="e267" source="r_campania" target="inps">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Campania</data>
+    </edge>
+    <edge id="e268" source="r_campania" target="istat">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Campania</data>
+    </edge>
+    <edge id="e269" source="r_liguria" target="comuni_agg">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Liguria</data>
+    </edge>
+    <edge id="e270" source="r_liguria" target="c_genova">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Liguria</data>
+    </edge>
+    <edge id="e271" source="r_liguria" target="mlps">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Liguria</data>
+    </edge>
+    <edge id="e272" source="r_liguria" target="inps">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Liguria</data>
+    </edge>
+    <edge id="e273" source="r_liguria" target="istat">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Liguria</data>
+    </edge>
+    <edge id="e274" source="r_toscana" target="comuni_agg">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Toscana</data>
+    </edge>
+    <edge id="e275" source="r_toscana" target="mlps">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Toscana</data>
+    </edge>
+    <edge id="e276" source="r_toscana" target="inps">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Toscana</data>
+    </edge>
+    <edge id="e277" source="r_toscana" target="istat">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Toscana</data>
+    </edge>
+    <edge id="e278" source="r_molise" target="comuni_agg">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Molise</data>
+    </edge>
+    <edge id="e279" source="r_molise" target="mlps">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Molise</data>
+    </edge>
+    <edge id="e280" source="r_molise" target="inps">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Molise</data>
+    </edge>
+    <edge id="e281" source="r_molise" target="istat">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Molise</data>
+    </edge>
+    <edge id="e282" source="r_puglia" target="comuni_agg">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Puglia</data>
+    </edge>
+    <edge id="e283" source="r_puglia" target="mlps">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Puglia</data>
+    </edge>
+    <edge id="e284" source="r_puglia" target="inps">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Puglia</data>
+    </edge>
+    <edge id="e285" source="r_puglia" target="istat">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Puglia</data>
+    </edge>
+    <edge id="e286" source="pa_trento" target="comuni_agg">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Provincia Aut. Trento</data>
+    </edge>
+    <edge id="e287" source="pa_trento" target="mlps">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Provincia Aut. Trento</data>
+    </edge>
+    <edge id="e288" source="pa_trento" target="inps">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Provincia Aut. Trento</data>
+    </edge>
+    <edge id="e289" source="pa_trento" target="istat">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Provincia Aut. Trento</data>
+    </edge>
+    <edge id="e290" source="r_abruzzo" target="comuni_agg">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Abruzzo</data>
+    </edge>
+    <edge id="e291" source="r_abruzzo" target="mlps">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Abruzzo</data>
+    </edge>
+    <edge id="e292" source="r_abruzzo" target="inps">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Abruzzo</data>
+    </edge>
+    <edge id="e293" source="r_abruzzo" target="istat">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Abruzzo</data>
+    </edge>
+    <edge id="e294" source="r_emilia" target="comuni_agg">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Emilia-Romagna</data>
+    </edge>
+    <edge id="e295" source="r_emilia" target="c_bologna">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Emilia-Romagna</data>
+    </edge>
+    <edge id="e296" source="r_emilia" target="mlps">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Emilia-Romagna</data>
+    </edge>
+    <edge id="e297" source="r_emilia" target="inps">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Emilia-Romagna</data>
+    </edge>
+    <edge id="e298" source="r_emilia" target="istat">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Emilia-Romagna</data>
+    </edge>
+    <edge id="e299" source="r_piemonte" target="comuni_agg">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Piemonte</data>
+    </edge>
+    <edge id="e300" source="r_piemonte" target="mlps">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Piemonte</data>
+    </edge>
+    <edge id="e301" source="r_piemonte" target="inps">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Piemonte</data>
+    </edge>
+    <edge id="e302" source="r_piemonte" target="istat">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Piemonte</data>
+    </edge>
+    <edge id="e303" source="r_veneto" target="comuni_agg">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Veneto</data>
+    </edge>
+    <edge id="e304" source="r_veneto" target="c_padova">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Veneto</data>
+    </edge>
+    <edge id="e305" source="r_veneto" target="mlps">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Veneto</data>
+    </edge>
+    <edge id="e306" source="r_veneto" target="inps">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Veneto</data>
+    </edge>
+    <edge id="e307" source="r_veneto" target="istat">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Veneto</data>
+    </edge>
+    <edge id="e308" source="r_marche" target="comuni_agg">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Marche</data>
+    </edge>
+    <edge id="e309" source="r_marche" target="mlps">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Marche</data>
+    </edge>
+    <edge id="e310" source="r_marche" target="inps">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Marche</data>
+    </edge>
+    <edge id="e311" source="r_marche" target="istat">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Marche</data>
+    </edge>
+    <edge id="e312" source="r_umbria" target="comuni_agg">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Umbria</data>
+    </edge>
+    <edge id="e313" source="r_umbria" target="mlps">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Umbria</data>
+    </edge>
+    <edge id="e314" source="r_umbria" target="inps">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Umbria</data>
+    </edge>
+    <edge id="e315" source="r_umbria" target="istat">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Umbria</data>
+    </edge>
+    <edge id="e316" source="r_vda" target="comuni_agg">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Valle d'Aosta</data>
+    </edge>
+    <edge id="e317" source="r_vda" target="mlps">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Valle d'Aosta</data>
+    </edge>
+    <edge id="e318" source="r_vda" target="inps">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Valle d'Aosta</data>
+    </edge>
+    <edge id="e319" source="r_vda" target="istat">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Valle d'Aosta</data>
+    </edge>
+    <edge id="e320" source="r_basilicata" target="comuni_agg">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Basilicata</data>
+    </edge>
+    <edge id="e321" source="r_basilicata" target="mlps">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Basilicata</data>
+    </edge>
+    <edge id="e322" source="r_basilicata" target="inps">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Basilicata</data>
+    </edge>
+    <edge id="e323" source="r_basilicata" target="istat">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Basilicata</data>
+    </edge>
+    <edge id="e324" source="r_sardegna" target="comuni_agg">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Sardegna</data>
+    </edge>
+    <edge id="e325" source="r_sardegna" target="mlps">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Sardegna</data>
+    </edge>
+    <edge id="e326" source="r_sardegna" target="inps">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Sardegna</data>
+    </edge>
+    <edge id="e327" source="r_sardegna" target="istat">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Sardegna</data>
+    </edge>
+    <edge id="e328" source="r_calabria" target="comuni_agg">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Calabria</data>
+    </edge>
+    <edge id="e329" source="r_calabria" target="mlps">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Calabria</data>
+    </edge>
+    <edge id="e330" source="r_calabria" target="inps">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Calabria</data>
+    </edge>
+    <edge id="e331" source="r_calabria" target="istat">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Regione Calabria</data>
+    </edge>
+    <edge id="e332" source="min_istruzione" target="comuni_agg">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Istruzione Scolastica</data>
+    </edge>
+    <edge id="e333" source="min_istruzione" target="mur">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Istruzione Scolastica</data>
+    </edge>
+    <edge id="e334" source="min_istruzione" target="istat">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Istruzione Scolastica</data>
+    </edge>
+    <edge id="e335" source="min_istruzione" target="mlps">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Servizi Istruzione Scolastica</data>
+    </edge>
+    <edge id="e336" source="ispra" target="comuni_agg">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Dati Ambientali e Protezione</data>
+    </edge>
+    <edge id="e337" source="ispra" target="istat">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Dati Ambientali e Protezione</data>
+    </edge>
+    <edge id="e338" source="ispra" target="r_lombardia">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Dati Ambientali e Protezione</data>
+    </edge>
+    <edge id="e339" source="ispra" target="r_lazio">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Dati Ambientali e Protezione</data>
+    </edge>
+    <edge id="e340" source="ispra" target="r_emilia">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Dati Ambientali e Protezione</data>
+    </edge>
+    <edge id="e341" source="ispra" target="pa_bolzano">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Dati Ambientali e Protezione</data>
+    </edge>
+    <edge id="e342" source="ispra" target="pa_trento">
+      <data key="e_weight">1</data>
+      <data key="e_origine">ricostruita</data>
+      <data key="e_servizi">Dati Ambientali e Protezione</data>
+    </edge>
+  </graph>
+</graphml>

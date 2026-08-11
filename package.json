@@ -13,7 +13,8 @@
     "compare-catalog": "node scripts/compare-catalog.mjs",
     "paper-metrics": "node scripts/compute-paper-metrics.mjs",
     "test": "node scripts/test-model.mjs",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "export": "node scripts/export-graph.mjs"
   },
   "dependencies": {
     "react": "^19.2.5",

@@ -7,8 +7,9 @@
  * che è più alto perché una stessa coppia di enti può condividere più servizi.
  */
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import PDND_DATA from "../data/pdnd-data.json";
+import { FORMATI } from "../utils/exportGraph";
 import { CATEGORY_COLORS } from "../constants/colors";
 
 function Card({ title, color, children }) {
@@ -101,10 +102,69 @@ export default function StatsView({ graphData }) {
             return <Bar key={es.id} label={es.nome} value={es.fruitori.length} max={topEservices[0]?.fruitori.length || 1} color="var(--cite)" sub={`Erogato da ${erog?.name}`} />;
           })}
         </Card>
-        <Card title="Distribuzione per categoria" color="#8338ec">
+        <Card title="Distribuzione per categoria" color="var(--pa-blue)">
           {catStats.map(([cat, count]) => <Bar key={cat} label={cat} value={count} max={catStats[0]?.[1] || 1} color={CATEGORY_COLORS[cat] || "#667"} />)}
         </Card>
       </div>
+
+      <ExportSection />
+    </div>
+  );
+}
+
+/**
+ * Esportazione del modello. I file sono generati nel browser dal dato già
+ * caricato: nessuna chiamata di rete e nessun servizio esterno.
+ */
+function ExportSection() {
+  const [fatto, setFatto] = useState(null);
+
+  const scarica = (formato) => {
+    const contenuto = formato.genera(PDND_DATA);
+    const nome = `pdnd-eservices-graph-${formato.id}.${formato.estensione}`;
+    const blob = new Blob([contenuto], { type: `${formato.mime};charset=utf-8` });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = nome;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    setFatto(formato.id);
+    setTimeout(() => setFatto(null), 2000);
+  };
+
+  return (
+    <div style={{ marginTop: 20, padding: "18px 20px", background: "var(--surface-raised)", border: "1px solid var(--border)", borderRadius: 8 }}>
+      <h2 style={{ fontSize: 13, fontWeight: 700, color: "var(--ink)", letterSpacing: .2, marginBottom: 4 }}>Esporta il modello</h2>
+      <p style={{ fontSize: 11.5, color: "var(--ink-muted)", lineHeight: 1.55, maxWidth: 720, marginBottom: 14 }}>
+        Il grafo in formati di interscambio standard, pronti per Gephi, NetworkX, igraph, R o un foglio
+        di calcolo. Ogni arco conserva il campo <em>origine</em> e i nodi aggregati sono marcati come tali:
+        le misure di grado su questo modello non sono confrontabili con quelle di un grafo non aggregato.
+      </p>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+        {FORMATI.map(f => (
+          <button
+            key={f.id}
+            onClick={() => scarica(f)}
+            title={f.nota}
+            style={{
+              padding: "8px 14px", borderRadius: 6, cursor: "pointer", fontFamily: "inherit",
+              background: fatto === f.id ? "var(--pa-blue-soft)" : "transparent",
+              border: `1px solid ${fatto === f.id ? "var(--pa-blue)" : "var(--border)"}`,
+              color: fatto === f.id ? "var(--pa-blue)" : "var(--ink-muted)",
+              fontSize: 11.5, fontWeight: 600, letterSpacing: .2,
+            }}
+          >
+            {fatto === f.id ? "Scaricato" : f.etichetta}
+            <span style={{ display: "block", fontSize: 9, fontWeight: 400, color: "var(--ink-faint)", marginTop: 2 }}>{f.nota}</span>
+          </button>
+        ))}
+      </div>
+      <p style={{ fontSize: 10, color: "var(--ink-faint)", marginTop: 12 }}>
+        Dati di origine CC0 1.0 (italia/pdnd-opendata). Se usi questi file, cita il progetto: DOI 10.5281/zenodo.19989954.
+      </p>
     </div>
   );
 }

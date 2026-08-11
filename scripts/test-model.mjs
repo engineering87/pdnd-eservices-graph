@@ -269,6 +269,89 @@ check("un collegamento diretto a un ente non innesca un ciclo di render", () => 
   return "non converge entro 25 render: il collegamento diretto va in ciclo";
 });
 
+console.log("\nEsportazione");
+
+const exp = await import(path.join(ROOT, "src/utils/exportGraph.js"));
+
+check("la lista archi conserva la topologia del report", () => {
+  const { nodes, edges } = exp.toEdgeList(DATA);
+  const istanze = edges.reduce((a, e) => a + e.weight, 0);
+  const err = [];
+  if (nodes.length !== 51) err.push(`nodi ${nodes.length}≠51`);
+  if (edges.length !== 343) err.push(`archi ${edges.length}≠343`);
+  if (istanze !== 570) err.push(`somma pesi ${istanze}≠570`);
+  return err.length === 0 || err.join(", ");
+});
+
+check("ogni arco esportato dichiara la provenienza", () => {
+  const { edges } = exp.toEdgeList(DATA);
+  const bad = edges.filter((e) => !e.origine);
+  return bad.length === 0 || `${bad.length} archi senza origine`;
+});
+
+check("i nodi aggregati sono marcati come tali", () => {
+  const { nodes } = exp.toEdgeList(DATA);
+  const agg = nodes.filter((n) => n.aggregato).map((n) => n.id);
+  return agg.includes("comuni_agg") || "comuni_agg non marcato come aggregato";
+});
+
+check("GraphML e GEXF sono XML bilanciati e dichiarano l'avvertenza", () => {
+  for (const [nome, testo] of [["GraphML", exp.toGraphML(DATA)], ["GEXF", exp.toGEXF(DATA)]]) {
+    if (!testo.startsWith("<?xml")) return `${nome}: manca la dichiarazione XML`;
+    if (!/aggregato/i.test(testo)) return `${nome}: manca l'avvertenza sull'aggregazione`;
+    const apre = (testo.match(/<(?!\/|\?|!)[a-zA-Z]/g) || []).length;
+    const chiude = (testo.match(/<\//g) || []).length;
+    const auto = (testo.match(/\/>/g) || []).length;
+    if (apre - auto !== chiude) return `${nome}: tag non bilanciati (${apre - auto} contro ${chiude})`;
+  }
+  return true;
+});
+
+check("i CSV hanno intestazione e una riga per record", () => {
+  const nodi = exp.toNodesCSV(DATA).trim().split("\n");
+  const archi = exp.toEdgesCSV(DATA).trim().split("\n");
+  const { nodes, edges } = exp.toEdgeList(DATA);
+  if (!nodi[0].startsWith("id,label")) return "intestazione nodi inattesa";
+  if (!archi[0].startsWith("Source,Target,Weight")) return "intestazione archi non compatibile con Gephi";
+  // I campi con virgole o punti e virgola sono quotati, quindi possono contenere
+  // a capo: si contano solo le righe che iniziano un record.
+  if (nodi.length - 1 !== nodes.length) return `righe nodi ${nodi.length - 1}≠${nodes.length}`;
+  if (archi.length - 1 !== edges.length) return `righe archi ${archi.length - 1}≠${edges.length}`;
+  return true;
+});
+
+check("i caratteri speciali sono correttamente sottoposti a escape", () => {
+  const finto = {
+    meta: {},
+    enti: [{ id: "a", name: 'X & <Y> "Z"', categoria: "T", tipo: "T", descrizione: "" },
+           { id: "b", name: "B", categoria: "T", tipo: "T", descrizione: "" }],
+    eservices: [{ id: "s", nome: "S & <T>", erogatore: "a", fruitori: ["b"] }],
+  };
+  const xml = exp.toGraphML(finto);
+  if (/&(?!amp;|lt;|gt;|quot;)/.test(xml)) return "e commerciale non sottoposta a escape";
+  if (!xml.includes("&amp;") || !xml.includes("&lt;")) return "escape mancante";
+  const csv = exp.toNodesCSV(finto);
+  return csv.includes('"X & <Y> ""Z"""') || "campo CSV con virgolette non quotato correttamente";
+});
+
+check("le esportazioni nel repository sono allineate al dato", () => {
+  const dir = path.join(ROOT, "exports");
+  if (!fs.existsSync(dir)) return "cartella exports/ assente: eseguire npm run export";
+  const attesi = [
+    ["pdnd-eservices-graph-graphml.graphml", exp.toGraphML],
+    ["pdnd-eservices-graph-gexf.gexf", exp.toGEXF],
+    ["pdnd-eservices-graph-nodi-csv.csv", exp.toNodesCSV],
+    ["pdnd-eservices-graph-archi-csv.csv", exp.toEdgesCSV],
+  ];
+  const stantii = attesi.filter(([nome, gen]) => {
+    const f = path.join(dir, nome);
+    return !fs.existsSync(f) || fs.readFileSync(f, "utf8") !== gen(DATA);
+  });
+  return stantii.length === 0
+    ? true
+    : `${stantii.length} file non allineati (${stantii.map((s) => s[0]).join(", ")}): eseguire npm run export`;
+});
+
 const totale = passed + failures.length;
 console.log(
   `\n${failures.length === 0 ? "Tutti i test superati" : "Test falliti"}: ${passed}/${totale}\n`

@@ -326,6 +326,123 @@ Gli archi inferiti sono dichiarati come stime e non come fatti documentati. Il p
 
 Il grafo attualmente pubblicato (`src/data/pdnd-data.json`, modello v1) non porta la provenienza per singolo arco: i suoi archi sono ricostruiti da documentazione pubblica secondo la [metodologia](METODOLOGIA.md) e vengono resi con origine `ricostruita`. Le origini `certificata` e `inferita` per singolo arco sono prodotte dalla pipeline nell'anteprima v2, non ancora promossa.
 
+## Esportazione dei dati
+
+Il modello è pubblicato anche in formati di interscambio standard, così può
+essere analizzato con gli strumenti di analisi di rete senza dover interpretare
+il JSON specifico del progetto.
+
+Due modi per ottenerli. Dalla cartella [`exports/`](exports/) del repository,
+rigenerabile con `npm run export`. Oppure dalla scheda **Statistiche**
+dell'applicazione, dove i file sono generati direttamente nel browser: nessuna
+chiamata di rete e nessun servizio esterno.
+
+| Formato | File | Aperto con |
+|---|---|---|
+| GraphML | `pdnd-eservices-graph-graphml.graphml` | Gephi, NetworkX, igraph, yEd |
+| GEXF | `pdnd-eservices-graph-gexf.gexf` | Gephi |
+| CSV nodi | `pdnd-eservices-graph-nodi-csv.csv` | Fogli di calcolo, R, pandas |
+| CSV archi | `pdnd-eservices-graph-archi-csv.csv` | Fogli di calcolo, R, pandas |
+
+### Struttura del grafo esportato
+
+Il grafo è **diretto e pesato**. Un arco da *a* a *b* significa che *a* eroga
+almeno un e-service consumato da *b*. Il peso è il numero di e-service distinti
+che vanno da *a* a *b*, coerente con la definizione del report pubblicato.
+
+**Attributi dei nodi**
+
+| Campo | Tipo | Significato |
+|---|---|---|
+| `label` | stringa | Nome dell'ente |
+| `categoria` | stringa | Famiglia istituzionale (Ministero, Regione, Fisco, ...) |
+| `tipo` | stringa | Ruolo prevalente: erogatore, fruitore o entrambi |
+| `aggregato` | booleano | `true` se il nodo rappresenta un insieme di enti |
+| `descrizione` | stringa | Nota descrittiva |
+
+**Attributi degli archi**
+
+| Campo | Tipo | Significato |
+|---|---|---|
+| `weight` | intero | Numero di e-service distinti che fluiscono sull'arco |
+| `origine` | stringa | Provenienza della relazione: `documentata`, `certificata`, `ricostruita` o `inferita`. Se una coppia è sostenuta da archi di provenienza diversa, le origini sono elencate separate da `\|` |
+| `servizi` | stringa | Nomi degli e-service che contribuiscono al peso, separati da `;` |
+
+### Due avvertenze che viaggiano con i dati
+
+Sono riportate anche dentro i file, nei metadati di grafo, perché restino
+leggibili a chi apre l'esportazione senza aver letto questa pagina.
+
+Le relazioni erogatore-fruitore **non sono pubblicate come open data**: sono
+ricostruite da documentazione pubblica secondo la [metodologia](METODOLOGIA.md).
+Il campo `origine` di ogni arco ne dichiara la natura. Non sono misure dirette
+degli accordi realmente attivi sulla piattaforma.
+
+I nodi con `aggregato=true` rappresentano insiemi di enti: `comuni_agg` sta per
+circa 7.500 Comuni in un solo nodo. Le misure di grado e le distribuzioni
+calcolate su questo grafo **non sono confrontabili** con quelle di un grafo in
+cui ogni ente è un nodo distinto. Per escluderli si può filtrare su quel campo.
+
+### Esempi
+
+Analisi di rete con NetworkX.
+
+```python
+import networkx as nx
+
+G = nx.read_graphml("pdnd-eservices-graph-graphml.graphml")
+print(G.number_of_nodes(), G.number_of_edges())   # 51 343
+print(round(nx.density(G), 4))                    # 0.1345
+
+# Enti che servono il maggior numero di controparti
+for n, d in sorted(G.out_degree, key=lambda x: -x[1])[:3]:
+    print(G.nodes[n]["label"], d)
+# Min. Interno (ANPR) 34
+# INPS 33
+# Agenzia delle Entrate 17
+
+# Sottografo senza i nodi aggregati, per misure di grado confrontabili
+reale = G.subgraph([n for n, d in G.nodes(data=True) if not d["aggregato"]])
+print(reale.number_of_nodes(), reale.number_of_edges())   # 50 292
+```
+
+Analisi tabellare con pandas.
+
+```python
+import pandas as pd
+
+archi = pd.read_csv("pdnd-eservices-graph-archi-csv.csv")
+nodi  = pd.read_csv("pdnd-eservices-graph-nodi-csv.csv")
+
+# Composizione per provenienza degli archi
+print(archi["origine"].value_counts())
+
+# Enti per numero totale di servizi erogati
+nome = nodi.set_index("id")["label"]
+print(archi.groupby("Source")["Weight"].sum().sort_values(ascending=False).head(3).rename(index=nome))
+# Min. Interno (ANPR)      130
+# INPS                      68
+# Agenzia delle Entrate     42
+```
+
+In **Gephi**: apri il file `.gexf`, oppure importa i due CSV dal laboratorio dati
+(l'intestazione degli archi usa già `Source`, `Target`, `Weight`, `Type`, quindi
+non serve alcuna configurazione).
+
+### Riproducibilità
+
+Le esportazioni sono **deterministiche**: a parità di dato in ingresso i file
+sono identici byte per byte, perché la data dello snapshot è letta dal modello e
+non dall'orologio. Chi rigenera i file con `npm run export` ottiene esattamente
+quelli pubblicati. La suite di test verifica sia questa proprietà sia che i file
+in `exports/` non restino disallineati rispetto al dato.
+
+### Licenze e citazione
+
+I dati di origine sono CC0 1.0 (`italia/pdnd-opendata`), il codice è AGPL-3.0.
+Se usi questi file in una pubblicazione, cita il progetto:
+DOI [10.5281/zenodo.19989954](https://doi.org/10.5281/zenodo.19989954).
+
 ## Come aggiornare i dati
 
 ### Aggiungere un nuovo ente
