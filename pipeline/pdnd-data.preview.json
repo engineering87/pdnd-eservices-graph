@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generato": "2026-06-19T22:50:50.259Z",
+    "generato": "2026-09-01T09:08:18.790Z",
     "fonte_enti": "github.com/italia/pdnd-opendata — aderenti.csv (CC0 1.0)",
     "fonte_eservices": "github.com/italia/pdnd-opendata — eservice_a_catalogo.csv (CC0 1.0)",
     "note_connessioni": "Ogni arco porta un campo 'origine': 'documentata' (override da fonti ufficiali), 'certificata' (campo attributes.certified del catalogo), 'inferita' (stima AI con confidenza, da rendere tratteggiata nel grafo). Il progetto si basa esclusivamente su informazioni già pubbliche; gli archi inferiti sono dichiarati come stime e non come fatti documentati.",
@@ -779,7 +779,7 @@
           "origine": "certificata"
         }
       ],
-      "versione": "1",
+      "versione": "2",
       "stato": "Attivo",
       "descrizione": "Il servizio permette di recuperare l’esito di certificazione del diritto a pensione per il personale scolastico",
       "catalogId": "34043187-434c-4bf9-94d7-49015fdea438"
@@ -848,9 +848,7 @@
       "versione": "3",
       "stato": "Attivo",
       "descrizione": "Servizio che prende in input il codice fiscale del cittadino e restituisce i dati della prestazione Servizio di accoglienza di adulti e anz…",
-      "catalogId": "88f03670-80c9-4495-a24b-d6d582b584da",
-      "ai_confidenza": 0.78,
-      "ai_motivazione": "I servizi sociali di accoglienza per adulti e anziani sono gestiti da Comuni e Regioni, che necessitano di verificare le prestazioni INPS tramite codice fiscale."
+      "catalogId": "88f03670-80c9-4495-a24b-d6d582b584da"
     },
     {
       "id": "inps_423385e8",
@@ -905,9 +903,7 @@
       "versione": "3",
       "stato": "Attivo",
       "descrizione": "Servizio che prende in input il codice fiscale del cittadino e restituisce i dati della prestazione Agevolazioni per i servizi di pubblica …",
-      "catalogId": "9b2bf50d-9a4f-49bc-8473-1b87408b70ea",
-      "ai_confidenza": 0.78,
-      "ai_motivazione": "Le agevolazioni per servizi pubblici (es. bonus tariffe) sono erogate e verificate principalmente da Comuni e Regioni, con riscontri fiscali da AdE."
+      "catalogId": "9b2bf50d-9a4f-49bc-8473-1b87408b70ea"
     },
     {
       "id": "inps_6832ec2f",
@@ -935,9 +931,7 @@
       "versione": "3",
       "stato": "Attivo",
       "descrizione": "Servizio che prende in input il codice fiscale del cittadino e restituisce i dati della prestazione Agevolazioni per tasse universitarie.",
-      "catalogId": "6832ec2f-cacf-483b-92fd-149219c4f06a",
-      "ai_confidenza": 0.7,
-      "ai_motivazione": "Le agevolazioni per tasse universitarie sono gestite da università (Cineca/MUR) ed enti regionali per il diritto allo studio, che necessitano dei dati INPS per verificare i requisiti."
+      "catalogId": "6832ec2f-cacf-483b-92fd-149219c4f06a"
     },
     {
       "id": "inps_2dd25168",
@@ -955,9 +949,7 @@
       "versione": "3",
       "stato": "Attivo",
       "descrizione": "Servizio che prende in input il codice fiscale del cittadino e restituisce i dati della prestazione Agevolazioni tributarie comunali (nette…",
-      "catalogId": "2dd25168-da15-485e-bef8-21003b03d2b3",
-      "ai_confidenza": 0.7,
-      "ai_motivazione": "Le agevolazioni tributarie comunali sono gestite dai Comuni, che consultano i dati INPS per verificare i requisiti dei cittadini."
+      "catalogId": "2dd25168-da15-485e-bef8-21003b03d2b3"
     },
     {
       "id": "ade_6445be6b",
@@ -976,24 +968,6 @@
       "stato": "Attivo",
       "descrizione": "Inserimento, aggiornamento, cancellazione e interrogazione del catalogo degli immobili di proprietà demaniale sviluppato secondo le modalit…",
       "catalogId": "6445be6b-0d1d-4a20-970d-ac2326c7bfff"
-    },
-    {
-      "id": "ade_652f6ef7",
-      "nome": "Aggiornamento catalogo immobili Dipartimento Tesoro",
-      "erogatore": "ade",
-      "fruitori": [
-        "mef"
-      ],
-      "archi": [
-        {
-          "fruitore": "mef",
-          "origine": "certificata"
-        }
-      ],
-      "versione": "1",
-      "stato": "Attivo",
-      "descrizione": "Il servizio consente di interrogare il costituito catalogo degli immobili degli enti pubblici, gestito dal Dipartimento del Tesoro, di inte…",
-      "catalogId": "652f6ef7-6a89-4cb4-891f-21215731e0d2"
     },
     {
       "id": "ade_57d95a2a",
@@ -1095,9 +1069,7 @@
       "versione": "1",
       "stato": "Attivo",
       "descrizione": "Aggiornamento degli accessi interni con operazioni di inserimento, aggiornamento e soppressione. Il servizio non è utilizzabile per modific…",
-      "catalogId": "54a312be-ab6b-4627-a73e-1f07e0b20914",
-      "ai_confidenza": 0.7,
-      "ai_motivazione": "L'ANNCSU (Archivio Nazionale Numeri Civici e Strade Urbane) è aggiornato principalmente dai Comuni, titolari della toponomastica e degli accessi/numeri civici."
+      "catalogId": "54a312be-ab6b-4627-a73e-1f07e0b20914"
     },
     {
       "id": "ade_3dca862b",
@@ -1134,6 +1106,24 @@
       "stato": "Attivo",
       "descrizione": "Consultazione di strade/indirizzi per le pubbliche Amministrazioni diverse dai Comuni.Ricerche booleane di esistenza per odonimo/indirizzo,…",
       "catalogId": "f469250e-5b8a-486d-a4d9-2fc430180b10"
+    },
+    {
+      "id": "ade_9e5179e2",
+      "nome": "ANNCSU - Consultazione per i COMUNI",
+      "erogatore": "ade",
+      "fruitori": [
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Consultazione di strade/indirizzi per i Comuni.Ricerche booleane di esistenza per odonimo/indirizzo,ricerche per identificativi della aree …",
+      "catalogId": "9e5179e2-680a-4a37-8ef9-6a080b925332"
     },
     {
       "id": "agid_7afa3f39",
@@ -1325,9 +1315,7 @@
       "versione": "1",
       "stato": "Attivo",
       "descrizione": "Risorse per la consultazione del Durc",
-      "catalogId": "a51198a6-0b08-4958-9d80-6fb6d49e4bbc",
-      "ai_confidenza": 0.78,
-      "ai_motivazione": "Il DURC è consultato da stazioni appaltanti e PA (ANAC, comuni, regioni, INPS, enti aggiudicatori) per verificare la regolarità contributiva nelle procedure di appalto e affidamento."
+      "catalogId": "a51198a6-0b08-4958-9d80-6fb6d49e4bbc"
     },
     {
       "id": "inail_16444299",
@@ -1388,6 +1376,24 @@
       "catalogId": "8d75b585-715c-40a0-a9c5-7108b8cbd5dc"
     },
     {
+      "id": "unioncamere_59a066f3",
+      "nome": "CATALOGO - GESTIONE ISTANZA - BACKOFFICE - SUE",
+      "erogatore": "unioncamere",
+      "fruitori": [
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "API esposta ai Back Office SUE per il recupero e l'aggiornamento del descrittore istanza",
+      "catalogId": "59a066f3-4133-47ae-9192-04850dd2548f"
+    },
+    {
       "id": "unioncamere_5cc5a9be",
       "nome": "CATALOGO - GESTIONE ISTANZA - COMUNICA",
       "erogatore": "unioncamere",
@@ -1417,6 +1423,24 @@
       "catalogId": "1bcf7afa-dcc6-4674-8f2c-978da051d065"
     },
     {
+      "id": "unioncamere_d5a8ca61",
+      "nome": "CATALOGO - GESTIONE ISTANZA - ENTI TERZI - SUE",
+      "erogatore": "unioncamere",
+      "fruitori": [
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "API esposta ai Back Office ET SUE per il recupero e l'aggiornamento del descrittore istanza",
+      "catalogId": "d5a8ca61-9ff4-4576-9e02-62808f3f9753"
+    },
+    {
       "id": "unioncamere_16e87af1",
       "nome": "CATALOGO - GESTIONE ISTANZA - FRONTOFFICE",
       "erogatore": "unioncamere",
@@ -1435,19 +1459,8 @@
       "catalogId": "16e87af1-d005-491d-88ae-e02a0f45174d"
     },
     {
-      "id": "unioncamere_48df8b36",
-      "nome": "CATALOGO - GESTIONE ISTANZA - REGISTRO IMPRESE",
-      "erogatore": "unioncamere",
-      "fruitori": [],
-      "archi": [],
-      "versione": "3",
-      "stato": "Attivo",
-      "descrizione": "API esposta al Registro delle imprese per il recupero del descrittore istanza",
-      "catalogId": "48df8b36-2173-45bc-9337-bd3127f00911"
-    },
-    {
-      "id": "unioncamere_df6de05b",
-      "nome": "CATALOGO - INFO ATTIVAZIONE SPORTELLO",
+      "id": "unioncamere_1840f5de",
+      "nome": "CATALOGO - GESTIONE ISTANZA - FRONTOFFICE - SUE",
       "erogatore": "unioncamere",
       "fruitori": [
         "comuni_agg"
@@ -1460,26 +1473,8 @@
       ],
       "versione": "1",
       "stato": "Attivo",
-      "descrizione": "E' il servizio che data la municipalità e il contesto restituisce la data di attivazione dello sportello unico",
-      "catalogId": "df6de05b-f7aa-441b-9deb-39011c23fbfc"
-    },
-    {
-      "id": "unioncamere_7a850b8b",
-      "nome": "CATALOGO - METADATI",
-      "erogatore": "unioncamere",
-      "fruitori": [
-        "comuni_agg"
-      ],
-      "archi": [
-        {
-          "fruitore": "comuni_agg",
-          "origine": "certificata"
-        }
-      ],
-      "versione": "3",
-      "stato": "Attivo",
-      "descrizione": "API per il recupero dei metadati dei procedimenti e delle componenti strutturali",
-      "catalogId": "7a850b8b-4307-491f-9534-771e212d4c45"
+      "descrizione": "API esposta ai Front Office SUE per il recupero e l'aggiornamento del descrittore istanza",
+      "catalogId": "1840f5de-d6f6-4318-849b-db29710439cf"
     },
     {
       "id": "mef_a957566b",
@@ -1663,9 +1658,7 @@
       "versione": "1",
       "stato": "Attivo",
       "descrizione": "Il servizio è ad uso delle istituzioni pubbliche e restituisce i dati anagrafici di CIG e smartCIG",
-      "catalogId": "673e99b9-f7cc-4e1c-b319-677340d53956",
-      "ai_confidenza": 0.7,
-      "ai_motivazione": "Il CIG è usato dalle stazioni appaltanti pubbliche (enti centrali, regioni, comuni) per verifiche su appalti e pagamenti tracciabili."
+      "catalogId": "673e99b9-f7cc-4e1c-b319-677340d53956"
     },
     {
       "id": "anac_0340d951",
@@ -1708,9 +1701,111 @@
       "versione": "1",
       "stato": "Attivo",
       "descrizione": "Il servizio, dato un CIG, restituisce le informazioni relative alla Stazione Appaltante, alla pubblicazione, al bando e agli incaricati Sec…",
-      "catalogId": "0340d951-558c-499a-9ec5-08ef6da84104",
-      "ai_confidenza": 0.78,
-      "ai_motivazione": "I dati sui CIG e le stazioni appaltanti servono a tutte le PA che operano come committenti pubblici per verifiche su gare e appalti."
+      "catalogId": "0340d951-558c-499a-9ec5-08ef6da84104"
+    },
+    {
+      "id": "min_giustizia_fe9b0f58",
+      "nome": "Certificato Carichi pendenti",
+      "erogatore": "min_giustizia",
+      "fruitori": [
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "2",
+      "stato": "Attivo",
+      "descrizione": "Servizio per la richiesta del certificato dei carichi pendenti presso le Procure competenti, relativo a persone fisiche (art. 60, c.p.p.). …",
+      "catalogId": "fe9b0f58-bb6e-492b-a2b1-55aca38183b2"
+    },
+    {
+      "id": "min_giustizia_c881c211",
+      "nome": "Certificato Casellario Giudiziale - Persone fisiche",
+      "erogatore": "min_giustizia",
+      "fruitori": [
+        "inps",
+        "inail",
+        "comuni_agg",
+        "min_interno",
+        "mlps",
+        "mef",
+        "min_cultura",
+        "min_istruzione",
+        "anac"
+      ],
+      "archi": [
+        {
+          "fruitore": "inps",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "inail",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "min_interno",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "mlps",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "mef",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "min_cultura",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "min_istruzione",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "anac",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Certificazione per persone fisiche (artt. 28 e 29 DPR 313/2002). Supporta invocazioni singole e massive e restituisce l'esito e il certific…",
+      "catalogId": "c881c211-3a50-4e8d-9667-ae51955d0711"
+    },
+    {
+      "id": "min_giustizia_f75e4571",
+      "nome": "Certificato Sanzioni amministrative dipendenti da reato",
+      "erogatore": "min_giustizia",
+      "fruitori": [
+        "inps",
+        "inail",
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "inps",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "inail",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "2",
+      "stato": "Attivo",
+      "descrizione": "Certificazione per persone giuridiche (art. 32 DPR 313/2002). Supporta invocazioni singole e massive e restituisce l'esito e il certificato…",
+      "catalogId": "f75e4571-ba6b-4e6c-bbad-afaadfda3a20"
     },
     {
       "id": "min_giustizia_b028dc1a",
@@ -1747,55 +1842,6 @@
       "stato": "Attivo",
       "descrizione": "Sanzioni Amministrative: Art. 32 D.P.R. 14/11/2002 n 313",
       "catalogId": "e2c2b882-79ae-4d10-9e5b-cc723fb98a2f"
-    },
-    {
-      "id": "min_giustizia_d13e52c3",
-      "nome": "Verifica esito richiesta fascicolo e invio provvedimento",
-      "erogatore": "min_giustizia",
-      "fruitori": [
-        "min_interno",
-        "mlps",
-        "mef",
-        "min_cultura",
-        "min_istruzione"
-      ],
-      "archi": [
-        {
-          "fruitore": "min_interno",
-          "origine": "certificata"
-        },
-        {
-          "fruitore": "mlps",
-          "origine": "certificata"
-        },
-        {
-          "fruitore": "mef",
-          "origine": "certificata"
-        },
-        {
-          "fruitore": "min_cultura",
-          "origine": "certificata"
-        },
-        {
-          "fruitore": "min_istruzione",
-          "origine": "certificata"
-        }
-      ],
-      "versione": "2",
-      "stato": "Attivo",
-      "descrizione": "Il servizio gestisce i flussi informativi tra la Corte di Cassazione e la Giustizia Tributaria, disciplinati dagli articoli 137-bis delle d…",
-      "catalogId": "d13e52c3-1654-48af-b7fc-b8d9b1c9d0d5"
-    },
-    {
-      "id": "min_giustizia_da7ec4f9",
-      "nome": "Verifica esito richiesta fascicolo e invio decisione",
-      "erogatore": "min_giustizia",
-      "fruitori": [],
-      "archi": [],
-      "versione": "1",
-      "stato": "Sospeso",
-      "descrizione": "Il servizio gestisce i flussi informativi tra la Corte di Cassazione e la Giustizia Tributaria, disciplinati dagli articoli 137-bis delle d…",
-      "catalogId": "da7ec4f9-163b-40a1-93a6-80a545b5102c"
     },
     {
       "id": "min_cultura_2415b4f3",
@@ -2262,7 +2308,7 @@
       "erogatore": "pagopa",
       "fruitori": [],
       "archi": [],
-      "versione": "1",
+      "versione": "2",
       "stato": "Attivo",
       "descrizione": "Permettere di inviare una richiesta di revoca della Wallet Instance di un determinato utente.",
       "catalogId": "3820c986-ed71-44c3-b13b-a403ebfef91e"
@@ -2280,7 +2326,7 @@
           "origine": "certificata"
         }
       ],
-      "versione": "15",
+      "versione": "16",
       "stato": "Attivo",
       "descrizione": "Il servizio permette alle Pubbliche Amministrazioni di inviare comunicazioni a valore legale a persone fisiche e giuridiche.",
       "catalogId": "cfc8a94d-001a-4ab6-bb5c-2509b2a68af1"
@@ -2297,22 +2343,57 @@
       "catalogId": "dc9cdf88-1696-4b90-b29e-c116cc0f8c24"
     },
     {
-      "id": "pagopa_bf9bfde5",
-      "nome": "SEND - Servizio Notifiche Digitali 24Q4.A",
-      "erogatore": "pagopa",
+      "id": "mlps_6b6893ce",
+      "nome": "AGGIORNAMENTO_Appuntamento Caso-FSL_111",
+      "erogatore": "mlps",
       "fruitori": [
-        "comuni_agg"
+        "comuni_agg",
+        "r_lombardia",
+        "r_lazio",
+        "r_campania",
+        "r_emilia",
+        "r_toscana",
+        "r_veneto",
+        "r_piemonte"
       ],
       "archi": [
         {
           "fruitore": "comuni_agg",
           "origine": "certificata"
+        },
+        {
+          "fruitore": "r_lombardia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_lazio",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_campania",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_emilia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_toscana",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_veneto",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_piemonte",
+          "origine": "certificata"
         }
       ],
       "versione": "1",
-      "stato": "Sospeso",
-      "descrizione": "Il servizio permette alle Pubbliche Amministrazioni di inviare comunicazioni a valore legale a persone fisiche e giuridiche.",
-      "catalogId": "bf9bfde5-fdcb-4554-8951-9846d8d0b651"
+      "stato": "Attivo",
+      "descrizione": "Permette di modificare un appuntamento del calendario associato a un caso sociale.",
+      "catalogId": "6b6893ce-b1b9-4cbf-ab91-0ca07694ce2c"
     },
     {
       "id": "mlps_4c8075b3",
@@ -2366,6 +2447,112 @@
       "stato": "Attivo",
       "descrizione": "Il servizio permette l'aggiornamento, all’interno del catalogo dei servizi, dell’area specificata",
       "catalogId": "4c8075b3-b41f-4a45-89e1-2eb4699f2ecb"
+    },
+    {
+      "id": "mlps_98060dc6",
+      "nome": "AGGIORNAMENTO_Ente erogatore Catalogo servizi-FSL_114",
+      "erogatore": "mlps",
+      "fruitori": [
+        "r_lombardia",
+        "r_lazio",
+        "r_campania",
+        "r_emilia",
+        "r_toscana",
+        "r_veneto",
+        "r_piemonte",
+        "comuni_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "r_lombardia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_lazio",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_campania",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_emilia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_toscana",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_veneto",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_piemonte",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Il servizio permette la modifica, all'interno del catalogo dei servizi, di un ente erogatore e delle relative sedi operative.",
+      "catalogId": "98060dc6-e703-49bf-a9cc-7b00efdbc514"
+    },
+    {
+      "id": "mlps_66f90003",
+      "nome": "AGGIORNAMENTO_Giustificato motivo Caso-FSL_112",
+      "erogatore": "mlps",
+      "fruitori": [
+        "comuni_agg",
+        "r_lombardia",
+        "r_lazio",
+        "r_campania",
+        "r_emilia",
+        "r_toscana",
+        "r_veneto",
+        "r_piemonte"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_lombardia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_lazio",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_campania",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_emilia",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_toscana",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_veneto",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "r_piemonte",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Modifica un giustificato motivo esistente associato a un caso sociale.",
+      "catalogId": "66f90003-6db7-4dd7-990a-866e13c949cb"
     },
     {
       "id": "mlps_9cfaa520",
@@ -2527,122 +2714,10 @@
           "origine": "certificata"
         }
       ],
-      "versione": "1",
+      "versione": "2",
       "stato": "Attivo",
       "descrizione": "Il servizio permette l'aggiornamento, all'interno del catalogo dei servizi, del servizio specificato",
       "catalogId": "1993ee96-7d4d-47d7-bebc-cf9f88fa67ea"
-    },
-    {
-      "id": "mlps_db60aabf",
-      "nome": "Avviamenti Legge 68 del 1999-FSL_049",
-      "erogatore": "mlps",
-      "fruitori": [
-        "r_lombardia",
-        "r_lazio",
-        "r_campania",
-        "r_emilia",
-        "r_toscana",
-        "r_veneto",
-        "r_piemonte"
-      ],
-      "archi": [
-        {
-          "fruitore": "r_lombardia",
-          "origine": "certificata"
-        },
-        {
-          "fruitore": "r_lazio",
-          "origine": "certificata"
-        },
-        {
-          "fruitore": "r_campania",
-          "origine": "certificata"
-        },
-        {
-          "fruitore": "r_emilia",
-          "origine": "certificata"
-        },
-        {
-          "fruitore": "r_toscana",
-          "origine": "certificata"
-        },
-        {
-          "fruitore": "r_veneto",
-          "origine": "certificata"
-        },
-        {
-          "fruitore": "r_piemonte",
-          "origine": "certificata"
-        }
-      ],
-      "versione": "1",
-      "stato": "Attivo",
-      "descrizione": "L’e-service consente di ricercare, salvare, eliminare o revocare, nella banca dati del collocamento mirato, un provvedimento di avviamento …",
-      "catalogId": "db60aabf-ab4b-4508-be24-d2956c3767fe"
-    },
-    {
-      "id": "mlps_10fbfaed",
-      "nome": "Comunicazioni periodi - Lavoro agile",
-      "erogatore": "mlps",
-      "fruitori": [],
-      "archi": [],
-      "versione": "1",
-      "stato": "Attivo",
-      "descrizione": "Il servizio consente tramite differenti operazioni di ricercare, annullare, inserire, modificare, recedere e recuperare i dettagli di comun…",
-      "catalogId": "10fbfaed-c219-4441-8860-3a98753c41a3"
-    },
-    {
-      "id": "mlps_0dec0eb6",
-      "nome": "CONSULTAZIONE Aree Catalogo Servizi-FSL_086",
-      "erogatore": "mlps",
-      "fruitori": [
-        "r_lombardia",
-        "r_lazio",
-        "r_campania",
-        "r_emilia",
-        "r_toscana",
-        "r_veneto",
-        "r_piemonte",
-        "comuni_agg"
-      ],
-      "archi": [
-        {
-          "fruitore": "r_lombardia",
-          "origine": "certificata"
-        },
-        {
-          "fruitore": "r_lazio",
-          "origine": "certificata"
-        },
-        {
-          "fruitore": "r_campania",
-          "origine": "certificata"
-        },
-        {
-          "fruitore": "r_emilia",
-          "origine": "certificata"
-        },
-        {
-          "fruitore": "r_toscana",
-          "origine": "certificata"
-        },
-        {
-          "fruitore": "r_veneto",
-          "origine": "certificata"
-        },
-        {
-          "fruitore": "r_piemonte",
-          "origine": "certificata"
-        },
-        {
-          "fruitore": "comuni_agg",
-          "origine": "certificata"
-        }
-      ],
-      "versione": "1",
-      "stato": "Attivo",
-      "descrizione": "Restituisce l'elenco delle Aree appartenenti a una Macro Area",
-      "catalogId": "0dec0eb6-7b32-44a1-94cc-9648a94d6a0c"
     },
     {
       "id": "mit_63c38daa",
@@ -2981,7 +3056,7 @@
           "origine": "certificata"
         }
       ],
-      "versione": "3",
+      "versione": "4",
       "stato": "Attivo",
       "descrizione": "Ricerca delle procedure di tipo \"Avvisi di mobilità\" di competenza della PA a fronte di diversi parametri di ingresso e restituzione delle …",
       "catalogId": "16639688-0916-44b5-8de3-77093c8ad2cc"
@@ -2999,7 +3074,7 @@
           "origine": "certificata"
         }
       ],
-      "versione": "3",
+      "versione": "4",
       "stato": "Attivo",
       "descrizione": "Ricerca delle procedure di tipo \"Avvisi OIV\" di competenza della PA a fronte di diversi parametri di ingresso e restituzione delle informaz…",
       "catalogId": "09610cde-6673-4236-92f3-c1cf2b212f3a"
@@ -3017,7 +3092,7 @@
           "origine": "certificata"
         }
       ],
-      "versione": "3",
+      "versione": "4",
       "stato": "Attivo",
       "descrizione": "Ricerca delle procedure di tipo \"Bando apprendistato\" di competenza della PA a fronte di diversi parametri di ingresso e restituzione delle…",
       "catalogId": "0bc0fd4c-ff79-4e9c-b4da-8f38f5a3c054"
@@ -3035,7 +3110,7 @@
           "origine": "certificata"
         }
       ],
-      "versione": "3",
+      "versione": "4",
       "stato": "Attivo",
       "descrizione": "Consultazione delle informazioni relative alle candidature per le procedure di tipo \"Avvisi di mobilità\" pubblicate dall'Amministrazione fr…",
       "catalogId": "45497ebc-a9ef-4ac5-b4c8-2310541183ec"
@@ -3053,7 +3128,7 @@
           "origine": "certificata"
         }
       ],
-      "versione": "3",
+      "versione": "4",
       "stato": "Attivo",
       "descrizione": "Consultazione delle informazioni relative alle candidature per le procedure di tipo \"Avvisi OIV\" pubblicate dall'Amministrazione fruitrice …",
       "catalogId": "31842eca-7378-48b3-a520-2dcb61f0319d"
@@ -3711,69 +3786,48 @@
       "catalogId": "7c7898bc-628f-458e-b4ec-1a2624ec48d4"
     },
     {
-      "id": "r_sicilia_54698fcd",
-      "nome": "Consultazione accessi SOVRACUP per fascia di età",
-      "erogatore": "r_sicilia",
-      "fruitori": [
-        "comuni_agg"
-      ],
-      "archi": [
-        {
-          "fruitore": "comuni_agg",
-          "origine": "certificata"
-        }
-      ],
-      "versione": "1",
-      "stato": "Attivo",
-      "descrizione": "Il servizio restituisce le informazioni sugli accessi medi giornalieri al SovraCUP aggregate e filtrabili per fascia di età dei prenotati e…",
-      "catalogId": "54698fcd-e521-46a3-904f-f52010de600b"
-    },
-    {
-      "id": "r_sicilia_6c88f059",
-      "nome": "Consultazione accessi SOVRACUP per sesso",
-      "erogatore": "r_sicilia",
-      "fruitori": [
-        "comuni_agg"
-      ],
-      "archi": [
-        {
-          "fruitore": "comuni_agg",
-          "origine": "certificata"
-        }
-      ],
-      "versione": "1",
-      "stato": "Attivo",
-      "descrizione": "Il servizio restituisce le informazioni sugli accessi medi giornalieri al SovraCUP aggregate e filtrabili per sesso dei prenotati e periodo…",
-      "catalogId": "6c88f059-f036-4707-8205-f83a6e4f4b1e"
-    },
-    {
-      "id": "r_sicilia_e191fe66",
-      "nome": "Consultazione accessi SOVRACUP suddivisi per provincia",
-      "erogatore": "r_sicilia",
-      "fruitori": [
-        "comuni_agg"
-      ],
-      "archi": [
-        {
-          "fruitore": "comuni_agg",
-          "origine": "certificata"
-        }
-      ],
-      "versione": "1",
-      "stato": "Attivo",
-      "descrizione": "Il servizio restituisce le informazioni sugli accessi medi giornalieri al SovraCUP aggregate e filtrabili per provincia dei prenotati e per…",
-      "catalogId": "e191fe66-0b10-4a26-8136-59a71117bc75"
-    },
-    {
-      "id": "r_sicilia_f821d1f5",
-      "nome": "Consultazione dati anagrafici e di rapporto per MMG e PLS",
+      "id": "r_sicilia_eae870ed",
+      "nome": "Certificato del Dipendente Regionale_",
       "erogatore": "r_sicilia",
       "fruitori": [],
       "archi": [],
       "versione": "1",
       "stato": "Attivo",
-      "descrizione": "Il servizio esposto intende fornire informazioni di dettaglio sui medici di medicina generale e pediatri di libera scelta del servizio sani…",
-      "catalogId": "f821d1f5-ef08-42b6-83ac-04f7e8f8b035"
+      "descrizione": "Dato in input un codice fiscale, restituisce la certificazione relativa allo status di dipendente della Regione Siciliana.",
+      "catalogId": "eae870ed-007d-4caa-a596-6f2adef96495"
+    },
+    {
+      "id": "r_sicilia_e8d1e6c4",
+      "nome": "Certificato Formaz. Professionale - Figure Nazionali",
+      "erogatore": "r_sicilia",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Dato in input un codice fiscale fornisce un certificato di formazione professionale relativo alla figura nazionale",
+      "catalogId": "e8d1e6c4-b685-4dd1-bb08-e81bd70191a7"
+    },
+    {
+      "id": "r_sicilia_5525aa6b",
+      "nome": "Certificato Formaz. Professionale - Obiettivi",
+      "erogatore": "r_sicilia",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Dato in input un codice fiscale fornisce un certificato di formazione professionale relativo all'obiettivo di formazione secondo il reperto…",
+      "catalogId": "5525aa6b-ee71-434d-9c44-fecc98c0f703"
+    },
+    {
+      "id": "r_sicilia_c1820e09",
+      "nome": "Certificato Formaz. Professionale - Profili Professionali",
+      "erogatore": "r_sicilia",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Dato in input un codice fiscale fornisce un certificato di formazione professionale relativo all'ambito dei profili previsti dal repertorio…",
+      "catalogId": "c1820e09-fa16-45e8-9fee-a91560fab8c8"
     },
     {
       "id": "r_friuli_c21cbca9",
@@ -3979,6 +4033,17 @@
       "catalogId": "548a3b48-ebbb-4c23-b8e3-3231908291b1"
     },
     {
+      "id": "r_toscana_04a117c5",
+      "nome": "Consultazione Atti di Dissesto",
+      "erogatore": "r_toscana",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Restituisce la lista degli atti con cui Regione Toscana ha finanziato gli interventi di difesa del suolo",
+      "catalogId": "04a117c5-9cf3-466a-afe1-2cef4deb0365"
+    },
+    {
       "id": "r_toscana_1a1d7b26",
       "nome": "Consultazione Aziende Agrobiodiversità",
       "erogatore": "r_toscana",
@@ -3988,17 +4053,6 @@
       "stato": "Attivo",
       "descrizione": "Servizio per la consultazione della lista delle aziende legate all'agrobiodiversità in formato GeoJSON",
       "catalogId": "1a1d7b26-14e9-4f41-a265-50aee228b5a4"
-    },
-    {
-      "id": "r_toscana_51913793",
-      "nome": "Consultazione Bacini Sottesi",
-      "erogatore": "r_toscana",
-      "fruitori": [],
-      "archi": [],
-      "versione": "1",
-      "stato": "Attivo",
-      "descrizione": "Servizio per la consultazione dei bacini sottesi in Toscana in formato GeoJSON",
-      "catalogId": "51913793-f898-4e79-b20c-b2703ebd8b9b"
     },
     {
       "id": "r_molise_08d35082",
@@ -4067,7 +4121,7 @@
           "origine": "documentata"
         }
       ],
-      "versione": "1",
+      "versione": "2",
       "stato": "Attivo",
       "descrizione": "COB - UniUrg: Invio del modulo per comunicare assunzioni urgenti legate a esigenze produttive, obbligatorio per tutti i datori di lavoro.",
       "catalogId": "1f0bdc23-544c-4c8a-a620-fadca0c0a77b"
@@ -4095,7 +4149,7 @@
           "origine": "documentata"
         }
       ],
-      "versione": "1",
+      "versione": "2",
       "stato": "Attivo",
       "descrizione": "COB - Invio del modulo di comunicazione dell’assunzione dei lavoratori, della proroga, trasformazione e cessazione dei relativi rapporti di…",
       "catalogId": "3bac69b0-9d84-45bb-b36b-80e9ae9d4c81"
@@ -4283,7 +4337,7 @@
     },
     {
       "id": "r_emilia_a2789991",
-      "nome": "Creazione EAA Badge – IT-Wallet",
+      "nome": "Creazione EAA Badge",
       "erogatore": "r_emilia",
       "fruitori": [
         "ipzs"
@@ -4398,37 +4452,58 @@
       "catalogId": "ad6a71ef-056f-483c-ac46-b0d12e10357c"
     },
     {
-      "id": "r_veneto_3958c6e7",
-      "nome": "Associazione Targa a PassBLU - VIVIPASS",
+      "id": "r_veneto_4f6c989e",
+      "nome": "[RVE] Invio Comunicazioni Obbligatorie - UNILAV",
       "erogatore": "r_veneto",
-      "fruitori": [],
-      "archi": [],
+      "fruitori": [
+        "mlps"
+      ],
+      "archi": [
+        {
+          "fruitore": "mlps",
+          "origine": "certificata"
+        }
+      ],
       "versione": "1",
       "stato": "Attivo",
-      "descrizione": "Permette la gestione dell'associazione di una targa ad un PassBLU, ricerca e cancellazione della targa nell'applicativo viviPass di Regione…",
-      "catalogId": "3958c6e7-50bc-4f6c-92b7-a0ca0239bc23"
+      "descrizione": "Invio del modulo di comunicazione dell’assunzione dei lavoratori, della proroga, trasformazione e cessazione dei relativi rapporti di lavor…",
+      "catalogId": "4f6c989e-f09f-4482-9a64-b5aaf815be5e"
     },
     {
-      "id": "r_veneto_7cbe3d9b",
-      "nome": "Conferimento Targa - ZTLNETWORK",
+      "id": "r_veneto_d60a7899",
+      "nome": "[RVE] Invio Comunicazioni Obbligatorie - UNIPI",
       "erogatore": "r_veneto",
-      "fruitori": [],
-      "archi": [],
+      "fruitori": [
+        "mlps"
+      ],
+      "archi": [
+        {
+          "fruitore": "mlps",
+          "origine": "certificata"
+        }
+      ],
       "versione": "1",
       "stato": "Attivo",
-      "descrizione": "Consente l'inserimento di una targa nel CircuitoZTL di Regione del Veneto",
-      "catalogId": "7cbe3d9b-7564-48e9-b715-20c17ff9e270"
+      "descrizione": "Invio del modulo di comunicazione dell’assunzione dei lavoratori, della proroga, trasformazione e cessazione dei relativi rapporti di lavor…",
+      "catalogId": "d60a7899-c4d0-431a-bb7d-b24cd2e06f6c"
     },
     {
-      "id": "r_veneto_d63cbac6",
-      "nome": "Consultazione Archeologie Industriali - IDT",
+      "id": "r_veneto_0511cb99",
+      "nome": "[RVE] Invio Comunicazioni Obbligatorie - UNISOMM",
       "erogatore": "r_veneto",
-      "fruitori": [],
-      "archi": [],
+      "fruitori": [
+        "mlps"
+      ],
+      "archi": [
+        {
+          "fruitore": "mlps",
+          "origine": "certificata"
+        }
+      ],
       "versione": "1",
       "stato": "Attivo",
-      "descrizione": "Consultazione dati dei manufatti e siti dell'archeologia industriale in Regione del Veneto",
-      "catalogId": "d63cbac6-940c-4de1-94bc-fe78d1d6f877"
+      "descrizione": "Invio del modulo di comunicazione dell’assunzione dei lavoratori, della proroga, trasformazione e cessazione dei relativi rapporti di lavor…",
+      "catalogId": "0511cb99-afa6-42c5-8f1d-aef32cd5e6c9"
     },
     {
       "id": "r_marche_a4a29ec9",
@@ -4475,7 +4550,7 @@
     },
     {
       "id": "r_marche_3ec92b8c",
-      "nome": "Creazione EAA Badge – IT-Wallet - Marche",
+      "nome": "Creazione EAA Badge - Marche",
       "erogatore": "r_marche",
       "fruitori": [
         "ipzs"
@@ -4781,14 +4856,14 @@
           "origine": "certificata"
         }
       ],
-      "versione": "2",
+      "versione": "3",
       "stato": "Attivo",
       "descrizione": "Il servizio restituisce, a partire dal Codice Fiscale e/o Partiva Iva del soggetto, le informazioni relative ai mandati di pagamento emessi…",
       "catalogId": "3f68916d-6a4f-4639-be70-273f38c37371"
     },
     {
-      "id": "r_sardegna_0c950404",
-      "nome": "Cedolino pensione integrativa FITQ per IT Wallet",
+      "id": "r_sardegna_dd5a90ef",
+      "nome": "Cedolino pensione integrativa FITQ per IT Wallet - V2",
       "erogatore": "r_sardegna",
       "fruitori": [
         "comuni_agg"
@@ -4799,10 +4874,10 @@
           "origine": "certificata"
         }
       ],
-      "versione": "2",
+      "versione": "1",
       "stato": "Attivo",
       "descrizione": "Il servizio restituisce, a partire dal Codice Fiscale e dalla matricola di un iscritto al FITQ e di un anno-mese specificato, le informazio…",
-      "catalogId": "0c950404-85bf-4fe2-a010-1abeb54e74a0"
+      "catalogId": "dd5a90ef-f62a-4eec-b6a7-f180b69faba2"
     },
     {
       "id": "r_sardegna_1de00102",
@@ -4889,6 +4964,17 @@
       "catalogId": "c783f89e-6d0b-4d54-ac27-60e55dcac33e"
     },
     {
+      "id": "c_milano_9a7a77ae",
+      "nome": "Consultazione dati Living Lab Milano",
+      "erogatore": "c_milano",
+      "fruitori": [],
+      "archi": [],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Consente l'accesso ai dati relativi al traffico veicolare nelle intersezioni sulla tratta sperimentale percorsa dalla linea filoviaria 90/9…",
+      "catalogId": "9a7a77ae-b27d-4657-b993-7cd0933c39da"
+    },
+    {
       "id": "c_milano_90452419",
       "nome": "Consultazione limiti amministrativi",
       "erogatore": "c_milano",
@@ -4898,17 +4984,6 @@
       "stato": "Attivo",
       "descrizione": "Restituisce il layer geografico contente i confini amministrativi del comune di Milano",
       "catalogId": "90452419-aef4-459f-aedc-37a066dd8680"
-    },
-    {
-      "id": "c_milano_fab939d5",
-      "nome": "Consultazione limiti municipi",
-      "erogatore": "c_milano",
-      "fruitori": [],
-      "archi": [],
-      "versione": "2",
-      "stato": "Attivo",
-      "descrizione": "Restituisce il layer geografico contente i confini amministrativi dei nove municipi del comune di Milano",
-      "catalogId": "fab939d5-bb08-47c9-881f-c93ea2f66cdd"
     },
     {
       "id": "c_roma_2a11ae82",
