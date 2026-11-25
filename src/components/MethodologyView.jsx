@@ -4,6 +4,26 @@
  * derivano. Rispecchia METODOLOGIA.md e il report pubblicato.
  */
 
+import PDND_DATA from "../data/pdnd-data.json";
+
+const ORIGINI = [
+  ["certificata", "Certificata", "Dal campo attributes.certified del catalogo: le categorie di enti abilitati alla fruizione."],
+  ["documentata", "Documentata", "Override con una fonte ufficiale puntuale (norma, circolare, manuale) citata per l'e-service."],
+  ["ricostruita", "Ricostruita", "Relazioni del modello v1 (maggio 2026), ricostruite da documentazione pubblica con l'ausilio di modelli AI."],
+  ["inferita", "Inferita", "Stima AI congelata nel dato, normalizzata sugli aggregati. Dichiarata come stima, non come fatto."],
+];
+
+// Conteggi calcolati dal dato live, così il testo non resta indietro a ogni aggiornamento.
+const conteggi = (() => {
+  const perOrigine = {};
+  let archi = 0;
+  for (const s of PDND_DATA.eservices) {
+    const lista = s.archi || (s.fruitori || []).map((f) => ({ fruitore: f, origine: "ricostruita" }));
+    for (const a of lista) { perOrigine[a.origine] = (perOrigine[a.origine] || 0) + 1; archi++; }
+  }
+  return { perOrigine, archi, nodi: PDND_DATA.enti.length, eservices: PDND_DATA.eservices.length };
+})();
+
 function Section({ title, children }) {
   return (
     <div style={{ marginBottom: 28 }}>
@@ -59,6 +79,19 @@ export default function MethodologyView() {
         <Source name="Manuale SSU Unioncamere" url="https://catalogo.impresainungiorno.gov.it/assets/config/files/manuale_operativo_Eservice_CatalogoSSU.pdf" desc="6 e-service del Catalogo SSU con erogatore e fruitori documentati" type="ricostruzione" />
       </Section>
 
+      <Section title="Provenienza degli archi">
+        <div style={{ marginBottom: 12 }}>
+          Ogni arco dichiara da dove viene. Una stessa coppia di enti può avere archi di provenienze diverse,
+          uno per ciascun e-service che li collega.
+        </div>
+        {ORIGINI.map(([chiave, nome, desc]) => (
+          <div key={chiave} style={{ display: "flex", justifyContent: "space-between", gap: 16, padding: "8px 0", borderBottom: "1px solid rgba(100,160,220,.04)", fontSize: 12 }}>
+            <span><strong style={{ color: "var(--ink)" }}>{nome}</strong> — {desc}</span>
+            <span style={{ color: "#06d6a0", fontWeight: 700, whiteSpace: "nowrap" }}>{conteggi.perOrigine[chiave] || 0}</span>
+          </div>
+        ))}
+      </Section>
+
       <Section title="Aggregazione dei Comuni">
         <div style={{ fontSize: 13, color: "var(--ink-muted)", lineHeight: 1.75 }}>
           Il catalogo PDND contiene 2.000+ API, la maggior parte delle quali sono servizi standard replicati
@@ -106,10 +139,12 @@ export default function MethodologyView() {
           </div>
         </div>
         <div style={{ fontSize: 12, color: "var(--ink-muted)", lineHeight: 1.6 }}>
-          Il catalogo PDND completo conta <strong style={{ color: "var(--ink)" }}>14.102 API pubblicate</strong> da 6.388 enti distinti.
-          Il modello rappresenta 86 tipi di servizio in 51 nodi: i 9 sopra (servizi standardizzati comunali) coprono 6.382 endpoint;
-          gli altri 75 record corrispondono a servizi centrali, regionali o ministeriali, in maggioranza uno-a-uno con il catalogo.
-          La copertura totale del modello è dell'<strong style={{ color: "#06d6a0" }}>~89%</strong>, misurabile lanciando{" "}
+          Nello snapshot di maggio 2026 il catalogo PDND contava <strong style={{ color: "var(--ink)" }}>14.102 API pubblicate</strong> da 6.388 enti distinti,
+          e il modello v1 descritto nel report rappresentava 86 tipi di servizio in 51 nodi: i 9 sopra (servizi standardizzati comunali)
+          coprivano 6.382 endpoint, con una copertura totale del catalogo dell'<strong style={{ color: "#06d6a0" }}>~89%</strong>.
+          Il modello attuale conta <strong style={{ color: "var(--ink)" }}>{conteggi.eservices} e-service in {conteggi.nodi} nodi</strong> e {conteggi.archi} archi:
+          oltre ai tipi di servizio del v1, include e-service puntuali del catalogo, ciascuno con il proprio identificativo.
+          La copertura rispetto al catalogo corrente è misurabile lanciando{" "}
           <code style={{ fontSize: 11, padding: "1px 5px", borderRadius: 3, background: "rgba(30,40,60,.6)", color: "var(--ink)" }}>npm run compare-catalog</code>.
         </div>
       </Section>
@@ -128,7 +163,7 @@ export default function MethodologyView() {
           "I Comuni aggregati non indicano che tutti i ~7.500 Comuni fruiscono effettivamente di ogni servizio.",
           "Gli archi inferiti dall'AI sono normalizzati sugli aggregati: città e regioni confluiscono nei nodi \"Comuni (aggregati)\" e \"Regioni (aggregati)\", così l'arco dichiara un'eleggibilità di classe stimata e non una connessione puntuale. Gli archi certificati e documentati mantengono i nomi puntuali.",
           "Per le 18 Regioni e Province Autonome rappresentate, gli e-service sono esposti come categoria aggregata (un record per ente) con il numero di endpoint del catalogo annotato in descrizione.",
-          "Il modello copre ~89% del catalogo PDND. Il residuo 11% è composto principalmente da università, conservatori e società in-house regionali con pochi endpoint ciascuno.",
+          "Il modello è una selezione editoriale di enti, non l'intero catalogo: università, conservatori e società in-house regionali con pochi endpoint ciascuno restano fuori.",
           "Le versioni degli e-service potrebbero non corrispondere all'ultima versione attiva nel catalogo.",
         ].map((text, i) => (
           <div key={i} style={{ display: "flex", gap: 10, marginBottom: 8, fontSize: 12 }}>

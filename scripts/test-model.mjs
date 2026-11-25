@@ -16,7 +16,7 @@
 
 import fs from "fs";
 import path from "path";
-import { fileURLToPath } from "url";
+import { fileURLToPath, pathToFileURL } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, "..");
@@ -25,9 +25,15 @@ const DATA = JSON.parse(
   fs.readFileSync(path.join(ROOT, "src/data/pdnd-data.json"), "utf8")
 );
 
+// Istantanea congelata del modello v1 descritto nel report Zenodo
+// (10.5281/zenodo.19989954). Il dato live evolve; questa no.
+const V1 = JSON.parse(
+  fs.readFileSync(path.join(ROOT, "src/data/snapshots/pdnd-data.2026-05-02.json"), "utf8")
+);
+
 // buildGraph è un modulo ES con export nominato: lo importiamo direttamente.
 const { buildGraph } = await import(
-  path.join(ROOT, "src/utils/buildGraph.js")
+  pathToFileURL(path.join(ROOT, "src/utils/buildGraph.js")).href
 );
 
 let passed = 0;
@@ -179,22 +185,36 @@ check("ogni peso è un intero positivo", () => {
 
 console.log("\nCoerenza con le metriche pubblicate");
 
-check("la topologia corrisponde al report (51 nodi, 86 e-service, 343 archi)", () => {
+check("l'istantanea v1 corrisponde al report (51 nodi, 86 e-service, 343 archi)", () => {
   const distinti = new Set();
-  DATA.eservices.forEach((s) =>
+  V1.eservices.forEach((s) =>
     (s.fruitori || []).forEach((f) => distinti.add(`${s.erogatore}->${f}`))
   );
   const err = [];
-  if (DATA.enti.length !== 51) err.push(`nodi ${DATA.enti.length}≠51`);
-  if (DATA.eservices.length !== 86) err.push(`e-service ${DATA.eservices.length}≠86`);
+  if (V1.enti.length !== 51) err.push(`nodi ${V1.enti.length}≠51`);
+  if (V1.eservices.length !== 86) err.push(`e-service ${V1.eservices.length}≠86`);
   if (distinti.size !== 343) err.push(`archi distinti ${distinti.size}≠343`);
   return err.length === 0 || err.join(", ");
+});
+
+// Il modello live deve conservare ogni relazione del modello v1: le coppie
+// erogatore→fruitore e i nodi del report non possono sparire con un aggiornamento.
+check("il dato live conserva tutte le relazioni e i nodi del modello v1", () => {
+  const coppie = (d) => new Set(d.eservices.flatMap((s) => (s.fruitori || []).map((f) => `${s.erogatore}->${f}`)));
+  const live = coppie(DATA);
+  const perse = [...coppie(V1)].filter((c) => !live.has(c));
+  const nodi = new Set(DATA.enti.map((e) => e.id));
+  const nodiPersi = V1.enti.filter((e) => !nodi.has(e.id)).map((e) => e.id);
+  const err = [];
+  if (perse.length) err.push(`${perse.length} coppie v1 perse (es. ${perse[0]})`);
+  if (nodiPersi.length) err.push(`nodi v1 persi: ${nodiPersi.join(", ")}`);
+  return err.length === 0 || err.join("; ");
 });
 
 console.log("\nRotte e collegamenti diretti");
 
 const { parseLocation, buildPath } = await import(
-  path.join(ROOT, "src/utils/useUrlState.js")
+  pathToFileURL(path.join(ROOT, "src/utils/useUrlState.js")).href
 );
 
 check("le rotte note risolvono nella scheda giusta", () => {
@@ -271,15 +291,27 @@ check("un collegamento diretto a un ente non innesca un ciclo di render", () => 
 
 console.log("\nEsportazione");
 
-const exp = await import(path.join(ROOT, "src/utils/exportGraph.js"));
+const exp = await import(pathToFileURL(path.join(ROOT, "src/utils/exportGraph.js")).href);
 
-check("la lista archi conserva la topologia del report", () => {
-  const { nodes, edges } = exp.toEdgeList(DATA);
+check("la lista archi conserva la topologia del report (istantanea v1)", () => {
+  const { nodes, edges } = exp.toEdgeList(V1);
   const istanze = edges.reduce((a, e) => a + e.weight, 0);
   const err = [];
   if (nodes.length !== 51) err.push(`nodi ${nodes.length}≠51`);
   if (edges.length !== 343) err.push(`archi ${edges.length}≠343`);
   if (istanze !== 570) err.push(`somma pesi ${istanze}≠570`);
+  return err.length === 0 || err.join(", ");
+});
+
+check("la lista archi del dato live è coerente con il dato", () => {
+  const { nodes, edges } = exp.toEdgeList(DATA);
+  const coppie = new Set(DATA.eservices.flatMap((s) => (s.fruitori || []).map((f) => `${s.erogatore}->${f}`)));
+  const istanze = DATA.eservices.reduce((a, s) => a + (s.fruitori || []).length, 0);
+  const pesi = edges.reduce((a, e) => a + e.weight, 0);
+  const err = [];
+  if (nodes.length !== DATA.enti.length) err.push(`nodi ${nodes.length}≠${DATA.enti.length}`);
+  if (edges.length !== coppie.size) err.push(`archi ${edges.length}≠${coppie.size}`);
+  if (pesi !== istanze) err.push(`somma pesi ${pesi}≠${istanze}`);
   return err.length === 0 || err.join(", ");
 });
 

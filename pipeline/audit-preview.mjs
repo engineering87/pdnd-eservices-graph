@@ -13,7 +13,7 @@
  *   - Integrità del vocabolario: ogni erogatore e ogni fruitore deve essere un nodo esistente.
  *   - Auto-anelli: erogatore presente tra i propri fruitori.
  *   - Fruitori duplicati nello stesso e-service.
- *   - Conteggio archi per provenienza (documentata / certificata / inferita).
+ *   - Conteggio archi per provenienza (documentata / certificata / ricostruita / inferita).
  *   - E-service senza archi.
  *   - Distribuzione della confidenza AI e lista delle inferenze a bassa confidenza.
  *   - Hub: e-service con il maggior numero di fruitori inferiti.
@@ -31,7 +31,7 @@ const data = JSON.parse(readFileSync(PATH, "utf-8"));
 const ids = new Set(data.enti.map(e => e.id));
 
 const issues = { badErogatore: [], badFruitore: [], selfLoop: [], dupFruitore: [], schemaMismatch: [] };
-const byOrigine = { documentata: 0, certificata: 0, inferita: 0, altro: 0 };
+const byOrigine = { documentata: 0, certificata: 0, ricostruita: 0, inferita: 0, altro: 0 };
 const noArchi = [];
 const confidences = [];
 const lowConf = [];
@@ -68,7 +68,7 @@ for (const s of data.eservices) {
 }
 
 const pct = (n, d) => (d ? ((100 * n) / d).toFixed(1) + "%" : "—");
-const totalArchi = byOrigine.documentata + byOrigine.certificata + byOrigine.inferita + byOrigine.altro;
+const totalArchi = byOrigine.documentata + byOrigine.certificata + byOrigine.ricostruita + byOrigine.inferita + byOrigine.altro;
 const median = (arr) => {
   if (!arr.length) return null;
   const a = [...arr].sort((x, y) => x - y);
@@ -92,6 +92,7 @@ ok("Disallineamenti fruitori[]/archi[]", issues.schemaMismatch);
 line(`\n--- Archi per provenienza ---`);
 line(`Documentata : ${byOrigine.documentata}  (${pct(byOrigine.documentata, totalArchi)})`);
 line(`Certificata : ${byOrigine.certificata}  (${pct(byOrigine.certificata, totalArchi)})`);
+line(`Ricostruita : ${byOrigine.ricostruita}  (${pct(byOrigine.ricostruita, totalArchi)})`);
 line(`Inferita    : ${byOrigine.inferita}  (${pct(byOrigine.inferita, totalArchi)})`);
 if (byOrigine.altro) line(`Altro       : ${byOrigine.altro}`);
 

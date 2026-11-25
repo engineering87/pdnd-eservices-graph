@@ -70,9 +70,9 @@ export default function StatsView({ graphData }) {
       <div style={{ marginBottom: 20, padding: "12px 16px", borderRadius: 8, background: "rgba(255,209,102,.04)", border: "1px solid rgba(255,209,102,.14)", display: "flex", gap: 12 }}>
         <div style={{ fontSize: 18, color: "var(--cite)", flexShrink: 0, lineHeight: 1 }}>ⓘ</div>
         <div style={{ fontSize: 12, color: "var(--ink-muted)", lineHeight: 1.6 }}>
-          I numeri qui sotto si riferiscono al modello a <strong style={{ color: "var(--ink)" }}>tipi di servizio</strong>, non agli endpoint del catalogo PDND.
-          Un servizio come <em>Albo Pretorio</em> è un singolo nodo nel grafo ma corrisponde a circa 1.450 endpoint reali, uno per Comune che lo pubblica.
-          Il catalogo ufficiale conta 14.102 API pubblicate; il modello copre ~89% del catalogo via mapping diretto e aggregazione.
+          I numeri qui sotto si riferiscono al modello, non all'intero catalogo PDND. Accanto agli e-service puntuali del catalogo,
+          alcuni record sono <strong style={{ color: "var(--ink)" }}>tipi di servizio</strong>: <em>Albo Pretorio</em> è un singolo record ma corrisponde a circa 1.450 endpoint reali, uno per Comune che lo pubblica.
+          Il modello copre circa l'89% dei producer del catalogo, tra mapping diretto e aggregazione.
           Per il dettaglio vedi la sezione <span style={{ color: "var(--cite)" }}>Metodologia</span>.
         </div>
       </div>

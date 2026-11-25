@@ -27,13 +27,10 @@ export default [
       ...reactHooks.configs.recommended.rules,
       "no-unused-vars": ["error", { varsIgnorePattern: "^[A-Z_]" }],
 
-      // `react-hooks/immutability` segnala tre punti di GraphView: la funzione
-      // `draw` usata dall'effetto di montaggio e dichiarata più sotto (valido a
-      // runtime, perché gli effetti girano dopo il corpo del componente) e un
-      // setState dentro un effetto, che qui è guardato da un confronto e non
-      // genera cicli. Sono debito tecnico reale ma la loro risoluzione richiede
-      // di ristrutturare il ciclo di disegno: resta un avvertimento visibile
-      // invece di bloccare la compilazione o di essere silenziato caso per caso.
+      // `react-hooks/immutability` resta un avvertimento: i casi intenzionali di
+      // GraphView (il ciclo di disegno che si richiama via requestAnimationFrame)
+      // sono marcati sul posto con il motivo; un nuovo caso deve emergere senza
+      // bloccare la compilazione.
       "react-hooks/immutability": "warn",
 
       // Sincronizzare uno stato esterno (l'URL) dentro lo stato del componente

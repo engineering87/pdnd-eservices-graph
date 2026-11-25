@@ -140,7 +140,13 @@ async function main() {
   let frozen = {};
   try { frozen = loadJSON(join(__dirname, "connections-frozen.json")).frozen || {}; }
   catch { /* nessun file frozen: nessuna inferenza congelata */ }
+  // Relazioni ricostruite del grafo curato v1: si sommano agli archi del catalogo.
+  let reconstructed = { anchored: {}, unanchored: [] };
+  try { reconstructed = { ...reconstructed, ...loadJSON(join(__dirname, "connections-reconstructed.json")) }; }
+  catch { /* nessun file: nessuna relazione ricostruita */ }
   const validNodeIds = new Set(entities.map(e => e.id));
+  // E-service da includere sempre, anche oltre maxServices: quelli con archi curati.
+  const pinned = new Set([...Object.keys(overrides), ...Object.keys(reconstructed.anchored)]);
 
   // Previous data (for drop guard + diff). Confronta con l'anteprima precedente;
   // al primo run (anteprima assente) usa il grafo curato live come baseline.
@@ -172,37 +178,43 @@ async function main() {
         const ap = a.activeDescriptorState === "PUBLISHED" ? 0 : 1;
         const bp = b.activeDescriptorState === "PUBLISHED" ? 0 : 1;
         return ap - bp || a.name.localeCompare(b.name);
-      })
-      .slice(0, ent.maxServices || 6);
+      });
+    // I servizi con archi curati restano sempre; il resto riempie fino a maxServices.
+    pool = [
+      ...pool.filter(r => pinned.has(r.id)),
+      ...pool.filter(r => !pinned.has(r.id)).slice(0, ent.maxServices || 6),
+    ];
 
     for (const r of pool) {
       const id = shortId(ent.id, r.id);
-      // Determina fruitori e provenienza: override (documentata) > certified (certificata) > frozen (inferita)
-      let fruitori = [], origine = null;
+      const ok = n => validNodeIds.has(n) && n !== ent.id;
+      // Provenienza per arco: override (documentata) o certified (certificata), più le
+      // relazioni ricostruite v1 (ricostruita) che si sommano senza sostituirle;
+      // le inferenze congelate (inferita) solo se non c'è nient'altro.
+      const archi = [];
+      const add = (list, origine) => list.filter(ok).forEach(f => {
+        if (!archi.some(a => a.fruitore === f)) archi.push({ fruitore: f, origine });
+      });
       if (overrides[r.id]) {
-        fruitori = overrides[r.id].filter(n => validNodeIds.has(n) && n !== ent.id);
-        origine = "documentata";
+        add(overrides[r.id], "documentata");
       } else {
         const cats = certifiedCategories(r.attributes);
         const set = new Set();
-        for (const c of cats) (categoryMap[c] || []).forEach(n => { if (validNodeIds.has(n) && n !== ent.id) set.add(n); });
-        fruitori = [...set];
-        if (fruitori.length) origine = "certificata";
+        for (const c of cats) (categoryMap[c] || []).forEach(n => set.add(n));
+        add([...set], "certificata");
       }
-      // Inferenze congelate: applicate solo se non già coperte da override o certificato.
-      // Sono stime curate fissate nel dato (origine "inferita"), così il grafo resta
+      if (reconstructed.anchored[r.id]) add(reconstructed.anchored[r.id].fruitori, "ricostruita");
+      // Inferenze congelate: stime curate fissate nel dato, così il grafo resta
       // deterministico senza dipendere da una chiamata AI a runtime.
-      if (!fruitori.length && frozen[r.id]) {
-        fruitori = frozen[r.id].filter(n => validNodeIds.has(n) && n !== ent.id);
-        if (fruitori.length) origine = "inferita";
-      }
+      if (!archi.length && frozen[r.id]) add(frozen[r.id], "inferita");
+      const fruitori = archi.map(a => a.fruitore);
 
       eservices.push({
         id,
         nome: truncate(r.name, 70),
         erogatore: ent.id,
         fruitori,
-        archi: fruitori.map(f => ({ fruitore: f, origine })),
+        archi,
         versione: String(r.activeDescriptorVersion || "1"),
         stato: r.activeDescriptorState === "PUBLISHED" ? "Attivo" : "Sospeso",
         descrizione: truncate(r.description, 140),
@@ -211,6 +223,26 @@ async function main() {
 
       if (!prevServiceIds.has(id)) newServices.push(`${ent.name} — ${truncate(r.name, 50)}`);
     }
+  }
+
+  // 4a. E-service ricostruiti v1 senza un record di catalogo univoco: riportati così
+  // come sono, con archi 'ricostruita'. Senza catalogId, non passano dall'inferenza.
+  const unanchoredDropped = [];
+  for (const u of reconstructed.unanchored) {
+    if (!validNodeIds.has(u.erogatore)) { unanchoredDropped.push(u.id); continue; }
+    const fruitori = [...new Set(u.fruitori)].filter(n => validNodeIds.has(n) && n !== u.erogatore);
+    eservices.push({
+      id: u.id,
+      nome: u.nome,
+      erogatore: u.erogatore,
+      fruitori,
+      archi: fruitori.map(f => ({ fruitore: f, origine: "ricostruita" })),
+      versione: u.versione,
+      stato: u.stato,
+      descrizione: u.descrizione,
+      catalogId: null,
+    });
+    if (!prevServiceIds.has(u.id)) newServices.push(`${u.erogatore} — ${truncate(u.nome, 50)} (ricostruito v1)`);
   }
 
   // 4b. Inferenza AI a runtime (origine: inferita), SOLO sui catalogId in allowlist.
@@ -308,9 +340,18 @@ async function main() {
   const output = {
     meta: {
       generato: new Date().toISOString(),
+      ultimo_aggiornamento: new Date().toISOString().slice(0, 10),
+      versione_modello: "v2",
       fonte_enti: "github.com/italia/pdnd-opendata — aderenti.csv (CC0 1.0)",
       fonte_eservices: "github.com/italia/pdnd-opendata — eservice_a_catalogo.csv (CC0 1.0)",
-      note_connessioni: "Ogni arco porta un campo 'origine': 'documentata' (override da fonti ufficiali), 'certificata' (campo attributes.certified del catalogo), 'inferita' (stima AI con confidenza, da rendere tratteggiata nel grafo). Il progetto si basa esclusivamente su informazioni già pubbliche; gli archi inferiti sono dichiarati come stime e non come fatti documentati.",
+      fonte_connessioni: "Per arco, campo 'origine': override documentati, campo attributes.certified del catalogo, relazioni ricostruite del grafo curato v1, stime AI congelate — vedi METODOLOGIA.md e pipeline/README.md",
+      snapshot_catalogo: `${records.length} righe nel catalogo scaricato il ${new Date().toISOString().slice(0, 10)}`,
+      metodologia: "METODOLOGIA.md",
+      paper_doi: "10.5281/zenodo.19989954",
+      paper_url: "https://doi.org/10.5281/zenodo.19989954",
+      nota_paper: "Il report Zenodo descrive il modello v1 (snapshot 2026-05-02), conservato in src/data/snapshots/pdnd-data.2026-05-02.json. Questo dato è il modello v2: numeri diversi da quelli del report.",
+      convenzione_eservices: "Gli e-service con catalogId corrispondono a un record del catalogo PDND. Quelli con catalogId null sono tipi di servizio ricostruiti nel modello v1 (aggregati comunali, voci riassuntive di ente, famiglie di API): un record può rappresentare molti endpoint del catalogo.",
+      note_connessioni: "Ogni arco porta un campo 'origine': 'documentata' (override da fonti ufficiali), 'certificata' (campo attributes.certified del catalogo), 'ricostruita' (relazioni del grafo curato v1, ricostruite da documentazione pubblica con l'ausilio di modelli AI), 'inferita' (stima AI con confidenza, da rendere tratteggiata nel grafo). Il progetto si basa esclusivamente su informazioni già pubbliche; gli archi inferiti sono dichiarati come stime e non come fatti documentati.",
       generato_da: "pipeline/build-graph-data.mjs"
     },
     enti,
@@ -318,7 +359,7 @@ async function main() {
   };
 
   // 8. Report
-  const byOrigine = { documentata: 0, certificata: 0, inferita: 0 };
+  const byOrigine = { documentata: 0, certificata: 0, ricostruita: 0, inferita: 0 };
   eservices.forEach(s => s.archi.forEach(a => { if (byOrigine[a.origine] != null) byOrigine[a.origine]++; }));
 
   say(`\n## Risultato`);
@@ -330,6 +371,8 @@ async function main() {
   say(`\n### Archi per provenienza`);
   say(`- 📄 Documentata (override): **${byOrigine.documentata}**`);
   say(`- ✅ Certificata (attributes): **${byOrigine.certificata}**`);
+  say(`- 🧩 Ricostruita (grafo curato v1): **${byOrigine.ricostruita}**`);
+  if (unanchoredDropped.length) say(`- ⚠️  E-service ricostruiti scartati (erogatore non tracciato): ${unanchoredDropped.join(", ")}`);
   say(`- 🤖 Inferita (AI): **${byOrigine.inferita}**`);
   if (aiStats) {
     if (allowSet) say(`\n_Inferenza AI ristretta all'allowlist: ${allowSet.size} e-service permessi._`);

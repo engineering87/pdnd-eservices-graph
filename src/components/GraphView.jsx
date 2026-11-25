@@ -15,6 +15,19 @@ import { useIsMobile } from "../utils/useIsMobile";
 
 function gR(n) { return 14 + Math.sqrt(n.totalConnections) * 4.5; }
 
+// Simulazione a forze minimale: muta in posto le posizioni dei nodi.
+function mkSim(nodes, links, cx, cy) {
+  const a = { current: 1 };
+  function tick() {
+    a.current *= .985; if (a.current < .001) a.current = 0;
+    nodes.forEach(n => { n.vx = (n.vx || 0) + (cx - n.x) * .005 * a.current; n.vy = (n.vy || 0) + (cy - n.y) * .005 * a.current; });
+    links.forEach(l => { const dx = l.target.x - l.source.x, dy = l.target.y - l.source.y, d = Math.sqrt(dx * dx + dy * dy) || 1, f = (d - 220) * .003 * a.current; l.source.vx += dx / d * f; l.source.vy += dy / d * f; l.target.vx -= dx / d * f; l.target.vy -= dy / d * f; });
+    for (let i = 0; i < nodes.length; i++) for (let j = i + 1; j < nodes.length; j++) { const dx = nodes[j].x - nodes[i].x, dy = nodes[j].y - nodes[i].y, d = Math.sqrt(dx * dx + dy * dy) || 1, f = -3500 / (d * d) * a.current; nodes[i].vx += dx / d * f; nodes[i].vy += dy / d * f; nodes[j].vx -= dx / d * f; nodes[j].vy -= dy / d * f; }
+    nodes.forEach(n => { if (n.fx != null) { n.x = n.fx; n.vx = 0; } else { n.vx *= .55; n.x += n.vx; } if (n.fy != null) { n.y = n.fy; n.vy = 0; } else { n.vy *= .55; n.y += n.vy; } });
+  }
+  return { alpha: a, tick, stopped: false, reheat() { a.current = .3; }, stop() { this.stopped = true; } };
+}
+
 function lgt(hex, amount) {
   const n = parseInt(hex.replace("#", ""), 16);
   return `rgb(${Math.max(0, Math.min(255, (n >> 16) + amount))},${Math.max(0, Math.min(255, ((n >> 8) & 0xff) + amount))},${Math.max(0, Math.min(255, (n & 0xff) + amount))})`;
@@ -56,6 +69,8 @@ export default function GraphView({ entityId = null, onEntityChange }) {
   // dall'URL in ciclo. È la ragione per cui le due direzioni sono guardate dal
   // confronto sull'identificativo.
   useEffect(() => {
+    // L'URL è un sistema esterno: allinearvi la selezione è l'uso previsto.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (!entityId) { setSelNode(cur => (cur ? null : cur)); return; }
     if (selNode && selNode.id === entityId) return;
     const nd = graph.current.nodes.find(n => n.id === entityId);
@@ -70,6 +85,8 @@ export default function GraphView({ entityId = null, onEntityChange }) {
     };
     const id = setTimeout(centra, 900);
     return () => clearTimeout(id);
+    // Vedi sopra: `selNode` resta fuori di proposito, per non riaprire il ciclo.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [entityId]);
 
   // selezione -> URL. La notifica è esplicita, legata alle azioni dell'utente,
@@ -99,23 +116,13 @@ export default function GraphView({ entityId = null, onEntityChange }) {
     tRef.current.x = (dim.w * 2) / 2 - cx * k;
     tRef.current.y = (dim.h * 2) / 2 - cy * k;
     simRef.current = mkSim(nodesRef.current, linksRef.current, cx, cy);
-    // `draw` è dichiarata più sotto: l'accesso è valido perché gli effetti
-    // vengono eseguiti dopo l'esecuzione del corpo del componente.
-    draw();
+    // Il ciclo di disegno parte dall'effetto su `draw` più sotto, eseguito
+    // nello stesso commit subito dopo questo.
     return () => { simRef.current.stop(); cancelAnimationFrame(afRef.current); };
+    // Inizializzazione una tantum al montaggio: le dimensioni successive non
+    // devono riposizionare i nodi né riavviare la simulazione.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  function mkSim(nodes, links, cx, cy) {
-    const a = { current: 1 };
-    function tick() {
-      a.current *= .985; if (a.current < .001) a.current = 0;
-      nodes.forEach(n => { n.vx = (n.vx || 0) + (cx - n.x) * .005 * a.current; n.vy = (n.vy || 0) + (cy - n.y) * .005 * a.current; });
-      links.forEach(l => { const dx = l.target.x - l.source.x, dy = l.target.y - l.source.y, d = Math.sqrt(dx * dx + dy * dy) || 1, f = (d - 220) * .003 * a.current; l.source.vx += dx / d * f; l.source.vy += dy / d * f; l.target.vx -= dx / d * f; l.target.vy -= dy / d * f; });
-      for (let i = 0; i < nodes.length; i++) for (let j = i + 1; j < nodes.length; j++) { const dx = nodes[j].x - nodes[i].x, dy = nodes[j].y - nodes[i].y, d = Math.sqrt(dx * dx + dy * dy) || 1, f = -3500 / (d * d) * a.current; nodes[i].vx += dx / d * f; nodes[i].vy += dy / d * f; nodes[j].vx -= dx / d * f; nodes[j].vy -= dy / d * f; }
-      nodes.forEach(n => { if (n.fx != null) { n.x = n.fx; n.vx = 0; } else { n.vx *= .55; n.x += n.vx; } if (n.fy != null) { n.y = n.fy; n.vy = 0; } else { n.vy *= .55; n.y += n.vy; } });
-    }
-    return { alpha: a, tick, stopped: false, reheat() { a.current = .3; }, stop() { this.stopped = true; } };
-  }
 
   // ── Drawing ─────────────────────────────────────────────────
 
@@ -220,6 +227,10 @@ export default function GraphView({ entityId = null, onEntityChange }) {
       }
     });
     ctx.restore();
+    // Il fotogramma successivo richiama questa stessa istanza di `draw`; quando
+    // le dipendenze cambiano, l'effetto più sotto annulla il ciclo e lo riavvia
+    // con la nuova istanza, quindi il riferimento non resta mai indietro.
+    // eslint-disable-next-line react-hooks/immutability
     afRef.current = requestAnimationFrame(draw);
   }, [selNode, hovNode, filterCat, search]);
 

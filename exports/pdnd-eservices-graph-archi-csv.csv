@@ -1,132 +1,296 @@
 Source,Target,Weight,Type,origine,servizi
-min_interno,c_milano,5,Directed,ricostruita,"C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso"
-min_interno,c_roma,5,Directed,ricostruita,"C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso"
-min_interno,c_napoli,4,Directed,ricostruita,"C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico"
-min_interno,c_bologna,3,Directed,ricostruita,"C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione"
-min_interno,c_genova,3,Directed,ricostruita,"C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione"
-min_interno,c_padova,2,Directed,ricostruita,"C001 – Servizio Notifica; ANPR – Verifica Autocertificazione"
-min_interno,comuni_agg,5,Directed,ricostruita,"C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso"
-min_interno,r_lombardia,4,Directed,ricostruita,"C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico"
-min_interno,r_lazio,3,Directed,ricostruita,"C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione"
-min_interno,r_campania,2,Directed,ricostruita,"C001 – Servizio Notifica; ANPR – Verifica Autocertificazione"
-min_interno,inps,5,Directed,ricostruita,"C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso"
-min_interno,ade,4,Directed,ricostruita,"C001 – Servizio Notifica; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso"
-min_interno,r_liguria,5,Directed,ricostruita,"C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso"
-min_interno,r_toscana,5,Directed,ricostruita,"C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso"
-min_interno,r_molise,5,Directed,ricostruita,"C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso"
-min_interno,r_puglia,5,Directed,ricostruita,"C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso"
-min_interno,pa_trento,5,Directed,ricostruita,"C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso"
-min_interno,r_abruzzo,5,Directed,ricostruita,"C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso"
-min_interno,r_emilia,5,Directed,ricostruita,"C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso"
-min_interno,r_piemonte,5,Directed,ricostruita,"C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso"
-min_interno,r_veneto,5,Directed,ricostruita,"C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso"
-min_interno,r_marche,5,Directed,ricostruita,"C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso"
-min_interno,r_umbria,5,Directed,ricostruita,"C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso"
-min_interno,r_vda,5,Directed,ricostruita,"C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso"
-min_interno,r_basilicata,5,Directed,ricostruita,"C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso"
-min_interno,r_sardegna,5,Directed,ricostruita,"C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso"
-min_interno,r_calabria,5,Directed,ricostruita,"C001 – Servizio Notifica; C002 – Servizio Comunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico; C004 – Verifica Decesso"
-min_interno,r_friuli,1,Directed,ricostruita,ANPR – Verifica Autocertificazione
-min_interno,mef,2,Directed,ricostruita,"ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico"
-min_interno,mur,1,Directed,ricostruita,ANPR – Verifica Autocertificazione
-min_interno,agid,2,Directed,ricostruita,"ANPR – Verifica Autocertificazione; ANPR API Integrazione INAD"
-min_interno,min_istruzione,2,Directed,ricostruita,"ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico"
-min_interno,mit_dgmot,1,Directed,ricostruita,ANPR – Accertamento Anagrafico
-min_interno,istat,1,Directed,ricostruita,ANPR – Accertamento Anagrafico
-inps,c_milano,3,Directed,ricostruita,"Consultazione ISEE; SIUSS – Casellario Assistenza; Consultazione DURC"
-inps,c_roma,3,Directed,ricostruita,"Consultazione ISEE; SIUSS – Casellario Assistenza; Consultazione DURC"
-inps,c_napoli,3,Directed,ricostruita,"Consultazione ISEE; SIUSS – Casellario Assistenza; Consultazione DURC"
-inps,c_bologna,2,Directed,ricostruita,"Consultazione ISEE; SIUSS – Casellario Assistenza"
-inps,c_genova,1,Directed,ricostruita,Consultazione ISEE
-inps,c_padova,1,Directed,ricostruita,Consultazione ISEE
-inps,comuni_agg,3,Directed,ricostruita,"Consultazione ISEE; SIUSS – Casellario Assistenza; Consultazione DURC"
-inps,r_lombardia,5,Directed,ricostruita,"Consultazione ISEE; SIUSS – Casellario Assistenza; Casellario Lavoratori Attivi; Casellario Pensionati; Consultazione DURC"
-inps,r_lazio,3,Directed,ricostruita,"Consultazione ISEE; SIUSS – Casellario Assistenza; Consultazione DURC"
-inps,r_campania,2,Directed,ricostruita,"Consultazione ISEE; SIUSS – Casellario Assistenza"
-inps,r_friuli,1,Directed,ricostruita,Consultazione ISEE
-inps,mur,1,Directed,ricostruita,Consultazione ISEE
-inps,r_liguria,2,Directed,ricostruita,"Consultazione ISEE; SIUSS – Casellario Assistenza"
-inps,r_toscana,2,Directed,ricostruita,"Consultazione ISEE; SIUSS – Casellario Assistenza"
-inps,r_molise,2,Directed,ricostruita,"Consultazione ISEE; SIUSS – Casellario Assistenza"
-inps,r_puglia,2,Directed,ricostruita,"Consultazione ISEE; SIUSS – Casellario Assistenza"
-inps,pa_trento,2,Directed,ricostruita,"Consultazione ISEE; SIUSS – Casellario Assistenza"
-inps,r_abruzzo,2,Directed,ricostruita,"Consultazione ISEE; SIUSS – Casellario Assistenza"
-inps,r_emilia,2,Directed,ricostruita,"Consultazione ISEE; SIUSS – Casellario Assistenza"
-inps,r_piemonte,2,Directed,ricostruita,"Consultazione ISEE; SIUSS – Casellario Assistenza"
-inps,r_veneto,2,Directed,ricostruita,"Consultazione ISEE; SIUSS – Casellario Assistenza"
-inps,r_marche,2,Directed,ricostruita,"Consultazione ISEE; SIUSS – Casellario Assistenza"
-inps,r_umbria,2,Directed,ricostruita,"Consultazione ISEE; SIUSS – Casellario Assistenza"
-inps,r_vda,2,Directed,ricostruita,"Consultazione ISEE; SIUSS – Casellario Assistenza"
-inps,r_basilicata,2,Directed,ricostruita,"Consultazione ISEE; SIUSS – Casellario Assistenza"
-inps,r_sardegna,2,Directed,ricostruita,"Consultazione ISEE; SIUSS – Casellario Assistenza"
-inps,r_calabria,2,Directed,ricostruita,"Consultazione ISEE; SIUSS – Casellario Assistenza"
-inps,mlps,3,Directed,ricostruita,"SIUSS – Casellario Assistenza; Casellario Lavoratori Attivi; Casellario Pensionati"
-inps,ade,2,Directed,ricostruita,"Casellario Lavoratori Attivi; Casellario Pensionati"
-inps,mef,2,Directed,ricostruita,"Casellario Lavoratori Attivi; Casellario Pensionati"
-inps,inail,1,Directed,ricostruita,Casellario Lavoratori Attivi
+min_interno,agid,2,Directed,certificata|ricostruita,"ANPR API INTEGRAZIONE INAD; ANPR – Verifica Autocertificazione"
+min_interno,comuni_agg,11,Directed,certificata|ricostruita,"C001–servizioNotifica; C002-servizioComunicazione; C004-servizioVerificaDichDecesso; C001–servizioNotifica-approvazione_automatica; C002-servizioComunicazione-approvazione_automatica; C003-servizioVerificaDichGeneralita; C003-servizioVerificaDichGeneralita-approvazione_automatica; C004-servizioVerificaDichDecesso-approvazione_automatica; C005-servizioVerificaDichStatoMatrimonio; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico"
+min_interno,adm,3,Directed,certificata,"C001–servizioNotifica; C002-servizioComunicazione; C003-servizioVerificaDichGeneralita"
+min_interno,r_lombardia,7,Directed,certificata|ricostruita,"C001–servizioNotifica; C002-servizioComunicazione; C004-servizioVerificaDichDecesso; C003-servizioVerificaDichGeneralita; C005-servizioVerificaDichStatoMatrimonio; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico"
+min_interno,r_lazio,6,Directed,certificata|ricostruita,"C001–servizioNotifica; C002-servizioComunicazione; C004-servizioVerificaDichDecesso; C003-servizioVerificaDichGeneralita; C005-servizioVerificaDichStatoMatrimonio; ANPR – Verifica Autocertificazione"
+min_interno,r_campania,6,Directed,certificata|ricostruita,"C001–servizioNotifica; C002-servizioComunicazione; C004-servizioVerificaDichDecesso; C003-servizioVerificaDichGeneralita; C005-servizioVerificaDichStatoMatrimonio; ANPR – Verifica Autocertificazione"
+min_interno,r_emilia,7,Directed,certificata|ricostruita,"C001–servizioNotifica; C002-servizioComunicazione; C004-servizioVerificaDichDecesso; C003-servizioVerificaDichGeneralita; C005-servizioVerificaDichStatoMatrimonio; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico"
+min_interno,r_toscana,7,Directed,certificata|ricostruita,"C001–servizioNotifica; C002-servizioComunicazione; C004-servizioVerificaDichDecesso; C003-servizioVerificaDichGeneralita; C005-servizioVerificaDichStatoMatrimonio; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico"
+min_interno,r_veneto,7,Directed,certificata|ricostruita,"C001–servizioNotifica; C002-servizioComunicazione; C004-servizioVerificaDichDecesso; C003-servizioVerificaDichGeneralita; C005-servizioVerificaDichStatoMatrimonio; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico"
+min_interno,r_piemonte,7,Directed,certificata|ricostruita,"C001–servizioNotifica; C002-servizioComunicazione; C004-servizioVerificaDichDecesso; C003-servizioVerificaDichGeneralita; C005-servizioVerificaDichStatoMatrimonio; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico"
+min_interno,inps,7,Directed,certificata|ricostruita,"C001–servizioNotifica; C002-servizioComunicazione; C004-servizioVerificaDichDecesso; C003-servizioVerificaDichGeneralita; C005-servizioVerificaDichStatoMatrimonio; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico"
+min_interno,inail,5,Directed,certificata,"C001–servizioNotifica; C002-servizioComunicazione; C004-servizioVerificaDichDecesso; C003-servizioVerificaDichGeneralita; C005-servizioVerificaDichStatoMatrimonio"
+min_interno,pagopa,1,Directed,certificata,C001–servizioNotifica
+min_interno,mlps,5,Directed,certificata,"C001–servizioNotifica; C002-servizioComunicazione; C004-servizioVerificaDichDecesso; C003-servizioVerificaDichGeneralita; C005-servizioVerificaDichStatoMatrimonio"
+min_interno,mef,7,Directed,certificata|ricostruita,"C001–servizioNotifica; C002-servizioComunicazione; C004-servizioVerificaDichDecesso; C003-servizioVerificaDichGeneralita; C005-servizioVerificaDichStatoMatrimonio; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico"
+min_interno,min_cultura,5,Directed,certificata,"C001–servizioNotifica; C002-servizioComunicazione; C004-servizioVerificaDichDecesso; C003-servizioVerificaDichGeneralita; C005-servizioVerificaDichStatoMatrimonio"
+min_interno,min_giustizia,5,Directed,certificata,"C001–servizioNotifica; C002-servizioComunicazione; C004-servizioVerificaDichDecesso; C003-servizioVerificaDichGeneralita; C005-servizioVerificaDichStatoMatrimonio"
+min_interno,min_istruzione,7,Directed,certificata|ricostruita,"C001–servizioNotifica; C002-servizioComunicazione; C004-servizioVerificaDichDecesso; C003-servizioVerificaDichGeneralita; C005-servizioVerificaDichStatoMatrimonio; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico"
+min_interno,c_milano,5,Directed,ricostruita,"C001–servizioNotifica; C002-servizioComunicazione; C004-servizioVerificaDichDecesso; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico"
+min_interno,c_roma,5,Directed,ricostruita,"C001–servizioNotifica; C002-servizioComunicazione; C004-servizioVerificaDichDecesso; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico"
+min_interno,c_napoli,4,Directed,ricostruita,"C001–servizioNotifica; C002-servizioComunicazione; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico"
+min_interno,c_bologna,3,Directed,ricostruita,"C001–servizioNotifica; C002-servizioComunicazione; ANPR – Verifica Autocertificazione"
+min_interno,c_genova,3,Directed,ricostruita,"C001–servizioNotifica; C002-servizioComunicazione; ANPR – Verifica Autocertificazione"
+min_interno,c_padova,2,Directed,ricostruita,"C001–servizioNotifica; ANPR – Verifica Autocertificazione"
+min_interno,ade,4,Directed,ricostruita,"C001–servizioNotifica; C004-servizioVerificaDichDecesso; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico"
+min_interno,r_liguria,5,Directed,ricostruita,"C001–servizioNotifica; C002-servizioComunicazione; C004-servizioVerificaDichDecesso; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico"
+min_interno,r_molise,5,Directed,ricostruita,"C001–servizioNotifica; C002-servizioComunicazione; C004-servizioVerificaDichDecesso; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico"
+min_interno,r_puglia,5,Directed,ricostruita,"C001–servizioNotifica; C002-servizioComunicazione; C004-servizioVerificaDichDecesso; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico"
+min_interno,pa_trento,5,Directed,ricostruita,"C001–servizioNotifica; C002-servizioComunicazione; C004-servizioVerificaDichDecesso; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico"
+min_interno,r_abruzzo,5,Directed,ricostruita,"C001–servizioNotifica; C002-servizioComunicazione; C004-servizioVerificaDichDecesso; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico"
+min_interno,r_marche,5,Directed,ricostruita,"C001–servizioNotifica; C002-servizioComunicazione; C004-servizioVerificaDichDecesso; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico"
+min_interno,r_umbria,5,Directed,ricostruita,"C001–servizioNotifica; C002-servizioComunicazione; C004-servizioVerificaDichDecesso; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico"
+min_interno,r_vda,5,Directed,ricostruita,"C001–servizioNotifica; C002-servizioComunicazione; C004-servizioVerificaDichDecesso; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico"
+min_interno,r_basilicata,5,Directed,ricostruita,"C001–servizioNotifica; C002-servizioComunicazione; C004-servizioVerificaDichDecesso; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico"
+min_interno,r_sardegna,5,Directed,ricostruita,"C001–servizioNotifica; C002-servizioComunicazione; C004-servizioVerificaDichDecesso; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico"
+min_interno,r_calabria,5,Directed,ricostruita,"C001–servizioNotifica; C002-servizioComunicazione; C004-servizioVerificaDichDecesso; ANPR – Verifica Autocertificazione; ANPR – Accertamento Anagrafico"
+min_interno,poste,1,Directed,certificata,ANPR-Certificazione
+min_interno,notariato,1,Directed,certificata,ANPR-Certificazione
+inps,c_milano,3,Directed,ricostruita,"Consultazione DURC; SIUSS-CasellarioAssistenza; Consultazione ISEE"
+inps,c_roma,3,Directed,ricostruita,"Consultazione DURC; SIUSS-CasellarioAssistenza; Consultazione ISEE"
+inps,c_napoli,3,Directed,ricostruita,"Consultazione DURC; SIUSS-CasellarioAssistenza; Consultazione ISEE"
+inps,comuni_agg,5,Directed,certificata|inferita|ricostruita,"Consultazione DURC; SIUSS-CasellarioAssistenza; Consultazione ISEE; Consultazione Acc. Adulti Anziani - WaaS; Consultazione Agevolazioni Servizi Pubb. - WaaS"
 inps,anac,1,Directed,ricostruita,Consultazione DURC
 inps,unioncamere,1,Directed,ricostruita,Consultazione DURC
-ade,inps,2,Directed,ricostruita,"VCF1 – Verifica Codice Fiscale; Verifica Partita IVA"
-ade,c_milano,4,Directed,ricostruita,"VCF1 – Verifica Codice Fiscale; Verifica Partita IVA; ANNCSU – Anagrafe Immobiliare; Dati Catastali"
-ade,c_roma,4,Directed,ricostruita,"VCF1 – Verifica Codice Fiscale; Verifica Partita IVA; ANNCSU – Anagrafe Immobiliare; Dati Catastali"
-ade,c_napoli,3,Directed,ricostruita,"VCF1 – Verifica Codice Fiscale; ANNCSU – Anagrafe Immobiliare; Dati Catastali"
-ade,c_bologna,3,Directed,ricostruita,"VCF1 – Verifica Codice Fiscale; ANNCSU – Anagrafe Immobiliare; Dati Catastali"
-ade,c_genova,2,Directed,ricostruita,"VCF1 – Verifica Codice Fiscale; Dati Catastali"
-ade,c_padova,1,Directed,ricostruita,VCF1 – Verifica Codice Fiscale
-ade,comuni_agg,4,Directed,ricostruita,"VCF1 – Verifica Codice Fiscale; Verifica Partita IVA; ANNCSU – Anagrafe Immobiliare; Dati Catastali"
-ade,r_lombardia,3,Directed,ricostruita,"VCF1 – Verifica Codice Fiscale; ANNCSU – Anagrafe Immobiliare; Dati Catastali"
-ade,r_lazio,3,Directed,ricostruita,"VCF1 – Verifica Codice Fiscale; ANNCSU – Anagrafe Immobiliare; Dati Catastali"
-ade,r_campania,2,Directed,ricostruita,"VCF1 – Verifica Codice Fiscale; Dati Catastali"
-ade,agid,1,Directed,ricostruita,VCF1 – Verifica Codice Fiscale
-ade,inail,2,Directed,ricostruita,"VCF1 – Verifica Codice Fiscale; Verifica Partita IVA"
-ade,mef,3,Directed,ricostruita,"VCF1 – Verifica Codice Fiscale; Verifica Partita IVA; ANNCSU – Anagrafe Immobiliare"
-ade,unioncamere,2,Directed,ricostruita,"VCF1 – Verifica Codice Fiscale; Verifica Partita IVA"
-ade,anac,2,Directed,ricostruita,"VCF1 – Verifica Codice Fiscale; Verifica Partita IVA"
+inps,r_lombardia,5,Directed,certificata|ricostruita,"Consultazione DURC; SIUSS-CasellarioAssistenza; Consultazione ISEE; Casellario Lavoratori Attivi; Casellario Pensionati"
+inps,r_lazio,3,Directed,certificata|ricostruita,"Consultazione DURC; SIUSS-CasellarioAssistenza; Consultazione ISEE"
+inps,r_campania,2,Directed,certificata,"SIUSS-CasellarioAssistenza; Consultazione ISEE"
+inps,r_emilia,2,Directed,certificata,"SIUSS-CasellarioAssistenza; Consultazione ISEE"
+inps,r_toscana,2,Directed,certificata,"SIUSS-CasellarioAssistenza; Consultazione ISEE"
+inps,r_veneto,2,Directed,certificata,"SIUSS-CasellarioAssistenza; Consultazione ISEE"
+inps,r_piemonte,2,Directed,certificata,"SIUSS-CasellarioAssistenza; Consultazione ISEE"
+inps,c_bologna,2,Directed,ricostruita,"SIUSS-CasellarioAssistenza; Consultazione ISEE"
+inps,mlps,6,Directed,certificata|ricostruita,"SIUSS-CasellarioAssistenza; Comunicazioni Obbligatorie; Consultazione ADI ISEE; Consultazione ADI SIUSS; Casellario Lavoratori Attivi; Casellario Pensionati"
+inps,r_liguria,2,Directed,ricostruita,"SIUSS-CasellarioAssistenza; Consultazione ISEE"
+inps,r_molise,2,Directed,ricostruita,"SIUSS-CasellarioAssistenza; Consultazione ISEE"
+inps,r_puglia,2,Directed,ricostruita,"SIUSS-CasellarioAssistenza; Consultazione ISEE"
+inps,pa_trento,2,Directed,ricostruita,"SIUSS-CasellarioAssistenza; Consultazione ISEE"
+inps,r_abruzzo,2,Directed,ricostruita,"SIUSS-CasellarioAssistenza; Consultazione ISEE"
+inps,r_marche,2,Directed,ricostruita,"SIUSS-CasellarioAssistenza; Consultazione ISEE"
+inps,r_umbria,2,Directed,ricostruita,"SIUSS-CasellarioAssistenza; Consultazione ISEE"
+inps,r_vda,2,Directed,ricostruita,"SIUSS-CasellarioAssistenza; Consultazione ISEE"
+inps,r_basilicata,2,Directed,ricostruita,"SIUSS-CasellarioAssistenza; Consultazione ISEE"
+inps,r_sardegna,2,Directed,ricostruita,"SIUSS-CasellarioAssistenza; Consultazione ISEE"
+inps,r_calabria,2,Directed,ricostruita,"SIUSS-CasellarioAssistenza; Consultazione ISEE"
+inps,c_genova,1,Directed,ricostruita,Consultazione ISEE
+inps,c_padova,1,Directed,ricostruita,Consultazione ISEE
+inps,r_friuli,1,Directed,ricostruita,Consultazione ISEE
+inps,mur,1,Directed,ricostruita,Consultazione ISEE
+inps,min_istruzione,2,Directed,certificata,"Certificazioni di diritto a pensione per MIM; Comunicazioni Obbligatorie"
+inps,min_interno,1,Directed,certificata,Comunicazioni Obbligatorie
+inps,mef,3,Directed,certificata|ricostruita,"Comunicazioni Obbligatorie; Casellario Lavoratori Attivi; Casellario Pensionati"
+inps,min_cultura,1,Directed,certificata,Comunicazioni Obbligatorie
+inps,min_giustizia,1,Directed,certificata,Comunicazioni Obbligatorie
+inps,regioni_agg,2,Directed,inferita,"Consultazione Acc. Adulti Anziani - WaaS; Consultazione Agevolazioni Servizi Pubb. - WaaS"
+inps,ade,3,Directed,inferita|ricostruita,"Consultazione Agevolazioni Servizi Pubb. - WaaS; Casellario Lavoratori Attivi; Casellario Pensionati"
+inps,ade_riscossione,1,Directed,inferita,Consultazione Agevolazioni Servizi Pubb. - WaaS
+ade,r_lombardia,3,Directed,certificata|ricostruita,"VCF1 - Verifica Booleana Codice Fiscale; ANNCSU – Anagrafe Immobiliare; Dati Catastali"
+ade,r_lazio,3,Directed,certificata|ricostruita,"VCF1 - Verifica Booleana Codice Fiscale; ANNCSU – Anagrafe Immobiliare; Dati Catastali"
+ade,r_campania,2,Directed,certificata|ricostruita,"VCF1 - Verifica Booleana Codice Fiscale; Dati Catastali"
+ade,r_emilia,1,Directed,certificata,VCF1 - Verifica Booleana Codice Fiscale
+ade,r_toscana,1,Directed,certificata,VCF1 - Verifica Booleana Codice Fiscale
+ade,r_veneto,1,Directed,certificata,VCF1 - Verifica Booleana Codice Fiscale
+ade,r_piemonte,1,Directed,certificata,VCF1 - Verifica Booleana Codice Fiscale
+ade,comuni_agg,10,Directed,certificata|inferita|ricostruita,"VCF1 - Verifica Booleana Codice Fiscale; Verifica Partita Iva; ANNCSU - Aggiornamento accessi; ANNCSU - Aggiornamento coordinate; ANNCSU - Aggiornamento coordinate per grandi Comuni; ANNCSU - Aggiornamento interni; ANNCSU - Aggiornamento odonimi; ANNCSU - Consultazione per altre PPAA; ANNCSU – Anagrafe Immobiliare; Dati Catastali"
+ade,min_interno,1,Directed,certificata,VCF1 - Verifica Booleana Codice Fiscale
+ade,mlps,1,Directed,certificata,VCF1 - Verifica Booleana Codice Fiscale
+ade,mef,4,Directed,certificata|ricostruita,"VCF1 - Verifica Booleana Codice Fiscale; Verifica Partita Iva; Aggiornamento catalogo immmobili Dipartimento Tesoro; ANNCSU – Anagrafe Immobiliare"
+ade,min_cultura,1,Directed,certificata,VCF1 - Verifica Booleana Codice Fiscale
+ade,min_giustizia,1,Directed,certificata,VCF1 - Verifica Booleana Codice Fiscale
+ade,min_istruzione,1,Directed,certificata,VCF1 - Verifica Booleana Codice Fiscale
+ade,ipzs,1,Directed,certificata,VCF1 - Verifica Booleana Codice Fiscale
+ade,inps,2,Directed,ricostruita,"VCF1 - Verifica Booleana Codice Fiscale; Verifica Partita Iva"
+ade,c_milano,5,Directed,certificata|ricostruita,"VCF1 - Verifica Booleana Codice Fiscale; Verifica Partita Iva; ANNCSU - Aggiornamento coordinate per grandi Comuni; ANNCSU – Anagrafe Immobiliare; Dati Catastali"
+ade,c_roma,5,Directed,certificata|ricostruita,"VCF1 - Verifica Booleana Codice Fiscale; Verifica Partita Iva; ANNCSU - Aggiornamento coordinate per grandi Comuni; ANNCSU – Anagrafe Immobiliare; Dati Catastali"
+ade,c_napoli,4,Directed,certificata|ricostruita,"VCF1 - Verifica Booleana Codice Fiscale; ANNCSU - Aggiornamento coordinate per grandi Comuni; ANNCSU – Anagrafe Immobiliare; Dati Catastali"
+ade,c_bologna,4,Directed,certificata|ricostruita,"VCF1 - Verifica Booleana Codice Fiscale; ANNCSU - Aggiornamento coordinate per grandi Comuni; ANNCSU – Anagrafe Immobiliare; Dati Catastali"
+ade,c_genova,3,Directed,certificata|ricostruita,"VCF1 - Verifica Booleana Codice Fiscale; ANNCSU - Aggiornamento coordinate per grandi Comuni; Dati Catastali"
+ade,c_padova,2,Directed,certificata|ricostruita,"VCF1 - Verifica Booleana Codice Fiscale; ANNCSU - Aggiornamento coordinate per grandi Comuni"
+ade,agid,1,Directed,ricostruita,VCF1 - Verifica Booleana Codice Fiscale
+ade,inail,2,Directed,ricostruita,"VCF1 - Verifica Booleana Codice Fiscale; Verifica Partita Iva"
+ade,unioncamere,2,Directed,ricostruita,"VCF1 - Verifica Booleana Codice Fiscale; Verifica Partita Iva"
+ade,anac,2,Directed,ricostruita,"VCF1 - Verifica Booleana Codice Fiscale; Verifica Partita Iva"
+ade,ag_demanio,1,Directed,certificata,Aggiornamento catalogo immobili Agenzia del Demanio
+agid,comuni_agg,2,Directed,certificata|ricostruita,"INAD CONSULTAZIONE DD; Indice PA (IPA)"
+agid,inps,3,Directed,certificata|ricostruita,"INAD CONSULTAZIONE DD; Download massivo AOO-UO ed Esito - IPA Area Riservata Ente; Indice PA (IPA)"
+agid,inail,1,Directed,certificata,INAD CONSULTAZIONE DD
+agid,min_interno,2,Directed,certificata|ricostruita,"INAD CONSULTAZIONE DD; INAD API INTEGRAZIONE ANPR"
+agid,ade,2,Directed,ricostruita,"INAD CONSULTAZIONE DD; Indice PA (IPA)"
+agid,c_milano,2,Directed,ricostruita,"INAD CONSULTAZIONE DD; Indice PA (IPA)"
+agid,c_roma,2,Directed,ricostruita,"INAD CONSULTAZIONE DD; Indice PA (IPA)"
+agid,c_napoli,1,Directed,ricostruita,INAD CONSULTAZIONE DD
+agid,r_lombardia,1,Directed,ricostruita,INAD CONSULTAZIONE DD
+agid,pagopa,3,Directed,certificata|ricostruita,"INAD CONSULTAZIONE DD; INAD CONSULTAZIONE DD - PagoPA; Indice PA (IPA)"
+inail,inps,1,Directed,ricostruita,INAIL_Gra_Durc
+inail,c_milano,1,Directed,ricostruita,INAIL_Gra_Durc
+inail,c_roma,1,Directed,ricostruita,INAIL_Gra_Durc
+inail,comuni_agg,1,Directed,ricostruita,INAIL_Gra_Durc
+inail,anac,1,Directed,ricostruita,INAIL_Gra_Durc
+inail,unioncamere,1,Directed,ricostruita,INAIL_Gra_Durc
+inail,r_lombardia,1,Directed,ricostruita,INAIL_Gra_Durc
+inail,mlps,2,Directed,certificata,"comobb; pdnd.mlps.tassi"
+unioncamere,comuni_agg,12,Directed,certificata|ricostruita,"CATALOGO - GESTIONE ISTANZA - BACKOFFICE; CATALOGO - GESTIONE ISTANZA - COMUNICA; CATALOGO - GESTIONE ISTANZA - ENTI TERZI; CATALOGO - GESTIONE ISTANZA - REGISTRO IMPRESE; CATALOGO - METADATI; Servizi consultazione Registro Imprese; CATALOGO - COMPONENTI ACCREDITATE; CATALOGO - GESTIONE ISTANZA - BACKOFFICE - SUE; CATALOGO - GESTIONE ISTANZA - ENTI TERZI - SUE; CATALOGO - GESTIONE ISTANZA - FRONTOFFICE; CATALOGO - GESTIONE ISTANZA - FRONTOFFICE - SUE; CATALOGO - INFO ATTIVAZIONE SPORTELLO"
+unioncamere,c_milano,5,Directed,ricostruita,"CATALOGO - GESTIONE ISTANZA - BACKOFFICE; CATALOGO - GESTIONE ISTANZA - COMUNICA; CATALOGO - GESTIONE ISTANZA - REGISTRO IMPRESE; CATALOGO - METADATI; Servizi consultazione Registro Imprese"
+unioncamere,c_roma,5,Directed,ricostruita,"CATALOGO - GESTIONE ISTANZA - BACKOFFICE; CATALOGO - GESTIONE ISTANZA - COMUNICA; CATALOGO - GESTIONE ISTANZA - REGISTRO IMPRESE; CATALOGO - METADATI; Servizi consultazione Registro Imprese"
+unioncamere,c_napoli,3,Directed,ricostruita,"CATALOGO - GESTIONE ISTANZA - BACKOFFICE; CATALOGO - GESTIONE ISTANZA - REGISTRO IMPRESE; CATALOGO - METADATI"
+unioncamere,c_bologna,5,Directed,ricostruita,"CATALOGO - GESTIONE ISTANZA - BACKOFFICE; CATALOGO - GESTIONE ISTANZA - COMUNICA; CATALOGO - GESTIONE ISTANZA - REGISTRO IMPRESE; CATALOGO - METADATI; Servizi consultazione Registro Imprese"
+unioncamere,min_interno,1,Directed,ricostruita,CATALOGO - GESTIONE ISTANZA - ENTI TERZI
+unioncamere,r_lombardia,2,Directed,ricostruita,"CATALOGO - GESTIONE ISTANZA - ENTI TERZI; Servizi consultazione Registro Imprese"
+unioncamere,r_lazio,1,Directed,ricostruita,CATALOGO - GESTIONE ISTANZA - ENTI TERZI
+unioncamere,r_campania,1,Directed,ricostruita,CATALOGO - GESTIONE ISTANZA - ENTI TERZI
+unioncamere,r_friuli,1,Directed,ricostruita,CATALOGO - GESTIONE ISTANZA - ENTI TERZI
+unioncamere,r_sicilia,1,Directed,ricostruita,CATALOGO - GESTIONE ISTANZA - ENTI TERZI
+unioncamere,c_genova,1,Directed,ricostruita,CATALOGO - METADATI
+unioncamere,ade,1,Directed,ricostruita,Servizi consultazione Registro Imprese
+unioncamere,inps,1,Directed,ricostruita,Servizi consultazione Registro Imprese
+unioncamere,inail,1,Directed,ricostruita,Servizi consultazione Registro Imprese
+unioncamere,anac,1,Directed,ricostruita,Servizi consultazione Registro Imprese
+unioncamere,mef,1,Directed,ricostruita,Servizi consultazione Registro Imprese
+mef,ag_demanio,1,Directed,certificata,DE - IMMOBILI - Ricezione Dati Demanio
+anac,c_milano,2,Directed,ricostruita,"Consultazione BDNCP; SIMOG"
+anac,c_roma,2,Directed,ricostruita,"Consultazione BDNCP; SIMOG"
+anac,c_napoli,1,Directed,ricostruita,Consultazione BDNCP
+anac,c_bologna,1,Directed,ricostruita,Consultazione BDNCP
+anac,comuni_agg,4,Directed,inferita|ricostruita,"Consultazione BDNCP; APICIG; APICIG2; SIMOG"
+anac,r_lombardia,1,Directed,ricostruita,Consultazione BDNCP
+anac,r_lazio,1,Directed,ricostruita,Consultazione BDNCP
+anac,mef,4,Directed,inferita|ricostruita,"Consultazione BDNCP; APICIG; APICIG2; SIMOG"
+anac,ade,6,Directed,certificata|inferita|ricostruita,"Consultazione BDNCP; AdE - Callback Atti non definitivamente accertati - v2; AdE - Callback Redditi società di persone - v2; AdE - Callback Regolarità fiscale - v2; APICIG; APICIG2"
+anac,ade_riscossione,1,Directed,inferita,APICIG
+anac,mit,2,Directed,inferita,"APICIG; APICIG2"
+anac,min_interno,1,Directed,inferita,APICIG
+anac,inps,1,Directed,inferita,APICIG
+anac,inail,1,Directed,inferita,APICIG
+anac,regioni_agg,2,Directed,inferita,"APICIG; APICIG2"
+anac,adm,1,Directed,inferita,APICIG
+anac,ag_demanio,2,Directed,inferita,"APICIG; APICIG2"
+min_giustizia,anac,1,Directed,certificata,Certificato Casellario Giudiziale - Persone fisiche
+min_giustizia,min_interno,1,Directed,certificata,Certificato Casellario Giudiziale - Persone fisiche
+min_giustizia,mlps,1,Directed,certificata,Certificato Casellario Giudiziale - Persone fisiche
+min_giustizia,mef,1,Directed,certificata,Certificato Casellario Giudiziale - Persone fisiche
+min_giustizia,min_cultura,1,Directed,certificata,Certificato Casellario Giudiziale - Persone fisiche
+min_giustizia,min_istruzione,1,Directed,certificata,Certificato Casellario Giudiziale - Persone fisiche
+min_giustizia,comuni_agg,4,Directed,certificata,"Certificato Casellario Giudiziale - Persone fisiche; Certificato Carichi pendenti; Certificato Sanzioni amministrative dipendenti da reato; Consultazione ReGIndE"
+min_giustizia,inps,2,Directed,certificata,"Certificato Casellario Giudiziale - Persone fisiche; Certificato Sanzioni amministrative dipendenti da reato"
+min_giustizia,inail,2,Directed,certificata,"Certificato Casellario Giudiziale - Persone fisiche; Certificato Sanzioni amministrative dipendenti da reato"
+min_giustizia,ade,2,Directed,certificata|ricostruita,"Certificato Casellario Giudiziale - Persone fisiche; Comunicazione esiti registrazione atti giudiziari RTAG"
+min_giustizia,c_milano,1,Directed,ricostruita,Certificato Casellario Giudiziale - Persone fisiche
+min_giustizia,c_roma,1,Directed,ricostruita,Certificato Casellario Giudiziale - Persone fisiche
+min_giustizia,ipzs,1,Directed,certificata,Creazione EAA Amministratore di sostegno - Ammin. Sost.
+min_cultura,min_interno,6,Directed,certificata,"I.PaC - Gestione Risorsa Digitale; I.PaC - Sottoscrizione e recupero Dataset da Grafo cross; I.PaC - Acknowledge pacchetto; I.PaC - Content Processing Avanzato; I.PaC - Download Risorsa Digitale; I.PaC - Fruizione Media Immagini"
+min_cultura,mlps,6,Directed,certificata,"I.PaC - Gestione Risorsa Digitale; I.PaC - Sottoscrizione e recupero Dataset da Grafo cross; I.PaC - Acknowledge pacchetto; I.PaC - Content Processing Avanzato; I.PaC - Download Risorsa Digitale; I.PaC - Fruizione Media Immagini"
+min_cultura,mef,6,Directed,certificata,"I.PaC - Gestione Risorsa Digitale; I.PaC - Sottoscrizione e recupero Dataset da Grafo cross; I.PaC - Acknowledge pacchetto; I.PaC - Content Processing Avanzato; I.PaC - Download Risorsa Digitale; I.PaC - Fruizione Media Immagini"
+min_cultura,min_giustizia,6,Directed,certificata,"I.PaC - Gestione Risorsa Digitale; I.PaC - Sottoscrizione e recupero Dataset da Grafo cross; I.PaC - Acknowledge pacchetto; I.PaC - Content Processing Avanzato; I.PaC - Download Risorsa Digitale; I.PaC - Fruizione Media Immagini"
+min_cultura,min_istruzione,6,Directed,certificata,"I.PaC - Gestione Risorsa Digitale; I.PaC - Sottoscrizione e recupero Dataset da Grafo cross; I.PaC - Acknowledge pacchetto; I.PaC - Content Processing Avanzato; I.PaC - Download Risorsa Digitale; I.PaC - Fruizione Media Immagini"
+min_cultura,r_lombardia,7,Directed,certificata|ricostruita,"I.PaC - Gestione Risorsa Digitale; I.PaC - Sottoscrizione e recupero Dataset da Grafo cross; I.PaC - Acknowledge pacchetto; I.PaC - Content Processing Avanzato; I.PaC - Download Risorsa Digitale; I.PaC - Fruizione Media Immagini; I.PaC – API IIIF"
+min_cultura,r_lazio,6,Directed,certificata,"I.PaC - Gestione Risorsa Digitale; I.PaC - Sottoscrizione e recupero Dataset da Grafo cross; I.PaC - Acknowledge pacchetto; I.PaC - Content Processing Avanzato; I.PaC - Download Risorsa Digitale; I.PaC - Fruizione Media Immagini"
+min_cultura,r_campania,6,Directed,certificata,"I.PaC - Gestione Risorsa Digitale; I.PaC - Sottoscrizione e recupero Dataset da Grafo cross; I.PaC - Acknowledge pacchetto; I.PaC - Content Processing Avanzato; I.PaC - Download Risorsa Digitale; I.PaC - Fruizione Media Immagini"
+min_cultura,r_emilia,6,Directed,certificata,"I.PaC - Gestione Risorsa Digitale; I.PaC - Sottoscrizione e recupero Dataset da Grafo cross; I.PaC - Acknowledge pacchetto; I.PaC - Content Processing Avanzato; I.PaC - Download Risorsa Digitale; I.PaC - Fruizione Media Immagini"
+min_cultura,r_toscana,6,Directed,certificata,"I.PaC - Gestione Risorsa Digitale; I.PaC - Sottoscrizione e recupero Dataset da Grafo cross; I.PaC - Acknowledge pacchetto; I.PaC - Content Processing Avanzato; I.PaC - Download Risorsa Digitale; I.PaC - Fruizione Media Immagini"
+min_cultura,r_veneto,6,Directed,certificata,"I.PaC - Gestione Risorsa Digitale; I.PaC - Sottoscrizione e recupero Dataset da Grafo cross; I.PaC - Acknowledge pacchetto; I.PaC - Content Processing Avanzato; I.PaC - Download Risorsa Digitale; I.PaC - Fruizione Media Immagini"
+min_cultura,r_piemonte,6,Directed,certificata,"I.PaC - Gestione Risorsa Digitale; I.PaC - Sottoscrizione e recupero Dataset da Grafo cross; I.PaC - Acknowledge pacchetto; I.PaC - Content Processing Avanzato; I.PaC - Download Risorsa Digitale; I.PaC - Fruizione Media Immagini"
+min_cultura,r_sicilia,2,Directed,ricostruita,"I.PaC - Gestione Risorsa Digitale; I.PaC - Sottoscrizione e recupero Dataset da Grafo cross"
+min_cultura,mur,3,Directed,ricostruita,"I.PaC - Gestione Risorsa Digitale; I.PaC - Sottoscrizione e recupero Dataset da Grafo cross; I.PaC – API IIIF"
+min_cultura,istat,2,Directed,ricostruita,"I.PaC - Sottoscrizione e recupero Dataset da Grafo cross; I.PaC – API IIIF"
+min_cultura,comuni_agg,1,Directed,certificata,Ente Terzo SUAP MiC
+mur,comuni_agg,5,Directed,certificata,"ANIS - Consultazione Iscrizioni [IFS02]; ANIS - Consultazione Massiva Iscrizioni; ANIS - Consultazione Massiva Titoli; ANIS - Consultazione Titoli [IFS03]; ANIS - Elenco Istituti"
+mur,inps,4,Directed,certificata|ricostruita,"ANIS - Consultazione Iscrizioni [IFS02]; ANIS - Consultazione Titoli [IFS03]; ANIS - Elenco Istituti; ANIS – Anagrafe Studenti"
+mur,inail,3,Directed,certificata,"ANIS - Consultazione Iscrizioni [IFS02]; ANIS - Consultazione Titoli [IFS03]; ANIS - Elenco Istituti"
+ade_riscossione,c_milano,1,Directed,ricostruita,Servizio per la fornitura della Situazione Debitoria
+ade_riscossione,c_roma,1,Directed,ricostruita,Servizio per la fornitura della Situazione Debitoria
+ade_riscossione,comuni_agg,1,Directed,ricostruita,Servizio per la fornitura della Situazione Debitoria
+ade_riscossione,mef,1,Directed,ricostruita,Servizio per la fornitura della Situazione Debitoria
+ade_riscossione,ade,1,Directed,ricostruita,Servizio per la fornitura della Situazione Debitoria
+ade_riscossione,inps,1,Directed,ricostruita,Servizio per la fornitura della Situazione Debitoria
+istat,comuni_agg,2,Directed,certificata,"Invio incidenti stradali; Invio permessi di costruire"
+pagopa,comuni_agg,1,Directed,certificata,SEND - Servizio Notifiche Digitali
+mlps,inps,2,Directed,certificata|ricostruita,"AGGIORNAMENTO Stato Domanda Reddito di Cittadinanza; Servizi Lavoro e Politiche Sociali"
+mlps,r_lombardia,7,Directed,certificata|ricostruita,"AGGIORNAMENTO_Appuntamento Caso-FSL_111; AGGIORNAMENTO_Area Catalogo servizi-FSL_092; AGGIORNAMENTO_Ente erogatore Catalogo servizi-FSL_114; AGGIORNAMENTO_Giustificato motivo Caso-FSL_112; AGGIORNAMENTO_Macro Area Catalogo servizi-FSL_095; AGGIORNAMENTO_Offerta formativa-FSL_002; Servizi Lavoro e Politiche Sociali"
+mlps,r_lazio,7,Directed,certificata|ricostruita,"AGGIORNAMENTO_Appuntamento Caso-FSL_111; AGGIORNAMENTO_Area Catalogo servizi-FSL_092; AGGIORNAMENTO_Ente erogatore Catalogo servizi-FSL_114; AGGIORNAMENTO_Giustificato motivo Caso-FSL_112; AGGIORNAMENTO_Macro Area Catalogo servizi-FSL_095; AGGIORNAMENTO_Offerta formativa-FSL_002; Servizi Lavoro e Politiche Sociali"
+mlps,r_campania,7,Directed,certificata|ricostruita,"AGGIORNAMENTO_Appuntamento Caso-FSL_111; AGGIORNAMENTO_Area Catalogo servizi-FSL_092; AGGIORNAMENTO_Ente erogatore Catalogo servizi-FSL_114; AGGIORNAMENTO_Giustificato motivo Caso-FSL_112; AGGIORNAMENTO_Macro Area Catalogo servizi-FSL_095; AGGIORNAMENTO_Offerta formativa-FSL_002; Servizi Lavoro e Politiche Sociali"
+mlps,r_emilia,7,Directed,certificata|ricostruita,"AGGIORNAMENTO_Appuntamento Caso-FSL_111; AGGIORNAMENTO_Area Catalogo servizi-FSL_092; AGGIORNAMENTO_Ente erogatore Catalogo servizi-FSL_114; AGGIORNAMENTO_Giustificato motivo Caso-FSL_112; AGGIORNAMENTO_Macro Area Catalogo servizi-FSL_095; AGGIORNAMENTO_Offerta formativa-FSL_002; Servizi Lavoro e Politiche Sociali"
+mlps,r_toscana,7,Directed,certificata|ricostruita,"AGGIORNAMENTO_Appuntamento Caso-FSL_111; AGGIORNAMENTO_Area Catalogo servizi-FSL_092; AGGIORNAMENTO_Ente erogatore Catalogo servizi-FSL_114; AGGIORNAMENTO_Giustificato motivo Caso-FSL_112; AGGIORNAMENTO_Macro Area Catalogo servizi-FSL_095; AGGIORNAMENTO_Offerta formativa-FSL_002; Servizi Lavoro e Politiche Sociali"
+mlps,r_veneto,7,Directed,certificata|ricostruita,"AGGIORNAMENTO_Appuntamento Caso-FSL_111; AGGIORNAMENTO_Area Catalogo servizi-FSL_092; AGGIORNAMENTO_Ente erogatore Catalogo servizi-FSL_114; AGGIORNAMENTO_Giustificato motivo Caso-FSL_112; AGGIORNAMENTO_Macro Area Catalogo servizi-FSL_095; AGGIORNAMENTO_Offerta formativa-FSL_002; Servizi Lavoro e Politiche Sociali"
+mlps,r_piemonte,7,Directed,certificata|ricostruita,"AGGIORNAMENTO_Appuntamento Caso-FSL_111; AGGIORNAMENTO_Area Catalogo servizi-FSL_092; AGGIORNAMENTO_Ente erogatore Catalogo servizi-FSL_114; AGGIORNAMENTO_Giustificato motivo Caso-FSL_112; AGGIORNAMENTO_Macro Area Catalogo servizi-FSL_095; AGGIORNAMENTO_Offerta formativa-FSL_002; Servizi Lavoro e Politiche Sociali"
+mlps,comuni_agg,6,Directed,certificata|ricostruita,"AGGIORNAMENTO_Appuntamento Caso-FSL_111; AGGIORNAMENTO_Area Catalogo servizi-FSL_092; AGGIORNAMENTO_Ente erogatore Catalogo servizi-FSL_114; AGGIORNAMENTO_Giustificato motivo Caso-FSL_112; AGGIORNAMENTO_Macro Area Catalogo servizi-FSL_095; Servizi Lavoro e Politiche Sociali"
+mit,anac,1,Directed,certificata,Classificazione General Contractor
+mit,comuni_agg,2,Directed,certificata|ricostruita,"Classificazione General Contractor; Servizi Infrastrutture e Trasporti"
+mit,min_interno,7,Directed,certificata,"DGCGCP - GUARDIA COSTIERA - Passi; DGCGCP - GUARDIA COSTIERA .m.solide container s imb transito; DGCGCP-GUARDIA COSTIERA ic.m.solide.container.sfuse.sba.tran; DGCGCP-GUARDIA COSTIERA Ric.m.peric.liquide imbarcate; DGCGCP-GUARDIA COSTIERA Ric.m.peric.s.s.imbarcate; DGCGCP-GUARDIA COSTIERA Ric.m.peric.s.s.sbarcate; DGCGCP-GUARDIA COSTIERA Ric.m.pericol.s.cont.s.sbarcate"
+mit,mlps,7,Directed,certificata,"DGCGCP - GUARDIA COSTIERA - Passi; DGCGCP - GUARDIA COSTIERA .m.solide container s imb transito; DGCGCP-GUARDIA COSTIERA ic.m.solide.container.sfuse.sba.tran; DGCGCP-GUARDIA COSTIERA Ric.m.peric.liquide imbarcate; DGCGCP-GUARDIA COSTIERA Ric.m.peric.s.s.imbarcate; DGCGCP-GUARDIA COSTIERA Ric.m.peric.s.s.sbarcate; DGCGCP-GUARDIA COSTIERA Ric.m.pericol.s.cont.s.sbarcate"
+mit,mef,7,Directed,certificata,"DGCGCP - GUARDIA COSTIERA - Passi; DGCGCP - GUARDIA COSTIERA .m.solide container s imb transito; DGCGCP-GUARDIA COSTIERA ic.m.solide.container.sfuse.sba.tran; DGCGCP-GUARDIA COSTIERA Ric.m.peric.liquide imbarcate; DGCGCP-GUARDIA COSTIERA Ric.m.peric.s.s.imbarcate; DGCGCP-GUARDIA COSTIERA Ric.m.peric.s.s.sbarcate; DGCGCP-GUARDIA COSTIERA Ric.m.pericol.s.cont.s.sbarcate"
+mit,min_cultura,7,Directed,certificata,"DGCGCP - GUARDIA COSTIERA - Passi; DGCGCP - GUARDIA COSTIERA .m.solide container s imb transito; DGCGCP-GUARDIA COSTIERA ic.m.solide.container.sfuse.sba.tran; DGCGCP-GUARDIA COSTIERA Ric.m.peric.liquide imbarcate; DGCGCP-GUARDIA COSTIERA Ric.m.peric.s.s.imbarcate; DGCGCP-GUARDIA COSTIERA Ric.m.peric.s.s.sbarcate; DGCGCP-GUARDIA COSTIERA Ric.m.pericol.s.cont.s.sbarcate"
+mit,min_giustizia,7,Directed,certificata,"DGCGCP - GUARDIA COSTIERA - Passi; DGCGCP - GUARDIA COSTIERA .m.solide container s imb transito; DGCGCP-GUARDIA COSTIERA ic.m.solide.container.sfuse.sba.tran; DGCGCP-GUARDIA COSTIERA Ric.m.peric.liquide imbarcate; DGCGCP-GUARDIA COSTIERA Ric.m.peric.s.s.imbarcate; DGCGCP-GUARDIA COSTIERA Ric.m.peric.s.s.sbarcate; DGCGCP-GUARDIA COSTIERA Ric.m.pericol.s.cont.s.sbarcate"
+mit,min_istruzione,7,Directed,certificata,"DGCGCP - GUARDIA COSTIERA - Passi; DGCGCP - GUARDIA COSTIERA .m.solide container s imb transito; DGCGCP-GUARDIA COSTIERA ic.m.solide.container.sfuse.sba.tran; DGCGCP-GUARDIA COSTIERA Ric.m.peric.liquide imbarcate; DGCGCP-GUARDIA COSTIERA Ric.m.peric.s.s.imbarcate; DGCGCP-GUARDIA COSTIERA Ric.m.peric.s.s.sbarcate; DGCGCP-GUARDIA COSTIERA Ric.m.pericol.s.cont.s.sbarcate"
+dfp,comuni_agg,6,Directed,certificata|ricostruita,"Consultazione Avvisi di Mobilità - inPA; Consultazione Avvisi OIV – inPA; Consultazione Bandi apprendistato – inPA; Consultazione candidature Avvisi di mobilità – inPA; Consultazione candidature Avvisi OIV – inPA; Funzione Pubblica – Anagrafe Prestazioni"
+ag_demanio,comuni_agg,6,Directed,certificata|ricostruita,"Caratteristiche fisiche; Certificazioni energetiche; Consumi energetici; Costi gestionali; Dettaglio area; Demanio – Patrimonio Pubblico"
+min_istruzione,comuni_agg,6,Directed,certificata|ricostruita,"ANIST - Accertamento Frequenze; ANIST - Accertamento Massivo Frequenze - Comuni; ANIST - Accertamento Massivo Frequenze - PP.AA.; ANIST - Accertamento Titoli; ANIST - Frequenze; Servizi Istruzione Scolastica"
+min_istruzione,inps,3,Directed,certificata,"ANIST - Accertamento Frequenze; ANIST - Accertamento Titoli; ANIST - Frequenze"
+min_istruzione,inail,3,Directed,certificata,"ANIST - Accertamento Frequenze; ANIST - Accertamento Titoli; ANIST - Frequenze"
+r_lombardia,r_lazio,3,Directed,certificata,"Accessibilità delle Strutture in Lombardia; Allerte di Protezione Civile della Regione Lombardia; Cartografie per i Trasporti Eccezionali"
+r_lombardia,r_campania,3,Directed,certificata,"Accessibilità delle Strutture in Lombardia; Allerte di Protezione Civile della Regione Lombardia; Cartografie per i Trasporti Eccezionali"
+r_lombardia,r_emilia,3,Directed,certificata,"Accessibilità delle Strutture in Lombardia; Allerte di Protezione Civile della Regione Lombardia; Cartografie per i Trasporti Eccezionali"
+r_lombardia,r_toscana,3,Directed,certificata,"Accessibilità delle Strutture in Lombardia; Allerte di Protezione Civile della Regione Lombardia; Cartografie per i Trasporti Eccezionali"
+r_lombardia,r_veneto,3,Directed,certificata,"Accessibilità delle Strutture in Lombardia; Allerte di Protezione Civile della Regione Lombardia; Cartografie per i Trasporti Eccezionali"
+r_lombardia,r_piemonte,3,Directed,certificata,"Accessibilità delle Strutture in Lombardia; Allerte di Protezione Civile della Regione Lombardia; Cartografie per i Trasporti Eccezionali"
+r_lombardia,comuni_agg,4,Directed,certificata|ricostruita,"Accessibilità delle Strutture in Lombardia; Allerte di Protezione Civile della Regione Lombardia; Cartografie per i Trasporti Eccezionali; Servizi Regione Lombardia"
+r_lombardia,c_milano,2,Directed,certificata|ricostruita,"Cartografie per i Trasporti Eccezionali; Servizi Regione Lombardia"
+r_lazio,comuni_agg,4,Directed,certificata|ricostruita,"Ricerca cartografia acque ferme; Ricerca cartografia acque pubbliche rispetto; Ricerca cartografia aree naturali protette; Servizi Regione Lazio"
+r_lazio,r_lombardia,3,Directed,certificata,"Ricerca cartografia acque ferme; Ricerca cartografia acque pubbliche rispetto; Ricerca cartografia aree naturali protette"
+r_lazio,r_campania,3,Directed,certificata,"Ricerca cartografia acque ferme; Ricerca cartografia acque pubbliche rispetto; Ricerca cartografia aree naturali protette"
+r_lazio,r_emilia,3,Directed,certificata,"Ricerca cartografia acque ferme; Ricerca cartografia acque pubbliche rispetto; Ricerca cartografia aree naturali protette"
+r_lazio,r_toscana,3,Directed,certificata,"Ricerca cartografia acque ferme; Ricerca cartografia acque pubbliche rispetto; Ricerca cartografia aree naturali protette"
+r_lazio,r_veneto,3,Directed,certificata,"Ricerca cartografia acque ferme; Ricerca cartografia acque pubbliche rispetto; Ricerca cartografia aree naturali protette"
+r_lazio,r_piemonte,3,Directed,certificata,"Ricerca cartografia acque ferme; Ricerca cartografia acque pubbliche rispetto; Ricerca cartografia aree naturali protette"
+r_campania,ipzs,4,Directed,certificata,"IT-Wallet - RC036 - Consultazione statistiche; IT-Wallet - RC037 - Badge impiegato regionale; IT-Wallet - RC038 - Tesserino raccolta funghi; IT-Wallet - RC039 - Tesserino raccolta tartufi"
+r_friuli,comuni_agg,3,Directed,certificata,"Consultazione dettaglio pratiche; Consultazione anagrafe procedimenti; Consultazione bandi e concorsi attivati"
+r_friuli,c_milano,1,Directed,ricostruita,Consultazione dettaglio pratiche
+r_friuli,r_lombardia,1,Directed,ricostruita,Consultazione dettaglio pratiche
+r_friuli,ipzs,2,Directed,certificata,"Consultazione Attestati di Formazione - IT-Wallet; Consultazione Badge Dipendente - IT-Wallet"
+pa_bolzano,istat,4,Directed,ricostruita,"Qualità delle acque dei fiumi; Qualità delle acque dei laghi; Ricerca aree nettarifere; Ricerca derivazioni d'acqua"
+pa_bolzano,r_lombardia,4,Directed,ricostruita,"Qualità delle acque dei fiumi; Qualità delle acque dei laghi; Ricerca aree nettarifere; Ricerca derivazioni d'acqua"
+pa_bolzano,r_friuli,2,Directed,ricostruita,"Qualità delle acque dei fiumi; Ricerca derivazioni d'acqua"
+pa_bolzano,ipzs,2,Directed,certificata,"Attestato Bilinguismo - IT-Wallet; Attestato Ladino - IT-Wallet"
+r_toscana,mlps,2,Directed,certificata|ricostruita,"ComObblWS; Servizi Regione Toscana"
+r_puglia,mlps,3,Directed,documentata|ricostruita,"Comunicazione Obbligatoria Invio UniUrg; Comunicazioni Obbligatorie Invio UNILAV; Servizi Regione Puglia"
+r_puglia,inps,3,Directed,documentata|ricostruita,"Comunicazione Obbligatoria Invio UniUrg; Comunicazioni Obbligatorie Invio UNILAV; Servizi Regione Puglia"
+r_puglia,inail,2,Directed,documentata,"Comunicazione Obbligatoria Invio UniUrg; Comunicazioni Obbligatorie Invio UNILAV"
+r_abruzzo,ipzs,4,Directed,certificata,"Accesso biblioteca - IT Wallet; Attestato Certificatore APE - IT Wallet; Attestato Formazione - IT Wallet; Attestato Gestore Turistico - IT Wallet"
+r_emilia,min_interno,1,Directed,certificata,"Consultazione Statistiche ""Entra con IT-Wallet"""
+r_emilia,mlps,2,Directed,certificata|ricostruita,"Consultazione Statistiche ""Entra con IT-Wallet""; Servizi Regione Emilia-Romagna"
+r_emilia,mef,1,Directed,certificata,"Consultazione Statistiche ""Entra con IT-Wallet"""
+r_emilia,min_cultura,1,Directed,certificata,"Consultazione Statistiche ""Entra con IT-Wallet"""
+r_emilia,min_giustizia,1,Directed,certificata,"Consultazione Statistiche ""Entra con IT-Wallet"""
+r_emilia,min_istruzione,1,Directed,certificata,"Consultazione Statistiche ""Entra con IT-Wallet"""
+r_emilia,ipzs,3,Directed,certificata,"Creazione EAA Badge; Creazione EAA Licenza di Pesca – IT-Wallet; Creazione EAA Open Badge Formazione – IT-Wallet"
+r_veneto,comuni_agg,2,Directed,certificata|ricostruita,"[RVE] BackOffice SUAP to Enti Terzi; Servizi Regione Veneto"
+r_veneto,mlps,4,Directed,certificata|ricostruita,"[RVE] Invio Comunicazioni Obbligatorie - UNILAV; [RVE] Invio Comunicazioni Obbligatorie - UNIPI; [RVE] Invio Comunicazioni Obbligatorie - UNISOMM; Servizi Regione Veneto"
+r_marche,min_interno,1,Directed,certificata,"Consultazione Statistiche ""Entra con IT-Wallet"" - Reg Marche"
+r_marche,mlps,2,Directed,certificata|ricostruita,"Consultazione Statistiche ""Entra con IT-Wallet"" - Reg Marche; Servizi Regione Marche"
+r_marche,mef,1,Directed,certificata,"Consultazione Statistiche ""Entra con IT-Wallet"" - Reg Marche"
+r_marche,min_cultura,1,Directed,certificata,"Consultazione Statistiche ""Entra con IT-Wallet"" - Reg Marche"
+r_marche,min_giustizia,1,Directed,certificata,"Consultazione Statistiche ""Entra con IT-Wallet"" - Reg Marche"
+r_marche,min_istruzione,1,Directed,certificata,"Consultazione Statistiche ""Entra con IT-Wallet"" - Reg Marche"
+r_marche,ipzs,3,Directed,certificata,"Creazione EAA Badge - Marche; IT Wallet - Attestato di Accompagnatore Turistico; IT-Wallet - Attestato di Accompagnatore di Media Montagna"
+r_basilicata,ipzs,1,Directed,certificata,Accompagnatore Turistico - IT-Wallet
+r_basilicata,comuni_agg,3,Directed,certificata|ricostruita,"Atti Digitali; BDR Stabilimenti Alimentari; Servizi Regione Basilicata"
+r_basilicata,r_lombardia,2,Directed,certificata,"Atti Digitali; BDR Stabilimenti Alimentari"
+r_basilicata,r_lazio,2,Directed,certificata,"Atti Digitali; BDR Stabilimenti Alimentari"
+r_basilicata,r_campania,2,Directed,certificata,"Atti Digitali; BDR Stabilimenti Alimentari"
+r_basilicata,r_emilia,2,Directed,certificata,"Atti Digitali; BDR Stabilimenti Alimentari"
+r_basilicata,r_toscana,2,Directed,certificata,"Atti Digitali; BDR Stabilimenti Alimentari"
+r_basilicata,r_veneto,2,Directed,certificata,"Atti Digitali; BDR Stabilimenti Alimentari"
+r_basilicata,r_piemonte,2,Directed,certificata,"Atti Digitali; BDR Stabilimenti Alimentari"
+r_sardegna,comuni_agg,5,Directed,certificata|ricostruita,"Attestato di impegno finanziario per IT Wallet; Attestato di pagamento per IT Wallet; Cedolino pensione integrativa FITQ per IT Wallet - V2; Certificazione Unica (CU) FITQ per IT Wallet; Servizi Regione Sardegna"
+c_bologna,ade,1,Directed,ricostruita,L’e-service ricerca gli edifici
+c_bologna,r_lombardia,1,Directed,ricostruita,L’e-service ricerca gli edifici
+c_bologna,istat,1,Directed,ricostruita,L’e-service ricerca gli edifici
+c_bologna,anac,1,Directed,ricostruita,L’e-service ricerca le gare e gli appalti
+c_bologna,mef,1,Directed,ricostruita,L’e-service ricerca le gare e gli appalti
+c_genova,comuni_agg,5,Directed,certificata,"Protocollo - destinatario conferma protocollazione; Bilancio - ricerca accertamenti; Bilancio: ricerca impegni; Protocollo - destinatario annullamento mittente; Protocollo - destinatario comunicazione irricevibile"
+c_genova,agid,1,Directed,ricostruita,Protocollo - destinatario conferma protocollazione
+c_genova,r_lombardia,1,Directed,ricostruita,Protocollo - destinatario conferma protocollazione
+c_padova,istat,1,Directed,ricostruita,Consultazione Dati statistici cimiteri
+c_padova,r_lombardia,1,Directed,ricostruita,Consultazione Dati statistici cimiteri
+c_padova,comuni_agg,1,Directed,certificata,[CPD] BACKOFFICE SUAP TO ENTI TERZI
+min_interno,r_friuli,1,Directed,ricostruita,ANPR – Verifica Autocertificazione
+min_interno,mur,1,Directed,ricostruita,ANPR – Verifica Autocertificazione
+min_interno,mit_dgmot,1,Directed,ricostruita,ANPR – Accertamento Anagrafico
+min_interno,istat,1,Directed,ricostruita,ANPR – Accertamento Anagrafico
+inps,inail,1,Directed,ricostruita,Casellario Lavoratori Attivi
 ade,istat,1,Directed,ricostruita,ANNCSU – Anagrafe Immobiliare
-agid,min_interno,1,Directed,ricostruita,INAD – Domicili Digitali
-agid,inps,2,Directed,ricostruita,"INAD – Domicili Digitali; Indice PA (IPA)"
-agid,ade,2,Directed,ricostruita,"INAD – Domicili Digitali; Indice PA (IPA)"
-agid,c_milano,2,Directed,ricostruita,"INAD – Domicili Digitali; Indice PA (IPA)"
-agid,c_roma,2,Directed,ricostruita,"INAD – Domicili Digitali; Indice PA (IPA)"
-agid,c_napoli,1,Directed,ricostruita,INAD – Domicili Digitali
-agid,comuni_agg,2,Directed,ricostruita,"INAD – Domicili Digitali; Indice PA (IPA)"
-agid,r_lombardia,1,Directed,ricostruita,INAD – Domicili Digitali
-agid,pagopa,2,Directed,ricostruita,"INAD – Domicili Digitali; Indice PA (IPA)"
 agid,anac,1,Directed,ricostruita,Indice PA (IPA)
 agid,mef,1,Directed,ricostruita,Indice PA (IPA)
-unioncamere,ade,1,Directed,ricostruita,Registro Imprese
-unioncamere,inps,1,Directed,ricostruita,Registro Imprese
-unioncamere,inail,1,Directed,ricostruita,Registro Imprese
-unioncamere,c_milano,5,Directed,ricostruita,"Registro Imprese; Catalogo SSU – Metadati; Catalogo SSU – BO SUAP; SSU – ComUnica; SSU – Registro Imprese (circolarità)"
-unioncamere,c_roma,5,Directed,ricostruita,"Registro Imprese; Catalogo SSU – Metadati; Catalogo SSU – BO SUAP; SSU – ComUnica; SSU – Registro Imprese (circolarità)"
-unioncamere,c_bologna,5,Directed,ricostruita,"Registro Imprese; Catalogo SSU – Metadati; Catalogo SSU – BO SUAP; SSU – ComUnica; SSU – Registro Imprese (circolarità)"
-unioncamere,comuni_agg,5,Directed,ricostruita,"Registro Imprese; Catalogo SSU – Metadati; Catalogo SSU – BO SUAP; SSU – ComUnica; SSU – Registro Imprese (circolarità)"
-unioncamere,anac,1,Directed,ricostruita,Registro Imprese
-unioncamere,mef,1,Directed,ricostruita,Registro Imprese
-unioncamere,r_lombardia,2,Directed,ricostruita,"Registro Imprese; Catalogo SSU – BO Enti Terzi"
-unioncamere,c_napoli,3,Directed,ricostruita,"Catalogo SSU – Metadati; Catalogo SSU – BO SUAP; SSU – Registro Imprese (circolarità)"
-unioncamere,c_genova,1,Directed,ricostruita,Catalogo SSU – Metadati
-unioncamere,min_interno,1,Directed,ricostruita,Catalogo SSU – BO Enti Terzi
-unioncamere,r_lazio,1,Directed,ricostruita,Catalogo SSU – BO Enti Terzi
-unioncamere,r_campania,1,Directed,ricostruita,Catalogo SSU – BO Enti Terzi
-unioncamere,r_friuli,1,Directed,ricostruita,Catalogo SSU – BO Enti Terzi
-unioncamere,r_sicilia,1,Directed,ricostruita,Catalogo SSU – BO Enti Terzi
-inail,inps,1,Directed,ricostruita,INAIL – DURC
-inail,c_milano,1,Directed,ricostruita,INAIL – DURC
-inail,c_roma,1,Directed,ricostruita,INAIL – DURC
-inail,comuni_agg,1,Directed,ricostruita,INAIL – DURC
-inail,anac,1,Directed,ricostruita,INAIL – DURC
-inail,unioncamere,1,Directed,ricostruita,INAIL – DURC
-inail,r_lombardia,1,Directed,ricostruita,INAIL – DURC
-anac,c_milano,2,Directed,ricostruita,"Banca Dati Contratti Pubblici; SIMOG"
-anac,c_roma,2,Directed,ricostruita,"Banca Dati Contratti Pubblici; SIMOG"
-anac,c_napoli,1,Directed,ricostruita,Banca Dati Contratti Pubblici
-anac,c_bologna,1,Directed,ricostruita,Banca Dati Contratti Pubblici
-anac,comuni_agg,2,Directed,ricostruita,"Banca Dati Contratti Pubblici; SIMOG"
-anac,r_lombardia,1,Directed,ricostruita,Banca Dati Contratti Pubblici
-anac,r_lazio,1,Directed,ricostruita,Banca Dati Contratti Pubblici
-anac,mef,2,Directed,ricostruita,"Banca Dati Contratti Pubblici; SIMOG"
-anac,ade,1,Directed,ricostruita,Banca Dati Contratti Pubblici
 mit_dgmot,c_milano,3,Directed,ricostruita,"Consultazione Veicoli; Consultazione Patenti; CUDE – Contrassegno Disabili"
 mit_dgmot,c_roma,3,Directed,ricostruita,"Consultazione Veicoli; Consultazione Patenti; CUDE – Contrassegno Disabili"
 mit_dgmot,c_napoli,2,Directed,ricostruita,"Consultazione Veicoli; CUDE – Contrassegno Disabili"
@@ -134,31 +298,11 @@ mit_dgmot,comuni_agg,3,Directed,ricostruita,"Consultazione Veicoli; Consultazion
 mit_dgmot,r_lombardia,2,Directed,ricostruita,"Consultazione Veicoli; CUDE – Contrassegno Disabili"
 mit_dgmot,inps,2,Directed,ricostruita,"Consultazione Veicoli; Consultazione Patenti"
 mit_dgmot,c_bologna,1,Directed,ricostruita,CUDE – Contrassegno Disabili
-min_giustizia,inps,1,Directed,ricostruita,Casellario Giudiziale
-min_giustizia,ade,1,Directed,ricostruita,Casellario Giudiziale
-min_giustizia,anac,1,Directed,ricostruita,Casellario Giudiziale
-min_giustizia,c_milano,1,Directed,ricostruita,Casellario Giudiziale
-min_giustizia,c_roma,1,Directed,ricostruita,Casellario Giudiziale
-min_giustizia,comuni_agg,1,Directed,ricostruita,Casellario Giudiziale
-min_giustizia,mef,1,Directed,ricostruita,Casellario Giudiziale
-min_cultura,r_lombardia,3,Directed,ricostruita,"I.PaC – Gestione Risorse Digitali; I.PaC – Grafo Conoscenza; I.PaC – API IIIF"
-min_cultura,r_lazio,2,Directed,ricostruita,"I.PaC – Gestione Risorse Digitali; I.PaC – Grafo Conoscenza"
-min_cultura,r_campania,1,Directed,ricostruita,I.PaC – Gestione Risorse Digitali
-min_cultura,r_sicilia,2,Directed,ricostruita,"I.PaC – Gestione Risorse Digitali; I.PaC – Grafo Conoscenza"
-min_cultura,mur,3,Directed,ricostruita,"I.PaC – Gestione Risorse Digitali; I.PaC – Grafo Conoscenza; I.PaC – API IIIF"
-min_cultura,istat,2,Directed,ricostruita,"I.PaC – Grafo Conoscenza; I.PaC – API IIIF"
 mef,inps,2,Directed,ricostruita,"Anagrafe Dipendenti Pubblici; noiPA"
 mef,ade,2,Directed,ricostruita,"Anagrafe Dipendenti Pubblici; noiPA"
 mef,istat,2,Directed,ricostruita,"Anagrafe Dipendenti Pubblici; noiPA"
 mef,agid,1,Directed,ricostruita,Anagrafe Dipendenti Pubblici
 mef,mlps,1,Directed,ricostruita,Anagrafe Dipendenti Pubblici
-ade_riscossione,c_milano,1,Directed,ricostruita,Situazione Debitoria
-ade_riscossione,c_roma,1,Directed,ricostruita,Situazione Debitoria
-ade_riscossione,comuni_agg,1,Directed,ricostruita,Situazione Debitoria
-ade_riscossione,mef,1,Directed,ricostruita,Situazione Debitoria
-ade_riscossione,ade,1,Directed,ricostruita,Situazione Debitoria
-ade_riscossione,inps,1,Directed,ricostruita,Situazione Debitoria
-mur,inps,1,Directed,ricostruita,ANIS – Anagrafe Studenti
 mur,mef,1,Directed,ricostruita,ANIS – Anagrafe Studenti
 mur,istat,1,Directed,ricostruita,ANIS – Anagrafe Studenti
 mur,mlps,1,Directed,ricostruita,ANIS – Anagrafe Studenti
@@ -195,12 +339,6 @@ r_sicilia,r_lazio,1,Directed,ricostruita,Consultazione Trasferimenti COT
 r_sicilia,r_campania,1,Directed,ricostruita,Consultazione Trasferimenti COT
 r_sicilia,mlps,1,Directed,ricostruita,Consultazione Trasferimenti COT
 r_sicilia,inps,1,Directed,ricostruita,Consultazione Trasferimenti COT
-r_friuli,c_milano,1,Directed,ricostruita,Consultazione Dettaglio Pratiche
-r_friuli,comuni_agg,1,Directed,ricostruita,Consultazione Dettaglio Pratiche
-r_friuli,r_lombardia,1,Directed,ricostruita,Consultazione Dettaglio Pratiche
-pa_bolzano,istat,4,Directed,ricostruita,"Qualità Acque Fiumi; Qualità Acque Laghi; Ricerca Derivazioni d'Acqua; Ricerca Aree Nettarifere"
-pa_bolzano,r_lombardia,4,Directed,ricostruita,"Qualità Acque Fiumi; Qualità Acque Laghi; Ricerca Derivazioni d'Acqua; Ricerca Aree Nettarifere"
-pa_bolzano,r_friuli,2,Directed,ricostruita,"Qualità Acque Fiumi; Ricerca Derivazioni d'Acqua"
 comuni_agg,inps,2,Directed,ricostruita,"WaaS – Welfare as a Service; Servizi Demografici"
 comuni_agg,mlps,1,Directed,ricostruita,WaaS – Welfare as a Service
 comuni_agg,agid,3,Directed,ricostruita,"Albo Pretorio Online; Amministrazione Trasparente; Protocollo Informatico"
@@ -215,31 +353,11 @@ comuni_agg,min_interno,2,Directed,ricostruita,"Numerazione Civica / Stradario; S
 comuni_agg,anac,1,Directed,ricostruita,Amministrazione Trasparente
 comuni_agg,ade_riscossione,1,Directed,ricostruita,Tributi e Posizioni Debitorie
 comuni_agg,mef,1,Directed,ricostruita,Tributi e Posizioni Debitorie
-c_bologna,ade,1,Directed,ricostruita,Ricerca Edifici (catasto CT)
-c_bologna,r_lombardia,1,Directed,ricostruita,Ricerca Edifici (catasto CT)
-c_bologna,istat,1,Directed,ricostruita,Ricerca Edifici (catasto CT)
-c_bologna,anac,1,Directed,ricostruita,Ricerca Gare e Appalti
-c_bologna,mef,1,Directed,ricostruita,Ricerca Gare e Appalti
-c_genova,agid,1,Directed,ricostruita,Protocollo – Conferma Protocollazione
-c_genova,comuni_agg,1,Directed,ricostruita,Protocollo – Conferma Protocollazione
-c_genova,r_lombardia,1,Directed,ricostruita,Protocollo – Conferma Protocollazione
-c_padova,istat,1,Directed,ricostruita,Dati Statistici Cimiteri
-c_padova,r_lombardia,1,Directed,ricostruita,Dati Statistici Cimiteri
-mlps,inps,1,Directed,ricostruita,Servizi Lavoro e Politiche Sociali
-mlps,comuni_agg,1,Directed,ricostruita,Servizi Lavoro e Politiche Sociali
-mlps,r_lombardia,1,Directed,ricostruita,Servizi Lavoro e Politiche Sociali
-mlps,r_lazio,1,Directed,ricostruita,Servizi Lavoro e Politiche Sociali
-mlps,r_campania,1,Directed,ricostruita,Servizi Lavoro e Politiche Sociali
 mlps,r_sicilia,1,Directed,ricostruita,Servizi Lavoro e Politiche Sociali
-mlps,r_emilia,1,Directed,ricostruita,Servizi Lavoro e Politiche Sociali
-mlps,r_piemonte,1,Directed,ricostruita,Servizi Lavoro e Politiche Sociali
-mlps,r_veneto,1,Directed,ricostruita,Servizi Lavoro e Politiche Sociali
-mlps,r_toscana,1,Directed,ricostruita,Servizi Lavoro e Politiche Sociali
 mlps,r_puglia,1,Directed,ricostruita,Servizi Lavoro e Politiche Sociali
 mlps,r_liguria,1,Directed,ricostruita,Servizi Lavoro e Politiche Sociali
 mlps,istat,1,Directed,ricostruita,Servizi Lavoro e Politiche Sociali
 mit,mit_dgmot,1,Directed,ricostruita,Servizi Infrastrutture e Trasporti
-mit,comuni_agg,1,Directed,ricostruita,Servizi Infrastrutture e Trasporti
 mit,r_lombardia,1,Directed,ricostruita,Servizi Infrastrutture e Trasporti
 mit,r_lazio,1,Directed,ricostruita,Servizi Infrastrutture e Trasporti
 mit,r_campania,1,Directed,ricostruita,Servizi Infrastrutture e Trasporti
@@ -247,18 +365,13 @@ mit,r_emilia,1,Directed,ricostruita,Servizi Infrastrutture e Trasporti
 mit,istat,1,Directed,ricostruita,Servizi Infrastrutture e Trasporti
 dfp,mef,1,Directed,ricostruita,Funzione Pubblica – Anagrafe Prestazioni
 dfp,inps,1,Directed,ricostruita,Funzione Pubblica – Anagrafe Prestazioni
-dfp,comuni_agg,1,Directed,ricostruita,Funzione Pubblica – Anagrafe Prestazioni
 dfp,istat,1,Directed,ricostruita,Funzione Pubblica – Anagrafe Prestazioni
 ag_demanio,mef,1,Directed,ricostruita,Demanio – Patrimonio Pubblico
 ag_demanio,ade,1,Directed,ricostruita,Demanio – Patrimonio Pubblico
-ag_demanio,comuni_agg,1,Directed,ricostruita,Demanio – Patrimonio Pubblico
 ag_demanio,r_lombardia,1,Directed,ricostruita,Demanio – Patrimonio Pubblico
-r_lombardia,comuni_agg,1,Directed,ricostruita,Servizi Regione Lombardia
-r_lombardia,c_milano,1,Directed,ricostruita,Servizi Regione Lombardia
 r_lombardia,mlps,1,Directed,ricostruita,Servizi Regione Lombardia
 r_lombardia,inps,1,Directed,ricostruita,Servizi Regione Lombardia
 r_lombardia,istat,1,Directed,ricostruita,Servizi Regione Lombardia
-r_lazio,comuni_agg,1,Directed,ricostruita,Servizi Regione Lazio
 r_lazio,c_roma,1,Directed,ricostruita,Servizi Regione Lazio
 r_lazio,mlps,1,Directed,ricostruita,Servizi Regione Lazio
 r_lazio,inps,1,Directed,ricostruita,Servizi Regione Lazio
@@ -274,7 +387,6 @@ r_liguria,mlps,1,Directed,ricostruita,Servizi Regione Liguria
 r_liguria,inps,1,Directed,ricostruita,Servizi Regione Liguria
 r_liguria,istat,1,Directed,ricostruita,Servizi Regione Liguria
 r_toscana,comuni_agg,1,Directed,ricostruita,Servizi Regione Toscana
-r_toscana,mlps,1,Directed,ricostruita,Servizi Regione Toscana
 r_toscana,inps,1,Directed,ricostruita,Servizi Regione Toscana
 r_toscana,istat,1,Directed,ricostruita,Servizi Regione Toscana
 r_molise,comuni_agg,1,Directed,ricostruita,Servizi Regione Molise
@@ -282,8 +394,6 @@ r_molise,mlps,1,Directed,ricostruita,Servizi Regione Molise
 r_molise,inps,1,Directed,ricostruita,Servizi Regione Molise
 r_molise,istat,1,Directed,ricostruita,Servizi Regione Molise
 r_puglia,comuni_agg,1,Directed,ricostruita,Servizi Regione Puglia
-r_puglia,mlps,1,Directed,ricostruita,Servizi Regione Puglia
-r_puglia,inps,1,Directed,ricostruita,Servizi Regione Puglia
 r_puglia,istat,1,Directed,ricostruita,Servizi Regione Puglia
 pa_trento,comuni_agg,1,Directed,ricostruita,Servizi Provincia Aut. Trento
 pa_trento,mlps,1,Directed,ricostruita,Servizi Provincia Aut. Trento
@@ -295,20 +405,16 @@ r_abruzzo,inps,1,Directed,ricostruita,Servizi Regione Abruzzo
 r_abruzzo,istat,1,Directed,ricostruita,Servizi Regione Abruzzo
 r_emilia,comuni_agg,1,Directed,ricostruita,Servizi Regione Emilia-Romagna
 r_emilia,c_bologna,1,Directed,ricostruita,Servizi Regione Emilia-Romagna
-r_emilia,mlps,1,Directed,ricostruita,Servizi Regione Emilia-Romagna
 r_emilia,inps,1,Directed,ricostruita,Servizi Regione Emilia-Romagna
 r_emilia,istat,1,Directed,ricostruita,Servizi Regione Emilia-Romagna
 r_piemonte,comuni_agg,1,Directed,ricostruita,Servizi Regione Piemonte
 r_piemonte,mlps,1,Directed,ricostruita,Servizi Regione Piemonte
 r_piemonte,inps,1,Directed,ricostruita,Servizi Regione Piemonte
 r_piemonte,istat,1,Directed,ricostruita,Servizi Regione Piemonte
-r_veneto,comuni_agg,1,Directed,ricostruita,Servizi Regione Veneto
 r_veneto,c_padova,1,Directed,ricostruita,Servizi Regione Veneto
-r_veneto,mlps,1,Directed,ricostruita,Servizi Regione Veneto
 r_veneto,inps,1,Directed,ricostruita,Servizi Regione Veneto
 r_veneto,istat,1,Directed,ricostruita,Servizi Regione Veneto
 r_marche,comuni_agg,1,Directed,ricostruita,Servizi Regione Marche
-r_marche,mlps,1,Directed,ricostruita,Servizi Regione Marche
 r_marche,inps,1,Directed,ricostruita,Servizi Regione Marche
 r_marche,istat,1,Directed,ricostruita,Servizi Regione Marche
 r_umbria,comuni_agg,1,Directed,ricostruita,Servizi Regione Umbria
@@ -319,11 +425,9 @@ r_vda,comuni_agg,1,Directed,ricostruita,Servizi Regione Valle d'Aosta
 r_vda,mlps,1,Directed,ricostruita,Servizi Regione Valle d'Aosta
 r_vda,inps,1,Directed,ricostruita,Servizi Regione Valle d'Aosta
 r_vda,istat,1,Directed,ricostruita,Servizi Regione Valle d'Aosta
-r_basilicata,comuni_agg,1,Directed,ricostruita,Servizi Regione Basilicata
 r_basilicata,mlps,1,Directed,ricostruita,Servizi Regione Basilicata
 r_basilicata,inps,1,Directed,ricostruita,Servizi Regione Basilicata
 r_basilicata,istat,1,Directed,ricostruita,Servizi Regione Basilicata
-r_sardegna,comuni_agg,1,Directed,ricostruita,Servizi Regione Sardegna
 r_sardegna,mlps,1,Directed,ricostruita,Servizi Regione Sardegna
 r_sardegna,inps,1,Directed,ricostruita,Servizi Regione Sardegna
 r_sardegna,istat,1,Directed,ricostruita,Servizi Regione Sardegna
@@ -331,7 +435,6 @@ r_calabria,comuni_agg,1,Directed,ricostruita,Servizi Regione Calabria
 r_calabria,mlps,1,Directed,ricostruita,Servizi Regione Calabria
 r_calabria,inps,1,Directed,ricostruita,Servizi Regione Calabria
 r_calabria,istat,1,Directed,ricostruita,Servizi Regione Calabria
-min_istruzione,comuni_agg,1,Directed,ricostruita,Servizi Istruzione Scolastica
 min_istruzione,mur,1,Directed,ricostruita,Servizi Istruzione Scolastica
 min_istruzione,istat,1,Directed,ricostruita,Servizi Istruzione Scolastica
 min_istruzione,mlps,1,Directed,ricostruita,Servizi Istruzione Scolastica

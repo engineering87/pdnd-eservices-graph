@@ -1,13 +1,12 @@
 # Pipeline di aggiornamento automatico
 
-> **Quale dato è canonico.** Il grafo pubblicato su pdndgraph.it e citato dal
-> report Zenodo (DOI 10.5281/zenodo.19989954) è `src/data/pdnd-data.json`: il
-> modello curato **v1**, i cui archi sono ricostruiti da documentazione pubblica.
-> Questa pipeline produce `pipeline/pdnd-data.preview.json`, un modello **v2**
-> ancorato al campo `attributes.certified` del catalogo, con provenienza
-> dichiarata per singolo arco. La v2 **non è ancora promossa**: ha numeri
-> sensibilmente diversi dalla v1 e la sua pubblicazione richiede una nuova
-> versione del report. Non sostituire il dato live senza quella decisione.
+> **Quale dato è canonico.** Il grafo pubblicato su pdndgraph.it è
+> `src/data/pdnd-data.json`: dal 25 novembre 2026 è il modello **v2** prodotto
+> da questa pipeline, con provenienza dichiarata per singolo arco. Il report
+> Zenodo (DOI 10.5281/zenodo.19989954) descrive invece il modello curato **v1**
+> del 2 maggio 2026, conservato immutato in
+> `src/data/snapshots/pdnd-data.2026-05-02.json`. Le relazioni del v1 non vanno
+> perse: vivono in `connections-reconstructed.json` e confluiscono in ogni build.
 
 
 Questa cartella contiene la pipeline che mantiene aggiornato il grafo rispetto
@@ -52,6 +51,8 @@ Attivo↔Sospeso.
 | `entities.json` | Registro delle entità tracciate (nodi individuali) con i loro codici IPA |
 | `category-map.json` | Mappa categorie consumatori (`attributes.certified`) → nodi, per la baseline degli archi |
 | `connections-overrides.json` | Connessioni curate da documentazione, con precedenza sulla baseline |
+| `connections-reconstructed.json` | Relazioni del modello v1 (origine `ricostruita`): `anchored` per catalogId, sommate agli archi del catalogo; `unanchored` riportate così come sono. I servizi agganciati sono sempre inclusi, anche oltre `maxServices` |
+| `connections-frozen.json` | Stime AI congelate (origine `inferita`), usate solo per gli e-service senza altri archi |
 | `pdnd-data.preview.json` | Anteprima generata dalla pipeline (NON è il dato live) |
 | `last-run-report.md` | Report generato ad ogni esecuzione |
 

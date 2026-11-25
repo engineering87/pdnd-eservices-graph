@@ -15,7 +15,7 @@ I nodi sono gli enti, gli archi le relazioni erogatore→fruitore, lo spessore i
 [![License: AGPL-3.0](https://img.shields.io/badge/License-AGPL--3.0-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 [![Issues](https://img.shields.io/github/issues/engineering87/pdnd-eservices-graph)](https://github.com/engineering87/pdnd-eservices-graph/issues)
 ![Last commit](https://img.shields.io/github/last-commit/engineering87/pdnd-eservices-graph)
-![Snapshot](https://img.shields.io/badge/snapshot-maggio%202026-orange)
+![Snapshot](https://img.shields.io/badge/snapshot-novembre%202026-orange)
 ![PDND](https://img.shields.io/badge/PDND-Interoperability-blue)
 [![Stars](https://img.shields.io/github/stars/engineering87/pdnd-eservices-graph?style=social)](https://github.com/engineering87/pdnd-eservices-graph)
 
@@ -29,9 +29,9 @@ I nodi sono gli enti, gli archi le relazioni erogatore→fruitore, lo spessore i
 
 <div align="center">
 
-**51** nodi (50 enti individuali + 1 aggregato) &nbsp;·&nbsp; **86** tipi di e-service &nbsp;·&nbsp; **343** archi &nbsp;·&nbsp; densità **0,1345** &nbsp;·&nbsp; copertura **~89%** del catalogo
+**56** nodi (54 enti individuali + 2 aggregati) &nbsp;·&nbsp; **305** e-service &nbsp;·&nbsp; **446** archi &nbsp;·&nbsp; densità **0,1448** &nbsp;·&nbsp; copertura **~89%** del catalogo
 
-<sub>I nodi sono una selezione editoriale, non l'intero insieme degli enti aderenti. Vedi [Cosa rappresentano i 51 nodi](#cosa-rappresentano-i-51-nodi).</sub>
+<sub>I nodi sono una selezione editoriale, non l'intero insieme degli enti aderenti. Vedi [Cosa rappresentano i nodi](#cosa-rappresentano-i-51-nodi). Il report Zenodo descrive il modello v1 di maggio 2026 (51 nodi, 86 tipi di e-service, 343 archi), conservato in `src/data/snapshots/`.</sub>
 
 </div>
 
@@ -42,12 +42,12 @@ I nodi sono gli enti, gli archi le relazioni erogatore→fruitore, lo spessore i
 >
 > | | Riferimento |
 > |---|---|
-> | Snapshot del grafo pubblicato | **2 maggio 2026** |
-> | Ultima esecuzione della pipeline | 19 giugno 2026, anteprima non promossa |
+> | Snapshot del grafo pubblicato | **25 novembre 2026** (modello v2) |
+> | Snapshot del report Zenodo | 2 maggio 2026 (modello v1) |
 > | Numeri PDND in tempo reale | [interop.pagopa.it/numeri](https://www.interop.pagopa.it/numeri) |
 > | Catalogo ufficiale e-service | [api.gov.it](https://api.gov.it) |
 >
-> Per l'ordine di grandezza dello scarto: lo snapshot di maggio registra 14.102 API pubblicate, mentre il download della pipeline del 19 giugno riporta 15.011 righe di catalogo. Chi cita numeri tratti da questo progetto dovrebbe indicare sempre la data dello snapshot. Confronto aggiornato con `npm run compare-catalog`.
+> Per l'ordine di grandezza della crescita: lo snapshot di maggio registra 14.102 API pubblicate, mentre il download della pipeline del 25 novembre riporta 15.301 righe di catalogo. Chi cita numeri tratti da questo progetto dovrebbe indicare sempre la data dello snapshot. Confronto aggiornato con `npm run compare-catalog`.
 
 ## Indice
 
@@ -81,10 +81,11 @@ Il progetto mantiene due livelli distinti, per separare l'automazione dal dato p
 
 | Livello | File | Aggiornato al | Contenuto |
 |---|---|---|---|
-| **Grafo live** (curato) | `src/data/pdnd-data.json` | **2 maggio 2026** | 51 nodi, 86 tipi di e-service, 343 archi |
-| **Anteprima** (automatica) | `pipeline/pdnd-data.preview.json` | 19 giugno 2026 | 54 enti, 218 e-service, non promossa |
+| **Grafo live** (v2) | `src/data/pdnd-data.json` | **25 novembre 2026** | 56 nodi, 305 e-service, 446 archi distinti |
+| **Anteprima** (automatica) | `pipeline/pdnd-data.preview.json` | 25 novembre 2026 | allineata al grafo live |
+| **Snapshot v1** (report) | `src/data/snapshots/pdnd-data.2026-05-02.json` | 2 maggio 2026 | 51 nodi, 86 tipi di e-service, 343 archi, congelato |
 
-L'anteprima viene rigenerata dalla pipeline mensile ma **non sostituisce** il grafo live: la promozione è un atto manuale, deliberato, che segue l'ispezione del report di esecuzione. Questa separazione evita che un cambiamento automatico del catalogo cancelli relazioni ricostruite e documentate a mano.
+L'anteprima viene rigenerata dalla pipeline mensile ma **non sostituisce** il grafo live: la promozione è un atto manuale, deliberato, che segue l'ispezione del report di esecuzione. Questa separazione evita che un cambiamento automatico del catalogo cancelli relazioni ricostruite e documentate a mano. Le 570 relazioni del modello v1 sono conservate nella pipeline (`pipeline/connections-reconstructed.json`) e confluiscono in ogni nuova anteprima con origine `ricostruita`; un test verifica che nessuna coppia erogatore→fruitore del v1 vada persa.
 
 ### Verificare lo scarto rispetto al presente
 
@@ -101,7 +102,7 @@ I numeri riportati in questo README e nel report Zenodo si riferiscono allo snap
 
 ## Il modello in numeri
 
-Valori calcolati su `src/data/pdnd-data.json` allo snapshot del **2 maggio 2026**, riproducibili con `npm run audit`.
+Valori del modello **v1** descritto nel report Zenodo, calcolati sullo snapshot del **2 maggio 2026** (`src/data/snapshots/pdnd-data.2026-05-02.json`). Il modello v2 corrente conta 56 nodi, 305 e-service, 446 archi distinti, 1.024 relazioni e densità 0,1448; le sue metriche sono nella scheda Statistiche dell'app.
 
 | Metrica | Valore |
 |---|---|
@@ -281,7 +282,7 @@ flowchart TD
     style L fill:#cce5ff,stroke:#004085,color:#000
 ```
 
-L'override documentato ha precedenza sulla baseline certificata, che a sua volta ha precedenza sull'inferenza. La GitHub Action mensile committa l'anteprima su `main`.
+L'override documentato ha precedenza sulla baseline certificata; le relazioni ricostruite del modello v1 si sommano a entrambe, e l'inferenza congelata si applica solo agli e-service rimasti senza archi. La GitHub Action mensile committa l'anteprima su `main`.
 
 > [!WARNING]
 > **Modalità non distruttiva.** La pipeline **non** sovrascrive il grafo curato `src/data/pdnd-data.json`. Scrive sempre sull'anteprima `pipeline/pdnd-data.preview.json`. Il grafo mostrato dall'app resta quello curato finché l'anteprima non viene promossa manualmente. L'automazione può quindi girare senza rompere le relazioni documentate esistenti.
@@ -324,7 +325,7 @@ Ogni arco generato dalla pipeline porta un campo `origine` che ne dichiara la fo
 
 Gli archi inferiti sono dichiarati come stime e non come fatti documentati. Il progetto si basa esclusivamente su informazioni già pubbliche.
 
-Il grafo attualmente pubblicato (`src/data/pdnd-data.json`, modello v1) non porta la provenienza per singolo arco: i suoi archi sono ricostruiti da documentazione pubblica secondo la [metodologia](METODOLOGIA.md) e vengono resi con origine `ricostruita`. Le origini `certificata` e `inferita` per singolo arco sono prodotte dalla pipeline nell'anteprima v2, non ancora promossa.
+Il grafo pubblicato (modello v2, novembre 2026) porta la provenienza per singolo arco: 484 `certificata`, 6 `documentata`, 510 `ricostruita` (relazioni del modello v1, secondo la [metodologia](METODOLOGIA.md)) e 24 `inferita`. Altre 60 relazioni del v1 coincidono con archi certificati dal catalogo e compaiono con quell'origine.
 
 ## Esportazione dei dati
 
@@ -391,8 +392,8 @@ Analisi di rete con NetworkX.
 import networkx as nx
 
 G = nx.read_graphml("pdnd-eservices-graph-graphml.graphml")
-print(G.number_of_nodes(), G.number_of_edges())   # 51 343
-print(round(nx.density(G), 4))                    # 0.1345
+print(G.number_of_nodes(), G.number_of_edges())   # 56 446
+print(round(nx.density(G), 4))                    # 0.1448
 
 # Enti che servono il maggior numero di controparti
 for n, d in sorted(G.out_degree, key=lambda x: -x[1])[:3]:
