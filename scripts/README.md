@@ -1,10 +1,19 @@
 # Audit and metrics scripts
 
-This folder contains three repeatable utilities for inspecting the
-PDND e-services graph model and for keeping the Zenodo paper aligned
-with the data.
+This folder contains repeatable utilities for inspecting the PDND
+e-services graph model, testing it, exporting it, and keeping the
+Zenodo paper aligned with the data.
 
-All three are pure ES modules, no dependencies, run with Node.js
+| Script | npm command | Purpose |
+|---|---|---|
+| `audit-model.mjs` | `npm run audit` | Internal model audit |
+| `compare-catalog.mjs` | `npm run compare-catalog` | Coverage against the live catalogue |
+| `compute-paper-metrics.mjs` | `npm run paper-metrics` | LaTeX snippets for the paper |
+| `test-model.mjs` | `npm test` | Model invariants and export checks |
+| `export-graph.mjs` | `npm run export` | GraphML, GEXF and CSV in `exports/` |
+| `update-data.mjs` | `npm run update-data` | Summary of the official catalogue |
+
+All are pure ES modules, no dependencies, run with Node.js
 (>= 18 for `fetch` support). They are idempotent and can be re-run
 freely after any change to `src/data/pdnd-data.json`.
 
@@ -22,9 +31,13 @@ node scripts/audit-model.mjs
 
 The script also prints a "modelling note" reminding that each
 `eservices[]` record stands for a service type, not a catalogue
-endpoint. This is the convention used in METODOLOGIA.md §3.1 and is
-the reason why the model contains 62 e-services while the official
-PDND dashboard advertises 2,000+.
+endpoint. This is the convention used in METODOLOGIA.md §3.5 and is
+the reason why the model's e-service count (312 in model v2) is not
+comparable with the ~15,000 endpoints of the official catalogue.
+
+Some warnings are expected in model v2: e-services without consumers
+(no public data supports any edge for them, see METODOLOGIA.md §7)
+and class nodes that only consume.
 
 Run this every time you edit `pdnd-data.json` to catch silent
 inconsistencies.
@@ -77,11 +90,47 @@ sources of `pdnd_graph_paper.tex`:
   rankings, edge counts involving the aggregate node).
 
 ```bash
+# Figures of the published paper (model v1, frozen snapshot)
+node scripts/compute-paper-metrics.mjs src/data/snapshots/pdnd-data.2026-05-02.json
+
+# Same figures on the live model v2
 node scripts/compute-paper-metrics.mjs
 ```
 
+The report on Zenodo (v1.0.0) describes model v1: pass the snapshot to
+reproduce its numbers. Without arguments the script reads the live
+`src/data/pdnd-data.json`, whose figures differ.
+
 Run this before tagging a new release of the paper repository, copy
 the generated snippets into the `.tex` source, then `make`.
+
+## 4. `test-model.mjs` — model tests
+
+Checks the invariants of both the frozen v1 snapshot and the live model:
+referential integrity, declared provenance on every edge (`documentata`,
+`osservata`, `certificata`, `ricostruita`, `inferita`), observed edges
+carrying `connessioni` or `sessioni`, class nodes declaring `aderenti`,
+preservation of every v1 provider→consumer pair, and that the files in
+`exports/` are byte-identical to a fresh export.
+
+```bash
+npm test
+```
+
+## 5. `export-graph.mjs` — interchange formats
+
+Writes GraphML, GEXF, node and edge CSV, and a README into `exports/`,
+using the same functions as the Statistics tab of the app. The output is
+deterministic: run it after every promotion, otherwise `npm test` fails.
+
+```bash
+npm run export
+```
+
+## 6. `update-data.mjs` — catalogue summary
+
+Downloads the official catalogue and prints counts by state and by
+producer, useful to spot new producers worth tracking.
 
 ## Notes
 

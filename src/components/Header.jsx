@@ -22,9 +22,9 @@ export default function Header({ stats, activeTab, onTabChange, onAbout }) {
   const counters = [
     { label: "Enti", value: stats.enti },
     {
-      label: "E-Service tipo",
+      label: "E-Service",
       value: stats.es,
-      hint: "Tipi di servizio aggregati: gli e-service nel grafo rappresentano categorie tematiche, non singoli endpoint del catalogo PDND. Per esempio 'Albo Pretorio' è un nodo qui ma 1.451 endpoint nel catalogo. Apri la Metodologia per i dettagli.",
+      hint: "Una selezione del catalogo PDND, scelta per enti abilitati e sessioni di scambio. Alcuni record sono tipi di servizio che valgono per molti endpoint: per esempio 'Albo Pretorio' dei Comuni è un record qui ma 1.451 endpoint nel catalogo. Apri la Metodologia per i dettagli.",
       target: "metodologia",
     },
     { label: "Connessioni", value: stats.conn },

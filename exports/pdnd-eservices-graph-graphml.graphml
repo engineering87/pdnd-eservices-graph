@@ -5,7 +5,7 @@
          http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
   <!-- PDND E-Services Graph. Fonte: https://github.com/engineering87/pdnd-eservices-graph -->
   <!-- DOI: 10.5281/zenodo.19989954. Codice AGPL-3.0, dati di origine CC0 1.0 (italia/pdnd-opendata). Snapshot: 2026-11-25 -->
-  <!-- Le relazioni erogatore-fruitore non sono pubblicate come open data e sono ricostruite da documentazione pubblica: vedere il campo origine di ogni arco. I nodi marcati aggregato=true rappresentano insiemi di enti (per esempio circa 7.500 Comuni in un solo nodo): le misure di grado su questo grafo non sono confrontabili con quelle di un grafo non aggregato. -->
+  <!-- Le coppie puntuali erogatore-fruitore non sono pubblicate come open data: gli archi sono ricostruiti da documentazione pubblica, dal catalogo e dalle statistiche ufficiali aggregate per categoria di ente. Il campo origine di ogni arco ne dichiara la provenienza; connessioni e sessioni, dove presenti, sono minimi garantiti. I nodi marcati aggregato=true rappresentano classi di enti (per esempio circa 7.650 Comuni in un solo nodo, con il numero di aderenti nel campo aderenti): le misure di grado su questo grafo non sono confrontabili con quelle di un grafo non aggregato. -->
   <key id="n_label" for="node" attr.name="label" attr.type="string"/>
   <key id="n_categoria" for="node" attr.name="categoria" attr.type="string"/>
   <key id="n_tipo" for="node" attr.name="tipo" attr.type="string"/>
@@ -21,7 +21,7 @@
   <key id="g_fonte" for="graph" attr.name="fonte" attr.type="string"/>
   <key id="g_doi" for="graph" attr.name="doi" attr.type="string"/>
   <graph id="PDND" edgedefault="directed">
-    <data key="g_avvertenza">Le relazioni erogatore-fruitore non sono pubblicate come open data e sono ricostruite da documentazione pubblica: vedere il campo origine di ogni arco. I nodi marcati aggregato=true rappresentano insiemi di enti (per esempio circa 7.500 Comuni in un solo nodo): le misure di grado su questo grafo non sono confrontabili con quelle di un grafo non aggregato.</data>
+    <data key="g_avvertenza">Le coppie puntuali erogatore-fruitore non sono pubblicate come open data: gli archi sono ricostruiti da documentazione pubblica, dal catalogo e dalle statistiche ufficiali aggregate per categoria di ente. Il campo origine di ogni arco ne dichiara la provenienza; connessioni e sessioni, dove presenti, sono minimi garantiti. I nodi marcati aggregato=true rappresentano classi di enti (per esempio circa 7.650 Comuni in un solo nodo, con il numero di aderenti nel campo aderenti): le misure di grado su questo grafo non sono confrontabili con quelle di un grafo non aggregato.</data>
     <data key="g_fonte">https://github.com/engineering87/pdnd-eservices-graph</data>
     <data key="g_doi">10.5281/zenodo.19989954</data>
     <node id="min_interno">

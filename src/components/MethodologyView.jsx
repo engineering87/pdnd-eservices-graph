@@ -63,6 +63,7 @@ export default function MethodologyView() {
         <Source name="Catalogo e-service" url="https://github.com/italia/pdnd-opendata" desc="Elenco completo degli e-service pubblicati sulla PDND con erogatore, attributi di accesso e stato — aggiornamento quotidiano su dati.gov.it" type="ufficiale" />
         <Source name="Aderenti PDND" url="https://github.com/italia/pdnd-opendata" desc="Lista di tutti gli enti aderenti alla piattaforma con codice IPA e attributi certificati" type="ufficiale" />
         <Source name="Numeri della PDND" url="https://www.interop.pagopa.it/numeri" desc="Statistiche aggregate su enti, e-service, connessioni e sessioni di scambio" type="ufficiale" />
+        <Source name="Classifiche di adozione e uso" url="https://github.com/italia/pdnd-opendata" desc="E-service con più enti abilitati e con più sessioni di scambio, per categoria di ente fruitore: base degli archi osservati (minimi garantiti, primi 10 per categoria)" type="ufficiale" />
       </Section>
 
       <Section title="Ricostruzione delle connessioni">
@@ -70,7 +71,8 @@ export default function MethodologyView() {
           <div style={{ fontSize: 12, color: "var(--cite)", fontWeight: 600, marginBottom: 6 }}>⚠ Nota importante</div>
           <div style={{ fontSize: 12, color: "var(--ink-muted)", lineHeight: 1.6 }}>
             I dataset open data della PDND <strong style={{ color: "var(--ink)" }}>non pubblicano</strong> le coppie puntuali erogatore–fruitore.
-            Le relazioni (archi) rappresentate nel grafo sono state ricostruite tramite modelli AI,
+            Pubblicano però connessioni e sessioni aggregate per categoria di ente fruitore, da cui derivano gli archi osservati
+            verso le classi di enti. Le altre relazioni sono ricostruite, anche con l'ausilio di modelli AI,
             incrociando le seguenti fonti documentali pubbliche:
           </div>
         </div>
@@ -93,10 +95,10 @@ export default function MethodologyView() {
         ))}
       </Section>
 
-      <Section title="Aggregazione dei Comuni">
+      <Section title="Aggregazione degli enti">
         <div style={{ fontSize: 13, color: "var(--ink-muted)", lineHeight: 1.75 }}>
-          Il catalogo PDND contiene 2.000+ API, la maggior parte delle quali sono servizi standard replicati
-          da ciascuno dei ~7.500 Comuni aderenti (Albo Pretorio, Pratiche SUAP, Numerazione Civica, ecc.).
+          Il catalogo PDND contiene circa 15.000 API, la maggior parte delle quali sono servizi standard replicati
+          da ciascuno dei ~7.650 Comuni aderenti (Albo Pretorio, Pratiche SUAP, Numerazione Civica, ecc.).
           Rappresentarli tutti avrebbe prodotto un grafo illeggibile.
         </div>
         <div style={{ margin: "14px 0", padding: "12px 16px", borderRadius: 8, background: "rgba(30,40,60,.4)", border: "1px solid rgba(100,160,220,.06)" }}>
@@ -105,6 +107,9 @@ export default function MethodologyView() {
             I Comuni minori sono aggregati in un <strong style={{ color: "#4a7c91" }}>unico nodo</strong> chiamato "Comuni (aggregati)".
             6 grandi Comuni (Milano, Roma, Napoli, Bologna, Genova, Padova) sono mantenuti come nodi individuali
             perché erogano anche servizi specifici non standard.
+            Con lo stesso criterio, gli altri fruitori sono raccolti in 10 classi di enti allineate alle categorie
+            ufficiali PagoPA (Comuni, Regioni, Province, Scuole, Università, Sanità, Gestori, Enti privati, PA locali e centrali),
+            ciascuna con il proprio numero di aderenti.
           </div>
         </div>
       </Section>
@@ -161,9 +166,10 @@ export default function MethodologyView() {
       <Section title="Limitazioni note">
         {[
           "Le connessioni rappresentano relazioni documentate o inferite, non necessariamente accordi di interoperabilità attivi e verificati sulla piattaforma.",
-          "I Comuni aggregati non indicano che tutti i ~7.500 Comuni fruiscono effettivamente di ogni servizio.",
-          "Archi certificati e inferiti dichiarano un'eleggibilità di classe: le categorie ampie del catalogo (\"Regioni…\", \"Pubbliche Amministrazioni\") e le stime AI confluiscono nei nodi \"Comuni (aggregati)\" e \"Regioni (aggregati)\", non su un campione di enti. Restano nominati gli enti citati esplicitamente nel catalogo, i ministeri e gli archi documentati o ricostruiti. Province e Città metropolitane non hanno un nodo e non generano archi.",
-          "Per le 18 Regioni e Province Autonome rappresentate, gli e-service sono esposti come categoria aggregata (un record per ente) con il numero di endpoint del catalogo annotato in descrizione.",
+          "Un arco verso una classe di enti non indica che tutti i suoi aderenti fruiscono del servizio: gli archi osservati riportano quanti enti sono abilitati, come minimo garantito.",
+          "Gli archi certificati dichiarano un'eleggibilità di classe: le categorie del catalogo (\"Pubbliche Amministrazioni\", \"Comuni\", \"Scuole\"…) confluiscono nei nodi di classe, non su un campione di enti. Una classe abilitata non è necessariamente una classe che usa il servizio: per l'uso reale valgono gli archi osservati.",
+          "I valori di connessioni e sessioni sono minimi garantiti: le classifiche ufficiali elencano solo i primi 10 e-service per categoria di ente.",
+          "Per le Regioni e Province Autonome rappresentate, il record riassuntivo del modello v1 (con il numero di endpoint del catalogo in descrizione) convive con alcuni e-service puntuali scelti per uso.",
           "Il modello è una selezione editoriale di enti, non l'intero catalogo: università, conservatori e società in-house regionali con pochi endpoint ciascuno restano fuori.",
           "Le versioni degli e-service potrebbero non corrispondere all'ultima versione attiva nel catalogo.",
         ].map((text, i) => (

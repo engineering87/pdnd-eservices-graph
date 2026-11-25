@@ -58,6 +58,9 @@ e per la loro categorizzazione.
 e-service, confermando quali servizi sono effettivamente utilizzati. Non contiene però
 l'identità dei singoli fruitori.
 
+> Nel modello v2 le classifiche di enti abilitati e di sessioni di scambio, divise
+> per categoria di ente fruitore, sono la base degli archi **osservati**: vedi §7.1.
+
 ### 1.4 Connessioni abilitate
 
 - **Fonte:** pagina "I numeri della PDND" — [interop.pagopa.it/numeri](https://www.interop.pagopa.it/numeri)
@@ -65,6 +68,7 @@ l'identità dei singoli fruitori.
 
 **Utilizzo nel grafo:** dato utilizzato solo come riferimento numerico complessivo
 (6.400+ connessioni al 2024), non come fonte per le singole coppie erogatore–fruitore.
+Al 24 novembre 2026 la stessa pagina riporta 55.504 connessioni (§7.5).
 
 ## 2. Fonti documentali per le relazioni erogatore–fruitore
 
@@ -247,6 +251,12 @@ Le categorie sono state assegnate in base alla funzione istituzionale prevalente
 | Comuni Aggregati   | Nodo aggregato dei Comuni minori                     |
 | Regioni Aggregate  | Nodo aggregato delle Regioni (eleggibilità inferita) |
 
+Nel modello v2 si aggiungono Agenzia del Demanio e Agenzia delle Dogane e dei
+Monopoli (Fisco), il MIT accanto alla DG Motorizzazione (Trasporti), ISPRA
+(Statistica), la categoria **Società pubblica** (Poste Italiane, Istituto
+Poligrafico e Zecca dello Stato) e la categoria **Classi aggregate**, che raccoglie
+le otto classi di enti diverse da Comuni e Regioni (§7.2).
+
 ### 3.4 Natura degli archi (connessioni)
 
 Ogni arco nel grafo rappresenta una relazione **erogatore → fruitore** per un
@@ -259,9 +269,10 @@ La distinzione grafica degli archi segue questa logica:
 - **Freccia direzionale:** indica il verso erogatore → fruitore
 - **Luminosità:** gli archi si evidenziano al passaggio del mouse o alla selezione di un nodo
 - **Tratteggio:** gli archi *inferiti dall'AI* (vedi sotto) sono tratteggiati, quelli documentati o certificati sono a linea piena
+- **Nel modello v2:** gli archi *ricostruiti* del v1 hanno un tratteggio lungo e quelli *osservati* sono azzurri a linea piena; le cinque provenienze sono descritte in §7.3
 
 **Provenienza degli archi.** Ogni arco porta una provenienza esplicita (`origine`),
-su tre livelli di affidabilità decrescente:
+su tre livelli di affidabilità decrescente (cinque nel modello v2, vedi §7.3):
 
 1. **Documentata** — ricostruita da documentazione ufficiale pubblica (circolari,
    manuali, presentazioni; vedi Sezione 2). Massima affidabilità, prevale su tutto.
@@ -352,7 +363,8 @@ catalogo, uno per ciascun ente che lo pubblica.
    più 2 Province Autonome). Le poche escluse hanno un numero marginale di
    endpoint nel catalogo. Il criterio di soglia per l'inclusione individuale
    è di ~25 endpoint pubblicati: vedi `npm run compare-catalog` per
-   verificare la lista corrente.
+   verificare la lista corrente. Nel modello v2 sono rappresentate tutte le
+   21 amministrazioni regionali.
 
 4. **Versioni e-service.** Le versioni indicate nel grafo sono quelle
    documentate nelle fonti al momento della compilazione e potrebbero non
@@ -362,6 +374,9 @@ catalogo, uno per ciascun ente che lo pubblica.
    con stato `SUSPENDED` o in fase beta. Nel grafo sono rappresentati solo
    i servizi con stato documentato come "Attivo", salvo dove esplicitamente
    indicato.
+
+I limiti specifici del modello v2 (classi di enti, minimi garantiti, e-service
+senza archi) sono in §7.6.
 
 ## 5. Come verificare e aggiornare i dati
 
@@ -376,12 +391,14 @@ riepilogo del catalogo per erogatore e per tipologia.
 
 ### Auditare il modello
 
-Tre script idempotenti, integrati nel `package.json`, supportano la verifica
+Script idempotenti, integrati nel `package.json`, supportano la verifica
 ripetibile del modello a ogni modifica di `src/data/pdnd-data.json`:
 
 ```bash
 npm run audit             # audit interno del JSON
 npm run compare-catalog   # confronto contro il catalogo ufficiale
+npm test                  # invarianti del modello, conservazione del v1, esportazioni
+npm run export            # rigenera GraphML, GEXF e CSV in exports/
 npm run paper-metrics     # genera snippet LaTeX per il paper Zenodo
 ```
 
@@ -397,7 +414,9 @@ non ancora rappresentati. Se la rete non è disponibile, accetta il flag
 `--csv <path-to-local-csv>` come fallback.
 
 `npm run paper-metrics` produce gli stessi numeri in formato pgfplots/LaTeX,
-pronti per essere incollati nel sorgente del paper Zenodo.
+pronti per essere incollati nel sorgente del paper Zenodo. Per riprodurre i
+numeri del report va passato lo snapshot v1
+(`src/data/snapshots/pdnd-data.2026-05-02.json`) come argomento.
 
 La documentazione completa degli script è in [scripts/README.md](scripts/README.md).
 
@@ -406,6 +425,7 @@ La documentazione completa degli script è in [scripts/README.md](scripts/README
 | Risorsa | URL | Frequenza |
 |---------|-----|-----------|
 | CSV catalogo e-service | [github.com/italia/pdnd-opendata](https://github.com/italia/pdnd-opendata) | Quotidiana |
+| Classifiche di adozione e uso, aderenti | [github.com/italia/pdnd-opendata](https://github.com/italia/pdnd-opendata) | Periodica |
 | Catalogo API navigabile | [api.gov.it](https://api.gov.it/it/catalogo) | Continua |
 | Numeri della PDND | [interop.pagopa.it/numeri](https://www.interop.pagopa.it/numeri) | Continua |
 | Documentazione ANPR | [anagrafenazionale.interno.it](https://www.anagrafenazionale.interno.it/area-tecnica/accesso-ai-dati/) | Ad aggiornamento |
@@ -415,13 +435,17 @@ La documentazione completa degli script è in [scripts/README.md](scripts/README
 Lo stato del grafo è mantenuto aggiornato da una pipeline automatica mensile
 (`pipeline/build-graph-data.mjs`, GitHub Action `update-graph-data.yml`) che legge
 il catalogo ufficiale, estrae gli e-service delle entità tracciate
-(`pipeline/entities.json`), e determina gli archi con i tre livelli di provenienza
-descritti nella Sezione 3.4: override documentati (`pipeline/connections-overrides.json`),
-baseline certificata (`pipeline/category-map.json`) e inferenza AI per i restanti.
+(`pipeline/entities.json`) e le classi di enti (`pipeline/classi.json`), e
+determina gli archi con le cinque provenienze descritte in §7.3: override
+documentati (`pipeline/connections-overrides.json`), archi osservati dalle
+classifiche ufficiali, baseline certificata (`pipeline/category-map.json`),
+relazioni ricostruite del v1 (`pipeline/connections-reconstructed.json`) e
+inferenze congelate (`pipeline/connections-frozen.json`).
 
 La pipeline applica guard di validazione (catalogo minimo, calo nodi, zero servizi)
-che impediscono la pubblicazione di dati corrotti, e mantiene una cache delle
-inferenze (`pipeline/ai-cache.json`) per stabilità e contenimento dei costi. Dettagli
+che impediscono la pubblicazione di dati corrotti. L'inferenza AI a runtime è
+disattivata per impostazione predefinita (allowlist vuota): ogni build è
+deterministica. L'anteprima diventa grafo live solo con una promozione manuale. Dettagli
 operativi in `pipeline/README.md`.
 
 ### Segnalare correzioni

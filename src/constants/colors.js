@@ -9,7 +9,7 @@
  *    cultura e ordini. Il colore porta quindi un'informazione sul tipo di ente.
  *
  * 2. Il peso visivo è INVERSO alla numerosità della categoria. Le regioni sono
- *    21 nodi su 51 e i comuni 6: se avessero i colori più saturi il grafo
+ *    21 nodi su 63 e i comuni 6: se avessero i colori più saturi il grafo
  *    leggerebbe come un campo uniforme e gli hub sparirebbero. Ricevono quindi
  *    tinte a croma contenuta (circa 20) che fanno da tessuto di fondo, mentre i
  *    ministeri, che sono i veri hub della rete, stanno a croma 44.9.
@@ -21,7 +21,8 @@
  *    un colore smette di leggersi come sobrio e inizia a leggersi come
  *    "disattivato", convenzione che nelle interfacce significa non disponibile.
  * Le coppie individuale/aggregato (Regione e Comune) condividono la tonalità e
- * si distinguono per luminosità, così la parentela resta leggibile.
+ * si distinguono per luminosità, così la parentela resta leggibile. Le altre
+ * otto classi di enti condividono un solo colore ("Classi aggregate").
  */
 export const CATEGORY_COLORS = {
   // Territorio: numeroso, volutamente recessivo

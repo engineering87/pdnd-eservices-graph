@@ -41,7 +41,7 @@ export default function AboutModal({ onClose }) {
 
         {/* Version badges */}
         <div style={{ display: "flex", gap: 8, marginBottom: 22 }}>
-          <Badge color="#06d6a0">v1.0.0</Badge>
+          <Badge color="#06d6a0">v2.0.0</Badge>
           <Badge color="#8338ec">Open Source</Badge>
           <Badge color="#ef476f">AGPL-3.0</Badge>
         </div>
@@ -87,7 +87,7 @@ export default function AboutModal({ onClose }) {
             <span style={{ padding: "1px 6px", borderRadius: 3, background: "rgba(6,214,160,.1)", color: "#06d6a0", fontSize: 9, fontWeight: 600 }}>CC0 1.0</span>
           </div>
           <div style={{ fontSize: 11, color: "var(--ink-faint)", marginTop: 6 }}>
-            Connessioni ricostruite tramite modelli AI da documentazione ufficiale pubblica.
+            Connessioni dalle statistiche ufficiali di uso, dal catalogo e da documentazione pubblica, con provenienza dichiarata per ogni arco.
           </div>
         </div>
       </div>

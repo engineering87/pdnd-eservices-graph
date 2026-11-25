@@ -15,10 +15,13 @@
  */
 
 const AVVERTENZA =
-  "Le relazioni erogatore-fruitore non sono pubblicate come open data e sono " +
-  "ricostruite da documentazione pubblica: vedere il campo origine di ogni arco. " +
-  "I nodi marcati aggregato=true rappresentano insiemi di enti (per esempio circa " +
-  "7.500 Comuni in un solo nodo): le misure di grado su questo grafo non sono " +
+  "Le coppie puntuali erogatore-fruitore non sono pubblicate come open data: gli " +
+  "archi sono ricostruiti da documentazione pubblica, dal catalogo e dalle " +
+  "statistiche ufficiali aggregate per categoria di ente. Il campo origine di " +
+  "ogni arco ne dichiara la provenienza; connessioni e sessioni, dove presenti, " +
+  "sono minimi garantiti. I nodi marcati aggregato=true rappresentano classi di " +
+  "enti (per esempio circa 7.650 Comuni in un solo nodo, con il numero di " +
+  "aderenti nel campo aderenti): le misure di grado su questo grafo non sono " +
   "confrontabili con quelle di un grafo non aggregato.";
 
 const FONTE = "https://github.com/engineering87/pdnd-eservices-graph";

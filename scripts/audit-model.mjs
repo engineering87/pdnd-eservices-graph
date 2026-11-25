@@ -271,16 +271,18 @@ banner('7. MODELLING NOTE');
 console.log(`
   Each record in 'eservices[]' represents a SERVICE TYPE rather than a
   catalogue endpoint. The 9 e-services produced by the aggregate node
-  (comuni_agg) stand for the standardised services replicated by ~7,500
-  municipalities in the official PDND catalogue. The same convention
+  (comuni_agg) stand for the standardised services replicated by ~7,650
+  municipalities in the official PDND catalogue. Nodes flagged
+  'aggregato' are classes of entities (10 in model v2), each carrying
+  its member count in 'aderenti'. The same convention
   applies, to a lesser extent, to centrally-issued services that may
   appear as multiple endpoints in the catalogue.
 
   Consequences for any downstream count:
 
     - The number ${totalEs} of e-services in this model IS NOT directly
-      comparable to the "2,000+ APIs" advertised by the PDND dashboard,
-      because the dashboard counts catalogue endpoints, not service types.
+      comparable to the ~15,000 endpoints of the official catalogue
+      (see npm run compare-catalog), which counts endpoints, not types.
     - The mapping from service-type to endpoints is roughly: each of the
       9 aggregate-node services corresponds to N hundreds of endpoints
       in the catalogue, summing to ~6,000 endpoints attributable to the

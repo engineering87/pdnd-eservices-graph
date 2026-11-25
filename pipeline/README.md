@@ -16,15 +16,20 @@ allo stato corrente del catalogo PDND, in modo automatico e senza intervento man
 
 ```
 catalogo ufficiale PDND (CSV, 15.000+ e-service)
+ + classifiche di adozione e uso, aderenti, totali (pdnd-opendata)
               │
               ▼
    build-graph-data.mjs
    ├── filtra le entità tracciate (entities.json)
+   ├── aggiunge le classi di enti (classi.json) con il numero di aderenti
    ├── estrae i loro e-service (nome, stato, versione), scegliendo per ente
-   │     i curati e poi i più adottati (classifiche enti abilitati)
-   ├── deriva gli archi erogatore→fruitore:
-   │     1. override curati (connections-overrides.json)  ← precedenza
-   │     2. baseline da attributes.certified (category-map.json)
+   │     i curati e poi i più rilevanti (enti abilitati e sessioni)
+   ├── deriva gli archi erogatore→fruitore, ciascuno con la sua origine:
+   │     1. documentata   override curati (connections-overrides.json)
+   │     2. osservata     connessioni e sessioni ufficiali per categoria
+   │     3. certificata   attributes.certified (category-map.json, classi.json)
+   │     4. ricostruita   relazioni v1 (connections-reconstructed.json)
+   │     5. inferita      stime congelate, solo se l'e-service è senza archi
    ├── applica i guard di validazione
    └── scrive pipeline/pdnd-data.preview.json  (ANTEPRIMA, non distruttiva)
               │
@@ -101,7 +106,7 @@ Per ogni entità tracciata la pipeline include:
    sessioni di scambio (`eservice_con_piu_token_staccati_from_the_beginning.csv`),
    ciascuno rapportato al massimo dell'ente, da
    [pdnd-opendata](https://github.com/italia/pdnd-opendata) (CC0);
-3. a parità di adozione, l'ordine alfabetico.
+3. a parità di rilevanza, l'ordine alfabetico.
 
 Le classifiche elencano i primi 10 e-service per ogni coppia di categorie
 erogatore × fruitore e troncano i nomi a 60 caratteri: l'abbinamento al catalogo
@@ -133,7 +138,7 @@ La pipeline è autonoma, ma ogni tanto conviene guardare il report
    `connections-overrides.json` usando l'UUID (`catalogId`) indicato nel report.
 
 2. **Candidati nuovi erogatori** — enti con molte API non ancora tracciati
-   (es. ANAC, altre Regioni). Per includerli, aggiungi una voce in `entities.json`
+   (per esempio enti nazionali o Regioni non ancora rappresentati). Per includerli, aggiungi una voce in `entities.json`
    con il loro codice IPA.
 
 ## Aggiungere un'entità tracciata
@@ -170,11 +175,15 @@ In `connections-overrides.json`, oggetto `overrides`, chiave = UUID dell'e-servi
 
 ## Inferenza AI degli archi mancanti
 
-Per gli e-service privi di categoria certificata e di override documentato, la
-pipeline può **inferire** i fruitori tramite AI, così da ottenere copertura
-completa. Ogni arco inferito è taggato `origine: "inferita"`, porta confidenza e
-motivazione, e va reso **tratteggiato** nel grafo (vedi
-`COMPONENTE-modifiche-provenienza.md`).
+Le stime AI sono **congelate** in `connections-frozen.json`: prodotte una volta,
+fissate nel dato versionato e applicate solo agli e-service rimasti senza altri
+archi. Così il grafo è deterministico e ogni build è riproducibile senza chiamate
+AI. Ogni arco inferito è taggato `origine: "inferita"` e nel grafo è disegnato
+**tratteggiato**.
+
+L'inferenza a runtime gira solo sui `catalogId` elencati in
+`inference-allowlist.json`; con l'allowlist vuota (lo stato attuale) non parte
+nessuna chiamata, anche se la chiave API è configurata.
 
 Caratteristiche pensate per l'affidabilità in pipeline automatica:
 
@@ -220,8 +229,11 @@ node pipeline/build-graph-data.mjs --no-ai     # solo archi certificati/document
 
 ## Nota metodologica
 
-Con questa pipeline la **baseline** degli archi è derivata automaticamente dal
-campo `attributes.certified` del catalogo (la categoria di enti autorizzati alla
-fruizione), mentre gli **override** documentati la raffinano. Tutto resta basato
-esclusivamente su informazioni già pubbliche. Aggiorna `METODOLOGIA.md` per
-riflettere questo approccio (vedi nota in fondo al file).
+Ogni arco dichiara la propria provenienza, in ordine di forza della prova:
+`documentata` (override da fonti ufficiali), `osservata` (connessioni e
+sessioni realmente registrate dalla PDND verso una classe di enti),
+`certificata` (classi abilitate dal campo `attributes.certified`),
+`ricostruita` (relazioni del modello v1) e `inferita` (stime AI congelate).
+Tutto resta basato esclusivamente su informazioni già pubbliche. Regole di
+mappatura, verifiche e limiti sono in
+[METODOLOGIA.md §7](../METODOLOGIA.md#7-modello-v2-novembre-2026).
