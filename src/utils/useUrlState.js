@@ -61,7 +61,10 @@ export function useUrlState() {
   useEffect(() => {
     const next = buildPath(state);
     if (next !== window.location.pathname) {
-      window.history.pushState({}, "", next);
+      // Dentro la stessa vista la query string resta: selezionare un ente nel
+      // grafo non deve perdere il filtro sulla provenienza degli archi.
+      const stessaVista = parseLocation(window.location.pathname).tab === state.tab;
+      window.history.pushState({}, "", next + (stessaVista ? window.location.search : ""));
     }
   }, [state]);
 

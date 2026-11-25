@@ -103,6 +103,7 @@ I nodi ad alta centralità sono quelli la cui indisponibilità avrebbe effetto s
 - Frecce direzionali erogatore→fruitore, spessore proporzionale ai servizi condivisi
 - Colori per famiglia istituzionale: Ministero, Regione, Previdenza, Fisco, Digitale e altre
 - Provenienza visibile: archi osservati in azzurro, ricostruiti e inferiti tratteggiati
+- Filtro per provenienza, dal menu o dalla legenda: per esempio solo l'uso osservato ([pdndgraph.it/?archi=osservata](https://www.pdndgraph.it/?archi=osservata)) o solo le fonti ufficiali
 - Enti abilitati e sessioni di scambio degli e-service, dove i dati ufficiali li riportano
 
 **Statistiche ed esportazione**

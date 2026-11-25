@@ -9,7 +9,8 @@
 
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import PDND_DATA from "../data/pdnd-data.json";
-import { CATEGORY_COLORS } from "../constants/colors";
+import { CATEGORY_COLORS, ORIGIN_STYLES } from "../constants/colors";
+import { ORIGINI } from "../utils/relations";
 import { buildGraph } from "../utils/buildGraph";
 import { useIsMobile } from "../utils/useIsMobile";
 
@@ -28,6 +29,33 @@ function mkSim(nodes, links, cx, cy) {
   return { alpha: a, tick, stopped: false, reheat() { a.current = .3; }, stop() { this.stopped = true; } };
 }
 
+// Viste predefinite sulla provenienza degli archi. "Fonti ufficiali" tiene le
+// prove ancorate a un dato pubblico puntuale o aggregato; "Senza stime" toglie
+// solo le inferenze AI.
+const VISTE_ARCHI = [
+  { id: "tutti", label: "Tutti gli archi", origini: ORIGINI },
+  { id: "osservata", label: "Solo uso osservato", origini: ["osservata"] },
+  { id: "ufficiali", label: "Solo fonti ufficiali", origini: ["documentata", "osservata", "certificata"] },
+  { id: "senza-stime", label: "Senza stime AI", origini: ["documentata", "osservata", "certificata", "ricostruita"] },
+];
+
+// Archi del modello con id di erogatore e fruitore, mai mutati dalla simulazione.
+const ARCHI_BASE = buildGraph(PDND_DATA).links.map((l) => ({ source: l.source, target: l.target, origine: l.origine }));
+
+function vistaDi(origini) {
+  const chiave = [...origini].sort().join(",");
+  return VISTE_ARCHI.find((v) => [...v.origini].sort().join(",") === chiave)?.id || "personalizzata";
+}
+
+// Il filtro vive nella query string (?archi=osservata,certificata), così una
+// vista filtrata del grafo si può condividere.
+function leggiOrigini() {
+  if (typeof window === "undefined") return new Set(ORIGINI);
+  const p = new URLSearchParams(window.location.search).get("archi");
+  const lista = (p || "").split(",").filter((o) => ORIGINI.includes(o));
+  return new Set(lista.length ? lista : ORIGINI);
+}
+
 function lgt(hex, amount) {
   const n = parseInt(hex.replace("#", ""), 16);
   return `rgb(${Math.max(0, Math.min(255, (n >> 16) + amount))},${Math.max(0, Math.min(255, ((n >> 8) & 0xff) + amount))},${Math.max(0, Math.min(255, (n & 0xff) + amount))})`;
@@ -42,6 +70,8 @@ export default function GraphView({ entityId = null, onEntityChange, onOpenEserv
   const [search, setSearch] = useState("");
   const [filterCat, setFilterCat] = useState("Tutte");
   const [copiato, setCopiato] = useState(false);
+  const [origini, setOrigini] = useState(leggiOrigini);
+  const filtroArchi = origini.size < ORIGINI.length;
   const simRef = useRef(null);
   const nodesRef = useRef([]);
   const linksRef = useRef([]);
@@ -103,6 +133,40 @@ export default function GraphView({ entityId = null, onEntityChange, onOpenEserv
     onEntityChange?.(n ? n.id : null);
   };
 
+  // Filtro di provenienza -> query string. replaceState: cambiare filtro non
+  // aggiunge voci alla cronologia.
+  useEffect(() => {
+    const p = new URLSearchParams(window.location.search);
+    if (filtroArchi) p.set("archi", ORIGINI.filter((o) => origini.has(o)).join(","));
+    else p.delete("archi");
+    const q = p.toString().replace(/%2C/g, ",");
+    const url = window.location.pathname + (q ? `?${q}` : "");
+    if (url !== window.location.pathname + window.location.search) window.history.replaceState({}, "", url);
+  }, [origini, filtroArchi]);
+
+  const toggleOrigine = (o) => setOrigini((cur) => {
+    const next = new Set(cur);
+    if (next.has(o)) next.delete(o); else next.add(o);
+    return next.size ? next : new Set(ORIGINI);
+  });
+
+  // Archi e nodi che restano visibili con il filtro di provenienza. Il peso di
+  // una coppia conta solo gli archi visibili, così lo spessore resta coerente.
+  const visibili = useMemo(() => {
+    const conta = {};
+    const nodi = new Set();
+    const diretti = new Set();
+    for (const l of ARCHI_BASE) {
+      if (!origini.has(l.origine)) continue;
+      const k = [l.source, l.target].sort().join("--");
+      conta[k] = (conta[k] || 0) + 1;
+      diretti.add(`${l.source}->${l.target}`);
+      nodi.add(l.source); nodi.add(l.target);
+    }
+    // Archi distinti diretti erogatore -> fruitore, come nel resto del progetto.
+    return { conta, nodi, archi: diretti.size };
+  }, [origini]);
+
   // ── Simulation ──────────────────────────────────────────────
 
   useEffect(() => {
@@ -138,15 +202,16 @@ export default function GraphView({ entityId = null, onEntityChange, onOpenEserv
 
     ctx.save(); ctx.translate(t.x, t.y); ctx.scale(t.k, t.k);
     const nodes = nodesRef.current, links = linksRef.current;
-    const isFilt = filterCat !== "Tutte" || search;
+    const isFilt = filterCat !== "Tutte" || search || filtroArchi;
     const vis = new Set();
-    nodes.forEach(n => { if ((filterCat === "Tutte" || n.categoria === filterCat) && (!search || n.name.toLowerCase().includes(search.toLowerCase()))) vis.add(n.id); });
+    nodes.forEach(n => { if ((filterCat === "Tutte" || n.categoria === filterCat) && (!search || n.name.toLowerCase().includes(search.toLowerCase())) && (!filtroArchi || visibili.nodi.has(n.id))) vis.add(n.id); });
 
     // Links
     links.forEach(l => {
       const s = l.source, tg = l.target; if (!s.x || !tg.x) return;
+      if (!origini.has(l.origine)) return;
       if (isFilt && !vis.has(s.id) && !vis.has(tg.id)) return;
-      const k = [s.id, tg.id].sort().join("--"), w = lcRef.current[k] || 1;
+      const k = [s.id, tg.id].sort().join("--"), w = (filtroArchi ? visibili.conta[k] : lcRef.current[k]) || 1;
       const hl = (selNode && (s.id === selNode.id || tg.id === selNode.id)) || (hovNode && (s.id === hovNode.id || tg.id === hovNode.id));
       const dim2 = isFilt && (!vis.has(s.id) || !vis.has(tg.id));
       const mx = (s.x + tg.x) / 2, my = (s.y + tg.y) / 2;
@@ -235,7 +300,7 @@ export default function GraphView({ entityId = null, onEntityChange, onOpenEserv
     // con la nuova istanza, quindi il riferimento non resta mai indietro.
     // eslint-disable-next-line react-hooks/immutability
     afRef.current = requestAnimationFrame(draw);
-  }, [selNode, hovNode, filterCat, search]);
+  }, [selNode, hovNode, filterCat, search, origini, filtroArchi, visibili]);
 
   useEffect(() => { cancelAnimationFrame(afRef.current); draw(); }, [draw]);
 
@@ -305,6 +370,27 @@ export default function GraphView({ entityId = null, onEntityChange, onOpenEserv
     lastTouchDist.current = null;
   };
 
+  // Rotella e tocco vanno registrati come listener non passivi. React li
+  // registra passivi, e in un listener passivo preventDefault() viene ignorato
+  // con un errore in console: la rotella farebbe anche scorrere la pagina e il
+  // tocco genererebbe eventi mouse emulati. I gestori cambiano a ogni render,
+  // quindi il listener stabile chiama sempre l'ultima versione tramite ref.
+  const gestoriRef = useRef({});
+  useEffect(() => { gestoriRef.current = { onWh, onTS, onTM, onTE }; });
+  useEffect(() => {
+    const cv = canvasRef.current;
+    if (!cv) return;
+    const eventi = [
+      ["wheel", (e) => gestoriRef.current.onWh(e)],
+      ["touchstart", (e) => gestoriRef.current.onTS(e)],
+      ["touchmove", (e) => gestoriRef.current.onTM(e)],
+      ["touchend", (e) => gestoriRef.current.onTE(e)],
+      ["touchcancel", (e) => gestoriRef.current.onTE(e)],
+    ];
+    eventi.forEach(([tipo, fn]) => cv.addEventListener(tipo, fn, { passive: false }));
+    return () => eventi.forEach(([tipo, fn]) => cv.removeEventListener(tipo, fn));
+  }, []);
+
   // ── Resize ──────────────────────────────────────────────────
 
   useEffect(() => {
@@ -320,6 +406,20 @@ export default function GraphView({ entityId = null, onEntityChange, onOpenEserv
       <div style={{ display: "flex", alignItems: "center", gap: 8, padding: m ? "6px 10px" : "6px 20px", background: "rgba(15,20,35,.5)", borderBottom: "1px solid rgba(100,160,220,.06)", flexWrap: "wrap", zIndex: 10 }}>
         <input type="text" placeholder="Cerca ente..." value={search} onChange={e => setSearch(e.target.value)} style={{ background: "rgba(30,40,60,.8)", border: "1px solid rgba(100,160,220,.2)", borderRadius: 6, padding: "5px 10px", color: "var(--ink)", fontSize: 12, outline: "none", width: m ? 120 : 160, flex: m ? 1 : undefined }} />
         <select value={filterCat} onChange={e => setFilterCat(e.target.value)} style={{ background: "rgba(30,40,60,.8)", border: "1px solid rgba(100,160,220,.2)", borderRadius: 6, padding: "5px 8px", color: "var(--ink)", fontSize: m ? 11 : 12, outline: "none" }}>{cats.map(c => <option key={c} value={c}>{c}</option>)}</select>
+        <select
+          value={vistaDi(origini)}
+          onChange={e => { const v = VISTE_ARCHI.find(x => x.id === e.target.value); if (v) setOrigini(new Set(v.origini)); }}
+          aria-label="Filtra gli archi per provenienza"
+          style={{ background: filtroArchi ? "rgba(79,195,247,.12)" : "rgba(30,40,60,.8)", border: `1px solid ${filtroArchi ? "rgba(79,195,247,.5)" : "rgba(100,160,220,.2)"}`, borderRadius: 6, padding: "5px 8px", color: "var(--ink)", fontSize: m ? 11 : 12, outline: "none" }}
+        >
+          {VISTE_ARCHI.map(v => <option key={v.id} value={v.id}>{v.label}</option>)}
+          {vistaDi(origini) === "personalizzata" && <option value="personalizzata">Provenienze scelte</option>}
+        </select>
+        {filtroArchi && (
+          <span style={{ fontSize: 11, color: "var(--ink-faint)" }}>
+            <span className="tabular" style={{ color: "#4fc3f7", fontWeight: 600 }}>{visibili.archi}</span> archi distinti visibili
+          </span>
+        )}
       </div>
 
       {/* Canvas. `minHeight: 0` è necessario: in una colonna flex il valore
@@ -332,8 +432,7 @@ export default function GraphView({ entityId = null, onEntityChange, onOpenEserv
           role="img"
           aria-label="Grafo dell'interoperabilità tra Pubbliche Amministrazioni sulla PDND. Il contenuto del grafo è disponibile in forma testuale nella sezione Statistiche."
           style={{ width: "100%", height: "100%", cursor: "grab", touchAction: "none" }}
-          onMouseDown={onMD} onMouseMove={onMM} onMouseUp={onMU} onMouseLeave={onMU} onWheel={onWh}
-          onTouchStart={onTS} onTouchMove={onTM} onTouchEnd={onTE} onTouchCancel={onTE}
+          onMouseDown={onMD} onMouseMove={onMM} onMouseUp={onMU} onMouseLeave={onMU}
         />
 
         {/* Legend */}
@@ -348,11 +447,24 @@ export default function GraphView({ entityId = null, onEntityChange, onOpenEserv
 
         {/* Legenda provenienza archi */}
         <div className="graph-legend-desktop" style={{ position: "absolute", bottom: 12, right: 12, zIndex: 5, background: "rgba(10,14,26,.88)", borderRadius: 8, border: "1px solid rgba(100,160,220,.1)", padding: "8px 12px", display: "flex", flexDirection: "column", gap: 5, fontSize: 9, color: "var(--ink-muted)" }}>
-            <div style={{ fontSize: 8, textTransform: "uppercase", letterSpacing: .6, color: "var(--ink-faint)", marginBottom: 1 }}>Provenienza archi</div>
-            <div style={{ display: "flex", alignItems: "center", gap: 6 }}><svg width="22" height="6"><line x1="0" y1="3" x2="22" y2="3" stroke="rgba(100,160,220,.9)" strokeWidth="1.6" /></svg><span>Documentata / Certificata</span></div>
-            <div style={{ display: "flex", alignItems: "center", gap: 6 }}><svg width="22" height="6"><line x1="0" y1="3" x2="22" y2="3" stroke="rgba(79,195,247,1)" strokeWidth="1.8" /></svg><span>Osservata (uso reale)</span></div>
-            <div style={{ display: "flex", alignItems: "center", gap: 6 }}><svg width="22" height="6"><line x1="0" y1="3" x2="22" y2="3" stroke="rgba(100,160,220,.9)" strokeWidth="1.6" strokeDasharray="10,3" /></svg><span>Ricostruita (documentazione)</span></div>
-            <div style={{ display: "flex", alignItems: "center", gap: 6 }}><svg width="22" height="6"><line x1="0" y1="3" x2="22" y2="3" stroke="rgba(100,160,220,.9)" strokeWidth="1.6" strokeDasharray="5,4" /></svg><span>Inferita (AI)</span></div>
+            <div style={{ fontSize: 8, textTransform: "uppercase", letterSpacing: .6, color: "var(--ink-faint)", marginBottom: 1 }}>Provenienza archi · clic per filtrare</div>
+            {[
+              ["documentata", "Documentata", "rgba(100,160,220,.9)", null, 1.6],
+              ["osservata", "Osservata (uso reale)", "rgba(79,195,247,1)", null, 1.8],
+              ["certificata", "Certificata (catalogo)", "rgba(100,160,220,.9)", null, 1.6],
+              ["ricostruita", "Ricostruita (documentazione)", "rgba(100,160,220,.9)", "10,3", 1.6],
+              ["inferita", "Inferita (AI)", "rgba(100,160,220,.9)", "5,4", 1.6],
+            ].map(([o, label, stroke, dash, sw]) => {
+              const on = origini.has(o);
+              return (
+                <button key={o} type="button" onClick={() => toggleOrigine(o)} aria-pressed={on}
+                  title={on ? `Nascondi gli archi di provenienza ${ORIGIN_STYLES[o].nome.toLowerCase()}` : `Mostra gli archi di provenienza ${ORIGIN_STYLES[o].nome.toLowerCase()}`}
+                  style={{ display: "flex", alignItems: "center", gap: 6, background: "none", border: "none", padding: 0, cursor: "pointer", fontFamily: "inherit", fontSize: 9, color: "var(--ink-muted)", opacity: on ? 1 : .35, textAlign: "left" }}>
+                  <svg width="22" height="6" aria-hidden="true"><line x1="0" y1="3" x2="22" y2="3" stroke={stroke} strokeWidth={sw} strokeDasharray={dash || undefined} /></svg>
+                  <span style={{ textDecoration: on ? "none" : "line-through" }}>{label}</span>
+                </button>
+              );
+            })}
         </div>
 
         {/* Detail panel */}
