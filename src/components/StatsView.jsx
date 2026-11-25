@@ -11,6 +11,18 @@ import { useMemo, useState } from "react";
 import PDND_DATA from "../data/pdnd-data.json";
 import { FORMATI } from "../utils/exportGraph";
 import { CATEGORY_COLORS } from "../constants/colors";
+import NetworkAnalysis from "./NetworkAnalysis";
+
+const ORIGINI = [
+  ["documentata", "Documentata", "#06d6a0"],
+  ["osservata", "Osservata", "#4fc3f7"],
+  ["certificata", "Certificata", "#64a0dc"],
+  ["ricostruita", "Ricostruita (v1)", "#c49a9a"],
+  ["inferita", "Inferita (AI)", "#ffd166"],
+];
+const fmt = (n) => n.toLocaleString("it-IT");
+const milioni = (n) => n >= 1e6 ? `${(n / 1e6).toLocaleString("it-IT", { maximumFractionDigits: 1 })} M` : fmt(n);
+const nomeEnte = (id) => PDND_DATA.enti.find(e => e.id === id)?.name || id;
 
 function Card({ title, color, children }) {
   return (
@@ -21,12 +33,14 @@ function Card({ title, color, children }) {
   );
 }
 
-function Bar({ label, value, max, color, sub }) {
+function Bar({ label, value, max, color, sub, display, onClick }) {
   return (
     <div style={{ marginBottom: 10 }}>
       <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, marginBottom: 3 }}>
-        <span style={{ color: "#cbd5e1" }}>{label}</span>
-        <span style={{ color, fontWeight: 700 }}>{value}</span>
+        {onClick
+          ? <button type="button" onClick={onClick} title="Apri la scheda dell'e-service" style={{ color: "#cbd5e1", background: "none", border: "none", padding: 0, font: "inherit", textAlign: "left", cursor: "pointer", textDecoration: "underline", textDecorationColor: "rgba(120,160,210,.3)", textUnderlineOffset: 2 }}>{label}</button>
+          : <span style={{ color: "#cbd5e1" }}>{label}</span>}
+        <span style={{ color, fontWeight: 700 }}>{display ?? value}</span>
       </div>
       <div style={{ height: 6, background: "rgba(30,40,60,.6)", borderRadius: 3 }}>
         <div style={{ height: "100%", width: `${(value / max) * 100}%`, background: `linear-gradient(90deg, ${color}, ${color}88)`, borderRadius: 3, transition: "width .6s ease" }} />
@@ -36,7 +50,7 @@ function Bar({ label, value, max, color, sub }) {
   );
 }
 
-export default function StatsView({ graphData }) {
+export default function StatsView({ graphData, onOpenEservice }) {
   const { nodes } = graphData;
 
   const catStats = useMemo(() => {
@@ -50,6 +64,22 @@ export default function StatsView({ graphData }) {
 
   const topFruitori = useMemo(() =>
     [...nodes].filter(n => n.fruiti > 0).sort((a, b) => b.fruiti - a.fruiti).slice(0, 10), [nodes]);
+
+  // Dati ufficiali di utilizzo (pdnd-opendata): minimi garantiti, perché le
+  // classifiche elencano i primi 10 e-service per coppia di categorie di enti.
+  const topAdottati = useMemo(() =>
+    PDND_DATA.eservices.filter(s => s.enti_abilitati_min > 0)
+      .sort((a, b) => b.enti_abilitati_min - a.enti_abilitati_min).slice(0, 10), []);
+  const topUsati = useMemo(() =>
+    PDND_DATA.eservices.filter(s => s.sessioni_min > 0)
+      .sort((a, b) => b.sessioni_min - a.sessioni_min).slice(0, 10), []);
+  const perOrigine = useMemo(() => {
+    const conta = {};
+    PDND_DATA.eservices.forEach(s => (s.archi || []).forEach(a => { conta[a.origine] = (conta[a.origine] || 0) + 1; }));
+    return ORIGINI.filter(([k]) => conta[k]).map(([k, nome, col]) => [nome, conta[k], col]);
+  }, []);
+  const classi = useMemo(() =>
+    PDND_DATA.enti.filter(e => e.aggregato && e.aderenti > 0).sort((a, b) => b.aderenti - a.aderenti), []);
 
   const topEservices = useMemo(() =>
     [...PDND_DATA.eservices].sort((a, b) => b.fruitori.length - a.fruitori.length).slice(0, 10), []);
@@ -70,9 +100,9 @@ export default function StatsView({ graphData }) {
       <div style={{ marginBottom: 20, padding: "12px 16px", borderRadius: 8, background: "rgba(255,209,102,.04)", border: "1px solid rgba(255,209,102,.14)", display: "flex", gap: 12 }}>
         <div style={{ fontSize: 18, color: "var(--cite)", flexShrink: 0, lineHeight: 1 }}>ⓘ</div>
         <div style={{ fontSize: 12, color: "var(--ink-muted)", lineHeight: 1.6 }}>
-          I numeri qui sotto si riferiscono al modello a <strong style={{ color: "var(--ink)" }}>tipi di servizio</strong>, non agli endpoint del catalogo PDND.
-          Un servizio come <em>Albo Pretorio</em> è un singolo nodo nel grafo ma corrisponde a circa 1.450 endpoint reali, uno per Comune che lo pubblica.
-          Il catalogo ufficiale conta 14.102 API pubblicate; il modello copre ~89% del catalogo via mapping diretto e aggregazione.
+          I numeri qui sotto si riferiscono al modello, non all'intero catalogo PDND. Accanto agli e-service puntuali del catalogo,
+          alcuni record sono <strong style={{ color: "var(--ink)" }}>tipi di servizio</strong>: <em>Albo Pretorio</em> è un singolo record ma corrisponde a circa 1.450 endpoint reali, uno per Comune che lo pubblica.
+          Il modello copre circa l'89% degli e-service pubblicati nel catalogo, tra mapping diretto e aggregazione. Adozione e sessioni vengono dalle statistiche ufficiali di PagoPA e sono minimi garantiti.
           Per il dettaglio vedi la sezione <span style={{ color: "var(--cite)" }}>Metodologia</span>.
         </div>
       </div>
@@ -99,13 +129,28 @@ export default function StatsView({ graphData }) {
         <Card title="E-services più fruiti" color="var(--cite)">
           {topEservices.map(es => {
             const erog = PDND_DATA.enti.find(e => e.id === es.erogatore);
-            return <Bar key={es.id} label={es.nome} value={es.fruitori.length} max={topEservices[0]?.fruitori.length || 1} color="var(--cite)" sub={`Erogato da ${erog?.name}`} />;
+            return <Bar key={es.id} onClick={() => onOpenEservice?.(es.id)} label={es.nome} value={es.fruitori.length} max={topEservices[0]?.fruitori.length || 1} color="var(--cite)" sub={`Erogato da ${erog?.name}`} />;
           })}
+        </Card>
+        <Card title="E-service più adottati (enti abilitati)" color="#4fc3f7">
+          {topAdottati.map(es => <Bar key={es.id} onClick={() => onOpenEservice?.(es.id)} label={es.nome} value={es.enti_abilitati_min} display={fmt(es.enti_abilitati_min)} max={topAdottati[0]?.enti_abilitati_min || 1} color="#4fc3f7" sub={`Erogato da ${nomeEnte(es.erogatore)} · almeno`} />)}
+        </Card>
+        <Card title="E-service più usati (sessioni di scambio)" color="#8338ec">
+          {topUsati.map(es => <Bar key={es.id} onClick={() => onOpenEservice?.(es.id)} label={es.nome} value={es.sessioni_min} display={milioni(es.sessioni_min)} max={topUsati[0]?.sessioni_min || 1} color="#8338ec" sub={`Erogato da ${nomeEnte(es.erogatore)} · almeno`} />)}
+        </Card>
+        <Card title="Archi per provenienza" color="#64a0dc">
+          {perOrigine.map(([nome, n, col]) => <Bar key={nome} label={nome} value={n} display={fmt(n)} max={Math.max(...perOrigine.map(x => x[1]))} color={col} />)}
+          <div style={{ fontSize: 10, color: "var(--ink-faint)", marginTop: 8, lineHeight: 1.5 }}>Osservata: connessioni o sessioni realmente registrate dalla PDND verso una classe di enti. Certificata: classe abilitata nel catalogo. Vedi Metodologia.</div>
+        </Card>
+        <Card title="Classi di enti aderenti" color="#c49a9a">
+          {classi.map(e => <Bar key={e.id} label={e.name.replace(" (aggregati)", "")} value={e.aderenti} display={fmt(e.aderenti)} max={classi[0]?.aderenti || 1} color={CATEGORY_COLORS[e.categoria] || "#c49a9a"} sub={e.aderenti_fonte} />)}
         </Card>
         <Card title="Distribuzione per categoria" color="var(--pa-blue)">
           {catStats.map(([cat, count]) => <Bar key={cat} label={cat} value={count} max={catStats[0]?.[1] || 1} color={CATEGORY_COLORS[cat] || "#667"} />)}
         </Card>
       </div>
+
+      <NetworkAnalysis />
 
       <ExportSection />
     </div>

@@ -13,10 +13,10 @@ jobs:
   update:
     runs-on: ubuntu-latest
     env:
-      # Inferenza AI via API Anthropic (Opus 4.8).
+      # Inferenza AI via API Anthropic (Opus 5.5).
       INFERENCE_ENGINE: anthropic
       ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-      ANTHROPIC_MODEL: claude-opus-4-8
+      ANTHROPIC_MODEL: claude-opus-5-5
       # GITHUB_TOKEN serve solo al passo gh (push branch + apertura PR), non all'inferenza.
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       INFERENCE_MIN_CONF: "0.6"
@@ -25,12 +25,12 @@ jobs:
       INFERENCE_MAX_RETRIES: "4"
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
-          node-version: "22"
+          node-version: "24"
 
       - name: Genera anteprima aggiornata
         # Esce con codice 1 se un guard di validazione fallisce, interrompendo

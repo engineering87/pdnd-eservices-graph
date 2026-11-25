@@ -57,14 +57,21 @@ che vanno da *a* a *b*.
 
 Due avvertenze sono essenziali e sono riportate anche dentro i file.
 
-Le relazioni erogatore-fruitore **non sono pubblicate come open data**: sono
-ricostruite da documentazione pubblica. Il campo \`origine\` di ogni arco ne
-dichiara la natura. Non sono misure dirette degli accordi realmente attivi.
+Le coppie puntuali erogatore-fruitore **non sono pubblicate come open data**.
+Gli archi sono ricostruiti da documentazione pubblica, dal campo
+\`attributes.certified\` del catalogo e dalle statistiche ufficiali di
+connessioni e sessioni, aggregate per categoria di ente. Il campo \`origine\`
+di ogni arco ne dichiara la provenienza (\`documentata\`, \`osservata\`,
+\`certificata\`, \`ricostruita\`, \`inferita\`). I campi \`connessioni\` e
+\`sessioni\`, dove presenti, sono minimi garantiti: le classifiche ufficiali
+elencano solo i primi 10 e-service per categoria.
 
-I nodi con \`aggregato=true\` rappresentano insiemi di enti: \`comuni_agg\` sta
-per circa 7.500 Comuni in un solo nodo. Le misure di grado e le distribuzioni
-calcolate su questo grafo **non sono confrontabili** con quelle di un grafo in
-cui ogni ente è un nodo distinto.
+I nodi con \`aggregato=true\` sono 10 classi di enti allineate alle categorie
+ufficiali PagoPA (Comuni, Regioni, Scuole, Sanità e altre), con il numero di
+aderenti nel campo \`aderenti\`: \`comuni_agg\`, per esempio, sta per circa 7.650
+Comuni in un solo nodo. Le misure di grado e le distribuzioni calcolate su
+questo grafo **non sono confrontabili** con quelle di un grafo in cui ogni ente
+è un nodo distinto.
 
 ## Esempio
 

@@ -121,3 +121,8 @@ body {
   white-space: nowrap;
   border: 0;
 }
+
+/* Schede di navigazione: su smartphone scorrono in orizzontale senza mostrare
+   una barra di scorrimento sotto le etichette. */
+.nav-tabs { scrollbar-width: none; }
+.nav-tabs::-webkit-scrollbar { display: none; }

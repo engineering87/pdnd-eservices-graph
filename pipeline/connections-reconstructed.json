@@ -1,0 +1,1347 @@
+{
+  "_comment": "Relazioni RICOSTRUITE del grafo curato v1 (snapshot 2 maggio 2026, report Zenodo 10.5281/zenodo.19989954). Sono archi ricostruiti con l'ausilio di modelli AI a partire da documentazione ufficiale pubblica (vedi METODOLOGIA.md): non sono 'documentata' (riservata agli override con fonte puntuale) né 'certificata'. In uscita portano origine 'ricostruita'. 'anchored': e-service v1 abbinati a un record del catalogo (chiave = catalogId); i fruitori si sommano a quelli certificati/documentati senza sostituirli. 'unanchored': e-service v1 senza un record di catalogo univoco (aggregati, voci riassuntive di ente, famiglie di API, enti non presenti nel catalogo con i codici IPA tracciati); sono riportati così come sono nel grafo.",
+  "_snapshot": "2026-05-02 — src/data/pdnd-data.json v1",
+  "anchored": {
+    "579dcb3b-cc97-43dc-8080-64855408dd26": {
+      "v1": "anpr_c001",
+      "nome_v1": "C001 – Servizio Notifica",
+      "nome_catalogo": "C001–servizioNotifica",
+      "fruitori": [
+        "c_milano",
+        "c_roma",
+        "c_napoli",
+        "c_bologna",
+        "c_genova",
+        "c_padova",
+        "comuni_agg",
+        "r_lombardia",
+        "r_lazio",
+        "r_campania",
+        "inps",
+        "ade",
+        "r_liguria",
+        "r_toscana",
+        "r_molise",
+        "r_puglia",
+        "pa_trento",
+        "r_abruzzo",
+        "r_emilia",
+        "r_piemonte",
+        "r_veneto",
+        "r_marche",
+        "r_umbria",
+        "r_vda",
+        "r_basilicata",
+        "r_sardegna",
+        "r_calabria"
+      ]
+    },
+    "4fa8a9c4-ca38-44ba-af70-e3a73309cb74": {
+      "v1": "anpr_c002",
+      "nome_v1": "C002 – Servizio Comunicazione",
+      "nome_catalogo": "C002-servizioComunicazione",
+      "fruitori": [
+        "c_milano",
+        "c_roma",
+        "c_napoli",
+        "c_bologna",
+        "c_genova",
+        "comuni_agg",
+        "r_lombardia",
+        "r_lazio",
+        "inps",
+        "r_liguria",
+        "r_toscana",
+        "r_molise",
+        "r_puglia",
+        "pa_trento",
+        "r_abruzzo",
+        "r_emilia",
+        "r_piemonte",
+        "r_veneto",
+        "r_marche",
+        "r_umbria",
+        "r_vda",
+        "r_basilicata",
+        "r_sardegna",
+        "r_calabria"
+      ]
+    },
+    "e50d3c8c-5340-4c7e-9a7a-debc79ead8ff": {
+      "v1": "anpr_c004",
+      "nome_v1": "C004 – Verifica Decesso",
+      "nome_catalogo": "C004-servizioVerificaDichDecesso",
+      "fruitori": [
+        "inps",
+        "ade",
+        "c_milano",
+        "c_roma",
+        "comuni_agg",
+        "r_liguria",
+        "r_toscana",
+        "r_molise",
+        "r_puglia",
+        "pa_trento",
+        "r_abruzzo",
+        "r_emilia",
+        "r_piemonte",
+        "r_veneto",
+        "r_marche",
+        "r_umbria",
+        "r_vda",
+        "r_basilicata",
+        "r_sardegna",
+        "r_calabria"
+      ]
+    },
+    "49cb628f-be12-4eb5-8c3a-e469db43440b": {
+      "v1": "anpr_inad",
+      "nome_v1": "ANPR API Integrazione INAD",
+      "nome_catalogo": "ANPR API INTEGRAZIONE INAD",
+      "fruitori": [
+        "agid"
+      ]
+    },
+    "8ffc6245-0ab1-4e2e-8423-6e1a855c320a": {
+      "v1": "inps_isee",
+      "nome_v1": "Consultazione ISEE",
+      "nome_catalogo": "Consultazione Indicatore ISEE",
+      "fruitori": [
+        "c_milano",
+        "c_roma",
+        "c_napoli",
+        "c_bologna",
+        "c_genova",
+        "c_padova",
+        "comuni_agg",
+        "r_lombardia",
+        "r_lazio",
+        "r_campania",
+        "r_friuli",
+        "mur",
+        "r_liguria",
+        "r_toscana",
+        "r_molise",
+        "r_puglia",
+        "pa_trento",
+        "r_abruzzo",
+        "r_emilia",
+        "r_piemonte",
+        "r_veneto",
+        "r_marche",
+        "r_umbria",
+        "r_vda",
+        "r_basilicata",
+        "r_sardegna",
+        "r_calabria"
+      ],
+      "nota": "Record originale 0cbb919f-1d53-4130-b415-ff1294581dbc sospeso nel catalogo (novembre 2026): agganciato al successore attivo."
+    },
+    "90176150-111e-4733-80c7-9714483e0b55": {
+      "v1": "inps_siuss",
+      "nome_v1": "SIUSS – Casellario Assistenza",
+      "nome_catalogo": "SIUSS-CasellarioAssistenza",
+      "fruitori": [
+        "c_milano",
+        "c_roma",
+        "c_napoli",
+        "c_bologna",
+        "comuni_agg",
+        "r_lombardia",
+        "r_lazio",
+        "r_campania",
+        "mlps",
+        "r_liguria",
+        "r_toscana",
+        "r_molise",
+        "r_puglia",
+        "pa_trento",
+        "r_abruzzo",
+        "r_emilia",
+        "r_piemonte",
+        "r_veneto",
+        "r_marche",
+        "r_umbria",
+        "r_vda",
+        "r_basilicata",
+        "r_sardegna",
+        "r_calabria"
+      ]
+    },
+    "19efdb32-dd4e-493e-8982-3d28f2e8be64": {
+      "v1": "inps_durc",
+      "nome_v1": "Consultazione DURC",
+      "nome_catalogo": "Consultazione DURC",
+      "fruitori": [
+        "c_milano",
+        "c_roma",
+        "c_napoli",
+        "comuni_agg",
+        "anac",
+        "unioncamere",
+        "r_lombardia",
+        "r_lazio"
+      ]
+    },
+    "c0db9916-d66a-4dc5-8ffc-c1e268e20cc4": {
+      "v1": "ade_vcf",
+      "nome_v1": "VCF1 – Verifica Codice Fiscale",
+      "nome_catalogo": "VCF1 - Verifica Booleana Codice Fiscale",
+      "fruitori": [
+        "inps",
+        "c_milano",
+        "c_roma",
+        "c_napoli",
+        "c_bologna",
+        "c_genova",
+        "c_padova",
+        "comuni_agg",
+        "r_lombardia",
+        "r_lazio",
+        "r_campania",
+        "agid",
+        "inail",
+        "mef",
+        "unioncamere",
+        "anac"
+      ]
+    },
+    "0bb78282-87bc-486b-8ef0-27a11852c8fb": {
+      "v1": "ade_piva",
+      "nome_v1": "Verifica Partita IVA",
+      "nome_catalogo": "VPIVA1 - Verifica Partita Iva",
+      "fruitori": [
+        "unioncamere",
+        "inps",
+        "inail",
+        "c_milano",
+        "c_roma",
+        "comuni_agg",
+        "mef",
+        "anac"
+      ],
+      "nota": "Record originale 94fc27c6-a771-475d-a109-c057eafdde69 sospeso nel catalogo (novembre 2026): agganciato al successore attivo."
+    },
+    "2d97cffc-27cb-4705-a21d-9e1084aec9e3": {
+      "v1": "agid_inad",
+      "nome_v1": "INAD – Domicili Digitali",
+      "nome_catalogo": "INAD CONSULTAZIONE DD",
+      "fruitori": [
+        "min_interno",
+        "inps",
+        "ade",
+        "c_milano",
+        "c_roma",
+        "c_napoli",
+        "comuni_agg",
+        "r_lombardia",
+        "pagopa"
+      ]
+    },
+    "2abffc64-7511-40c9-991d-86f282137726": {
+      "v1": "uc_ri",
+      "nome_v1": "Registro Imprese",
+      "nome_catalogo": "Servizi consultazione Registro Imprese",
+      "fruitori": [
+        "ade",
+        "inps",
+        "inail",
+        "c_milano",
+        "c_roma",
+        "c_bologna",
+        "comuni_agg",
+        "anac",
+        "mef",
+        "r_lombardia"
+      ]
+    },
+    "7a850b8b-4307-491f-9534-771e212d4c45": {
+      "v1": "uc_meta",
+      "nome_v1": "Catalogo SSU – Metadati",
+      "nome_catalogo": "CATALOGO - METADATI",
+      "fruitori": [
+        "c_milano",
+        "c_roma",
+        "c_napoli",
+        "c_bologna",
+        "c_genova",
+        "comuni_agg"
+      ]
+    },
+    "8d75b585-715c-40a0-a9c5-7108b8cbd5dc": {
+      "v1": "uc_bo",
+      "nome_v1": "Catalogo SSU – BO SUAP",
+      "nome_catalogo": "CATALOGO - GESTIONE ISTANZA - BACKOFFICE",
+      "fruitori": [
+        "c_milano",
+        "c_roma",
+        "c_napoli",
+        "c_bologna",
+        "comuni_agg"
+      ]
+    },
+    "1bcf7afa-dcc6-4674-8f2c-978da051d065": {
+      "v1": "uc_et",
+      "nome_v1": "Catalogo SSU – BO Enti Terzi",
+      "nome_catalogo": "CATALOGO - GESTIONE ISTANZA - ENTI TERZI",
+      "fruitori": [
+        "min_interno",
+        "r_lombardia",
+        "r_lazio",
+        "r_campania",
+        "r_friuli",
+        "r_sicilia"
+      ]
+    },
+    "5cc5a9be-9336-40ef-a87e-e044b19aeabf": {
+      "v1": "uc_com",
+      "nome_v1": "SSU – ComUnica",
+      "nome_catalogo": "CATALOGO - GESTIONE ISTANZA - COMUNICA",
+      "fruitori": [
+        "c_milano",
+        "c_roma",
+        "c_bologna",
+        "comuni_agg"
+      ]
+    },
+    "48df8b36-2173-45bc-9337-bd3127f00911": {
+      "v1": "uc_ri2",
+      "nome_v1": "SSU – Registro Imprese (circolarità)",
+      "nome_catalogo": "CATALOGO - GESTIONE ISTANZA - REGISTRO IMPRESE",
+      "fruitori": [
+        "c_milano",
+        "c_roma",
+        "c_napoli",
+        "c_bologna",
+        "comuni_agg"
+      ]
+    },
+    "a51198a6-0b08-4958-9d80-6fb6d49e4bbc": {
+      "v1": "inail_d",
+      "nome_v1": "INAIL – DURC",
+      "nome_catalogo": "INAIL_Gra_Durc",
+      "fruitori": [
+        "inps",
+        "c_milano",
+        "c_roma",
+        "comuni_agg",
+        "anac",
+        "unioncamere",
+        "r_lombardia"
+      ]
+    },
+    "8cc63078-fa20-4c32-8a4b-5a8b510297c2": {
+      "v1": "anac_bd",
+      "nome_v1": "Banca Dati Contratti Pubblici",
+      "nome_catalogo": "Consultazione BDNCP",
+      "fruitori": [
+        "c_milano",
+        "c_roma",
+        "c_napoli",
+        "c_bologna",
+        "comuni_agg",
+        "r_lombardia",
+        "r_lazio",
+        "mef",
+        "ade"
+      ]
+    },
+    "c881c211-3a50-4e8d-9667-ae51955d0711": {
+      "v1": "giu_cas",
+      "nome_v1": "Casellario Giudiziale",
+      "nome_catalogo": "Certificato Casellario Giudiziale - Persone fisiche",
+      "fruitori": [
+        "inps",
+        "ade",
+        "anac",
+        "c_milano",
+        "c_roma",
+        "comuni_agg",
+        "mef"
+      ]
+    },
+    "2eebfbf1-2b23-4475-992c-27c1e5ef5373": {
+      "v1": "mic_r",
+      "nome_v1": "I.PaC – Gestione Risorse Digitali",
+      "nome_catalogo": "I.PaC - Gestione Risorsa Digitale",
+      "fruitori": [
+        "r_lombardia",
+        "r_lazio",
+        "r_campania",
+        "r_sicilia",
+        "mur"
+      ]
+    },
+    "f1fa7a31-5041-4f06-8e2e-93bbb25be35d": {
+      "v1": "mic_g",
+      "nome_v1": "I.PaC – Grafo Conoscenza",
+      "nome_catalogo": "I.PaC - Sottoscrizione e recupero Dataset da Grafo cross",
+      "fruitori": [
+        "r_lombardia",
+        "r_lazio",
+        "r_sicilia",
+        "istat",
+        "mur"
+      ]
+    },
+    "622683b6-83e1-4adc-984d-7f9e70d4265c": {
+      "v1": "ader_d",
+      "nome_v1": "Situazione Debitoria",
+      "nome_catalogo": "Servizio per la fornitura della Situazione Debitoria",
+      "fruitori": [
+        "c_milano",
+        "c_roma",
+        "comuni_agg",
+        "mef",
+        "ade",
+        "inps"
+      ]
+    },
+    "e7656c0a-2618-43ce-b5fc-18adaa36ce2e": {
+      "v1": "fvg_p",
+      "nome_v1": "Consultazione Dettaglio Pratiche",
+      "nome_catalogo": "Consultazione dettaglio pratiche",
+      "fruitori": [
+        "c_milano",
+        "comuni_agg",
+        "r_lombardia"
+      ]
+    },
+    "761b9e4c-abaf-451d-9ffe-6857428eb18d": {
+      "v1": "bz_af",
+      "nome_v1": "Qualità Acque Fiumi",
+      "nome_catalogo": "Qualità delle acque dei fiumi",
+      "fruitori": [
+        "istat",
+        "r_lombardia",
+        "r_friuli"
+      ]
+    },
+    "e1112378-1333-4a88-bc5e-57c8ff56dd1e": {
+      "v1": "bz_al",
+      "nome_v1": "Qualità Acque Laghi",
+      "nome_catalogo": "Qualità delle acque dei laghi",
+      "fruitori": [
+        "istat",
+        "r_lombardia"
+      ]
+    },
+    "4204e464-3119-47d2-8fbe-7f58e25f2ca8": {
+      "v1": "bz_de",
+      "nome_v1": "Ricerca Derivazioni d'Acqua",
+      "nome_catalogo": "Ricerca derivazioni d'acqua",
+      "fruitori": [
+        "istat",
+        "r_lombardia",
+        "r_friuli"
+      ]
+    },
+    "9289a97d-d26b-49bb-b44e-d137291b4958": {
+      "v1": "bz_an",
+      "nome_v1": "Ricerca Aree Nettarifere",
+      "nome_catalogo": "Ricerca aree nettarifere",
+      "fruitori": [
+        "istat",
+        "r_lombardia"
+      ]
+    },
+    "91b9f081-1e8d-4d3d-b620-0f5d23f72ba6": {
+      "v1": "bo_ed",
+      "nome_v1": "Ricerca Edifici (catasto CT)",
+      "nome_catalogo": "L’e-service ricerca gli edifici",
+      "fruitori": [
+        "ade",
+        "r_lombardia",
+        "istat"
+      ]
+    },
+    "af707ed7-d1aa-45be-9ae9-830a9c17f25e": {
+      "v1": "bo_ga",
+      "nome_v1": "Ricerca Gare e Appalti",
+      "nome_catalogo": "L’e-service ricerca le gare e gli appalti",
+      "fruitori": [
+        "anac",
+        "mef"
+      ]
+    },
+    "3c07219f-e04b-451a-ad74-ce8fa6766163": {
+      "v1": "ge_pr",
+      "nome_v1": "Protocollo – Conferma Protocollazione",
+      "nome_catalogo": "Protocollo - destinatario conferma protocollazione",
+      "fruitori": [
+        "agid",
+        "comuni_agg",
+        "r_lombardia"
+      ]
+    },
+    "26cbaae3-8e81-46ff-8dd8-4d48af4e4360": {
+      "v1": "pd_ci",
+      "nome_v1": "Dati Statistici Cimiteri",
+      "nome_catalogo": "Consultazione Dati statistici cimiteri",
+      "fruitori": [
+        "istat",
+        "r_lombardia"
+      ]
+    }
+  },
+  "unanchored": [
+    {
+      "id": "anpr_ver",
+      "nome": "ANPR – Verifica Autocertificazione",
+      "erogatore": "min_interno",
+      "fruitori": [
+        "c_milano",
+        "c_roma",
+        "c_napoli",
+        "c_bologna",
+        "c_genova",
+        "c_padova",
+        "comuni_agg",
+        "r_lombardia",
+        "r_lazio",
+        "r_campania",
+        "r_friuli",
+        "inps",
+        "ade",
+        "mef",
+        "mur",
+        "agid",
+        "r_liguria",
+        "r_toscana",
+        "r_molise",
+        "r_puglia",
+        "pa_trento",
+        "r_abruzzo",
+        "r_emilia",
+        "r_piemonte",
+        "r_veneto",
+        "r_marche",
+        "r_umbria",
+        "r_vda",
+        "r_basilicata",
+        "r_sardegna",
+        "r_calabria",
+        "min_istruzione"
+      ],
+      "versione": "3.0",
+      "stato": "Attivo",
+      "descrizione": "Conferma correttezza dati dichiarati"
+    },
+    {
+      "id": "anpr_acc",
+      "nome": "ANPR – Accertamento Anagrafico",
+      "erogatore": "min_interno",
+      "fruitori": [
+        "c_milano",
+        "c_roma",
+        "c_napoli",
+        "comuni_agg",
+        "r_lombardia",
+        "inps",
+        "ade",
+        "mit_dgmot",
+        "istat",
+        "mef",
+        "r_liguria",
+        "r_toscana",
+        "r_molise",
+        "r_puglia",
+        "pa_trento",
+        "r_abruzzo",
+        "r_emilia",
+        "r_piemonte",
+        "r_veneto",
+        "r_marche",
+        "r_umbria",
+        "r_vda",
+        "r_basilicata",
+        "r_sardegna",
+        "r_calabria",
+        "min_istruzione"
+      ],
+      "versione": "3.0",
+      "stato": "Attivo",
+      "descrizione": "Restituzione dati anagrafici per CF/ID ANPR"
+    },
+    {
+      "id": "inps_lav",
+      "nome": "Casellario Lavoratori Attivi",
+      "erogatore": "inps",
+      "fruitori": [
+        "ade",
+        "mef",
+        "mlps",
+        "r_lombardia",
+        "inail"
+      ],
+      "versione": "1.5",
+      "stato": "Attivo",
+      "descrizione": "Posizioni lavorative attive"
+    },
+    {
+      "id": "inps_pen",
+      "nome": "Casellario Pensionati",
+      "erogatore": "inps",
+      "fruitori": [
+        "ade",
+        "mef",
+        "mlps",
+        "r_lombardia"
+      ],
+      "versione": "1.2",
+      "stato": "Attivo",
+      "descrizione": "Posizioni pensionistiche"
+    },
+    {
+      "id": "ade_ann",
+      "nome": "ANNCSU – Anagrafe Immobiliare",
+      "erogatore": "ade",
+      "fruitori": [
+        "c_milano",
+        "c_roma",
+        "c_napoli",
+        "c_bologna",
+        "comuni_agg",
+        "r_lombardia",
+        "r_lazio",
+        "istat",
+        "mef"
+      ],
+      "versione": "2.0",
+      "stato": "Attivo",
+      "descrizione": "Archivio Naz. Numeri Civici e Strade Urbane"
+    },
+    {
+      "id": "ade_cat",
+      "nome": "Dati Catastali",
+      "erogatore": "ade",
+      "fruitori": [
+        "c_milano",
+        "c_roma",
+        "c_napoli",
+        "c_bologna",
+        "c_genova",
+        "comuni_agg",
+        "r_lombardia",
+        "r_lazio",
+        "r_campania"
+      ],
+      "versione": "2.5",
+      "stato": "Attivo",
+      "descrizione": "Consultazione dati catastali immobiliari"
+    },
+    {
+      "id": "agid_ipa",
+      "nome": "Indice PA (IPA)",
+      "erogatore": "agid",
+      "fruitori": [
+        "inps",
+        "ade",
+        "c_milano",
+        "c_roma",
+        "comuni_agg",
+        "pagopa",
+        "anac",
+        "mef"
+      ],
+      "versione": "2.0",
+      "stato": "Attivo",
+      "descrizione": "Indice delle Pubbliche Amministrazioni"
+    },
+    {
+      "id": "anac_sm",
+      "nome": "SIMOG",
+      "erogatore": "anac",
+      "fruitori": [
+        "c_milano",
+        "c_roma",
+        "comuni_agg",
+        "mef"
+      ],
+      "versione": "1.0",
+      "stato": "Attivo",
+      "descrizione": "Sistema Informativo Monitoraggio Gare"
+    },
+    {
+      "id": "mit_v",
+      "nome": "Consultazione Veicoli",
+      "erogatore": "mit_dgmot",
+      "fruitori": [
+        "c_milano",
+        "c_roma",
+        "c_napoli",
+        "comuni_agg",
+        "r_lombardia",
+        "inps"
+      ],
+      "versione": "1.0",
+      "stato": "Attivo",
+      "descrizione": "Dati veicoli immatricolati"
+    },
+    {
+      "id": "mit_p",
+      "nome": "Consultazione Patenti",
+      "erogatore": "mit_dgmot",
+      "fruitori": [
+        "c_milano",
+        "c_roma",
+        "comuni_agg",
+        "inps"
+      ],
+      "versione": "1.0",
+      "stato": "Attivo",
+      "descrizione": "Verifica titoli abilitativi alla guida"
+    },
+    {
+      "id": "mit_cu",
+      "nome": "CUDE – Contrassegno Disabili",
+      "erogatore": "mit_dgmot",
+      "fruitori": [
+        "c_milano",
+        "c_roma",
+        "c_napoli",
+        "c_bologna",
+        "comuni_agg",
+        "r_lombardia"
+      ],
+      "versione": "1.0",
+      "stato": "Attivo",
+      "descrizione": "Contrassegno Unificato Disabili Europeo"
+    },
+    {
+      "id": "mic_i",
+      "nome": "I.PaC – API IIIF",
+      "erogatore": "min_cultura",
+      "fruitori": [
+        "r_lombardia",
+        "mur",
+        "istat"
+      ],
+      "versione": "1.0",
+      "stato": "Attivo",
+      "descrizione": "Interoperabilità risorse digitali (IIIF)"
+    },
+    {
+      "id": "mef_ad",
+      "nome": "Anagrafe Dipendenti Pubblici",
+      "erogatore": "mef",
+      "fruitori": [
+        "inps",
+        "ade",
+        "istat",
+        "agid",
+        "mlps"
+      ],
+      "versione": "1.0",
+      "stato": "Attivo",
+      "descrizione": "Anagrafe dipendenti della PA"
+    },
+    {
+      "id": "mef_np",
+      "nome": "noiPA",
+      "erogatore": "mef",
+      "fruitori": [
+        "inps",
+        "ade",
+        "istat"
+      ],
+      "versione": "2.0",
+      "stato": "Attivo",
+      "descrizione": "Sistema stipendiale dipendenti pubblici"
+    },
+    {
+      "id": "mur_an",
+      "nome": "ANIS – Anagrafe Studenti",
+      "erogatore": "mur",
+      "fruitori": [
+        "inps",
+        "mef",
+        "istat",
+        "mlps"
+      ],
+      "versione": "1.0",
+      "stato": "Attivo",
+      "descrizione": "Anagrafe Nazionale Istruzione Superiore"
+    },
+    {
+      "id": "cin_1",
+      "nome": "IFS01 – Offerta Formativa",
+      "erogatore": "cineca",
+      "fruitori": [
+        "mur",
+        "inps",
+        "istat"
+      ],
+      "versione": "1.0",
+      "stato": "Attivo",
+      "descrizione": "Corsi di studio universitari"
+    },
+    {
+      "id": "cin_2",
+      "nome": "IFS02 – Iscrizioni Accademiche",
+      "erogatore": "cineca",
+      "fruitori": [
+        "mur",
+        "inps",
+        "mef"
+      ],
+      "versione": "1.0",
+      "stato": "Attivo",
+      "descrizione": "Iscrizioni e trascrizioni studi"
+    },
+    {
+      "id": "cin_3",
+      "nome": "IFS03 – Titoli Accademici",
+      "erogatore": "cineca",
+      "fruitori": [
+        "mur",
+        "inps",
+        "mef",
+        "mlps"
+      ],
+      "versione": "1.0",
+      "stato": "Attivo",
+      "descrizione": "Titoli accademici conseguiti"
+    },
+    {
+      "id": "ist_t",
+      "nome": "Dati Statistici Territoriali",
+      "erogatore": "istat",
+      "fruitori": [
+        "r_lombardia",
+        "r_lazio",
+        "r_campania",
+        "r_sicilia",
+        "c_milano",
+        "c_roma",
+        "mef",
+        "agid",
+        "min_interno"
+      ],
+      "versione": "2.5",
+      "stato": "Attivo",
+      "descrizione": "Dati demografici e statistici territoriali"
+    },
+    {
+      "id": "sog_fe",
+      "nome": "Fatturazione Elettronica",
+      "erogatore": "sogei",
+      "fruitori": [
+        "ade",
+        "mef",
+        "unioncamere",
+        "c_milano",
+        "c_roma",
+        "comuni_agg"
+      ],
+      "versione": "4.1",
+      "stato": "Attivo",
+      "descrizione": "Servizi fatturazione elettronica PA"
+    },
+    {
+      "id": "pag_v",
+      "nome": "PDND – Gestione Voucher",
+      "erogatore": "pagopa",
+      "fruitori": [
+        "min_interno",
+        "inps",
+        "ade",
+        "agid",
+        "unioncamere",
+        "inail",
+        "anac",
+        "mef"
+      ],
+      "versione": "2.0",
+      "stato": "Attivo",
+      "descrizione": "Autenticazione e voucher JWT interoperabilità"
+    },
+    {
+      "id": "sic_c",
+      "nome": "Consultazione Trasferimenti COT",
+      "erogatore": "r_sicilia",
+      "fruitori": [
+        "r_lombardia",
+        "r_lazio",
+        "r_campania",
+        "mlps",
+        "inps"
+      ],
+      "versione": "1.0",
+      "stato": "Attivo",
+      "descrizione": "Trasferimenti pazienti tra strutture"
+    },
+    {
+      "id": "ca_wa",
+      "nome": "WaaS – Welfare as a Service",
+      "erogatore": "comuni_agg",
+      "fruitori": [
+        "inps",
+        "mlps"
+      ],
+      "versione": "1.0",
+      "stato": "Attivo",
+      "descrizione": "Popolamento SIUSS da Comuni — ~300 API"
+    },
+    {
+      "id": "ca_al",
+      "nome": "Albo Pretorio Online",
+      "erogatore": "comuni_agg",
+      "fruitori": [
+        "agid",
+        "pagopa"
+      ],
+      "versione": "1.0",
+      "stato": "Attivo",
+      "descrizione": "Pubblicazioni albo pretorio — ~2.000 API"
+    },
+    {
+      "id": "ca_su",
+      "nome": "Pratiche SUAP",
+      "erogatore": "comuni_agg",
+      "fruitori": [
+        "unioncamere",
+        "r_lombardia",
+        "r_lazio",
+        "r_campania"
+      ],
+      "versione": "1.0",
+      "stato": "Attivo",
+      "descrizione": "Lista/dettaglio/statistiche SUAP — ~1.500 API"
+    },
+    {
+      "id": "ca_ci",
+      "nome": "Numerazione Civica / Stradario",
+      "erogatore": "comuni_agg",
+      "fruitori": [
+        "ade",
+        "istat",
+        "min_interno"
+      ],
+      "versione": "1.0",
+      "stato": "Attivo",
+      "descrizione": "Numeri civici e grafo stradale — ~800 API"
+    },
+    {
+      "id": "ca_tr",
+      "nome": "Amministrazione Trasparente",
+      "erogatore": "comuni_agg",
+      "fruitori": [
+        "anac",
+        "agid"
+      ],
+      "versione": "1.0",
+      "stato": "Attivo",
+      "descrizione": "Affidamenti L.190, dirigenti — ~500 API"
+    },
+    {
+      "id": "ca_de",
+      "nome": "Servizi Demografici",
+      "erogatore": "comuni_agg",
+      "fruitori": [
+        "min_interno",
+        "inps",
+        "ade",
+        "istat"
+      ],
+      "versione": "1.0",
+      "stato": "Attivo",
+      "descrizione": "Ricerca soggetti, scheda famiglia — ~400 API"
+    },
+    {
+      "id": "ca_tb",
+      "nome": "Tributi e Posizioni Debitorie",
+      "erogatore": "comuni_agg",
+      "fruitori": [
+        "ade",
+        "ade_riscossione",
+        "mef"
+      ],
+      "versione": "1.0",
+      "stato": "Attivo",
+      "descrizione": "IMU, TARI, F24, estratti conto — ~300 API"
+    },
+    {
+      "id": "ca_pr",
+      "nome": "Protocollo Informatico",
+      "erogatore": "comuni_agg",
+      "fruitori": [
+        "agid",
+        "r_lombardia",
+        "r_lazio"
+      ],
+      "versione": "1.0",
+      "stato": "Attivo",
+      "descrizione": "Protocollazione e conferma atti — ~200 API"
+    },
+    {
+      "id": "ca_io",
+      "nome": "Dati Sensori IoT",
+      "erogatore": "comuni_agg",
+      "fruitori": [
+        "istat",
+        "r_lombardia"
+      ],
+      "versione": "1.0",
+      "stato": "Attivo",
+      "descrizione": "Sensoristica IoT territoriale — ~50 API"
+    },
+    {
+      "id": "mlps_eserv",
+      "nome": "Servizi Lavoro e Politiche Sociali",
+      "erogatore": "mlps",
+      "fruitori": [
+        "inps",
+        "comuni_agg",
+        "r_lombardia",
+        "r_lazio",
+        "r_campania",
+        "r_sicilia",
+        "r_emilia",
+        "r_piemonte",
+        "r_veneto",
+        "r_toscana",
+        "r_puglia",
+        "r_liguria",
+        "istat"
+      ],
+      "versione": "1.0",
+      "stato": "Attivo",
+      "descrizione": "Servizi sociali e politiche del lavoro — 122 endpoint nel catalogo (categoria aggregata)"
+    },
+    {
+      "id": "mit_eserv",
+      "nome": "Servizi Infrastrutture e Trasporti",
+      "erogatore": "mit",
+      "fruitori": [
+        "mit_dgmot",
+        "comuni_agg",
+        "r_lombardia",
+        "r_lazio",
+        "r_campania",
+        "r_emilia",
+        "istat"
+      ],
+      "versione": "1.0",
+      "stato": "Attivo",
+      "descrizione": "Trasporti, infrastrutture, opere pubbliche — 66 endpoint nel catalogo (categoria aggregata)"
+    },
+    {
+      "id": "dfp_eserv",
+      "nome": "Funzione Pubblica – Anagrafe Prestazioni",
+      "erogatore": "dfp",
+      "fruitori": [
+        "mef",
+        "inps",
+        "comuni_agg",
+        "istat"
+      ],
+      "versione": "1.0",
+      "stato": "Attivo",
+      "descrizione": "Servizi DFP — 24 endpoint nel catalogo (categoria aggregata)"
+    },
+    {
+      "id": "demanio_eserv",
+      "nome": "Demanio – Patrimonio Pubblico",
+      "erogatore": "ag_demanio",
+      "fruitori": [
+        "mef",
+        "ade",
+        "comuni_agg",
+        "r_lombardia"
+      ],
+      "versione": "1.0",
+      "stato": "Attivo",
+      "descrizione": "Servizi Agenzia del Demanio — 23 endpoint nel catalogo (categoria aggregata)"
+    },
+    {
+      "id": "reg_lombardia_eserv",
+      "nome": "Servizi Regione Lombardia",
+      "erogatore": "r_lombardia",
+      "fruitori": [
+        "comuni_agg",
+        "c_milano",
+        "mlps",
+        "inps",
+        "istat"
+      ],
+      "versione": "1.0",
+      "stato": "Attivo",
+      "descrizione": "Sanità, sociale, istruzione regionale — 42 endpoint nel catalogo (categoria aggregata)"
+    },
+    {
+      "id": "reg_lazio_eserv",
+      "nome": "Servizi Regione Lazio",
+      "erogatore": "r_lazio",
+      "fruitori": [
+        "comuni_agg",
+        "c_roma",
+        "mlps",
+        "inps",
+        "istat"
+      ],
+      "versione": "1.0",
+      "stato": "Attivo",
+      "descrizione": "Sanità, sociale, istruzione regionale — 35 endpoint nel catalogo (categoria aggregata)"
+    },
+    {
+      "id": "reg_campania_eserv",
+      "nome": "Servizi Regione Campania",
+      "erogatore": "r_campania",
+      "fruitori": [
+        "comuni_agg",
+        "c_napoli",
+        "mlps",
+        "inps",
+        "istat"
+      ],
+      "versione": "1.0",
+      "stato": "Attivo",
+      "descrizione": "Sanità, sociale, istruzione regionale — 50 endpoint nel catalogo (categoria aggregata)"
+    },
+    {
+      "id": "reg_liguria_eserv",
+      "nome": "Servizi Regione Liguria",
+      "erogatore": "r_liguria",
+      "fruitori": [
+        "comuni_agg",
+        "c_genova",
+        "mlps",
+        "inps",
+        "istat"
+      ],
+      "versione": "1.0",
+      "stato": "Attivo",
+      "descrizione": "Sanità, sociale, istruzione regionale — 60 endpoint nel catalogo (categoria aggregata)"
+    },
+    {
+      "id": "reg_toscana_eserv",
+      "nome": "Servizi Regione Toscana",
+      "erogatore": "r_toscana",
+      "fruitori": [
+        "comuni_agg",
+        "mlps",
+        "inps",
+        "istat"
+      ],
+      "versione": "1.0",
+      "stato": "Attivo",
+      "descrizione": "Sanità, sociale, istruzione regionale — 53 endpoint nel catalogo (categoria aggregata)"
+    },
+    {
+      "id": "reg_molise_eserv",
+      "nome": "Servizi Regione Molise",
+      "erogatore": "r_molise",
+      "fruitori": [
+        "comuni_agg",
+        "mlps",
+        "inps",
+        "istat"
+      ],
+      "versione": "1.0",
+      "stato": "Attivo",
+      "descrizione": "Sanità, sociale, istruzione regionale — 48 endpoint nel catalogo (categoria aggregata)"
+    },
+    {
+      "id": "reg_puglia_eserv",
+      "nome": "Servizi Regione Puglia",
+      "erogatore": "r_puglia",
+      "fruitori": [
+        "comuni_agg",
+        "mlps",
+        "inps",
+        "istat"
+      ],
+      "versione": "1.0",
+      "stato": "Attivo",
+      "descrizione": "Sanità, sociale, istruzione regionale — 45 endpoint nel catalogo (categoria aggregata)"
+    },
+    {
+      "id": "pa_trento_eserv",
+      "nome": "Servizi Provincia Aut. Trento",
+      "erogatore": "pa_trento",
+      "fruitori": [
+        "comuni_agg",
+        "mlps",
+        "inps",
+        "istat"
+      ],
+      "versione": "1.0",
+      "stato": "Attivo",
+      "descrizione": "Sanità, sociale, istruzione provinciale — 45 endpoint nel catalogo (categoria aggregata)"
+    },
+    {
+      "id": "reg_abruzzo_eserv",
+      "nome": "Servizi Regione Abruzzo",
+      "erogatore": "r_abruzzo",
+      "fruitori": [
+        "comuni_agg",
+        "mlps",
+        "inps",
+        "istat"
+      ],
+      "versione": "1.0",
+      "stato": "Attivo",
+      "descrizione": "Sanità, sociale, istruzione regionale — 45 endpoint nel catalogo (categoria aggregata)"
+    },
+    {
+      "id": "reg_emilia_eserv",
+      "nome": "Servizi Regione Emilia-Romagna",
+      "erogatore": "r_emilia",
+      "fruitori": [
+        "comuni_agg",
+        "c_bologna",
+        "mlps",
+        "inps",
+        "istat"
+      ],
+      "versione": "1.0",
+      "stato": "Attivo",
+      "descrizione": "Sanità, sociale, istruzione regionale — 41 endpoint nel catalogo (categoria aggregata)"
+    },
+    {
+      "id": "reg_piemonte_eserv",
+      "nome": "Servizi Regione Piemonte",
+      "erogatore": "r_piemonte",
+      "fruitori": [
+        "comuni_agg",
+        "mlps",
+        "inps",
+        "istat"
+      ],
+      "versione": "1.0",
+      "stato": "Attivo",
+      "descrizione": "Sanità, sociale, istruzione regionale — 41 endpoint nel catalogo (categoria aggregata)"
+    },
+    {
+      "id": "reg_veneto_eserv",
+      "nome": "Servizi Regione Veneto",
+      "erogatore": "r_veneto",
+      "fruitori": [
+        "comuni_agg",
+        "c_padova",
+        "mlps",
+        "inps",
+        "istat"
+      ],
+      "versione": "1.0",
+      "stato": "Attivo",
+      "descrizione": "Sanità, sociale, istruzione regionale — 40 endpoint nel catalogo (categoria aggregata)"
+    },
+    {
+      "id": "reg_marche_eserv",
+      "nome": "Servizi Regione Marche",
+      "erogatore": "r_marche",
+      "fruitori": [
+        "comuni_agg",
+        "mlps",
+        "inps",
+        "istat"
+      ],
+      "versione": "1.0",
+      "stato": "Attivo",
+      "descrizione": "Sanità, sociale, istruzione regionale — 37 endpoint nel catalogo (categoria aggregata)"
+    },
+    {
+      "id": "reg_umbria_eserv",
+      "nome": "Servizi Regione Umbria",
+      "erogatore": "r_umbria",
+      "fruitori": [
+        "comuni_agg",
+        "mlps",
+        "inps",
+        "istat"
+      ],
+      "versione": "1.0",
+      "stato": "Attivo",
+      "descrizione": "Sanità, sociale, istruzione regionale — 32 endpoint nel catalogo (categoria aggregata)"
+    },
+    {
+      "id": "reg_vda_eserv",
+      "nome": "Servizi Regione Valle d'Aosta",
+      "erogatore": "r_vda",
+      "fruitori": [
+        "comuni_agg",
+        "mlps",
+        "inps",
+        "istat"
+      ],
+      "versione": "1.0",
+      "stato": "Attivo",
+      "descrizione": "Sanità, sociale, istruzione regionale — 32 endpoint nel catalogo (categoria aggregata)"
+    },
+    {
+      "id": "reg_basilicata_eserv",
+      "nome": "Servizi Regione Basilicata",
+      "erogatore": "r_basilicata",
+      "fruitori": [
+        "comuni_agg",
+        "mlps",
+        "inps",
+        "istat"
+      ],
+      "versione": "1.0",
+      "stato": "Attivo",
+      "descrizione": "Sanità, sociale, istruzione regionale — 31 endpoint nel catalogo (categoria aggregata)"
+    },
+    {
+      "id": "reg_sardegna_eserv",
+      "nome": "Servizi Regione Sardegna",
+      "erogatore": "r_sardegna",
+      "fruitori": [
+        "comuni_agg",
+        "mlps",
+        "inps",
+        "istat"
+      ],
+      "versione": "1.0",
+      "stato": "Attivo",
+      "descrizione": "Sanità, sociale, istruzione regionale — 30 endpoint nel catalogo (categoria aggregata)"
+    },
+    {
+      "id": "reg_calabria_eserv",
+      "nome": "Servizi Regione Calabria",
+      "erogatore": "r_calabria",
+      "fruitori": [
+        "comuni_agg",
+        "mlps",
+        "inps",
+        "istat"
+      ],
+      "versione": "1.0",
+      "stato": "Attivo",
+      "descrizione": "Sanità, sociale, istruzione regionale — 27 endpoint nel catalogo (categoria aggregata)"
+    },
+    {
+      "id": "min_istruzione_eserv",
+      "nome": "Servizi Istruzione Scolastica",
+      "erogatore": "min_istruzione",
+      "fruitori": [
+        "comuni_agg",
+        "mur",
+        "istat",
+        "mlps"
+      ],
+      "versione": "1.0",
+      "stato": "Attivo",
+      "descrizione": "Anagrafe scolastica, profilo studente — 13 endpoint nel catalogo (categoria aggregata)"
+    },
+    {
+      "id": "ispra_eserv",
+      "nome": "Dati Ambientali e Protezione",
+      "erogatore": "ispra",
+      "fruitori": [
+        "comuni_agg",
+        "istat",
+        "r_lombardia",
+        "r_lazio",
+        "r_emilia",
+        "pa_bolzano",
+        "pa_trento"
+      ],
+      "versione": "1.0",
+      "stato": "Attivo",
+      "descrizione": "Dati ambientali, qualità aria/acqua, biodiversità — 17 endpoint nel catalogo (categoria aggregata)"
+    }
+  ]
+}

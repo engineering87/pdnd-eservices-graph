@@ -1,32 +1,15 @@
 {
-  "_comment": "Mappa nomi del campo attributes.certified del catalogo PDND sui nodi del grafo. Categorie ampie → aggregati rappresentativi (eleggibilita di classe); enti nominati → nodi specifici. Override in connections-overrides.json hanno precedenza. Nomi non presenti qui non generano archi certificati.",
+  "_comment": "Mappa nomi del campo attributes.certified del catalogo PDND sui nodi del grafo, per enti nominati ed eccezioni. Le classi di enti (Comuni, Regioni, Province, Scuole, Università, Sanità, Gestori, Enti privati, PA locali e centrali) sono definite in classi.json e vanno sui nodi aggregati: una categoria indica un'intera classe abilitata, mai un campione di enti scelti da noi. Le voci qui hanno precedenza su classi.json. 'Pubbliche Amministrazioni' (qualsiasi PA) va su tutte le classi pubbliche. Eccezione dichiarata: i ministeri sono enti distinti e restano nominati, tutti quelli tracciati. Gli override in connections-overrides.json hanno precedenza su tutto. Nomi non presenti qui né in classi.json non generano archi certificati.",
   "map": {
     "Pubbliche Amministrazioni": [
-      "comuni_agg"
-    ],
-    "Comuni e loro Consorzi e Associazioni": [
-      "comuni_agg"
-    ],
-    "Unioni di Comuni e loro Consorzi e Associazioni": [
-      "comuni_agg"
-    ],
-    "Citta' Metropolitane": [
-      "comuni_agg"
-    ],
-    "Comunita' Montane e loro Consorzi e Associazioni": [
-      "comuni_agg"
-    ],
-    "Province e loro Consorzi e Associazioni": [
-      "comuni_agg"
-    ],
-    "Regioni, Province Autonome e loro Consorzi e Associazioni": [
-      "r_lombardia",
-      "r_lazio",
-      "r_campania",
-      "r_emilia",
-      "r_toscana",
-      "r_veneto",
-      "r_piemonte"
+      "comuni_agg",
+      "regioni_agg",
+      "province_agg",
+      "scuole_agg",
+      "universita_agg",
+      "sanita_agg",
+      "pa_locali_agg",
+      "pa_centrali_agg"
     ],
     "Presidenza del Consiglio dei Ministri, Ministeri e Avvocatura dello Stato": [
       "min_interno",
@@ -34,7 +17,10 @@
       "mef",
       "min_cultura",
       "min_giustizia",
-      "min_istruzione"
+      "min_istruzione",
+      "mit",
+      "mur",
+      "dfp"
     ],
     "Enti di Previdenza ed Assistenza Sociale in Conto Economico Consolidato pubblici": [
       "inps",
@@ -183,9 +169,6 @@
     ],
     "Comune di Catania": [
       "comuni_agg"
-    ],
-    "Citta' Metropolitana di Milano": [
-      "c_milano"
     ]
   }
 }

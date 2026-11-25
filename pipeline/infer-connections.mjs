@@ -80,25 +80,34 @@ async function callAnthropic(system, user) {
   const key = process.env.ANTHROPIC_API_KEY;
   if (!key) throw new Error("ANTHROPIC_API_KEY mancante");
   const effort = process.env.ANTHROPIC_EFFORT ?? "low";          // low: task semplice, costo/latency minimi
-  const maxTokens = parseInt(process.env.ANTHROPIC_MAX_TOKENS || "2048", 10);
+  // Sui modelli attuali il ragionamento è sempre attivo e i suoi token contano
+  // in max_tokens: un tetto basso troncherebbe la risposta JSON.
+  const maxTokens = parseInt(process.env.ANTHROPIC_MAX_TOKENS || "16000", 10);
+  const model = process.env.ANTHROPIC_MODEL || "claude-opus-5-5";
+  // Fallback lato server in caso di rifiuto dei classificatori di sicurezza:
+  // supportato dai modelli di generazione 5.x (Opus 5/5.5, Fable 5.1/5.2, Sonnet 5.5).
+  const supportsFallback = /^claude-(opus-5|fable-5-[12]|sonnet-5-5)/.test(model);
   for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
-    // NB: 'temperature' NON va impostata. Opus 4.7/4.8 restituiscono 400 con
-    // sampling params (temperature/top_p/top_k) non-default. Il comportamento si
-    // guida via prompting ed 'effort' (output_config).
+    // NB: 'temperature' e 'thinking' NON vanno impostati: i modelli attuali
+    // restituiscono 400 con sampling params o con il thinking disabilitato.
+    // Il comportamento si guida via prompting ed 'effort' (output_config).
     const payload = {
-      model: process.env.ANTHROPIC_MODEL || "claude-sonnet-4-6",
+      model,
       max_tokens: maxTokens,
       system,
       messages: [{ role: "user", content: user }],
     };
     if (effort) payload.output_config = { effort };
+    if (supportsFallback) payload.fallbacks = "default";
+    const headers = {
+      "content-type": "application/json",
+      "x-api-key": key,
+      "anthropic-version": "2023-06-01",
+    };
+    if (supportsFallback) headers["anthropic-beta"] = "server-side-fallback-2026-07-01";
     const res = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
-      headers: {
-        "content-type": "application/json",
-        "x-api-key": key,
-        "anthropic-version": "2023-06-01",
-      },
+      headers,
       body: JSON.stringify(payload),
     });
     // Rate limit (429) o overload (529): backoff e riprova
@@ -113,6 +122,14 @@ async function callAnthropic(system, user) {
       throw new Error(`Anthropic HTTP ${res.status}${body ? ": " + body.replace(/\s+/g, " ").slice(0, 200) : ""}`);
     }
     const data = await res.json();
+    // Rifiuto dell'intera catena: lo trattiamo come errore (fail-safe, nessuna
+    // scrittura in cache, si riprova al prossimo run).
+    if (data.stop_reason === "refusal") {
+      throw new Error(`Anthropic: richiesta rifiutata (${data.stop_details?.category ?? "n/d"})`);
+    }
+    if (data.stop_reason === "max_tokens") {
+      throw new Error("Anthropic: risposta troncata (max_tokens)");
+    }
     // Estrae solo i blocchi di testo (eventuali blocchi di thinking sono ignorati)
     return data.content.map(b => b.text || "").join("");
   }

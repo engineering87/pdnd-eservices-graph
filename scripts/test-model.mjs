@@ -16,7 +16,7 @@
 
 import fs from "fs";
 import path from "path";
-import { fileURLToPath } from "url";
+import { fileURLToPath, pathToFileURL } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, "..");
@@ -25,9 +25,15 @@ const DATA = JSON.parse(
   fs.readFileSync(path.join(ROOT, "src/data/pdnd-data.json"), "utf8")
 );
 
+// Istantanea congelata del modello v1 descritto nel report Zenodo
+// (10.5281/zenodo.19989954). Il dato live evolve; questa no.
+const V1 = JSON.parse(
+  fs.readFileSync(path.join(ROOT, "src/data/snapshots/pdnd-data.2026-05-02.json"), "utf8")
+);
+
 // buildGraph è un modulo ES con export nominato: lo importiamo direttamente.
 const { buildGraph } = await import(
-  path.join(ROOT, "src/utils/buildGraph.js")
+  pathToFileURL(path.join(ROOT, "src/utils/buildGraph.js")).href
 );
 
 let passed = 0;
@@ -106,6 +112,21 @@ check("nessun nodo orfano (ogni ente compare in almeno un arco)", () => {
   return orfani.length === 0 || `${orfani.length} orfani: ${orfani.join(", ")}`;
 });
 
+// Un arco "osservata" afferma una fruizione reale: deve portare il dato ufficiale
+// che lo prova (enti abilitati o sessioni di scambio), altrimenti è un'affermazione
+// senza fonte.
+check("ogni arco osservato riporta connessioni o sessioni", () => {
+  const bad = DATA.eservices.flatMap((s) => (s.archi || [])
+    .filter((a) => a.origine === "osservata" && !(a.connessioni > 0) && !(a.sessioni > 0))
+    .map((a) => `${s.id}->${a.fruitore}`));
+  return bad.length === 0 || `${bad.length} archi osservati senza dato (es. ${bad[0]})`;
+});
+
+check("ogni nodo di classe dichiara il numero di aderenti e la fonte", () => {
+  const bad = DATA.enti.filter((e) => e.aggregato && !(e.aderenti > 0 && e.aderenti_fonte)).map((e) => e.id);
+  return bad.length === 0 || `nodi aggregati senza aderenti: ${bad.join(", ")}`;
+});
+
 check("il meta dichiara la fonte delle connessioni", () => {
   return (
     (DATA.meta && DATA.meta.fonte_connessioni && DATA.meta.note_connessioni)
@@ -117,7 +138,7 @@ check("il meta dichiara la fonte delle connessioni", () => {
 console.log("\nComportamento di buildGraph");
 
 const graph = buildGraph(DATA);
-const ORIGINI_VALIDE = new Set(["documentata", "certificata", "ricostruita", "inferita"]);
+const ORIGINI_VALIDE = new Set(["documentata", "osservata", "certificata", "ricostruita", "inferita"]);
 
 check("restituisce nodes, links e linkCounts", () => {
   return (
@@ -179,22 +200,36 @@ check("ogni peso è un intero positivo", () => {
 
 console.log("\nCoerenza con le metriche pubblicate");
 
-check("la topologia corrisponde al report (51 nodi, 86 e-service, 343 archi)", () => {
+check("l'istantanea v1 corrisponde al report (51 nodi, 86 e-service, 343 archi)", () => {
   const distinti = new Set();
-  DATA.eservices.forEach((s) =>
+  V1.eservices.forEach((s) =>
     (s.fruitori || []).forEach((f) => distinti.add(`${s.erogatore}->${f}`))
   );
   const err = [];
-  if (DATA.enti.length !== 51) err.push(`nodi ${DATA.enti.length}≠51`);
-  if (DATA.eservices.length !== 86) err.push(`e-service ${DATA.eservices.length}≠86`);
+  if (V1.enti.length !== 51) err.push(`nodi ${V1.enti.length}≠51`);
+  if (V1.eservices.length !== 86) err.push(`e-service ${V1.eservices.length}≠86`);
   if (distinti.size !== 343) err.push(`archi distinti ${distinti.size}≠343`);
   return err.length === 0 || err.join(", ");
+});
+
+// Il modello live deve conservare ogni relazione del modello v1: le coppie
+// erogatore→fruitore e i nodi del report non possono sparire con un aggiornamento.
+check("il dato live conserva tutte le relazioni e i nodi del modello v1", () => {
+  const coppie = (d) => new Set(d.eservices.flatMap((s) => (s.fruitori || []).map((f) => `${s.erogatore}->${f}`)));
+  const live = coppie(DATA);
+  const perse = [...coppie(V1)].filter((c) => !live.has(c));
+  const nodi = new Set(DATA.enti.map((e) => e.id));
+  const nodiPersi = V1.enti.filter((e) => !nodi.has(e.id)).map((e) => e.id);
+  const err = [];
+  if (perse.length) err.push(`${perse.length} coppie v1 perse (es. ${perse[0]})`);
+  if (nodiPersi.length) err.push(`nodi v1 persi: ${nodiPersi.join(", ")}`);
+  return err.length === 0 || err.join("; ");
 });
 
 console.log("\nRotte e collegamenti diretti");
 
 const { parseLocation, buildPath } = await import(
-  path.join(ROOT, "src/utils/useUrlState.js")
+  pathToFileURL(path.join(ROOT, "src/utils/useUrlState.js")).href
 );
 
 check("le rotte note risolvono nella scheda giusta", () => {
@@ -271,15 +306,27 @@ check("un collegamento diretto a un ente non innesca un ciclo di render", () => 
 
 console.log("\nEsportazione");
 
-const exp = await import(path.join(ROOT, "src/utils/exportGraph.js"));
+const exp = await import(pathToFileURL(path.join(ROOT, "src/utils/exportGraph.js")).href);
 
-check("la lista archi conserva la topologia del report", () => {
-  const { nodes, edges } = exp.toEdgeList(DATA);
+check("la lista archi conserva la topologia del report (istantanea v1)", () => {
+  const { nodes, edges } = exp.toEdgeList(V1);
   const istanze = edges.reduce((a, e) => a + e.weight, 0);
   const err = [];
   if (nodes.length !== 51) err.push(`nodi ${nodes.length}≠51`);
   if (edges.length !== 343) err.push(`archi ${edges.length}≠343`);
   if (istanze !== 570) err.push(`somma pesi ${istanze}≠570`);
+  return err.length === 0 || err.join(", ");
+});
+
+check("la lista archi del dato live è coerente con il dato", () => {
+  const { nodes, edges } = exp.toEdgeList(DATA);
+  const coppie = new Set(DATA.eservices.flatMap((s) => (s.fruitori || []).map((f) => `${s.erogatore}->${f}`)));
+  const istanze = DATA.eservices.reduce((a, s) => a + (s.fruitori || []).length, 0);
+  const pesi = edges.reduce((a, e) => a + e.weight, 0);
+  const err = [];
+  if (nodes.length !== DATA.enti.length) err.push(`nodi ${nodes.length}≠${DATA.enti.length}`);
+  if (edges.length !== coppie.size) err.push(`archi ${edges.length}≠${coppie.size}`);
+  if (pesi !== istanze) err.push(`somma pesi ${pesi}≠${istanze}`);
   return err.length === 0 || err.join(", ");
 });
 
@@ -350,6 +397,87 @@ check("le esportazioni nel repository sono allineate al dato", () => {
   return stantii.length === 0
     ? true
     : `${stantii.length} file non allineati (${stantii.map((s) => s[0]).join(", ")}): eseguire npm run export`;
+});
+
+console.log("\nEsplora e analisi di rete (relations.js, networkMetrics.js)");
+
+const rel = await import(pathToFileURL(path.join(ROOT, "src/utils/relations.js")).href);
+const net = await import(pathToFileURL(path.join(ROOT, "src/utils/networkMetrics.js")).href);
+const RIGHE = rel.flattenRelations(DATA);
+
+check("una riga per ogni arco del modello", () => {
+  const archi = DATA.eservices.reduce((a, s) => a + (s.archi || s.fruitori).length, 0);
+  return RIGHE.length === archi || `${RIGHE.length} righe, ${archi} archi`;
+});
+
+check("i filtri restringono senza perdere righe valide", () => {
+  const f = rel.filterRelations(RIGHE, { erogatore: "inps", origini: ["osservata", "certificata"] });
+  if (!f.length) return "nessuna riga per INPS";
+  if (f.some((r) => r.erogatore !== "inps" || !["osservata", "certificata"].includes(r.origine))) return "riga fuori filtro";
+  const attese = RIGHE.filter((r) => r.erogatore === "inps" && ["osservata", "certificata"].includes(r.origine)).length;
+  return f.length === attese || `${f.length} invece di ${attese}`;
+});
+
+check("la ricerca ignora maiuscole e accenti", () => {
+  const a = rel.filterRelations(RIGHE, { q: "anpr" }).length;
+  const b = rel.filterRelations(RIGHE, { q: "ANPR" }).length;
+  return (a > 0 && a === b) || `risultati diversi: ${a} / ${b}`;
+});
+
+check("i raggruppamenti sommano al totale delle righe", () => {
+  for (const per of Object.keys(rel.RAGGRUPPAMENTI)) {
+    const tot = rel.groupRelations(RIGHE, per).reduce((a, g) => a + g.relazioni, 0);
+    if (tot !== RIGHE.length) return `${per}: ${tot} invece di ${RIGHE.length}`;
+  }
+  return true;
+});
+
+check("il CSV delle relazioni ha una riga per relazione più l'intestazione", () => {
+  const righe = rel.relationsToCSV(RIGHE.slice(0, 20)).trim().split("\n");
+  return righe.length === 21 || `${righe.length} righe`;
+});
+
+check("gli archi distinti coincidono con la definizione della densità", () => {
+  const adj = net.distinctAdjacency(DATA);
+  const coppie = new Set();
+  DATA.eservices.forEach((s) => s.fruitori.forEach((f) => f !== s.erogatore && coppie.add(`${s.erogatore}->${f}`)));
+  const tot = [...adj.values()].reduce((a, s) => a + s.size, 0);
+  return tot === coppie.size || `${tot} invece di ${coppie.size}`;
+});
+
+check("betweenness corretta su un grafo noto (catena a→b→c)", () => {
+  const adj = new Map([["a", new Set(["b"])], ["b", new Set(["c"])], ["c", new Set()]]);
+  const bc = net.betweenness(adj);
+  // Un solo cammino a→c passa da b; normalizzazione (n-1)(n-2) = 2.
+  return (bc.get("b") === 0.5 && bc.get("a") === 0 && bc.get("c") === 0) || JSON.stringify([...bc]);
+});
+
+check("reciprocità corretta su un grafo noto", () => {
+  const adj = new Map([["a", new Set(["b"])], ["b", new Set(["a", "c"])], ["c", new Set()]]);
+  return net.reciprocity(adj) === 2 / 3 || String(net.reciprocity(adj));
+});
+
+console.log("\nRotte (useUrlState.js)");
+
+const rotte = await import(pathToFileURL(path.join(ROOT, "src/utils/useUrlState.js")).href);
+
+check("le rotte si leggono e si riscrivono senza perdite", () => {
+  const casi = ["/", "/esplora", "/statistiche", "/ente/inps", `/eservice/${DATA.eservices[0].id}`];
+  for (const p of casi) {
+    const back = rotte.buildPath(rotte.parseLocation(p));
+    if (back !== p) return `${p} → ${back}`;
+  }
+  return true;
+});
+
+check("la rotta di un e-service porta l'id e la scheda giusta", () => {
+  const s = rotte.parseLocation("/eservice/pagopa_cfc8a94d");
+  return (s.tab === "eservice" && s.eserviceId === "pagopa_cfc8a94d" && s.entityId === null) || JSON.stringify(s);
+});
+
+check("ogni e-service ha un id utilizzabile come rotta", () => {
+  const rotti = DATA.eservices.filter((s) => rotte.parseLocation(rotte.buildPath({ tab: "eservice", eserviceId: s.id })).eserviceId !== s.id);
+  return rotti.length === 0 || rotti.map((s) => s.id).slice(0, 5).join(", ");
 });
 
 const totale = passed + failures.length;

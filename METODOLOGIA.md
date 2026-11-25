@@ -1,7 +1,7 @@
 # Metodologia e Fonti Dati
 
 Questo documento descrive in modo trasparente come sono stati ottenuti, elaborati
-e rappresentati i dati pubblici visualizzati nel grafo degli e-services PDND.
+e rappresentati i dati pubblici visualizzati nel grafo degli e-service PDND.
 
 ## Indice
 
@@ -13,6 +13,12 @@ e rappresentati i dati pubblici visualizzati nel grafo degli e-services PDND.
 | [4. Limitazioni note](#4-limitazioni-note) | Limiti e assunzioni del modello rappresentato |
 | [5. Come verificare e aggiornare i dati](#5-come-verificare-e-aggiornare-i-dati) | Modalità di aggiornamento e verifica del dataset |
 | [6. Licenza dei dati](#6-licenza-dei-dati) | Licenze delle fonti originali e dell’elaborazione |
+| [7. Modello v2 (novembre 2026)](#7-modello-v2-novembre-2026) | Classi di enti, archi osservati, selezione per uso reale, verifiche sulle fonti ufficiali |
+
+> Le sezioni 1–6 descrivono il modello **v1** del 2 maggio 2026, quello del report
+> Zenodo, conservato in `src/data/snapshots/pdnd-data.2026-05-02.json`. Il grafo
+> pubblicato è il modello **v2** descritto nella sezione 7, che conserva tutte le
+> relazioni del v1.
 
 ## 1. Fonti dati ufficiali utilizzate
 
@@ -28,7 +34,7 @@ e rappresentati i dati pubblici visualizzati nel grafo degli e-services PDND.
   codice IPA, attributi di accesso, stato di pubblicazione e versione.
 
 **Utilizzo nel grafo:** questo dataset è la fonte primaria per i **nodi erogatori** e per
-l'elenco degli **e-services**. Ogni e-service nel CSV contiene l'identificativo dell'ente
+l'elenco degli **e-service**. Ogni e-service nel CSV contiene l'identificativo dell'ente
 che lo eroga (`producerId`, `producerName`).
 
 ### 1.2 Aderenti (`aderenti.csv`)
@@ -52,6 +58,9 @@ e per la loro categorizzazione.
 e-service, confermando quali servizi sono effettivamente utilizzati. Non contiene però
 l'identità dei singoli fruitori.
 
+> Nel modello v2 le classifiche di enti abilitati e di sessioni di scambio, divise
+> per categoria di ente fruitore, sono la base degli archi **osservati**: vedi §7.1.
+
 ### 1.4 Connessioni abilitate
 
 - **Fonte:** pagina "I numeri della PDND" — [interop.pagopa.it/numeri](https://www.interop.pagopa.it/numeri)
@@ -59,12 +68,11 @@ l'identità dei singoli fruitori.
 
 **Utilizzo nel grafo:** dato utilizzato solo come riferimento numerico complessivo
 (6.400+ connessioni al 2024), non come fonte per le singole coppie erogatore–fruitore.
+Al 24 novembre 2026 la stessa pagina riporta 55.504 connessioni (§7.5).
 
 ## 2. Fonti documentali per le relazioni erogatore–fruitore
 
-> **⚠️ NOTA IMPORTANTE**
->
-> I dataset open data della PDND **non pubblicano** le coppie puntuali
+> **Nota.** I dataset open data della PDND **non pubblicano** le coppie puntuali
 > `erogatore → fruitore → e-service`. Il dato sulle connessioni è disponibile solo
 > come conteggio aggregato. Le relazioni (archi) rappresentate nel grafo sono state
 > **ricostruite** a partire dalle seguenti fonti documentali ufficiali:
@@ -97,7 +105,7 @@ fruitori plausibili di ciascun e-service.
 
 Questa documentazione specifica quali e-service ANPR sono disponibili (Notifica,
 Comunicazione, Verifica, Accertamento, Verifica Decesso) e per quali categorie
-di enti l'approvazione è automatica vs. manuale.
+di enti l'approvazione è automatica o manuale.
 
 ### 2.3 Presentazione ANCI/DTD — 26 casi d'uso PDND
 
@@ -124,7 +132,7 @@ nell'ecosistema "Welfare as a Service" e altri casi d'uso, tra cui:
 - **Fonte:** [catalogo.impresainungiorno.gov.it — Manuale operativo E-Service Catalogo SSU](https://catalogo.impresainungiorno.gov.it/assets/config/files/manuale_operativo_Eservice_CatalogoSSU.pdf)
 - **Versione:** 3, Novembre 2024
 
-Documenta i 6 e-service del Catalogo SSU (Metadati, Back Office SUAP, Back Office
+Documenta i 6 e-service del Catalogo SSU (tra cui Metadati, Back Office SUAP, Back Office
 Enti Terzi, ComUnica, Registro Imprese) e il ruolo di Unioncamere come erogatore.
 
 ### 2.5 Articoli e approfondimenti tecnici
@@ -152,18 +160,17 @@ pubbliche elencate in questa sezione. L'AI è stata lo strumento per
 sistematizzare un lavoro di ricognizione che avrebbe altrimenti richiesto
 l'analisi manuale di decine di documenti eterogenei.
 
-> **Questo progetto si basa esclusivamente su informazioni già pubbliche,
-> rielaborate e messe in relazione. Nessun dato riservato o non pubblicato
-> è stato utilizzato.**
+Il progetto usa esclusivamente informazioni già pubbliche, rielaborate e messe in
+relazione: nessun dato riservato o non pubblicato.
 
 ## 3. Scelte di rappresentazione e aggregazioni
 
 ### 3.1 Aggregazione dei Comuni
 
-Il catalogo PDND contiene **14.102 API pubblicate** (snapshot 2026-05), la stragrande
-maggioranza delle quali sono servizi standard pubblicati individualmente da ciascun
-Comune italiano aderente (~7.500 Comuni). I servizi più diffusi, con i conteggi
-reali misurati sul catalogo:
+Il catalogo PDND contiene **14.102 API pubblicate** (snapshot 2026-05). Gran parte
+sono servizi standard pubblicati individualmente da ciascun Comune aderente (~7.500
+Comuni): i nove tipi più diffusi coprono da soli 6.382 endpoint, quasi la metà del
+catalogo. I conteggi misurati sul catalogo:
 
 | Tipo di servizio comunale       | Endpoint nel catalogo |
 |---------------------------------|----------------------:|
@@ -185,13 +192,13 @@ reali misurati sul catalogo:
 Rappresentare ogni Comune come nodo singolo renderebbe il grafo illeggibile
 (migliaia di nodi con servizi identici). Per questo motivo:
 
-- **I Comuni con meno di ~100.000 abitanti** sono stati aggregati in un unico
-  nodo chiamato **"Comuni (aggregati)"**, che rappresenta collettivamente i
-  ~7.500 Comuni minori aderenti alla PDND.
+- **I Comuni aderenti** sono aggregati in un unico nodo chiamato
+  **"Comuni (aggregati)"**, che rappresenta collettivamente i ~7.500 Comuni
+  aderenti alla PDND, tranne i 6 rappresentati individualmente.
 - **6 grandi Comuni** (Milano, Roma, Napoli, Bologna, Genova, Padova) sono
-  rappresentati come nodi individuali. Tre di essi — Bologna, Genova, Padova —
-  erogano servizi specifici non standard documentati. Gli altri tre — Milano,
-  Roma, Napoli — compaiono nel modello come `Fruitore`: la documentazione
+  rappresentati come nodi individuali. Tre di essi (Bologna, Genova, Padova)
+  erogano servizi specifici non standard documentati. Gli altri tre (Milano,
+  Roma, Napoli) compaiono nel modello come `Fruitore`: la documentazione
   pubblica non riporta ad oggi servizi specifici dichiarati erogati da loro
   sul catalogo PDND.
 - I **servizi comunali standard** (Albo Pretorio, SUAP, ecc.) sono rappresentati
@@ -200,7 +207,7 @@ Rappresentare ogni Comune come nodo singolo renderebbe il grafo illeggibile
 
 ### 3.2 Selezione degli enti rappresentati
 
-Il grafo include **51 enti**, selezionati con questi criteri:
+Il modello v1 include **51 nodi**, selezionati con questi criteri:
 
 - **Tutte le PA centrali** che erogano e-service documentati nel catalogo e nelle
   fonti ufficiali (Ministeri, INPS, INAIL, AgID, ANAC, Agenzia delle Entrate,
@@ -208,15 +215,11 @@ Il grafo include **51 enti**, selezionati con questi criteri:
   della Funzione Pubblica, Agenzia del Demanio, ecc.)
 - **6 grandi Comuni** come fruitori e micro-erogatori (Bologna, Genova, Padova
   come erogatori di servizi specifici; Milano, Roma, Napoli come fruitori)
-- **Tutte le 18 Regioni e Province Autonome** che pubblicano almeno ~25 endpoint
-  nel catalogo, più Bolzano. La copertura regionale è quasi completa, mancano
-  solo le Regioni con copertura marginale.
+- **Le 21 amministrazioni regionali**: 19 Regioni e le Province Autonome di
+  Trento e Bolzano.
 - **1 nodo aggregato** per i Comuni minori
 
-Il criterio di soglia per l'inclusione individuale di un ente regionale è di
-~25 endpoint nel catalogo, calibrato per evitare di rappresentare amministrazioni
-con presenza marginale. La soglia può essere rivista lanciando
-`npm run compare-catalog` per vedere i producer non rappresentati.
+Per vedere i producer non rappresentati si può lanciare `npm run compare-catalog`.
 
 ### 3.3 Categorizzazione degli enti
 
@@ -241,6 +244,12 @@ Le categorie sono state assegnate in base alla funzione istituzionale prevalente
 | Comuni Aggregati   | Nodo aggregato dei Comuni minori                     |
 | Regioni Aggregate  | Nodo aggregato delle Regioni (eleggibilità inferita) |
 
+Nel modello v2 si aggiungono Agenzia del Demanio e Agenzia delle Dogane e dei
+Monopoli (Fisco), il MIT accanto alla DG Motorizzazione (Trasporti), ISPRA
+(Statistica), la categoria **Società pubblica** (Poste Italiane, Istituto
+Poligrafico e Zecca dello Stato) e la categoria **Classi aggregate**, che raccoglie
+le otto classi di enti diverse da Comuni e Regioni (§7.2).
+
 ### 3.4 Natura degli archi (connessioni)
 
 Ogni arco nel grafo rappresenta una relazione **erogatore → fruitore** per un
@@ -253,9 +262,10 @@ La distinzione grafica degli archi segue questa logica:
 - **Freccia direzionale:** indica il verso erogatore → fruitore
 - **Luminosità:** gli archi si evidenziano al passaggio del mouse o alla selezione di un nodo
 - **Tratteggio:** gli archi *inferiti dall'AI* (vedi sotto) sono tratteggiati, quelli documentati o certificati sono a linea piena
+- **Nel modello v2:** gli archi *ricostruiti* del v1 hanno un tratteggio lungo e quelli *osservati* sono azzurri a linea piena; le cinque provenienze sono descritte in §7.3
 
 **Provenienza degli archi.** Ogni arco porta una provenienza esplicita (`origine`),
-su tre livelli di affidabilità decrescente:
+su tre livelli di affidabilità decrescente (cinque nel modello v2, vedi §7.3):
 
 1. **Documentata** — ricostruita da documentazione ufficiale pubblica (circolari,
    manuali, presentazioni; vedi Sezione 2). Massima affidabilità, prevale su tutto.
@@ -322,31 +332,29 @@ catalogo, uno per ciascun ente che lo pubblica.
   tabella in §3.1). Il resto dei nodi copre tipicamente uno-a-uno o uno-a-pochi
   endpoint del catalogo.
 - La copertura totale del modello rispetto al catalogo è del **~89%**
-  misurata dallo script `compare-catalog`. Il gap residuo (~20%) è composto in
+  misurata dallo script `compare-catalog`. Il gap residuo (~11%) è composto in
   larga parte da producer regionali con pochi endpoint, da società partecipate
   e da enti molto specifici fuori scope per il modello attuale.
-- Il caveat è esplicitato anche nel frontend: nella vista **Statistiche** un
-  banner ricorda che i numeri sono service-type; nel pannello dettagli del nodo
+- L'avvertenza compare anche nell'app: nella scheda **Numeri** una nota
+  ricorda che alcuni record sono tipi di servizio; nel pannello dettagli del nodo
   *Comuni (aggregati)* compare un avviso analogo.
 
 ## 4. Limitazioni note
 
 1. **Le connessioni erogatore–fruitore non sono dati aperti strutturati.**
    Il dataset ufficiale PDND pubblica il numero aggregato di connessioni
-   (~6.400+) ma non le coppie puntuali. Le relazioni nel grafo derivano da
-   documentazione ufficiale, campo `attributes` del CSV, e inferenza ragionevole.
+   (oltre 6.400 nel 2024) ma non le coppie puntuali. Le relazioni nel grafo derivano da
+   documentazione ufficiale, campo `attributes` del CSV e inferenza ragionevole.
 
 2. **I Comuni minori sono aggregati.** Questo significa che un arco tra
    "Comuni (aggregati)" e INPS non indica che tutti i 7.500 Comuni fruiscono
    del servizio, ma che il servizio è strutturalmente disponibile per la
    categoria "Comuni".
 
-3. **Le Regioni e Province Autonome rappresentate coprono i principali enti
-   regionali.** Sono incluse 18 amministrazioni regionali su 21 (le 20 Regioni
-   più 2 Province Autonome). Le poche escluse hanno un numero marginale di
-   endpoint nel catalogo. Il criterio di soglia per l'inclusione individuale
-   è di ~25 endpoint pubblicati: vedi `npm run compare-catalog` per
-   verificare la lista corrente.
+3. **Regioni e Province Autonome.** Sono rappresentate individualmente tutte le
+   21 amministrazioni regionali (19 Regioni e le Province Autonome di Trento e
+   Bolzano), sia nel v1 sia nel v2. Gli altri enti regionali (agenzie,
+   società in-house) non hanno un nodo proprio.
 
 4. **Versioni e-service.** Le versioni indicate nel grafo sono quelle
    documentate nelle fonti al momento della compilazione e potrebbero non
@@ -356,6 +364,9 @@ catalogo, uno per ciascun ente che lo pubblica.
    con stato `SUSPENDED` o in fase beta. Nel grafo sono rappresentati solo
    i servizi con stato documentato come "Attivo", salvo dove esplicitamente
    indicato.
+
+I limiti specifici del modello v2 (classi di enti, minimi garantiti, e-service
+senza archi) sono in §7.6.
 
 ## 5. Come verificare e aggiornare i dati
 
@@ -370,12 +381,14 @@ riepilogo del catalogo per erogatore e per tipologia.
 
 ### Auditare il modello
 
-Tre script idempotenti, integrati nel `package.json`, supportano la verifica
+Script idempotenti, integrati nel `package.json`, supportano la verifica
 ripetibile del modello a ogni modifica di `src/data/pdnd-data.json`:
 
 ```bash
 npm run audit             # audit interno del JSON
 npm run compare-catalog   # confronto contro il catalogo ufficiale
+npm test                  # invarianti del modello, conservazione del v1, esportazioni
+npm run export            # rigenera GraphML, GEXF e CSV in exports/
 npm run paper-metrics     # genera snippet LaTeX per il paper Zenodo
 ```
 
@@ -391,7 +404,9 @@ non ancora rappresentati. Se la rete non è disponibile, accetta il flag
 `--csv <path-to-local-csv>` come fallback.
 
 `npm run paper-metrics` produce gli stessi numeri in formato pgfplots/LaTeX,
-pronti per essere incollati nel sorgente del paper Zenodo.
+pronti per essere incollati nel sorgente del paper Zenodo. Per riprodurre i
+numeri del report va passato lo snapshot v1
+(`src/data/snapshots/pdnd-data.2026-05-02.json`) come argomento.
 
 La documentazione completa degli script è in [scripts/README.md](scripts/README.md).
 
@@ -400,6 +415,7 @@ La documentazione completa degli script è in [scripts/README.md](scripts/README
 | Risorsa | URL | Frequenza |
 |---------|-----|-----------|
 | CSV catalogo e-service | [github.com/italia/pdnd-opendata](https://github.com/italia/pdnd-opendata) | Quotidiana |
+| Classifiche di adozione e uso, aderenti | [github.com/italia/pdnd-opendata](https://github.com/italia/pdnd-opendata) | Periodica |
 | Catalogo API navigabile | [api.gov.it](https://api.gov.it/it/catalogo) | Continua |
 | Numeri della PDND | [interop.pagopa.it/numeri](https://www.interop.pagopa.it/numeri) | Continua |
 | Documentazione ANPR | [anagrafenazionale.interno.it](https://www.anagrafenazionale.interno.it/area-tecnica/accesso-ai-dati/) | Ad aggiornamento |
@@ -409,13 +425,17 @@ La documentazione completa degli script è in [scripts/README.md](scripts/README
 Lo stato del grafo è mantenuto aggiornato da una pipeline automatica mensile
 (`pipeline/build-graph-data.mjs`, GitHub Action `update-graph-data.yml`) che legge
 il catalogo ufficiale, estrae gli e-service delle entità tracciate
-(`pipeline/entities.json`), e determina gli archi con i tre livelli di provenienza
-descritti nella Sezione 3.4: override documentati (`pipeline/connections-overrides.json`),
-baseline certificata (`pipeline/category-map.json`) e inferenza AI per i restanti.
+(`pipeline/entities.json`) e le classi di enti (`pipeline/classi.json`), e
+determina gli archi con le cinque provenienze descritte in §7.3: override
+documentati (`pipeline/connections-overrides.json`), archi osservati dalle
+classifiche ufficiali, baseline certificata (`pipeline/category-map.json`),
+relazioni ricostruite del v1 (`pipeline/connections-reconstructed.json`) e
+inferenze congelate (`pipeline/connections-frozen.json`).
 
 La pipeline applica guard di validazione (catalogo minimo, calo nodi, zero servizi)
-che impediscono la pubblicazione di dati corrotti, e mantiene una cache delle
-inferenze (`pipeline/ai-cache.json`) per stabilità e contenimento dei costi. Dettagli
+che impediscono la pubblicazione di dati corrotti. L'inferenza AI a runtime è
+disattivata per impostazione predefinita (allowlist vuota): ogni build è
+deterministica. L'anteprima diventa grafo live solo con una promozione manuale. Dettagli
 operativi in `pipeline/README.md`.
 
 ### Segnalare correzioni
@@ -437,3 +457,91 @@ Ministri – Dipartimento per la Trasformazione Digitale.
 
 La presente elaborazione (aggregazione, inferenza delle connessioni, visualizzazione)
 è rilasciata con licenza AGPL-3.0.
+
+## 7. Modello v2 (novembre 2026)
+
+Il modello v2 è prodotto dalla pipeline (`pipeline/build-graph-data.mjs`) a partire
+dai dataset ufficiali di [pdnd-opendata](https://github.com/italia/pdnd-opendata)
+(CC0) e conserva, con provenienza dichiarata, tutte le 570 relazioni del v1.
+Snapshot del 25 novembre 2026: 63 nodi (10 aggregati), 312 e-service, 600 archi
+distinti erogatore→fruitore, 1.469 relazioni, densità 0,1536.
+
+### 7.1 Fonti ufficiali usate dalla pipeline
+
+| Dataset | Uso nel modello |
+|---|---|
+| `eservice_a_catalogo.csv` | E-service, stato, versione, attributi certificati (15.301 record; PagoPA dichiara 15.291 e-service pubblicati al 24/11/2026) |
+| `e_service_con_piu_enti_abilitati_from_the_beginning.csv` | Enti fruitori abilitati per e-service e per categoria di fruitore: selezione e archi osservati |
+| `eservice_con_piu_token_staccati_from_the_beginning.csv` | Sessioni di scambio per e-service e per categoria di fruitore, con id del catalogo: selezione e archi osservati |
+| `aderenti.csv`, `totale_enti.csv` | Dimensione delle classi di enti |
+
+Le classifiche elencano i primi 10 e-service per ogni coppia di categorie
+erogatore × fruitore: i valori ricavati (`enti_abilitati_min`, `sessioni_min`,
+`connessioni`, `sessioni`) sono **minimi garantiti**, non totali. Le classifiche
+degli enti abilitati troncano il nome dell'e-service a 60 caratteri;
+l'abbinamento al catalogo avviene su nome dell'erogatore e nome troncato (360 su
+368 abbinati, nessuno ambiguo; gli 8 mancanti non sono più pubblicati).
+
+### 7.2 Classi di enti
+
+I fruitori che il modello non rappresenta individualmente sono raccolti in 10 nodi
+di classe (`aggregato: true`), allineati alle 12 categorie di fruitori delle
+statistiche ufficiali PagoPA (`pipeline/classi.json`): Comuni, Regioni, Province e
+Città metropolitane, Scuole, Università e AFAM, Sanità, Gestori di pubblici servizi
+e stazioni appaltanti, Enti privati, Altre PA locali, PA centrali (in cui
+confluiscono PA centrali, altre PA centrali ed enti previdenziali).
+
+Ogni nodo di classe riporta il numero di aderenti: il totale ufficiale dove PagoPA
+lo pubblica (Comuni 7.657, Regioni 21, Università e AFAM 172, Enti privati 306),
+altrimenti il conteggio per attributo certificato in `aderenti.csv`, assegnando
+ogni aderente a una sola classe. Il conteggio grezzo non è usato per i Comuni
+perché l'elenco include anche articolazioni interne degli enti (8.062 righe contro
+7.657 Comuni ufficiali).
+
+**Regola di mappatura.** Una categoria del catalogo o delle statistiche indica
+un'intera classe di enti e va sul nodo di classe, mai su un campione di enti scelti
+dal progetto. Restano nominati gli enti citati esplicitamente nel catalogo e i
+ministeri (enti distinti, tutti quelli tracciati). L'attributo "Pubbliche
+Amministrazioni" (qualsiasi PA) va su tutte le classi pubbliche.
+
+### 7.3 Provenienza degli archi
+
+Ogni arco dichiara una provenienza; quando più fonti sostengono lo stesso arco vale
+la più forte, in quest'ordine:
+
+| Origine | Significato | Archi |
+|---|---|---|
+| `documentata` | Override con fonte ufficiale puntuale (`connections-overrides.json`) | 6 |
+| `osservata` | Connessioni abilitate o sessioni di scambio realmente registrate dalla PDND verso una classe di enti | 265 |
+| `certificata` | Classe di enti abilitata nel campo `attributes.certified` del catalogo | 628 |
+| `ricostruita` | Relazione del modello v1 (`connections-reconstructed.json`) | 545 |
+| `inferita` | Stima AI congelata (`connections-frozen.json`), solo se manca ogni altra prova | 25 |
+
+Il numero di connessioni e di sessioni osservate accompagna l'arco qualunque sia la
+sua provenienza. Delle 570 relazioni del v1, 25 trovano conferma nei dati
+ufficiali (18 certificate, 7 osservate); le altre restano `ricostruita`.
+
+### 7.4 Selezione degli e-service
+
+Per ogni ente tracciato la pipeline include sempre gli e-service con archi curati
+(override, relazioni v1, inferenze congelate), poi fino a `maxServices` quelli con
+rilevanza più alta: il maggiore fra enti abilitati e sessioni di scambio, ciascuno
+rapportato al massimo dell'ente. Così entrano sia i servizi con molti fruitori (per
+esempio SEND, ≥7.041 enti) sia quelli con pochi fruitori ma volumi molto alti (per
+esempio la patente su IT-Wallet, ≥103 milioni di sessioni). Il v1 e la prima
+versione v2 sceglievano invece in ordine alfabetico, escludendo 5 dei 10 e-service
+più richiesti della piattaforma.
+
+### 7.5 Verifiche sulle fonti (25 novembre 2026)
+
+- **Numeri ufficiali** ([interop.pagopa.it/numeri](https://www.interop.pagopa.it/numeri), aggiornati al 24/11/2026): 9.826 enti aderenti (306 privati), 15.291 e-service, 55.504 connessioni, 1,87 miliardi di sessioni di scambio.
+- **Copertura**: `npm run compare-catalog` riporta l'88,7% degli e-service pubblicati coperti dai nodi del modello. Il parser dello script è stato corretto: dividendo il file per righe contava 469 record fantasma, generati dalle descrizioni su più righe.
+- **Erogatori**: i 10 erogatori con più connessioni ufficiali sono tutti tracciati. Gli erogatori non tracciati con più API sono singole università e conservatori (circa 9 API standard ciascuno), Infratel e FNOMCeO.
+- **Contesto normativo**: il DL 19/2026, convertito dalla L. 20 aprile 2026, n. 50, introduce nell'art. 50 del CAD il principio "once only" (comma 2-quater) e, all'art. 6, l'acquisizione d'ufficio dell'ISEE dall'INPS tramite PDND da parte di scuole, università e Comuni. Dal 15 gennaio 2026 la PDND è aperta alle imprese iscritte al Registro Imprese; dal 18 marzo 2026 sono disponibili le API v3. Le circolari DAIT n. 73/2023 (Comuni) e n. 61/2025 (Regioni) restano i riferimenti per i casi d'uso ANPR.
+
+### 7.6 Limitazioni del v2
+
+- Gli archi osservati e certificati verso i nodi di classe dichiarano che **almeno un ente** della classe è abilitato o fruisce, non che tutti lo fanno.
+- I valori ufficiali sono minimi garantiti: un e-service fuori dalle classifiche non è necessariamente poco usato.
+- 44 e-service restano senza archi: il catalogo non dichiara categorie di fruitori e non compaiono nelle classifiche ufficiali.
+- Alcuni servizi attribuiti nel v1 a Cineca e alla DG Motorizzazione sono oggi pubblicati nel catalogo dal MUR (ANS) e dal MIT. Le relazioni v1 sono conservate con l'erogatore originale; i servizi del catalogo compaiono sotto il loro erogatore attuale.

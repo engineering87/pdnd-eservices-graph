@@ -5,29 +5,38 @@ import { useState, useEffect, useCallback } from "react";
  * indirizzabili, condivisibili e indicizzabili.
  *
  *   /                  grafo
+ *   /esplora           scheda Esplora (filtri nella query string)
  *   /statistiche       scheda Statistiche
  *   /metodologia       scheda Metodologia
  *   /guida             scheda Guida
  *   /ente/inps         grafo con l'ente selezionato
+ *   /eservice/<id>     scheda di un e-service
  *
  * Le rotte a percorso funzionano perché staticwebapp.config.json riscrive ogni
  * richiesta non trovata su /index.html. Senza quella regola un accesso diretto
  * a /ente/inps restituirebbe 404.
  */
 
-const TABS = ["grafo", "statistiche", "metodologia", "guida"];
+const TABS = ["grafo", "esplora", "statistiche", "metodologia", "guida"];
+
+const VUOTO = { tab: "grafo", entityId: null, eserviceId: null };
 
 export function parseLocation(pathname) {
   const path = pathname.replace(/^\/+|\/+$/g, "");
   if (path.startsWith("ente/")) {
     const id = decodeURIComponent(path.slice("ente/".length));
-    return { tab: "grafo", entityId: id || null };
+    return { ...VUOTO, entityId: id || null };
   }
-  if (TABS.includes(path) && path !== "grafo") return { tab: path, entityId: null };
-  return { tab: "grafo", entityId: null };
+  if (path.startsWith("eservice/")) {
+    const id = decodeURIComponent(path.slice("eservice/".length));
+    return id ? { ...VUOTO, tab: "eservice", eserviceId: id } : VUOTO;
+  }
+  if (TABS.includes(path) && path !== "grafo") return { ...VUOTO, tab: path };
+  return VUOTO;
 }
 
-export function buildPath({ tab, entityId }) {
+export function buildPath({ tab, entityId, eserviceId }) {
+  if (tab === "eservice" && eserviceId) return `/eservice/${encodeURIComponent(eserviceId)}`;
   if (entityId) return `/ente/${encodeURIComponent(entityId)}`;
   if (tab && tab !== "grafo") return `/${tab}`;
   return "/";
@@ -36,7 +45,7 @@ export function buildPath({ tab, entityId }) {
 export function useUrlState() {
   const [state, setState] = useState(() =>
     typeof window === "undefined"
-      ? { tab: "grafo", entityId: null }
+      ? VUOTO
       : parseLocation(window.location.pathname)
   );
 
@@ -52,14 +61,18 @@ export function useUrlState() {
   useEffect(() => {
     const next = buildPath(state);
     if (next !== window.location.pathname) {
-      window.history.pushState({}, "", next);
+      // Dentro la stessa vista la query string resta: selezionare un ente nel
+      // grafo non deve perdere il filtro sulla provenienza degli archi.
+      const stessaVista = parseLocation(window.location.pathname).tab === state.tab;
+      window.history.pushState({}, "", next + (stessaVista ? window.location.search : ""));
     }
   }, [state]);
 
   const navigate = useCallback((partial) => {
     setState((prev) => {
       const merged = { ...prev, ...partial };
-      if (merged.tab === prev.tab && merged.entityId === prev.entityId) return prev;
+      if (merged.tab !== "eservice") merged.eserviceId = null;
+      if (merged.tab === prev.tab && merged.entityId === prev.entityId && merged.eserviceId === prev.eserviceId) return prev;
       return merged;
     });
   }, []);

@@ -32,6 +32,22 @@ const AI_CACHE_PATH = join(__dirname, "ai-cache.json");
 
 const CSV_URL =
   "https://raw.githubusercontent.com/italia/pdnd-opendata/main/data/eservice_a_catalogo.csv";
+// Classifiche ufficiali degli e-service per numero di enti fruitori abilitati, per
+// coppia di categorie erogatore × fruitore (primi 10 per coppia). Servono a scegliere
+// gli e-service più adottati invece dei primi in ordine alfabetico.
+const USAGE_URL =
+  "https://raw.githubusercontent.com/italia/pdnd-opendata/main/data/e_service_con_piu_enti_abilitati_from_the_beginning.csv";
+// Classifiche ufficiali per numero di sessioni di scambio (token), con id del catalogo.
+const TOKENS_URL =
+  "https://raw.githubusercontent.com/italia/pdnd-opendata/main/data/eservice_con_piu_token_staccati_from_the_beginning.csv";
+// Elenco degli aderenti con i loro attributi certificati, e totali ufficiali per categoria.
+const ADERENTI_URL =
+  "https://raw.githubusercontent.com/italia/pdnd-opendata/main/data/aderenti.csv";
+const TOTALI_URL =
+  "https://raw.githubusercontent.com/italia/pdnd-opendata/main/data/totale_enti.csv";
+// Le classifiche troncano il nome dell'e-service a 60 caratteri.
+const USAGE_NAME_LEN = 60;
+const usageKey = (producer, name) => `${producer.trim()}|${name.slice(0, USAGE_NAME_LEN).trim()}`;
 
 // ── Guard thresholds ──────────────────────────────────────────
 const MIN_CATALOG_RECORDS = 5000;   // se il catalogo ha meno righe, qualcosa non va
@@ -132,15 +148,117 @@ async function main() {
     process.exit(1);
   }
 
+  // 1b. Statistiche ufficiali di utilizzo (facoltative: se un download fallisce, la
+  // pipeline prosegue senza quel dato e lo segnala).
+  const fetchCSV = async (url) => {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return parseCSV(await res.text()).slice(1);
+  };
+  // Adozione: per e-service, il massimo di enti abilitati fra le classifiche in cui
+  // compare (minimo garantito, non il totale) e, per categoria di fruitore, le
+  // connessioni osservate. Le classifiche elencano i primi 10 per coppia di categorie.
+  const adoption = new Map();
+  const observed = new Map(); // usageKey -> Map(categoria fruitore -> enti abilitati)
+  try {
+    for (const r of (await fetchCSV(USAGE_URL)).filter(r => r.length === 7 && r[4])) {
+      const k = usageKey(r[5], r[4]);
+      const n = Math.round(Number(r[6]) || 0);
+      adoption.set(k, Math.max(adoption.get(k) || 0, n));
+      if (r[3] && r[3] !== "Tutte") {
+        const m = observed.get(k) || new Map();
+        m.set(r[3], Math.max(m.get(r[3]) || 0, n));
+        observed.set(k, m);
+      }
+    }
+    say(`- Adozione: ${adoption.size} e-service nelle classifiche di enti abilitati`);
+  } catch (e) {
+    say(`- ⚠️ Classifiche di adozione non disponibili (${e.message}): niente archi osservati`);
+  }
+  // Sessioni di scambio: il dataset riporta l'id del catalogo, abbinamento esatto.
+  const sessions = new Map();
+  const observedSessions = new Map(); // catalogId -> Map(categoria fruitore -> sessioni)
+  try {
+    for (const r of (await fetchCSV(TOKENS_URL)).filter(r => r.length === 8 && r[4])) {
+      const n = Math.round(Number(r[7]) || 0);
+      sessions.set(r[4], Math.max(sessions.get(r[4]) || 0, n));
+      if (r[3] && r[3] !== "Tutte" && r[3] !== "Totale" && n > 0) {
+        const m = observedSessions.get(r[4]) || new Map();
+        m.set(r[3], Math.max(m.get(r[3]) || 0, n));
+        observedSessions.set(r[4], m);
+      }
+    }
+    say(`- Sessioni: ${sessions.size} e-service nelle classifiche di sessioni di scambio`);
+  } catch (e) {
+    say(`- ⚠️ Classifiche di sessioni non disponibili (${e.message})`);
+  }
+  // Aderenti e totali ufficiali, per la dimensione dei nodi di classe.
+  let aderenti = [], totaliUfficiali = new Map();
+  try {
+    const res = await fetch(ADERENTI_URL);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    aderenti = csvToObjects(await res.text());
+    for (const r of await fetchCSV(TOTALI_URL)) if (r[0]) totaliUfficiali.set(r[0], Number(r[1]));
+    say(`- Aderenti: ${aderenti.length} righe nell'elenco, ${totaliUfficiali.get("Totale enti") ?? "?"} enti nel totale ufficiale`);
+  } catch (e) {
+    say(`- ⚠️ Elenco aderenti non disponibile (${e.message})`);
+  }
+  const adoptionOf = r => adoption.get(usageKey(r.producerName || "", r.name || "")) || 0;
+  const sessionsOf = r => sessions.get(r.id) || 0;
+
   // 2. Load config
-  const entities = loadJSON(join(__dirname, "entities.json")).entities;
+  const classi = loadJSON(join(__dirname, "classi.json")).classi;
+  const classIds = new Set(classi.map(c => c.id));
+  // I nodi di classe mancanti dal registro vengono generati da classi.json.
+  const entities = [
+    ...loadJSON(join(__dirname, "entities.json")).entities,
+  ];
+  for (const c of classi) {
+    if (!entities.some(e => e.id === c.id)) {
+      entities.push({ id: c.id, ipaCodes: [], name: c.name, tipo: "Fruitore", categoria: "Classi aggregate", descrizione: c.descrizione, produces: false });
+    }
+  }
+  // Attributo certificato -> nodo. category-map.json (enti nominati, eccezioni) ha
+  // precedenza sulle classi; le classi coprono anche gli attributi per prefisso.
   const categoryMap = loadJSON(join(__dirname, "category-map.json")).map;
+  const classOfAttr = (name) => {
+    for (const c of classi) {
+      if ((c.attributi || []).includes(name)) return c.id;
+      if ((c.attributi_prefisso || []).some(p => name.startsWith(p))) return c.id;
+    }
+    return null;
+  };
+  const certTargets = (name) => categoryMap[name] ?? (classOfAttr(name) ? [classOfAttr(name)] : []);
+  const classOfOfficial = new Map(classi.flatMap(c => (c.categorie_ufficiali || []).map(o => [o, c.id])));
+  // Dimensione delle classi: totale ufficiale dove PagoPA lo pubblica, altrimenti
+  // conteggio degli aderenti per attributo certificato (una classe per aderente,
+  // nell'ordine di classi.json).
+  const classSize = new Map();
+  for (const a of aderenti) {
+    let attrs = [];
+    try { attrs = JSON.parse(a.attributes || "[]").filter(x => x.type === "Certified").map(x => x.name); } catch { /* */ }
+    const c = classi.find(c => attrs.some(n => (c.attributi || []).includes(n) || (c.attributi_prefisso || []).some(p => n.startsWith(p))));
+    if (c) classSize.set(c.id, (classSize.get(c.id) || 0) + 1);
+  }
+  const classInfo = new Map(classi.map(c => {
+    const ufficiale = c.totale_ufficiale && totaliUfficiali.get(c.totale_ufficiale);
+    return [c.id, ufficiale != null
+      ? { aderenti: ufficiale, aderenti_fonte: "totale ufficiale PagoPA" }
+      : classSize.has(c.id) ? { aderenti: classSize.get(c.id), aderenti_fonte: "conteggio per attributo certificato" } : {}];
+  }));
   const overrides = loadJSON(join(__dirname, "connections-overrides.json")).overrides;
   // Layer congelato: inferenze AI curate e fissate nel dato versionato (deterministico).
   let frozen = {};
   try { frozen = loadJSON(join(__dirname, "connections-frozen.json")).frozen || {}; }
   catch { /* nessun file frozen: nessuna inferenza congelata */ }
+  // Relazioni ricostruite del grafo curato v1: si sommano agli archi del catalogo.
+  let reconstructed = { anchored: {}, unanchored: [] };
+  try { reconstructed = { ...reconstructed, ...loadJSON(join(__dirname, "connections-reconstructed.json")) }; }
+  catch { /* nessun file: nessuna relazione ricostruita */ }
   const validNodeIds = new Set(entities.map(e => e.id));
+  // E-service da includere sempre, anche oltre maxServices: quelli con archi curati.
+  // Le inferenze congelate sono stime curate e fissate a mano: anche quelle restano.
+  const pinned = new Set([...Object.keys(overrides), ...Object.keys(reconstructed.anchored), ...Object.keys(frozen)]);
 
   // Previous data (for drop guard + diff). Confronta con l'anteprima precedente;
   // al primo run (anteprima assente) usa il grafo curato live come baseline.
@@ -165,52 +283,114 @@ async function main() {
     if (!ent.produces) continue;
     let pool = [];
     for (const ipa of ent.ipaCodes) pool = pool.concat(byIpa[ipa] || []);
-    // published first, stable sort by name
-    pool = pool
-      .filter(r => r.activeDescriptorState === "PUBLISHED" || r.activeDescriptorState === "SUSPENDED")
-      .sort((a, b) => {
-        const ap = a.activeDescriptorState === "PUBLISHED" ? 0 : 1;
-        const bp = b.activeDescriptorState === "PUBLISHED" ? 0 : 1;
-        return ap - bp || a.name.localeCompare(b.name);
-      })
-      .slice(0, ent.maxServices || 6);
+    // Pubblicati prima dei sospesi; fra questi i più rilevanti; a parità, ordine
+    // alfabetico. Rilevanza = il maggiore fra enti abilitati e sessioni di scambio,
+    // ciascuno rapportato al massimo dell'ente: così entrano sia i servizi con molti
+    // fruitori sia quelli con pochi fruitori ma volumi enormi.
+    pool = pool.filter(r => r.activeDescriptorState === "PUBLISHED" || r.activeDescriptorState === "SUSPENDED");
+    const maxAd = Math.max(1, ...pool.map(adoptionOf));
+    const maxSe = Math.max(1, ...pool.map(sessionsOf));
+    const score = r => Math.max(adoptionOf(r) / maxAd, sessionsOf(r) / maxSe);
+    pool.sort((a, b) => {
+      const ap = a.activeDescriptorState === "PUBLISHED" ? 0 : 1;
+      const bp = b.activeDescriptorState === "PUBLISHED" ? 0 : 1;
+      return ap - bp || score(b) - score(a) || a.name.localeCompare(b.name);
+    });
+    // I servizi con archi curati restano sempre; il resto riempie fino a maxServices.
+    pool = [
+      ...pool.filter(r => pinned.has(r.id)),
+      ...pool.filter(r => !pinned.has(r.id)).slice(0, ent.maxServices || 6),
+    ];
 
     for (const r of pool) {
       const id = shortId(ent.id, r.id);
-      // Determina fruitori e provenienza: override (documentata) > certified (certificata) > frozen (inferita)
-      let fruitori = [], origine = null;
-      if (overrides[r.id]) {
-        fruitori = overrides[r.id].filter(n => validNodeIds.has(n) && n !== ent.id);
-        origine = "documentata";
-      } else {
-        const cats = certifiedCategories(r.attributes);
+      const ok = n => validNodeIds.has(n) && n !== ent.id;
+      // Provenienza per arco, in ordine di forza della prova: documentata (override con
+      // fonte), osservata (connessioni realmente abilitate, statistiche ufficiali),
+      // certificata (categorie abilitate nel catalogo), ricostruita (modello v1).
+      // Ogni fruitore compare una volta con la provenienza più forte. Le inferenze
+      // congelate (inferita) si applicano solo se non c'è nient'altro.
+      const archi = [];
+      const add = (list, origine) => list.filter(ok).forEach(f => {
+        if (!archi.some(a => a.fruitore === f)) archi.push({ fruitore: f, origine });
+      });
+      // Connessioni osservate per nodo di classe: somma sulle categorie ufficiali che
+      // confluiscono nello stesso nodo (sono insiemi di enti disgiunti).
+      const conn = new Map();
+      for (const [cat, n] of observed.get(usageKey(r.producerName || "", r.name || "")) || []) {
+        const node = classOfOfficial.get(cat);
+        if (node) conn.set(node, (conn.get(node) || 0) + n);
+      }
+      // Sessioni di scambio per classe: anche un solo ente che usa davvero il servizio
+      // è una prova osservata della relazione.
+      const sess = new Map();
+      for (const [cat, n] of observedSessions.get(r.id) || []) {
+        const node = classOfOfficial.get(cat);
+        if (node) sess.set(node, (sess.get(node) || 0) + n);
+      }
+      if (overrides[r.id]) add(overrides[r.id], "documentata");
+      add([...new Set([...conn.keys(), ...sess.keys()])], "osservata");
+      if (!overrides[r.id]) {
         const set = new Set();
-        for (const c of cats) (categoryMap[c] || []).forEach(n => { if (validNodeIds.has(n) && n !== ent.id) set.add(n); });
-        fruitori = [...set];
-        if (fruitori.length) origine = "certificata";
+        for (const c of certifiedCategories(r.attributes)) certTargets(c).forEach(n => set.add(n));
+        add([...set], "certificata");
       }
-      // Inferenze congelate: applicate solo se non già coperte da override o certificato.
-      // Sono stime curate fissate nel dato (origine "inferita"), così il grafo resta
+      if (reconstructed.anchored[r.id]) add(reconstructed.anchored[r.id].fruitori, "ricostruita");
+      // Inferenze congelate: stime curate fissate nel dato, così il grafo resta
       // deterministico senza dipendere da una chiamata AI a runtime.
-      if (!fruitori.length && frozen[r.id]) {
-        fruitori = frozen[r.id].filter(n => validNodeIds.has(n) && n !== ent.id);
-        if (fruitori.length) origine = "inferita";
+      if (!archi.length && frozen[r.id]) add(frozen[r.id], "inferita");
+      // Il numero di connessioni osservate accompagna l'arco qualunque sia la sua
+      // provenienza: è un dato ufficiale sul peso reale della relazione.
+      for (const a of archi) {
+        if (conn.has(a.fruitore)) a.connessioni = conn.get(a.fruitore);
+        if (sess.has(a.fruitore)) a.sessioni = sess.get(a.fruitore);
       }
+      const fruitori = archi.map(a => a.fruitore);
 
       eservices.push({
         id,
         nome: truncate(r.name, 70),
         erogatore: ent.id,
         fruitori,
-        archi: fruitori.map(f => ({ fruitore: f, origine })),
+        archi,
         versione: String(r.activeDescriptorVersion || "1"),
         stato: r.activeDescriptorState === "PUBLISHED" ? "Attivo" : "Sospeso",
         descrizione: truncate(r.description, 140),
-        catalogId: r.id
+        catalogId: r.id,
+        ...(adoptionOf(r) ? { enti_abilitati_min: adoptionOf(r) } : {}),
+        ...(sessionsOf(r) ? { sessioni_min: sessionsOf(r) } : {})
       });
 
       if (!prevServiceIds.has(id)) newServices.push(`${ent.name} — ${truncate(r.name, 50)}`);
     }
+  }
+
+  // 4-bis. Archi curati agganciati a record non più pubblicati: vanno ri-agganciati
+  // a mano al successore attivo, altrimenti il grafo mostra un servizio sospeso.
+  const byId = new Map(records.map(r => [r.id, r]));
+  const curatedStale = [...pinned]
+    .map(id => [id, byId.get(id)])
+    .filter(([, r]) => !r || r.activeDescriptorState !== "PUBLISHED")
+    .map(([id, r]) => `${id} (${r ? `${r.activeDescriptorState} — ${truncate(r.name, 50)}` : "assente dal catalogo"})`);
+
+  // 4a. E-service ricostruiti v1 senza un record di catalogo univoco: riportati così
+  // come sono, con archi 'ricostruita'. Senza catalogId, non passano dall'inferenza.
+  const unanchoredDropped = [];
+  for (const u of reconstructed.unanchored) {
+    if (!validNodeIds.has(u.erogatore)) { unanchoredDropped.push(u.id); continue; }
+    const fruitori = [...new Set(u.fruitori)].filter(n => validNodeIds.has(n) && n !== u.erogatore);
+    eservices.push({
+      id: u.id,
+      nome: u.nome,
+      erogatore: u.erogatore,
+      fruitori,
+      archi: fruitori.map(f => ({ fruitore: f, origine: "ricostruita" })),
+      versione: u.versione,
+      stato: u.stato,
+      descrizione: u.descrizione,
+      catalogId: null,
+    });
+    if (!prevServiceIds.has(u.id)) newServices.push(`${u.erogatore} — ${truncate(u.nome, 50)} (ricostruito v1)`);
   }
 
   // 4b. Inferenza AI a runtime (origine: inferita), SOLO sui catalogId in allowlist.
@@ -268,7 +448,7 @@ async function main() {
       const f = a.origine === "inferita" ? collapseInferred(a.fruitore) : a.fruitore;
       if (f === s.erogatore || !validNodeIds.has(f) || seen.has(f)) continue;
       seen.add(f);
-      collapsed.push({ fruitore: f, origine: a.origine });
+      collapsed.push({ ...a, fruitore: f });
     }
     s.archi = collapsed;
     s.fruitori = collapsed.map(a => a.fruitore);
@@ -285,7 +465,9 @@ async function main() {
     .map(({ id, name, tipo, categoria, descrizione }) => ({
       id, name,
       tipo: tipo || inferTipo(id, eservices),
-      categoria, descrizione
+      categoria, descrizione,
+      // I nodi di classe rappresentano insiemi di enti: lo dichiarano, con la loro dimensione.
+      ...(classIds.has(id) ? { aggregato: true, ...classInfo.get(id) } : {})
     }));
 
   // 6. GUARDS on output
@@ -308,9 +490,21 @@ async function main() {
   const output = {
     meta: {
       generato: new Date().toISOString(),
+      ultimo_aggiornamento: new Date().toISOString().slice(0, 10),
+      versione_modello: "v2",
       fonte_enti: "github.com/italia/pdnd-opendata — aderenti.csv (CC0 1.0)",
       fonte_eservices: "github.com/italia/pdnd-opendata — eservice_a_catalogo.csv (CC0 1.0)",
-      note_connessioni: "Ogni arco porta un campo 'origine': 'documentata' (override da fonti ufficiali), 'certificata' (campo attributes.certified del catalogo), 'inferita' (stima AI con confidenza, da rendere tratteggiata nel grafo). Il progetto si basa esclusivamente su informazioni già pubbliche; gli archi inferiti sono dichiarati come stime e non come fatti documentati.",
+      fonte_connessioni: "Per arco, campo 'origine': override documentati, campo attributes.certified del catalogo, relazioni ricostruite del grafo curato v1, stime AI congelate — vedi METODOLOGIA.md e pipeline/README.md",
+      snapshot_catalogo: `${records.length} righe nel catalogo scaricato il ${new Date().toISOString().slice(0, 10)}`,
+      fonte_adozione: "github.com/italia/pdnd-opendata — e_service_con_piu_enti_abilitati_from_the_beginning.csv (CC0 1.0). Il campo enti_abilitati_min è il massimo di enti fruitori abilitati fra le classifiche per categoria in cui l'e-service compare: un minimo garantito, non il totale. Gli e-service di ogni ente sono scelti per adozione decrescente.",
+      metodologia: "METODOLOGIA.md",
+      paper_doi: "10.5281/zenodo.19989954",
+      paper_url: "https://doi.org/10.5281/zenodo.19989954",
+      nota_paper: "Il report Zenodo descrive il modello v1 (snapshot 2026-05-02), conservato in src/data/snapshots/pdnd-data.2026-05-02.json. Questo dato è il modello v2: numeri diversi da quelli del report.",
+      convenzione_eservices: "Gli e-service con catalogId corrispondono a un record del catalogo PDND. Quelli con catalogId null sono tipi di servizio ricostruiti nel modello v1 (aggregati comunali, voci riassuntive di ente, famiglie di API): un record può rappresentare molti endpoint del catalogo.",
+      fonte_sessioni: "github.com/italia/pdnd-opendata — eservice_con_piu_token_staccati_from_the_beginning.csv (CC0 1.0). Il campo sessioni_min è il massimo di sessioni di scambio fra le classifiche in cui l'e-service compare. La selezione per ente usa il maggiore fra enti abilitati e sessioni, ciascuno rapportato al massimo dell'ente.",
+      fonte_aderenti: "github.com/italia/pdnd-opendata — aderenti.csv e totale_enti.csv (CC0 1.0). I nodi di classe (aggregato=true) riportano gli aderenti: il totale ufficiale dove pubblicato, altrimenti il conteggio per attributo certificato (pipeline/classi.json).",
+      note_connessioni: "Ogni arco porta un campo 'origine': 'documentata' (override da fonti ufficiali), 'osservata' (connessioni abilitate o sessioni di scambio realmente avvenute verso una classe di enti, dalle classifiche ufficiali; i campi connessioni e sessioni riportano i valori osservati, minimi garantiti), 'certificata' (campo attributes.certified del catalogo: classi di enti abilitate), 'ricostruita' (relazioni del grafo curato v1, ricostruite da documentazione pubblica con l'ausilio di modelli AI), 'inferita' (stima AI con confidenza, da rendere tratteggiata nel grafo). Il progetto si basa esclusivamente su informazioni già pubbliche; gli archi inferiti sono dichiarati come stime e non come fatti documentati.",
       generato_da: "pipeline/build-graph-data.mjs"
     },
     enti,
@@ -318,7 +512,7 @@ async function main() {
   };
 
   // 8. Report
-  const byOrigine = { documentata: 0, certificata: 0, inferita: 0 };
+  const byOrigine = { documentata: 0, osservata: 0, certificata: 0, ricostruita: 0, inferita: 0 };
   eservices.forEach(s => s.archi.forEach(a => { if (byOrigine[a.origine] != null) byOrigine[a.origine]++; }));
 
   say(`\n## Risultato`);
@@ -329,8 +523,18 @@ async function main() {
   say(`- E-service senza fruitori: **${noFruitori.length}**`);
   say(`\n### Archi per provenienza`);
   say(`- 📄 Documentata (override): **${byOrigine.documentata}**`);
+  say(`- 👁️ Osservata (connessioni ufficiali): **${byOrigine.osservata}**`);
   say(`- ✅ Certificata (attributes): **${byOrigine.certificata}**`);
+  say(`- 🧩 Ricostruita (grafo curato v1): **${byOrigine.ricostruita}**`);
+  if (curatedStale.length) {
+    say(`\n### ⚠️ Archi curati su e-service non pubblicati (ri-agganciare in connections-overrides/reconstructed)`);
+    curatedStale.forEach(s => say(`- ${s}`));
+  }
+  if (unanchoredDropped.length) say(`- ⚠️  E-service ricostruiti scartati (erogatore non tracciato): ${unanchoredDropped.join(", ")}`);
   say(`- 🤖 Inferita (AI): **${byOrigine.inferita}**`);
+  say(`
+### Classi di enti (nodi aggregati)`);
+  for (const e of enti.filter(e => e.aggregato)) say(`- ${e.name}: ${e.aderenti ?? "?"} aderenti (${e.aderenti_fonte ?? "n/d"})`);
   if (aiStats) {
     if (allowSet) say(`\n_Inferenza AI ristretta all'allowlist: ${allowSet.size} e-service permessi._`);
     if (aiStats.error) say(`\n⚠️  Inferenza AI non eseguita: ${aiStats.error} (la pipeline è proseguita senza)`);

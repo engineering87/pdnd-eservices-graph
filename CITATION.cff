@@ -15,9 +15,10 @@ abstract: >-
   sulla Piattaforma Digitale Nazionale Dati (PDND). I nodi rappresentano
   gli enti aderenti, gli archi le relazioni erogatore verso fruitore, e il
   peso il numero di e-service condivisi. Enti ed e-service provengono dai
-  dataset aperti ufficiali; le relazioni sono ricostruite da documentazione
-  pubblica, perche il dato puntuale delle connessioni non e pubblicato in
-  forma strutturata.
+  dataset aperti ufficiali. Il dato puntuale delle connessioni non e
+  pubblicato: le relazioni derivano dalle statistiche ufficiali di
+  connessioni e sessioni per categoria di ente, dal catalogo e da
+  documentazione pubblica, con provenienza dichiarata per ogni arco.
 keywords:
   - PDND
   - interoperabilita
@@ -27,8 +28,8 @@ keywords:
   - public sector interoperability
   - Italy
 license: AGPL-3.0-or-later
-version: 1.0.0
-date-released: '2026-05-03'
+version: 2.0.0
+date-released: '2026-11-25'
 preferred-citation:
   type: report
   title: >-

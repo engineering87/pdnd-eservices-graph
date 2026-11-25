@@ -6,336 +6,243 @@
 
 **La rete dell'interoperabilità italiana, resa navigabile.**
 
-Visualizzazione interattiva del grafo degli e-service sulla Piattaforma Digitale Nazionale Dati.<br>
-I nodi sono gli enti, gli archi le relazioni erogatore→fruitore, lo spessore il numero di servizi condivisi.
+Chi eroga quali dati, a chi, e con quali volumi: la Piattaforma Digitale Nazionale Dati<br>
+come grafo interattivo, costruito su dati aperti ufficiali e con la provenienza dichiarata per ogni relazione.
 
 [![Live Demo](https://img.shields.io/badge/demo-pdndgraph.it-brightgreen?style=for-the-badge)](https://www.pdndgraph.it)
 [![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.19989954-blue?style=for-the-badge)](https://doi.org/10.5281/zenodo.19989954)
 
 [![License: AGPL-3.0](https://img.shields.io/badge/License-AGPL--3.0-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
+![Version](https://img.shields.io/badge/version-2.0.0-informational)
+![Snapshot](https://img.shields.io/badge/snapshot-25%20novembre%202026-orange)
 [![Issues](https://img.shields.io/github/issues/engineering87/pdnd-eservices-graph)](https://github.com/engineering87/pdnd-eservices-graph/issues)
 ![Last commit](https://img.shields.io/github/last-commit/engineering87/pdnd-eservices-graph)
-![Snapshot](https://img.shields.io/badge/snapshot-maggio%202026-orange)
-![PDND](https://img.shields.io/badge/PDND-Interoperability-blue)
 [![Stars](https://img.shields.io/github/stars/engineering87/pdnd-eservices-graph?style=social)](https://github.com/engineering87/pdnd-eservices-graph)
 
 <img src="./docs/demo.gif" alt="PDND E-Services Graph Demo" width="760" />
 
-<sub>Applicazione pubblica su **[pdndgraph.it](https://www.pdndgraph.it)**, senza installazione né autenticazione.</sub>
+<sub>Online su **[pdndgraph.it](https://www.pdndgraph.it)**, senza installazione né registrazione.</sub>
+
+<br>
+
+| **63** | **312** | **600** | **265** | **88,7%** |
+|:---:|:---:|:---:|:---:|:---:|
+| nodi, di cui 10 classi di enti | e-service | archi erogatore→fruitore | archi osservati nell'uso reale | copertura del catalogo |
+
+<sub>Modello v2, snapshot del 25 novembre 2026. I nodi sono una selezione: vedi [Cosa rappresentano i nodi](#cosa-rappresentano-i-nodi).</sub>
 
 </div>
 
 ---
 
-<div align="center">
+## In breve
 
-**51** nodi (50 enti individuali + 1 aggregato) &nbsp;·&nbsp; **86** tipi di e-service &nbsp;·&nbsp; **343** archi &nbsp;·&nbsp; densità **0,1345** &nbsp;·&nbsp; copertura **~89%** del catalogo
-
-<sub>I nodi sono una selezione editoriale, non l'intero insieme degli enti aderenti. Vedi [Cosa rappresentano i 51 nodi](#cosa-rappresentano-i-51-nodi).</sub>
-
-</div>
-
----
+- **Esplora** la rete: oltre 9.800 enti aderenti condensati in 53 enti rappresentati singolarmente e 10 classi (Comuni, Scuole, Sanità, Regioni e le altre categorie ufficiali PagoPA), con i loro e-service.
+- **Distingui le prove**: ogni arco dichiara se viene da documentazione ufficiale, dall'uso registrato dalla PDND, dal catalogo, dal modello precedente o da una stima.
+- **Riusa i dati**: grafo esportabile in GraphML, GEXF e CSV, pronto per Gephi, NetworkX, R o un foglio di calcolo.
 
 > [!IMPORTANT]
-> **La PDND è un ecosistema dinamico.** Enti aderenti, e-service pubblicati, e connessioni attive cambiano di continuo. Questo grafo è una **fotografia datata**, non uno specchio in tempo reale della piattaforma.
+> **Se usi questo strumento, citalo.** Chi riprende grafo, dati, esportazioni, analisi o immagini di PDND E-Services Graph, in una pubblicazione, una tesi, un report, una presentazione o un altro progetto, deve citare:
 >
-> | | Riferimento |
-> |---|---|
-> | Snapshot del grafo pubblicato | **2 maggio 2026** |
-> | Ultima esecuzione della pipeline | 19 giugno 2026, anteprima non promossa |
-> | Numeri PDND in tempo reale | [interop.pagopa.it/numeri](https://www.interop.pagopa.it/numeri) |
-> | Catalogo ufficiale e-service | [api.gov.it](https://api.gov.it) |
+> **Del Re, F. (2026). *The PDND E-Service Network: A Graph-Based Model from Italian Open Government Data*. Zenodo. [doi:10.5281/zenodo.19989954](https://doi.org/10.5281/zenodo.19989954)**
 >
-> Per l'ordine di grandezza dello scarto: lo snapshot di maggio registra 14.102 API pubblicate, mentre il download della pipeline del 19 giugno riporta 15.011 righe di catalogo. Chi cita numeri tratti da questo progetto dovrebbe indicare sempre la data dello snapshot. Confronto aggiornato con `npm run compare-catalog`.
+> BibTeX e dettagli in [Come citare](#come-citare).
+
+> [!NOTE]
+> **Il grafo è una fotografia datata.** Enti, e-service e connessioni cambiano ogni giorno. Il grafo pubblicato fotografa il **25 novembre 2026**; il report Zenodo descrive il modello v1 del 2 maggio 2026. I numeri correnti sono su [interop.pagopa.it/numeri](https://www.interop.pagopa.it/numeri). Citando dati di questo progetto, indica sempre la data dello snapshot.
 
 ## Indice
 
-**Capire** &nbsp;·&nbsp; [Perché questo progetto](#perché-questo-progetto) &nbsp;·&nbsp; [Stato dei dati](#stato-dei-dati-e-aggiornamento) &nbsp;·&nbsp; [Il modello in numeri](#il-modello-in-numeri) &nbsp;·&nbsp; [Perché un grafo](#perché-un-grafo) &nbsp;·&nbsp; [Cosa emerge dal grafo](#cosa-emerge-dal-grafo)
-
-**Fidarsi** &nbsp;·&nbsp; [Fonti e trasparenza metodologica](#fonti-dati-e-trasparenza-metodologica) &nbsp;·&nbsp; [Pubblicazione di riferimento](#pubblicazione-di-riferimento) &nbsp;·&nbsp; [Come citare](#come-citare)
-
-**Usare** &nbsp;·&nbsp; [Funzionalità](#funzionalità) &nbsp;·&nbsp; [Quick Start](#quick-start) &nbsp;·&nbsp; [Struttura del progetto](#struttura-del-progetto) &nbsp;·&nbsp; [Tecnologie](#tecnologie)
-
-**Estendere** &nbsp;·&nbsp; [Pipeline di aggiornamento](#pipeline-di-aggiornamento) &nbsp;·&nbsp; [Come aggiornare i dati](#come-aggiornare-i-dati) &nbsp;·&nbsp; [Contribuire](#contribuire) &nbsp;·&nbsp; [Licenza](#licenza)
+| Capire | Approfondire | Usare | Partecipare |
+|---|---|---|---|
+| [Perché questo progetto](#perché-questo-progetto) | [Il modello](#il-modello) | [Funzionalità](#funzionalità) | [Contribuire](#contribuire) |
+| [Cosa emerge dal grafo](#cosa-emerge-dal-grafo) | [Fonti e provenienza](#fonti-e-provenienza) | [Esportazione dei dati](#esportazione-dei-dati) | [**Come citare**](#come-citare) |
+| | [Aggiornamento dei dati](#aggiornamento-dei-dati) | [Sviluppo](#sviluppo) | [Licenza](#licenza) |
 
 ## Perché questo progetto
 
-La PDND è il pilastro dell'interoperabilità tra le Pubbliche Amministrazioni italiane: consente lo scambio sicuro e standardizzato di dati tramite API, realizzando concretamente il principio *once-only*, la PA non chiede a cittadini e imprese dati che già possiede.
+La PDND è il pilastro dell'interoperabilità tra le Pubbliche Amministrazioni italiane: consente lo scambio sicuro e standardizzato di dati tramite API e rende concreto il principio *once only*, per cui la PA non chiede a cittadini e imprese dati che già possiede.
 
-L'ecosistema è vasto e in rapida crescita. Lo snapshot del catalogo ufficiale registrato in questo repository (maggio 2026) conta **14.102 API pubblicate**, 366 sospese, e **6.388 producer distinti**. I numeri aggiornati in tempo reale sono pubblicati da PagoPA su [interop.pagopa.it/numeri](https://www.interop.pagopa.it/numeri), e il catalogo pubblico degli e-service è consultabile su [api.gov.it](https://api.gov.it).
+Al 24 novembre 2026 PagoPA dichiara **9.826 enti aderenti**, **15.291 e-service**, **55.504 connessioni** e **1,87 miliardi di sessioni di scambio**. A questa scala è difficile avere una visione d'insieme: chi eroga quali servizi? Chi li fruisce? Quanto è interconnessa la rete?
 
-Questa scala rende difficile avere una visione d'insieme: chi eroga quali servizi? Chi li fruisce? Quanto è interconnessa la rete dell'interoperabilità italiana?
+Il progetto rende quella rete **visibile e navigabile**, per chiunque voglia capire come circolano i dati nella Pubblica Amministrazione: funzionari pubblici, sviluppatori, ricercatori, cittadini.
 
-Il progetto nasce per rendere **visibile e navigabile** quella rete. L'obiettivo è offrire una mappa interattiva che permetta a chiunque, funzionari pubblici, sviluppatori, ricercatori, cittadini, di esplorare le connessioni tra gli enti e comprendere come i dati fluiscono attraverso la Pubblica Amministrazione.
-
-Nei fatti, i dataset open data della PDND pubblicano il **catalogo degli e-service** e il **numero aggregato** delle connessioni, ma non le **coppie puntuali** erogatore–fruitore. Le relazioni rappresentate in questo grafo sono state ricostruite da documentazione ufficiale pubblica (circolari, manuali operativi, presentazioni istituzionali) e dal campo `attributes` del catalogo. Questo progetto vuole anche essere uno stimolo affinché quei dati diventino un giorno completamente aperti.
-
-## Stato dei dati e aggiornamento
-
-La PDND non è un archivio statico. Il catalogo cresce con l'adesione di nuovi enti e con la pubblicazione di nuovi e-service, gli stati passano da Attivo a Sospeso e viceversa, e le versioni delle API si succedono. Ogni rappresentazione del grafo è quindi valida rispetto a un istante preciso, e va letta con la sua data accanto.
-
-### Come si articola il ciclo di aggiornamento
-
-Il progetto mantiene due livelli distinti, per separare l'automazione dal dato pubblicato.
-
-| Livello | File | Aggiornato al | Contenuto |
-|---|---|---|---|
-| **Grafo live** (curato) | `src/data/pdnd-data.json` | **2 maggio 2026** | 51 nodi, 86 tipi di e-service, 343 archi |
-| **Anteprima** (automatica) | `pipeline/pdnd-data.preview.json` | 19 giugno 2026 | 54 enti, 218 e-service, non promossa |
-
-L'anteprima viene rigenerata dalla pipeline mensile ma **non sostituisce** il grafo live: la promozione è un atto manuale, deliberato, che segue l'ispezione del report di esecuzione. Questa separazione evita che un cambiamento automatico del catalogo cancelli relazioni ricostruite e documentate a mano.
-
-### Verificare lo scarto rispetto al presente
-
-```bash
-npm run compare-catalog   # copertura e gap del modello rispetto al catalogo vivo
-cat pipeline/last-run-report.md   # report dell'ultima esecuzione della pipeline
-```
-
-Il report di esecuzione riporta la data, il numero di righe scaricate dal catalogo, i nuovi e-service, quelli rimossi, e la ripartizione degli archi per provenienza (documentata, certificata, inferita).
-
-### Nota per chi cita questo progetto
-
-I numeri riportati in questo README e nel report Zenodo si riferiscono allo snapshot di maggio 2026. Non vanno presentati come lo stato corrente della PDND. Per i valori aggiornati in tempo reale, la fonte autoritativa è [interop.pagopa.it/numeri](https://www.interop.pagopa.it/numeri).
-
-## Il modello in numeri
-
-Valori calcolati su `src/data/pdnd-data.json` allo snapshot del **2 maggio 2026**, riproducibili con `npm run audit`.
-
-| Metrica | Valore |
-|---|---|
-| Nodi nel grafo | **51** (50 individuali + 1 aggregato) |
-| Tipi di e-service | **86** |
-| Archi distinti erogatore→fruitore | **343** |
-| Relazioni erogatore–fruitore totali | 570 |
-| Densità del grafo | 0,1345 |
-| Copertura del catalogo ufficiale | ~89% di 14.102 endpoint |
-| Snapshot del catalogo | maggio 2026 |
-
-Composizione dei nodi per ruolo: 31 Erogatore/Fruitore, 17 Erogatore, 3 Fruitore.
-
-Composizione per categoria: 21 Regione, 7 Ministero, 6 Comune, 3 Fisco, 2 Digitale, 2 Trasporti, 2 Tecnologia, 2 Statistica, 1 Previdenza, 1 Lavoro, 1 Imprese, 1 Anticorruzione, 1 Cultura, 1 Comuni Aggregati.
-
-### Cosa rappresentano i 51 nodi
-
-> [!IMPORTANT]
-> **51 non è il numero degli enti aderenti alla PDND.** È il numero dei nodi di un modello che aggrega e seleziona deliberatamente. Leggere 51 come "51 enti su migliaia" è un fraintendimento del modello.
-
-I 51 nodi si compongono così:
-
-| | Cosa contiene |
-|---|---|
-| **50 nodi individuali** | Enti rappresentati uno a uno: ministeri, enti previdenziali e fiscali, autorità, 21 Regioni, e 6 grandi Comuni |
-| **1 nodo aggregato** (`comuni_agg`) | Circa **7.500 Comuni aderenti**, compressi in un solo nodo perché erogano gli stessi servizi standard replicati |
-
-Due scelte editoriali determinano questo insieme.
-
-**Aggregazione.** La maggior parte degli endpoint del catalogo sono servizi comunali standard replicati da ogni Comune: Albo Pretorio, SUAP, Protocollo, Demografici, Tributi, Civici, WaaS, IoT, Trasparenza. Rappresentarli uno per uno produrrebbe migliaia di nodi quasi identici e un grafo illeggibile, senza aggiungere informazione sulla struttura della rete. I 9 e-service attribuiti al nodo aggregato corrispondono a circa 6.380 endpoint reali del catalogo.
-
-**Selezione.** Lo snapshot del catalogo conta 6.388 producer distinti. Il modello ne rappresenta individualmente 50, scelti per rilevanza nella rete: gli hub erogatori nazionali, gli enti con ruolo strutturale nei domini funzionali della PA, le Regioni che superano i 25 endpoint a catalogo, e i Comuni che erogano servizi propri e non solo repliche standard. Bologna, Genova, e Padova compaiono come erogatori di servizi specifici; Milano, Roma, e Napoli come fruitori.
-
-La conseguenza pratica riguarda l'interpretazione delle metriche. Grado, centralità, e densità sono calcolati **su questo insieme selezionato**, non sull'universo degli aderenti. Un grado in uscita di 34 significa "eroga verso 34 dei 50 altri nodi del modello", dove uno di quei nodi ne rappresenta a sua volta migliaia. Sono indicatori della struttura della rete rappresentata, non censimenti dell'ecosistema. I criteri completi sono in [METODOLOGIA.md §3.1](METODOLOGIA.md#31-aggregazione-dei-comuni) e [§3.2](METODOLOGIA.md#32-selezione-degli-enti-rappresentati).
-
-> [!NOTE]
-> Analogamente, ogni record in `eservices` rappresenta un **tipo di servizio**, non un singolo endpoint del catalogo PDND. Vedi [METODOLOGIA.md §3.5](METODOLOGIA.md#35-tipi-di-servizio-service-type-vs-endpoint-del-catalogo).
-
-## Perché un grafo
-
-L'interoperabilità è, nella sua essenza, un problema di rete: soggetti che producono dati e soggetti che li consumano, collegati da accordi e interfacce digitali. Un elenco tabulare risponde alla domanda "quali servizi esistono". Un grafo risponde a "che forma ha la rete che ne risulta", che è la domanda interessante.
-
-Il modello è un **grafo diretto pesato**: i nodi sono gli enti, un arco da A a B indica che A eroga almeno un e-service fruito da B, e il peso conta i servizi condivisi sulla coppia. La direzione conta, perché la relazione non è simmetrica: il fatto che INPS eroghi verso i Comuni non implica il contrario.
-
-La visualizzazione usa un layout force-directed (Fruchterman-Reingold), che dispone i nodi come un sistema di molle e repulsioni fino all'equilibrio: la topologia emerge da sola, senza posizionamento manuale. Le formule di grado, centralità, e densità sono in [METODOLOGIA.md](METODOLOGIA.md).
+I dataset aperti della PDND pubblicano il catalogo degli e-service e le statistiche di connessioni e sessioni per categoria di ente, ma non le coppie puntuali erogatore–fruitore. Il grafo ricostruisce quelle relazioni dalle fonti pubbliche disponibili, dichiarando per ciascuna da dove viene. Il progetto vuole anche incoraggiare la pubblicazione di quelle coppie come dato aperto.
 
 ## Cosa emerge dal grafo
 
-Alcune proprietà della rete diventano leggibili a colpo d'occhio. I valori seguenti sono calcolati sullo snapshot del 2 maggio 2026 e riproducibili con `npm run audit`. Vanno letti sul modello, non sull'universo degli aderenti: vedi [Cosa rappresentano i 51 nodi](#cosa-rappresentano-i-51-nodi).
+Valori calcolati sul modello v2 e riproducibili con `npm run audit`; tra parentesi il valore del v1. Vanno letti sul modello, non sull'universo degli aderenti.
 
-**La rete è fortemente asimmetrica.** ANPR eroga verso 34 dei 50 altri nodi del modello e ne fruisce solo da 5. È il profilo puro dell'hub erogatore. All'estremo opposto, Comune di Milano e Comune di Roma compaiono con grado in uscita zero: fruiscono soltanto.
+**La rete è fortemente asimmetrica.** ANPR (Ministero dell'Interno) eroga verso 53 dei 62 altri nodi (v1: 34 su 50) e ne fruisce da 12: è il profilo dell'hub erogatore. All'estremo opposto, Comune di Roma, Comune di Napoli e tutte le classi di enti tranne i Comuni hanno grado in uscita zero: fruiscono soltanto.
 
-**Pochi nodi reggono un quarto della rete.** I primi tre erogatori concentrano il 24,5% dei 343 archi totali. La densità del grafo è 0,1345, circa un ottavo delle connessioni teoricamente possibili tra i nodi rappresentati, coerente con un'interoperabilità ancora incardinata su pochi snodi centrali.
+**Tre erogatori reggono quasi un quarto della rete.** ANPR, INPS e Agenzia delle Entrate concentrano il 22,5% dei 600 archi (v1: 24,5% di 343). La densità è 0,1536, circa un sesto delle connessioni possibili tra i nodi rappresentati: l'interoperabilità passa ancora da pochi snodi centrali.
 
-**Alcuni enti sono cerniere, non estremità.** INPS eroga verso 33 nodi e fruisce da 34: sta contemporaneamente al centro del welfare come fonte e come consumatore. Il nodo aggregato dei Comuni mostra il pattern complementare, con 37 archi in ingresso e 14 in uscita, coerente con la sua natura di collettore di migliaia di enti fruitori.
+**Alcuni enti sono cerniere, non estremità.** INPS eroga verso 50 nodi e fruisce da 36: è al centro del welfare sia come fonte sia come consumatore. Il nodo dei Comuni mostra il pattern complementare, con 43 archi in ingresso e 14 in uscita, come ci si aspetta da un nodo che raccoglie migliaia di enti fruitori.
 
-**I cluster tematici corrispondono ai domini della PA.** Welfare (INPS, Comuni, Ministero del Lavoro), fisco (Agenzia delle Entrate, MEF, Sogei), trasparenza (ANAC, AgID) si separano spontaneamente nel layout, senza che nessuna categoria sia stata usata per posizionarli.
+**Abilitazione e uso sono misure diverse.** Un arco certificato dice che una classe di enti può usare un servizio, un arco osservato che lo usa: nel modello i primi sono 628, i secondi 265. Gli archi osservati mostrano dove passano i volumi, per esempio oltre 150 milioni di sessioni dai servizi ANPR verso i Comuni. Le classifiche ufficiali elencano però solo i primi 10 e-service per categoria, quindi un servizio senza arco osservato non è per forza poco usato.
 
-La lettura pratica è diretta. I nodi ad alta centralità sono i punti la cui indisponibilità propagherebbe l'impatto su molti altri enti, e una densità crescente nel tempo sarebbe il segnale che l'interoperabilità italiana si sta effettivamente distribuendo, invece di concentrarsi.
+**I cluster tematici corrispondono ai domini della PA.** Già nel modello v1 welfare (INPS, Comuni, Ministero del Lavoro), fisco (Agenzia delle Entrate, MEF, Sogei) e trasparenza (ANAC, AgID) si separavano nel layout, senza che le categorie fossero usate per posizionare i nodi.
+
+I nodi ad alta centralità sono quelli la cui indisponibilità avrebbe effetto su molti altri enti. Una densità che cresce nel tempo indicherebbe che l'interoperabilità si sta distribuendo su più enti invece di concentrarsi.
 
 ## Funzionalità
 
-- **Grafo force-directed** interattivo con simulazione fisica
-- **51 nodi** (50 enti individuali più 1 nodo che aggrega circa 7.500 Comuni) e **86 tipi di e-service** derivati dal catalogo ufficiale PDND
-- **343 archi** diretti erogatore→fruitore
-- **Drag & drop** dei nodi, **zoom** con scroll, **pan** con trascinamento
-- **Pannello dettagli** con elenco e-services erogati e fruiti per ogni ente
-- **Filtro per categoria** (cliccabile dalla legenda) e **ricerca testuale**
-- **Frecce direzionali** erogatore → fruitore
-- **Badge numerici** con conteggio connessioni
-- **Colori per categoria**: Ministero, Regione, Previdenza, Fisco, Digitale, ecc.
-- **Servizi comunali aggregati**: i Comuni minori sono rappresentati come nodo unico
+**Primo accesso**
+- Schermata di benvenuto con i numeri ufficiali della PDND e domande pronte ("Quali servizi usano i Comuni?", "Qual è il servizio più usato?"…)
+- Finestra **Il progetto** con cosa mostra la mappa, come leggerla e come citarla
+- Parole tecniche spiegate in una riga al passaggio del mouse o al tocco, e un glossario nella Guida
 
-## Fonti dati e trasparenza metodologica
+**Esplorazione**
+- Grafo force-directed interattivo: trascinamento dei nodi, zoom con la rotella, spostamento della vista
+- Mappa leggibile: nodi che non si sovrappongono, etichette senza sovrapposizioni che si infittiscono con lo zoom, adattamento automatico allo schermo e pulsante **Centra**, legenda dei colori per famiglie
+- Filtro per categoria dalla legenda e ricerca testuale degli enti
+- Pannello dettagli con gli e-service erogati e fruiti da ogni ente e, per le classi, il numero di aderenti
+- Link diretti a ogni vista e a ogni ente, per esempio [pdndgraph.it/ente/inps](https://www.pdndgraph.it/ente/inps)
 
-| Dato | Fonte ufficiale | Natura |
+**Relazioni fra enti** (scheda Relazioni)
+- Tutte le relazioni erogatore → e-service → fruitore in tabella, filtrabili per erogatore, fruitore, categoria, provenienza e testo
+- Riepilogo raggruppato per erogatore, fruitore, categoria, e-service o provenienza, con enti abilitati e sessioni osservate
+- Percorsi pronti ("Cosa usano i Comuni", "Chi usa i servizi ANPR"…), viste filtrate condivisibili via link e download in CSV
+- Scheda di ogni e-service ([esempio](https://www.pdndgraph.it/eservice/pagopa_cfc8a94d)): erogatore, fruitori per provenienza, enti abilitati e sessioni, identificativo del catalogo, altri servizi dello stesso erogatore
+
+**Lettura dei dati**
+- Frecce direzionali erogatore→fruitore, spessore proporzionale ai servizi condivisi
+- Colori per famiglia istituzionale: Ministero, Regione, Previdenza, Fisco, Digitale e altre
+- Provenienza visibile: archi osservati in azzurro, ricostruiti e inferiti tratteggiati
+- Filtro per provenienza, dal menu o dalla legenda: per esempio solo l'uso osservato ([pdndgraph.it/?archi=osservata](https://www.pdndgraph.it/?archi=osservata)) o solo le fonti ufficiali
+- Enti abilitati e sessioni di scambio degli e-service, dove i dati ufficiali li riportano
+
+**Numeri ed esportazione** (scheda Numeri)
+- E-service più adottati e più usati, archi per provenienza, classi di enti
+- Analisi di rete: matrice erogatori × classi di enti raggiunte, enti ponte (centralità di intermediazione), reciprocità e distribuzione dei gradi
+- Esportazione in GraphML, GEXF e CSV direttamente dal browser
+- Schede Metodologia e Guida integrate nell'app
+
+## Il modello
+
+### In numeri
+
+| Metrica | v2 (25 novembre 2026) | v1 (2 maggio 2026, report) |
 |---|---|---|
-| Enti (nodi) | [`aderenti.csv`](https://github.com/italia/pdnd-opendata), dati.gov.it | ✅ Dato aperto ufficiale |
-| E-service | [`eservice_a_catalogo.csv`](https://github.com/italia/pdnd-opendata), dati.gov.it | ✅ Dato aperto ufficiale |
-| Connessioni (archi) | Campo `attributes.certified`, circolari, manuali operativi | ⚠️ Ricostruzione documentata |
+| Nodi | **63** (53 enti + 10 classi di enti) | 51 (50 enti + 1 aggregato) |
+| E-service | **312** | 86 tipi di servizio |
+| Archi distinti erogatore→fruitore | **600** | 343 |
+| Relazioni erogatore–fruitore | **1.469** | 570 |
+| Densità | **0,1536** | 0,1345 |
+| Copertura del catalogo ufficiale | **88,7%** di 15.301 record | ~89% di 14.102 endpoint |
 
-> [!CAUTION]
-> **Le connessioni non sono un dato aperto.** Enti ed e-service provengono dai dataset open data ufficiali della PDND. Le relazioni erogatore→fruitore sono ricostruite dal campo `attributes.certified` del catalogo e da documentazione ufficiale pubblica: circolari ANPR DAIT n. 73/2023 e n. 61/2025, presentazione ANCI/DTD sui 26 casi d'uso, manuale operativo SSU Unioncamere, documentazione I.PaC, approfondimenti tecnici specializzati. Il dato puntuale delle connessioni attive non è al momento pubblicato come dato aperto strutturato. Dettagli in **[METODOLOGIA.md](METODOLOGIA.md)**.
+Per ruolo: 48 nodi erogatori e fruitori, 12 solo fruitori, 3 solo erogatori. Per categoria: 21 Regione, 8 Classi aggregate, 7 Ministero, 6 Comune, 4 Fisco, 2 ciascuna Digitale, Trasporti, Tecnologia, Statistica e Società pubblica, 1 ciascuna Previdenza, Lavoro, Imprese, Anticorruzione, Cultura, Comuni Aggregati e Regioni Aggregate.
+
+### Cosa rappresentano i nodi
+
+> [!IMPORTANT]
+> **63 non è il numero degli enti aderenti alla PDND**, che sono quasi 10.000: è il numero dei nodi di un modello che seleziona alcuni enti e aggrega tutti gli altri.
+
+| | Cosa contiene |
+|---|---|
+| **53 nodi individuali** | Ministeri, enti previdenziali e fiscali, autorità, società pubbliche, 21 Regioni e Province Autonome, 6 grandi Comuni |
+| **10 classi di enti** | Tutti gli altri aderenti, raccolti per categoria ufficiale PagoPA |
+
+| Classe | Aderenti | | Classe | Aderenti |
+|---|---:|---|---|---:|
+| Comuni | 7.657 | | Enti privati | 306 |
+| PA centrali | 415 | | Università e AFAM | 172 |
+| Scuole | 381 | | Sanità | 123 |
+| Altre PA locali | 350 | | Province e Città metropolitane | 99 |
+| Gestori di pubblici servizi e stazioni appaltanti | 343 | | Regioni | 21 |
+
+**Aggregazione.** Gran parte degli endpoint del catalogo sono servizi standard replicati da ogni Comune: Albo Pretorio, SUAP, Protocollo, Demografici, Tributi, Civici, WaaS, IoT, Trasparenza. I 9 e-service attribuiti al nodo dei Comuni corrispondono a circa 6.380 endpoint del catalogo. Rappresentarli uno per uno produrrebbe migliaia di nodi quasi identici senza aggiungere informazione sulla struttura della rete. Lo stesso criterio vale per i fruitori: una categoria di enti dichiarata dal catalogo o dalle statistiche ufficiali va sul nodo di classe, mai su un campione di enti scelti dal progetto.
+
+**Selezione.** Il catalogo conta oltre 6.000 producer distinti. Il modello ne rappresenta singolarmente 53, scelti per il loro ruolo nella rete: gli hub erogatori nazionali (i 10 erogatori con più connessioni ufficiali ci sono tutti), gli enti con ruolo strutturale nei domini della PA, le Regioni e Province Autonome e i Comuni che erogano servizi propri.
+
+Grado, centralità e densità sono quindi calcolati **su questo insieme**, non sull'universo degli aderenti: un grado in uscita di 53 significa "eroga verso 53 dei 62 altri nodi", alcuni dei quali rappresentano migliaia di enti. Sono indicatori della struttura della rete rappresentata, non censimenti. Criteri completi in [METODOLOGIA.md §3](METODOLOGIA.md#3-scelte-di-rappresentazione-e-aggregazioni) e [§7.2](METODOLOGIA.md#72-classi-di-enti).
 
 > [!NOTE]
-> **Aggregazione dei Comuni.** La maggior parte degli endpoint del catalogo sono servizi standard replicati da ciascun Comune aderente (Albo Pretorio, SUAP, Protocollo, Demografici, Tributi, Civici, WaaS, IoT, Trasparenza). Per rendere il grafo leggibile, i Comuni minori confluiscono in un **unico nodo aggregato** (`comuni_agg`), mentre 6 grandi Comuni restano individuali: Bologna, Genova, e Padova erogano servizi specifici, Milano, Roma, e Napoli compaiono come fruitori. Le Regioni sono rappresentate individualmente quando superano i 25 endpoint nel catalogo. Vedi [METODOLOGIA.md §3.1](METODOLOGIA.md#31-aggregazione-dei-comuni).
+> 55 dei 312 record in `eservices`, quelli senza `catalogId`, rappresentano un **tipo di servizio** del modello v1 e non un singolo endpoint del catalogo. Vedi [METODOLOGIA.md §3.5](METODOLOGIA.md#35-tipi-di-servizio-service-type-vs-endpoint-del-catalogo).
 
-📄 **Documentazione completa:** [METODOLOGIA.md](METODOLOGIA.md)
+### Come è costruito il grafo
 
-## Pubblicazione di riferimento
-
-La metodologia adottata in questo progetto è documentata nel report tecnico:
-
-> Del Re, F. (2026). *The PDND E-Service Network: A Graph-Based Model from Italian Open Government Data*. Zenodo, v1.0.0, 3 maggio 2026. [doi:10.5281/zenodo.19989954](https://doi.org/10.5281/zenodo.19989954)
-
-Il report descrive il modello, le fonti, la pipeline di ricostruzione, il ruolo dei modelli linguistici come strumento di estrazione, e riporta la copertura misurata del modello rispetto al catalogo PDND ufficiale (~89% di 14.102 endpoint pubblicati). Distribuito con licenza CC-BY-4.0. Il sorgente LaTeX è in [pdnd-graph-paper](https://github.com/engineering87/pdnd-graph-paper).
-
-## Quick Start
-
-```bash
-# Clona il repository
-git clone https://github.com/engineering87/pdnd-eservices-graph.git
-cd pdnd-eservices-graph
-
-# Installa le dipendenze
-npm install
-
-# Avvia in sviluppo
-npm run dev
-```
-
-L'app sarà disponibile su `http://localhost:3000`.
-
-## Struttura del progetto
-
-```
-pdnd-eservices-graph/
-├── .github/workflows/
-│   ├── azure-static-web-apps-polite-plant-07967ad10.yml  # CI/CD per Azure
-│   └── update-graph-data.yml                             # Pipeline dati mensile
-├── docs/
-│   └── demo.gif
-├── pipeline/                            # ← Aggiornamento automatico del catalogo
-│   ├── build-graph-data.mjs             # Script di build del grafo
-│   ├── entities.json                    # Registro entità tracciate (codici IPA)
-│   ├── category-map.json                # Mappa attributes.certified → nodi
-│   ├── connections-overrides.json       # Connessioni curate da documentazione
-│   ├── pdnd-data.preview.json           # Anteprima generata (NON è il dato live)
-│   ├── last-run-report.md               # Report dell'ultima esecuzione
-│   └── README.md
-├── public/
-│   └── favicon.svg
-├── scripts/
-│   ├── update-data.mjs                  # Riepilogo del catalogo PDND
-│   ├── audit-model.mjs                  # Audit interno del modello
-│   ├── compare-catalog.mjs              # Confronto modello vs catalogo
-│   ├── compute-paper-metrics.mjs        # Snippet per il report Zenodo
-│   └── README.md
-├── src/
-│   ├── components/
-│   │   └── PDNDGraph.jsx                # Componente principale del grafo
-│   ├── data/
-│   │   └── pdnd-data.json               # ← DATI LIVE: modifica questo file
-│   ├── App.jsx
-│   ├── index.css
-│   └── main.jsx
-├── index.html
-├── package.json
-├── staticwebapp.config.json             # Config Azure Static Web Apps
-├── vite.config.js
-├── METODOLOGIA.md                       # ← Fonti, metodologia, limitazioni
-└── README.md
-```
-
-## Pipeline di aggiornamento
-
-La cartella `pipeline/` contiene l'automazione che mantiene il grafo allineato allo stato corrente del catalogo PDND, eseguita mensilmente da GitHub Actions.
+Dai dati aperti della piattaforma al grafo, in quattro passaggi:
 
 ```mermaid
-flowchart TD
-    A[("Catalogo ufficiale PDND<br/>CSV")] --> B[build-graph-data.mjs]
-    B --> C{{"Filtra entità tracciate<br/>entities.json"}}
-    C --> D["Estrae e-service<br/>nome, stato, versione"]
-    D --> E["Deriva archi erogatore→fruitore"]
-    E --> F["1· Override curati<br/>connections-overrides.json"]
-    E --> G["2· Baseline certificata<br/>attributes.certified"]
-    E --> H["3· Inferenza assistita<br/>soglia di confidenza"]
-    F --> I["Guard di validazione"]
-    G --> I
-    H --> I
-    I --> J["pipeline/pdnd-data.preview.json<br/><b>ANTEPRIMA</b>"]
-    J -.->|"promozione manuale"| K["src/data/pdnd-data.json<br/><b>GRAFO LIVE</b>"]
-    K --> L(["pdndgraph.it"])
+flowchart LR
+    subgraph FONTI["Fonti pubbliche"]
+        direction TB
+        C["Catalogo e-service"]
+        E["Enti aderenti"]
+        U["Statistiche di uso<br/>connessioni e sessioni"]
+        D["Documentazione ufficiale<br/>circolari, manuali"]
+    end
 
-    style J fill:#fff3cd,stroke:#856404,color:#000
-    style K fill:#d4edda,stroke:#155724,color:#000
-    style L fill:#cce5ff,stroke:#004085,color:#000
+    P["Modellazione<br/>sceglie gli enti rilevanti<br/>raggruppa gli altri in classi<br/>ricava gli archi con la loro provenienza"]
+    G[("Grafo diretto pesato<br/>nodi: enti e classi<br/>archi: erogatore → fruitore")]
+    A(["pdndgraph.it"])
+    X(["Esportazioni<br/>GraphML, GEXF, CSV"])
+
+    FONTI --> P
+    P -->|"revisione e<br/>promozione manuale"| G
+    G --> A
+    G --> X
 ```
 
-L'override documentato ha precedenza sulla baseline certificata, che a sua volta ha precedenza sull'inferenza. La GitHub Action mensile committa l'anteprima su `main`.
+L'interoperabilità è un problema di rete: soggetti che producono dati e soggetti che li consumano, collegati da accordi e interfacce. Un elenco risponde alla domanda "quali servizi esistono"; un grafo risponde anche a "che forma ha la rete che ne risulta".
 
-> [!WARNING]
-> **Modalità non distruttiva.** La pipeline **non** sovrascrive il grafo curato `src/data/pdnd-data.json`. Scrive sempre sull'anteprima `pipeline/pdnd-data.preview.json`. Il grafo mostrato dall'app resta quello curato finché l'anteprima non viene promossa manualmente. L'automazione può quindi girare senza rompere le relazioni documentate esistenti.
+Il modello è un **grafo diretto pesato**: un arco da A a B indica che A eroga almeno un e-service fruito da B, e il peso conta i servizi condivisi sulla coppia. La direzione conta: che INPS eroghi verso i Comuni non implica il contrario.
 
-### Uso manuale
+La visualizzazione usa un layout force-directed (Fruchterman-Reingold), che dispone i nodi come un sistema di molle e repulsioni fino all'equilibrio: la topologia emerge senza posizionamento manuale. Le formule di grado, centralità e densità sono in [METODOLOGIA.md](METODOLOGIA.md).
+
+## Fonti e provenienza
+
+| Dato | Fonte | Natura |
+|---|---|---|
+| Enti | [`aderenti.csv`](https://github.com/italia/pdnd-opendata), dati.gov.it | ✅ Dato aperto ufficiale |
+| E-service | [`eservice_a_catalogo.csv`](https://github.com/italia/pdnd-opendata), dati.gov.it | ✅ Dato aperto ufficiale |
+| Adozione e uso | [Classifiche di enti abilitati e sessioni](https://github.com/italia/pdnd-opendata) per categoria di ente, `totale_enti.csv` | ✅ Dato aperto ufficiale, aggregato |
+| Relazioni (archi) | Classifiche ufficiali, campo `attributes.certified`, circolari, manuali operativi | ⚠️ Ricostruzione con provenienza per arco |
+
+> [!CAUTION]
+> **Le coppie puntuali non sono un dato aperto.** La PDND pubblica connessioni e sessioni solo aggregate per categoria di ente fruitore: da queste derivano gli archi *osservati* verso le classi di enti, con valori che sono minimi garantiti. Le altre relazioni sono ricostruite dal campo `attributes.certified` del catalogo e da documentazione ufficiale pubblica: circolari ANPR DAIT n. 73/2023 e n. 61/2025, presentazione ANCI/DTD sui 26 casi d'uso, manuale operativo SSU Unioncamere, documentazione I.PaC, approfondimenti tecnici.
+
+Ogni arco porta un campo `origine`, così chi usa il dato sa da dove viene ogni relazione. Quando più fonti sostengono lo stesso arco vale la più forte, nell'ordine della tabella:
+
+| Origine | Significato | Archi |
+|---|---|---:|
+| `documentata` | Fonte ufficiale puntuale: circolari, manuali, presentazioni | 6 |
+| `osservata` | Connessioni o sessioni realmente registrate dalla PDND verso una classe di enti | 265 |
+| `certificata` | Classe di enti abilitata dal campo `attributes.certified` del catalogo | 628 |
+| `ricostruita` | Relazione del modello v1, ricostruita da documentazione pubblica senza fonte per singolo arco | 545 |
+| `inferita` | Stima AI congelata, usata solo quando manca ogni altra prova | 25 |
+
+Delle 570 relazioni del v1, tutte conservate, 25 trovano conferma nei dati ufficiali (18 certificate, 7 osservate). Gli archi inferiti sono stime, non fatti documentati; tutte le fonti del progetto sono pubbliche. Metodologia completa in [METODOLOGIA.md](METODOLOGIA.md), modello v2 nella [sezione 7](METODOLOGIA.md#7-modello-v2-novembre-2026).
+
+## Aggiornamento dei dati
+
+Il catalogo cresce con l'adesione di nuovi enti e la pubblicazione di nuovi e-service, gli stati passano da Attivo a Sospeso e viceversa e le versioni delle API si succedono. Per separare l'automazione dal dato pubblicato, il progetto mantiene tre livelli:
+
+| Livello | File | Aggiornato al | Contenuto |
+|---|---|---|---|
+| **Grafo live** (v2) | `src/data/pdnd-data.json` | 25 novembre 2026 | 63 nodi, 312 e-service, 600 archi |
+| **Anteprima** (automatica) | `pipeline/pdnd-data.preview.json` | 25 novembre 2026 | allineata al grafo live |
+| **Snapshot v1** (report) | `src/data/snapshots/pdnd-data.2026-05-02.json` | 2 maggio 2026 | 51 nodi, 86 tipi di e-service, 343 archi, congelato |
+
+Una GitHub Action mensile rigenera l'anteprima, che **non sostituisce** il grafo live: la promozione è manuale e avviene dopo aver controllato il report di esecuzione. Così un cambiamento automatico del catalogo non può cancellare relazioni ricostruite e documentate a mano. Le 570 relazioni del v1 vivono in `pipeline/connections-reconstructed.json` e confluiscono in ogni anteprima; un test verifica che nessuna coppia erogatore→fruitore del v1 vada persa.
+
+Per ogni ente la pipeline sceglie gli e-service più rilevanti secondo le classifiche ufficiali, cioè il maggiore fra enti abilitati e sessioni di scambio; i campi `enti_abilitati_min` e `sessioni_min` ne riportano i minimi garantiti. Ogni fruitore compare una volta per e-service, con la provenienza più forte; connessioni e sessioni osservate accompagnano l'arco qualunque sia la sua provenienza.
 
 ```bash
-# Dry-run: scarica, calcola, stampa il report. Non scrive nulla.
-node pipeline/build-graph-data.mjs
-
-# Aggiorna l'ANTEPRIMA. Il grafo live resta intatto.
-node pipeline/build-graph-data.mjs --write
-
-# Solo archi certificati e documentati, senza inferenza
-node pipeline/build-graph-data.mjs --no-ai
+node pipeline/build-graph-data.mjs           # dry-run: scarica, calcola, stampa il report
+node pipeline/build-graph-data.mjs --write   # aggiorna l'anteprima, il grafo live resta intatto
+node pipeline/build-graph-data.mjs --no-ai   # senza inferenza
+npm run compare-catalog                      # copertura del modello rispetto al catalogo vivo
 ```
 
-### Inferenza assistita
+Il report di esecuzione (`pipeline/last-run-report.md`) riporta il numero di righe del catalogo, gli e-service nuovi e rimossi, gli archi per provenienza, le classi di enti con i loro aderenti e gli e-service curati non più pubblicati.
 
-La derivazione degli archi per gli e-service non coperti da override documentati può usare un motore di inferenza LLM, con vincoli progettati per la riproducibilità:
-
-- **Vocabolario controllato**: il modello seleziona i fruitori solo tra i nodi esistenti, non può introdurre entità nuove
-- **Soglia di confidenza**: gli archi sotto `INFERENCE_MIN_CONF` (default 0,55) vengono scartati
-- **Cache per `catalogId`**: un e-service già inferito non viene rielaborato, quindi il grafo resta stabile tra le esecuzioni
-- **Fail-safe**: se la chiave manca o l'API non risponde, la pipeline prosegue con i soli archi certificati e documentati
-- **Determinismo**: temperatura 0
-
-Configurazione tramite le variabili `INFERENCE_ENGINE` (`anthropic` o `github`), `ANTHROPIC_API_KEY`, `ANTHROPIC_MODEL`, `GITHUB_MODEL`, `INFERENCE_MIN_CONF`, `INFERENCE_MAX_CALLS`, `INFERENCE_DELAY_MS`, e `INFERENCE_MAX_RETRIES`. Dettagli in [pipeline/README.md](pipeline/README.md).
-
-### Provenienza degli archi
-
-Ogni arco generato dalla pipeline porta un campo `origine` che ne dichiara la fonte, così che la natura del dato resti leggibile a valle:
-
-| Origine | Significato |
-|---|---|
-| `documentata` | Override da fonti ufficiali pubbliche (circolari, manuali, presentazioni) |
-| `certificata` | Derivata dal campo `attributes.certified` del catalogo |
-| `ricostruita` | Ricostruita da documentazione pubblica, senza provenienza per singolo arco |
-| `inferita` | Stima prodotta dal motore di inferenza, con punteggio di confidenza |
-
-Gli archi inferiti sono dichiarati come stime e non come fatti documentati. Il progetto si basa esclusivamente su informazioni già pubbliche.
-
-Il grafo attualmente pubblicato (`src/data/pdnd-data.json`, modello v1) non porta la provenienza per singolo arco: i suoi archi sono ricostruiti da documentazione pubblica secondo la [metodologia](METODOLOGIA.md) e vengono resi con origine `ricostruita`. Le origini `certificata` e `inferita` per singolo arco sono prodotte dalla pipeline nell'anteprima v2, non ancora promossa.
+**Inferenza assistita.** Le stime AI sono congelate in `pipeline/connections-frozen.json`: ogni build è deterministica e non chiama alcun modello. L'inferenza a runtime gira solo sui `catalogId` elencati in `pipeline/inference-allowlist.json`, vuota per impostazione predefinita, con vocabolario controllato (solo nodi esistenti), soglia di confidenza (`INFERENCE_MIN_CONF`, default 0,55), cache per `catalogId`, temperatura 0 e prosecuzione senza AI se l'API non risponde. Variabili e dettagli in [pipeline/README.md](pipeline/README.md).
 
 ## Esportazione dei dati
 
-Il modello è pubblicato anche in formati di interscambio standard, così può
-essere analizzato con gli strumenti di analisi di rete senza dover interpretare
-il JSON specifico del progetto.
-
-Due modi per ottenerli. Dalla cartella [`exports/`](exports/) del repository,
-rigenerabile con `npm run export`. Oppure dalla scheda **Statistiche**
-dell'applicazione, dove i file sono generati direttamente nel browser: nessuna
-chiamata di rete e nessun servizio esterno.
+Il modello è disponibile in formati standard per l'analisi di rete, senza dover interpretare il JSON del progetto. I file sono nella cartella [`exports/`](exports/), rigenerabile con `npm run export`, e si scaricano anche dalla scheda **Numeri** dell'app, che li genera nel browser senza chiamate di rete.
 
 | Formato | File | Aperto con |
 |---|---|---|
@@ -344,69 +251,58 @@ chiamata di rete e nessun servizio esterno.
 | CSV nodi | `pdnd-eservices-graph-nodi-csv.csv` | Fogli di calcolo, R, pandas |
 | CSV archi | `pdnd-eservices-graph-archi-csv.csv` | Fogli di calcolo, R, pandas |
 
-### Struttura del grafo esportato
+Il grafo è **diretto e pesato**: un arco da *a* a *b* significa che *a* eroga almeno un e-service consumato da *b*, e il peso è il numero di e-service distinti sulla coppia, come nel report pubblicato.
 
-Il grafo è **diretto e pesato**. Un arco da *a* a *b* significa che *a* eroga
-almeno un e-service consumato da *b*. Il peso è il numero di e-service distinti
-che vanno da *a* a *b*, coerente con la definizione del report pubblicato.
+<details>
+<summary><b>Attributi di nodi e archi</b></summary>
 
-**Attributi dei nodi**
+**Nodi**
 
 | Campo | Tipo | Significato |
 |---|---|---|
 | `label` | stringa | Nome dell'ente |
 | `categoria` | stringa | Famiglia istituzionale (Ministero, Regione, Fisco, ...) |
 | `tipo` | stringa | Ruolo prevalente: erogatore, fruitore o entrambi |
-| `aggregato` | booleano | `true` se il nodo rappresenta un insieme di enti |
+| `aggregato` | booleano | `true` se il nodo rappresenta una classe di enti |
+| `aderenti` | intero | Numero di enti aderenti della classe (solo nodi aggregati) |
 | `descrizione` | stringa | Nota descrittiva |
 
-**Attributi degli archi**
+**Archi**
 
 | Campo | Tipo | Significato |
 |---|---|---|
-| `weight` | intero | Numero di e-service distinti che fluiscono sull'arco |
-| `origine` | stringa | Provenienza della relazione: `documentata`, `certificata`, `ricostruita` o `inferita`. Se una coppia è sostenuta da archi di provenienza diversa, le origini sono elencate separate da `\|` |
+| `weight` | intero | Numero di e-service distinti sull'arco |
+| `origine` | stringa | Provenienza: `documentata`, `osservata`, `certificata`, `ricostruita` o `inferita`; se le provenienze sono più d'una sono separate da `\|` |
+| `connessioni` | intero | Enti abilitati osservati sulla coppia (massimo fra gli e-service), minimo garantito |
+| `sessioni` | intero | Sessioni di scambio osservate sulla coppia (somma fra gli e-service), minimo garantito |
 | `servizi` | stringa | Nomi degli e-service che contribuiscono al peso, separati da `;` |
 
-### Due avvertenze che viaggiano con i dati
+</details>
 
-Sono riportate anche dentro i file, nei metadati di grafo, perché restino
-leggibili a chi apre l'esportazione senza aver letto questa pagina.
+> [!WARNING]
+> Due avvertenze, ripetute anche nei metadati dei file. Le coppie puntuali erogatore-fruitore **non sono pubblicate come open data**: gli archi derivano da statistiche aggregate, catalogo e documentazione, e il campo `origine` ne dichiara la natura. I nodi con `aggregato=true` rappresentano classi di enti (`comuni_agg` vale circa 7.650 Comuni): le misure di grado **non sono confrontabili** con quelle di un grafo in cui ogni ente è un nodo distinto. Per escluderli basta filtrare su quel campo.
 
-Le relazioni erogatore-fruitore **non sono pubblicate come open data**: sono
-ricostruite da documentazione pubblica secondo la [metodologia](METODOLOGIA.md).
-Il campo `origine` di ogni arco ne dichiara la natura. Non sono misure dirette
-degli accordi realmente attivi sulla piattaforma.
-
-I nodi con `aggregato=true` rappresentano insiemi di enti: `comuni_agg` sta per
-circa 7.500 Comuni in un solo nodo. Le misure di grado e le distribuzioni
-calcolate su questo grafo **non sono confrontabili** con quelle di un grafo in
-cui ogni ente è un nodo distinto. Per escluderli si può filtrare su quel campo.
-
-### Esempi
-
-Analisi di rete con NetworkX.
+<details>
+<summary><b>Esempi con NetworkX e pandas</b></summary>
 
 ```python
 import networkx as nx
 
 G = nx.read_graphml("pdnd-eservices-graph-graphml.graphml")
-print(G.number_of_nodes(), G.number_of_edges())   # 51 343
-print(round(nx.density(G), 4))                    # 0.1345
+print(G.number_of_nodes(), G.number_of_edges())   # 63 600
+print(round(nx.density(G), 4))                    # 0.1536
 
 # Enti che servono il maggior numero di controparti
 for n, d in sorted(G.out_degree, key=lambda x: -x[1])[:3]:
     print(G.nodes[n]["label"], d)
-# Min. Interno (ANPR) 34
-# INPS 33
-# Agenzia delle Entrate 17
+# Min. Interno (ANPR) 53
+# INPS 50
+# Agenzia delle Entrate 32
 
 # Sottografo senza i nodi aggregati, per misure di grado confrontabili
 reale = G.subgraph([n for n, d in G.nodes(data=True) if not d["aggregato"]])
-print(reale.number_of_nodes(), reale.number_of_edges())   # 50 292
+print(reale.number_of_nodes(), reale.number_of_edges())   # 53 376
 ```
-
-Analisi tabellare con pandas.
 
 ```python
 import pandas as pd
@@ -420,113 +316,127 @@ print(archi["origine"].value_counts())
 # Enti per numero totale di servizi erogati
 nome = nodi.set_index("id")["label"]
 print(archi.groupby("Source")["Weight"].sum().sort_values(ascending=False).head(3).rename(index=nome))
-# Min. Interno (ANPR)      130
-# INPS                      68
-# Agenzia delle Entrate     42
+# Min. Interno (ANPR)      267
+# INPS                     133
+# Agenzia delle Entrate    101
 ```
 
-In **Gephi**: apri il file `.gexf`, oppure importa i due CSV dal laboratorio dati
-(l'intestazione degli archi usa già `Source`, `Target`, `Weight`, `Type`, quindi
-non serve alcuna configurazione).
+In **Gephi** basta aprire il file `.gexf`, oppure importare i due CSV dal laboratorio dati: l'intestazione degli archi usa già `Source`, `Target`, `Weight`, `Type`.
 
-### Riproducibilità
+</details>
 
-Le esportazioni sono **deterministiche**: a parità di dato in ingresso i file
-sono identici byte per byte, perché la data dello snapshot è letta dal modello e
-non dall'orologio. Chi rigenera i file con `npm run export` ottiene esattamente
-quelli pubblicati. La suite di test verifica sia questa proprietà sia che i file
-in `exports/` non restino disallineati rispetto al dato.
+Le esportazioni sono **deterministiche**: a parità di dato i file sono identici byte per byte, perché la data dello snapshot è letta dal modello e non dall'orologio. I test verificano che i file in `exports/` corrispondano al dato corrente. Dati di origine CC0 1.0, codice AGPL-3.0; se usi questi file in una pubblicazione, [cita il progetto](#come-citare).
 
-### Licenze e citazione
+## Sviluppo
 
-I dati di origine sono CC0 1.0 (`italia/pdnd-opendata`), il codice è AGPL-3.0.
-Se usi questi file in una pubblicazione, cita il progetto:
-DOI [10.5281/zenodo.19989954](https://doi.org/10.5281/zenodo.19989954).
-
-## Come aggiornare i dati
-
-### Aggiungere un nuovo ente
-
-Apri `src/data/pdnd-data.json` e aggiungi un oggetto all'array `enti`:
-
-```json
-{
-  "id": "nuovo_ente",
-  "name": "Nome Visibile",
-  "tipo": "Erogatore | Fruitore | Erogatore/Fruitore",
-  "categoria": "Ministero",
-  "descrizione": "Descrizione estesa dell'ente"
-}
-```
-
-Se la categoria è nuova, aggiungi il colore in `CATEGORY_COLORS` dentro `src/components/PDNDGraph.jsx`.
-
-### Aggiungere un nuovo e-service
-
-Aggiungi un oggetto all'array `eservices`:
-
-```json
-{
-  "id": "es_nuovo",
-  "nome": "Nome del Servizio",
-  "erogatore": "id_ente_erogatore",
-  "fruitori": ["id_fruitore_1", "id_fruitore_2"],
-  "versione": "1.0",
-  "stato": "Attivo",
-  "descrizione": "Cosa fa questo e-service"
-}
-```
-
-Ricorda che un record rappresenta un **tipo di servizio**, non un singolo endpoint del catalogo.
-
-### Verificare il catalogo ufficiale
-
-Lo script `update-data` scarica il CSV grezzo dal repository ufficiale e mostra statistiche utili per scoprire nuovi erogatori o servizi da aggiungere:
+### Quick start
 
 ```bash
-npm run update-data
+git clone https://github.com/engineering87/pdnd-eservices-graph.git
+cd pdnd-eservices-graph
+npm install
+npm run dev        # http://localhost:3000
 ```
 
-I valori dipendono dallo stato corrente del catalogo. Lo snapshot di riferimento registrato nel modello (maggio 2026) riporta 14.102 API pubblicate, 366 sospese, e 6.388 producer distinti.
+| Comando | Cosa fa |
+|---|---|
+| `npm run dev` / `npm run build` | Avvio in sviluppo / build di produzione |
+| `npm run lint` | Controllo statico del codice |
+| `npm test` | Invarianti del modello, conservazione del v1, allineamento delle esportazioni |
+| `npm run audit` | Audit del JSON: conteggi, gradi, controlli di coerenza |
+| `npm run compare-catalog` | Copertura del modello rispetto al catalogo ufficiale |
+| `npm run export` | Rigenera GraphML, GEXF e CSV in `exports/` |
+| `npm run update-data` | Riepilogo del catalogo PDND, utile per scoprire nuovi erogatori |
+| `npm run paper-metrics` | Snippet pgfplots/LaTeX per il report Zenodo |
 
-### Auditare il modello e generare metriche
+Dettagli sugli script in [scripts/README.md](scripts/README.md).
 
-Tre script complementari verificano in modo ripetibile la coerenza del modello e generano i numeri esatti dei deliverable scientifici:
+### Aggiornare enti e relazioni
+
+Il grafo live è generato dalla pipeline: le modifiche durature vanno nei file di `pipeline/`, non direttamente in `src/data/pdnd-data.json`, che verrebbe sovrascritto alla promozione successiva.
+
+- **Nuovo ente**: una voce in `pipeline/entities.json` con i suoi codici IPA ([formato](pipeline/README.md#aggiungere-unentità-tracciata)); per una categoria nuova, il colore in `src/constants/colors.js`.
+- **Nuova classe di enti**: una voce in `pipeline/classi.json`.
+- **Nuova relazione documentata**: il `catalogId` dell'e-service con i nodi fruitori in `pipeline/connections-overrides.json`, citando la fonte pubblica. Gli archi così aggiunti hanno origine `documentata`.
 
 ```bash
-npm run audit             # audit interno del JSON: conteggi, gradi, consistency checks
-npm run compare-catalog   # confronto con il catalogo ufficiale, copertura, gap
-npm run paper-metrics     # snippet pgfplots/LaTeX per il report Zenodo
+node pipeline/build-graph-data.mjs --write                  # aggiorna l'anteprima
+cp pipeline/pdnd-data.preview.json src/data/pdnd-data.json  # promozione
+npm run export && npm test
 ```
 
-`npm run audit` segnala incoerenze (ad esempio un nodo dichiarato `Erogatore` ma senza e-service erogati). `npm run compare-catalog` calcola la copertura percentuale del modello rispetto al catalogo PDND vivo. Per dettagli vedi [scripts/README.md](scripts/README.md).
+### Struttura del progetto
 
-## Tecnologie
+<details>
+<summary>Albero delle cartelle</summary>
 
-- **React 19**, UI
-- **Vite 8**, build tool
-- **Canvas 2D**, rendering del grafo senza dipendenze esterne
-- **Azure Static Web Apps**, hosting
-- **GitHub Actions**, CI/CD e pipeline dati mensile
+```
+pdnd-eservices-graph/
+├── .github/workflows/
+│   ├── azure-static-web-apps-polite-plant-07967ad10.yml  # CI/CD per Azure
+│   ├── ci.yml                                            # Lint, test e build (main e develop)
+│   ├── codeql.yml                                        # Analisi di sicurezza CodeQL (main e develop)
+│   ├── update-graph-data.yml                             # Pipeline dati mensile
+│   └── promote-graph-data.yml                            # Promozione manuale dell'anteprima
+├── docs/
+│   └── demo.gif
+├── exports/                             # GraphML, GEXF, CSV (npm run export)
+├── pipeline/                            # ← Aggiornamento automatico del catalogo
+│   ├── build-graph-data.mjs             # Script di build del grafo
+│   ├── infer-connections.mjs            # Motore di inferenza (disattivo di default)
+│   ├── entities.json                    # Registro entità tracciate (codici IPA)
+│   ├── classi.json                      # Classi di enti (nodi aggregati)
+│   ├── category-map.json                # Mappa attributes.certified → nodi
+│   ├── connections-overrides.json       # Connessioni documentate
+│   ├── connections-reconstructed.json   # Relazioni del modello v1
+│   ├── connections-frozen.json          # Stime AI congelate
+│   ├── pdnd-data.preview.json           # Anteprima generata (NON è il dato live)
+│   ├── last-run-report.md               # Report dell'ultima esecuzione
+│   └── README.md
+├── public/                              # favicon e logo
+├── scripts/                             # audit, confronto, test, export, metriche del report
+├── src/
+│   ├── components/                      # PDNDGraph, GraphView, StatsView, MethodologyView, GuideView…
+│   ├── constants/colors.js              # Palette delle categorie
+│   ├── utils/                           # Costruzione del grafo, esportazioni, stato URL
+│   ├── data/
+│   │   ├── pdnd-data.json               # ← DATI LIVE (modello v2)
+│   │   └── snapshots/                   # Modello v1 del report, congelato
+│   ├── App.jsx
+│   ├── index.css
+│   └── main.jsx
+├── index.html
+├── package.json
+├── staticwebapp.config.json             # Config Azure Static Web Apps
+├── vite.config.js
+├── ADDITIONAL-TERMS.md                  # Termine di attribuzione AGPL 7(b)
+├── CITATION.cff
+├── METODOLOGIA.md                       # ← Fonti, metodologia, limitazioni
+└── README.md
+```
+
+</details>
+
+### Tecnologie
+
+**React 19** per l'interfaccia, **Vite 8** per la build, **Canvas 2D** per il rendering del grafo senza librerie esterne, **Azure Static Web Apps** per l'hosting e **GitHub Actions** per CI, analisi CodeQL e pipeline dati mensile.
 
 ## Contribuire
 
-Le Pull Request sono benvenute. Per contribuire:
+Le pull request sono benvenute, in particolare le correzioni alle relazioni erogatore→fruitore accompagnate dal riferimento alla fonte pubblica che le documenta.
 
-1. Fai un fork del repository
-2. Crea un branch (`git checkout -b feature/nuovo-ente`)
-3. Modifica `src/data/pdnd-data.json` o il componente
-4. Esegui `npm run audit` per verificare la coerenza del modello
-5. Committa e pusha (`git push origin feature/nuovo-ente`)
-6. Apri una Pull Request
-
-Le correzioni alle relazioni erogatore→fruitore sono particolarmente utili quando accompagnate dal riferimento alla fonte pubblica che le documenta.
+1. Fai un fork del repository e crea un branch (`git checkout -b feature/nuovo-ente`)
+2. Modifica i file di `pipeline/` o i componenti
+3. Esegui `npm run lint`, `npm test` e `npm run audit`
+4. Apri una pull request
 
 ## Come citare
 
-Se questo progetto ti è stato utile in una pubblicazione, una presentazione, un report, o un altro lavoro derivato, la citazione di riferimento è il report tecnico:
+**Ogni uso del progetto va accompagnato dalla citazione del report tecnico**, indicando anche la data dello snapshot dei dati usati.
 
-> Del Re, F. (2026). *The PDND E-Service Network: A Graph-Based Model from Italian Open Government Data*. Zenodo. https://doi.org/10.5281/zenodo.19989954
+La metodologia è documentata nel report tecnico, distribuito con licenza CC-BY-4.0, che descrive il modello v1: fonti, pipeline di ricostruzione, ruolo dei modelli linguistici come strumento di estrazione e copertura misurata (~89% di 14.102 endpoint). Il sorgente LaTeX è in [pdnd-graph-paper](https://github.com/engineering87/pdnd-graph-paper).
+
+> Del Re, F. (2026). *The PDND E-Service Network: A Graph-Based Model from Italian Open Government Data*. Zenodo, v1.0.0, 3 maggio 2026. [doi:10.5281/zenodo.19989954](https://doi.org/10.5281/zenodo.19989954)
 
 ```bibtex
 @techreport{delre2026pdnd,
@@ -542,28 +452,18 @@ Se questo progetto ti è stato utile in una pubblicazione, una presentazione, un
 }
 ```
 
-GitHub espone la citazione anche dal pulsante **Cite this repository** nella barra laterale, generato da [`CITATION.cff`](CITATION.cff).
+GitHub genera la citazione anche dal pulsante **Cite this repository**, a partire da [`CITATION.cff`](CITATION.cff). I numeri del report si riferiscono al modello v1, quelli di questo README al modello v2: indica sempre la data dello snapshot che usi.
 
 > [!NOTE]
-> **Cosa è dovuto e cosa è richiesto.** Il report su Zenodo è distribuito sotto **CC-BY-4.0**, quindi il suo riutilizzo richiede l'attribuzione. Il codice è sotto **AGPL-3.0**, che impone di conservare le note di copyright e di licenza e di rilasciare le opere derivate sotto la stessa licenza, ma non contiene un obbligo di citazione in senso accademico. La citazione del report resta quindi una richiesta, non un vincolo di licenza sul codice. Se usi il progetto in un contesto scientifico o istituzionale, citarlo è il modo corretto di rendere tracciabile la provenienza del modello, e permette a chi legge di risalire alla metodologia e ai suoi limiti dichiarati.
+> **Su cosa si basa la citazione.** Il report è sotto **CC-BY-4.0**: chi ne riprende contenuti deve attribuirli all'autore. Il codice è sotto **AGPL-3.0**: chi lo usa o lo modifica deve conservare le note di copyright e di licenza e rilasciare le opere derivate con la stessa licenza. La citazione del report è la forma con cui l'autore chiede di riconoscere ogni uso del progetto, e permette a chi legge di risalire alla metodologia e ai suoi limiti.
 
 ## Licenza
 
-Questo progetto è distribuito sotto licenza **AGPL-3.0**, vedi [LICENSE](LICENSE).
+Il codice è distribuito sotto licenza **AGPL-3.0** (vedi [LICENSE](LICENSE)), con un termine aggiuntivo di attribuzione ai sensi della sezione 7(b) (vedi [ADDITIONAL-TERMS.md](ADDITIONAL-TERMS.md)):
 
-### Cosa significa in pratica
+- puoi **usare, modificare e distribuire** liberamente il codice;
+- se **distribuisci una versione modificata**, devi renderla disponibile con la stessa licenza;
+- se **la offri come servizio in rete** (per esempio una web app), devi rendere disponibile agli utenti il codice sorgente della versione in esecuzione;
+- in ogni copia, versione modificata o servizio in rete devi **conservare l'attribuzione all'autore e la citazione del report**, nel codice e nel piè di pagina dell'interfaccia.
 
-- Puoi **usare, modificare e distribuire** liberamente il codice
-- Se **modifichi il codice e lo distribuisci**, devi rendere disponibili le modifiche sotto la stessa licenza
-- Se **usi questo software come servizio (es. web app accessibile da utenti)**, sei tenuto a rendere disponibile il codice sorgente modificato agli utenti del servizio
-
-### Nota importante per l'uso in produzione
-
-Se utilizzi questo progetto (o una sua derivazione) per erogare un servizio accessibile via rete, la licenza AGPL richiede che:
-
-- gli utenti possano accedere al codice sorgente della versione in esecuzione
-- eventuali modifiche apportate siano pubblicate
-
-### Dati
-
-I dati sugli e-services provengono da [PDND Open Data](https://github.com/italia/pdnd-opendata) e sono distribuiti sotto licenza **CC0 1.0 Universal** (Pubblico Dominio) dalla Presidenza del Consiglio dei Ministri – Dipartimento per la Trasformazione Digitale.
+I dati sugli e-service provengono da [PDND Open Data](https://github.com/italia/pdnd-opendata) e sono distribuiti con licenza **CC0 1.0 Universal** (pubblico dominio) dalla Presidenza del Consiglio dei Ministri – Dipartimento per la Trasformazione Digitale.

@@ -4,6 +4,27 @@
  * derivano. Rispecchia METODOLOGIA.md e il report pubblicato.
  */
 
+import PDND_DATA from "../data/pdnd-data.json";
+
+const ORIGINI = [
+  ["osservata", "Osservata", "Connessioni o sessioni di scambio realmente registrate dalla PDND verso una classe di enti, dalle statistiche ufficiali PagoPA. È la prova più forte dopo la documentazione puntuale."],
+  ["certificata", "Certificata", "Dal campo attributes.certified del catalogo: le categorie di enti abilitati alla fruizione, mappate sui nodi aggregati quando indicano una classe."],
+  ["documentata", "Documentata", "Override con una fonte ufficiale puntuale (norma, circolare, manuale) citata per l'e-service."],
+  ["ricostruita", "Ricostruita", "Relazioni del modello v1 (maggio 2026), ricostruite da documentazione pubblica con l'ausilio di modelli AI."],
+  ["inferita", "Inferita", "Stima AI congelata nel dato, normalizzata sugli aggregati. Dichiarata come stima, non come fatto."],
+];
+
+// Conteggi calcolati dal dato live, così il testo non resta indietro a ogni aggiornamento.
+const conteggi = (() => {
+  const perOrigine = {};
+  let archi = 0;
+  for (const s of PDND_DATA.eservices) {
+    const lista = s.archi || (s.fruitori || []).map((f) => ({ fruitore: f, origine: "ricostruita" }));
+    for (const a of lista) { perOrigine[a.origine] = (perOrigine[a.origine] || 0) + 1; archi++; }
+  }
+  return { perOrigine, archi, nodi: PDND_DATA.enti.length, eservices: PDND_DATA.eservices.length };
+})();
+
 function Section({ title, children }) {
   return (
     <div style={{ marginBottom: 28 }}>
@@ -30,7 +51,8 @@ function Source({ name, url, desc, type }) {
 
 export default function MethodologyView() {
   return (
-    <div style={{ flex: 1, overflowY: "auto", padding: "24px 28px", maxWidth: 800 }}>
+    <div style={{ flex: 1, overflowY: "auto", padding: "24px 20px" }}>
+    <div style={{ maxWidth: 800, margin: "0 auto" }}>
       <div style={{ fontSize: 10, color: "var(--ink-faint)", textTransform: "uppercase", letterSpacing: 1, marginBottom: 6 }}>Trasparenza metodologica</div>
       <div style={{ fontSize: 22, fontWeight: 700, color: "#f1f5f9", marginBottom: 6 }}>Come sono stati costruiti i dati</div>
       <div style={{ fontSize: 13, color: "var(--ink-faint)", marginBottom: 28, lineHeight: 1.6 }}>
@@ -42,6 +64,7 @@ export default function MethodologyView() {
         <Source name="Catalogo e-service" url="https://github.com/italia/pdnd-opendata" desc="Elenco completo degli e-service pubblicati sulla PDND con erogatore, attributi di accesso e stato — aggiornamento quotidiano su dati.gov.it" type="ufficiale" />
         <Source name="Aderenti PDND" url="https://github.com/italia/pdnd-opendata" desc="Lista di tutti gli enti aderenti alla piattaforma con codice IPA e attributi certificati" type="ufficiale" />
         <Source name="Numeri della PDND" url="https://www.interop.pagopa.it/numeri" desc="Statistiche aggregate su enti, e-service, connessioni e sessioni di scambio" type="ufficiale" />
+        <Source name="Classifiche di adozione e uso" url="https://github.com/italia/pdnd-opendata" desc="E-service con più enti abilitati e con più sessioni di scambio, per categoria di ente fruitore: base degli archi osservati (minimi garantiti, primi 10 per categoria)" type="ufficiale" />
       </Section>
 
       <Section title="Ricostruzione delle connessioni">
@@ -49,7 +72,8 @@ export default function MethodologyView() {
           <div style={{ fontSize: 12, color: "var(--cite)", fontWeight: 600, marginBottom: 6 }}>⚠ Nota importante</div>
           <div style={{ fontSize: 12, color: "var(--ink-muted)", lineHeight: 1.6 }}>
             I dataset open data della PDND <strong style={{ color: "var(--ink)" }}>non pubblicano</strong> le coppie puntuali erogatore–fruitore.
-            Le relazioni (archi) rappresentate nel grafo sono state ricostruite tramite modelli AI,
+            Pubblicano però connessioni e sessioni aggregate per categoria di ente fruitore, da cui derivano gli archi osservati
+            verso le classi di enti. Le altre relazioni sono ricostruite, anche con l'ausilio di modelli AI,
             incrociando le seguenti fonti documentali pubbliche:
           </div>
         </div>
@@ -59,10 +83,23 @@ export default function MethodologyView() {
         <Source name="Manuale SSU Unioncamere" url="https://catalogo.impresainungiorno.gov.it/assets/config/files/manuale_operativo_Eservice_CatalogoSSU.pdf" desc="6 e-service del Catalogo SSU con erogatore e fruitori documentati" type="ricostruzione" />
       </Section>
 
-      <Section title="Aggregazione dei Comuni">
+      <Section title="Provenienza degli archi">
+        <div style={{ marginBottom: 12 }}>
+          Ogni arco dichiara da dove viene. Una stessa coppia di enti può avere archi di provenienze diverse,
+          uno per ciascun e-service che li collega.
+        </div>
+        {ORIGINI.map(([chiave, nome, desc]) => (
+          <div key={chiave} style={{ display: "flex", justifyContent: "space-between", gap: 16, padding: "8px 0", borderBottom: "1px solid rgba(100,160,220,.04)", fontSize: 12 }}>
+            <span><strong style={{ color: "var(--ink)" }}>{nome}</strong> — {desc}</span>
+            <span style={{ color: "#06d6a0", fontWeight: 700, whiteSpace: "nowrap" }}>{conteggi.perOrigine[chiave] || 0}</span>
+          </div>
+        ))}
+      </Section>
+
+      <Section title="Aggregazione degli enti">
         <div style={{ fontSize: 13, color: "var(--ink-muted)", lineHeight: 1.75 }}>
-          Il catalogo PDND contiene 2.000+ API, la maggior parte delle quali sono servizi standard replicati
-          da ciascuno dei ~7.500 Comuni aderenti (Albo Pretorio, Pratiche SUAP, Numerazione Civica, ecc.).
+          Il catalogo PDND contiene circa 15.000 API, gran parte delle quali sono servizi standard replicati
+          da ciascuno dei ~7.650 Comuni aderenti (Albo Pretorio, Pratiche SUAP, Numerazione Civica, ecc.).
           Rappresentarli tutti avrebbe prodotto un grafo illeggibile.
         </div>
         <div style={{ margin: "14px 0", padding: "12px 16px", borderRadius: 8, background: "rgba(30,40,60,.4)", border: "1px solid rgba(100,160,220,.06)" }}>
@@ -71,6 +108,9 @@ export default function MethodologyView() {
             I Comuni minori sono aggregati in un <strong style={{ color: "#4a7c91" }}>unico nodo</strong> chiamato "Comuni (aggregati)".
             6 grandi Comuni (Milano, Roma, Napoli, Bologna, Genova, Padova) sono mantenuti come nodi individuali
             perché erogano anche servizi specifici non standard.
+            Con lo stesso criterio, gli altri fruitori sono raccolti in 10 classi di enti allineate alle categorie
+            ufficiali PagoPA (Comuni, Regioni, Province, Scuole, Università, Sanità, Gestori, Enti privati, PA locali e centrali),
+            ciascuna con il proprio numero di aderenti.
           </div>
         </div>
       </Section>
@@ -106,10 +146,12 @@ export default function MethodologyView() {
           </div>
         </div>
         <div style={{ fontSize: 12, color: "var(--ink-muted)", lineHeight: 1.6 }}>
-          Il catalogo PDND completo conta <strong style={{ color: "var(--ink)" }}>14.102 API pubblicate</strong> da 6.388 enti distinti.
-          Il modello rappresenta 86 tipi di servizio in 51 nodi: i 9 sopra (servizi standardizzati comunali) coprono 6.382 endpoint;
-          gli altri 75 record corrispondono a servizi centrali, regionali o ministeriali, in maggioranza uno-a-uno con il catalogo.
-          La copertura totale del modello è dell'<strong style={{ color: "#06d6a0" }}>~89%</strong>, misurabile lanciando{" "}
+          Nello snapshot di maggio 2026 il catalogo PDND contava <strong style={{ color: "var(--ink)" }}>14.102 API pubblicate</strong> da 6.388 enti distinti,
+          e il modello v1 descritto nel report rappresentava 86 tipi di servizio in 51 nodi: i 9 sopra (servizi standardizzati comunali)
+          coprivano 6.382 endpoint, con una copertura totale del catalogo dell'<strong style={{ color: "#06d6a0" }}>~89%</strong>.
+          Il modello attuale conta <strong style={{ color: "var(--ink)" }}>{conteggi.eservices} e-service in {conteggi.nodi} nodi</strong> e {conteggi.archi} archi:
+          oltre ai tipi di servizio del v1, include e-service puntuali del catalogo, ciascuno con il proprio identificativo.
+          La copertura rispetto al catalogo corrente è misurabile lanciando{" "}
           <code style={{ fontSize: 11, padding: "1px 5px", borderRadius: 3, background: "rgba(30,40,60,.6)", color: "var(--ink)" }}>npm run compare-catalog</code>.
         </div>
       </Section>
@@ -125,10 +167,11 @@ export default function MethodologyView() {
       <Section title="Limitazioni note">
         {[
           "Le connessioni rappresentano relazioni documentate o inferite, non necessariamente accordi di interoperabilità attivi e verificati sulla piattaforma.",
-          "I Comuni aggregati non indicano che tutti i ~7.500 Comuni fruiscono effettivamente di ogni servizio.",
-          "Gli archi inferiti dall'AI sono normalizzati sugli aggregati: città e regioni confluiscono nei nodi \"Comuni (aggregati)\" e \"Regioni (aggregati)\", così l'arco dichiara un'eleggibilità di classe stimata e non una connessione puntuale. Gli archi certificati e documentati mantengono i nomi puntuali.",
-          "Per le 18 Regioni e Province Autonome rappresentate, gli e-service sono esposti come categoria aggregata (un record per ente) con il numero di endpoint del catalogo annotato in descrizione.",
-          "Il modello copre ~89% del catalogo PDND. Il residuo 11% è composto principalmente da università, conservatori e società in-house regionali con pochi endpoint ciascuno.",
+          "Un arco verso una classe di enti non indica che tutti i suoi aderenti fruiscono del servizio: gli archi osservati riportano quanti enti sono abilitati, come minimo garantito.",
+          "Gli archi certificati dichiarano un'eleggibilità di classe: le categorie del catalogo (\"Pubbliche Amministrazioni\", \"Comuni\", \"Scuole\"…) confluiscono nei nodi di classe, non su un campione di enti. Una classe abilitata non è necessariamente una classe che usa il servizio: per l'uso reale valgono gli archi osservati.",
+          "I valori di connessioni e sessioni sono minimi garantiti: le classifiche ufficiali elencano solo i primi 10 e-service per categoria di ente.",
+          "Per le Regioni e Province Autonome rappresentate, il record riassuntivo del modello v1 (con il numero di endpoint del catalogo in descrizione) convive con alcuni e-service puntuali scelti per uso.",
+          "Il modello è una selezione editoriale di enti, non l'intero catalogo: università, conservatori e società in-house regionali con pochi endpoint ciascuno restano fuori.",
           "Le versioni degli e-service potrebbero non corrispondere all'ultima versione attiva nel catalogo.",
         ].map((text, i) => (
           <div key={i} style={{ display: "flex", gap: 10, marginBottom: 8, fontSize: 12 }}>
@@ -182,6 +225,7 @@ export default function MethodologyView() {
           <a href="https://github.com/engineering87/pdnd-eservices-graph/issues" target="_blank" rel="noopener" style={{ color: "#64b5f6", textDecoration: "none" }}>Issue su GitHub</a>.
         </div>
       </div>
+    </div>
     </div>
   );
 }

@@ -1,30 +1,36 @@
 # Pipeline di aggiornamento automatico
 
-> **Quale dato è canonico.** Il grafo pubblicato su pdndgraph.it e citato dal
-> report Zenodo (DOI 10.5281/zenodo.19989954) è `src/data/pdnd-data.json`: il
-> modello curato **v1**, i cui archi sono ricostruiti da documentazione pubblica.
-> Questa pipeline produce `pipeline/pdnd-data.preview.json`, un modello **v2**
-> ancorato al campo `attributes.certified` del catalogo, con provenienza
-> dichiarata per singolo arco. La v2 **non è ancora promossa**: ha numeri
-> sensibilmente diversi dalla v1 e la sua pubblicazione richiede una nuova
-> versione del report. Non sostituire il dato live senza quella decisione.
+> **Quale dato è canonico.** Il grafo pubblicato su pdndgraph.it è
+> `src/data/pdnd-data.json`: dal 25 novembre 2026 è il modello **v2** prodotto
+> da questa pipeline, con provenienza dichiarata per singolo arco. Il report
+> Zenodo (DOI 10.5281/zenodo.19989954) descrive invece il modello curato **v1**
+> del 2 maggio 2026, conservato immutato in
+> `src/data/snapshots/pdnd-data.2026-05-02.json`. Le relazioni del v1 non vanno
+> perse: vivono in `connections-reconstructed.json` e confluiscono in ogni build.
 
 
 Questa cartella contiene la pipeline che mantiene aggiornato il grafo rispetto
-allo stato corrente del catalogo PDND, in modo automatico e senza intervento manuale.
+allo stato corrente del catalogo PDND. L'aggiornamento è automatico; solo la
+promozione a grafo live richiede un passo manuale.
 
 ## Come funziona
 
 ```
 catalogo ufficiale PDND (CSV, 15.000+ e-service)
+ + classifiche di adozione e uso, aderenti, totali (pdnd-opendata)
               │
               ▼
    build-graph-data.mjs
    ├── filtra le entità tracciate (entities.json)
-   ├── estrae i loro e-service (nome, stato, versione)
-   ├── deriva gli archi erogatore→fruitore:
-   │     1. override curati (connections-overrides.json)  ← precedenza
-   │     2. baseline da attributes.certified (category-map.json)
+   ├── aggiunge le classi di enti (classi.json) con il numero di aderenti
+   ├── estrae i loro e-service (nome, stato, versione), scegliendo per ente
+   │     i curati e poi i più rilevanti (enti abilitati e sessioni)
+   ├── deriva gli archi erogatore→fruitore, ciascuno con la sua origine:
+   │     1. documentata   override curati (connections-overrides.json)
+   │     2. osservata     connessioni e sessioni ufficiali per categoria
+   │     3. certificata   attributes.certified (category-map.json, classi.json)
+   │     4. ricostruita   relazioni v1 (connections-reconstructed.json)
+   │     5. inferita      stime congelate, solo se l'e-service è senza archi
    ├── applica i guard di validazione
    └── scrive pipeline/pdnd-data.preview.json  (ANTEPRIMA, non distruttiva)
               │
@@ -32,11 +38,10 @@ catalogo ufficiale PDND (CSV, 15.000+ e-service)
    GitHub Action mensile → commit dell'anteprima su main
 ```
 
-> **Modalità non distruttiva (importante).** La pipeline **non** sovrascrive il
-> grafo curato `src/data/pdnd-data.json`. Scrive sempre sull'anteprima
-> `pipeline/pdnd-data.preview.json`. Il grafo live mostrato dall'app resta quello
-> curato finché non sei tu a promuovere l'anteprima (vedi sotto). Così l'automazione
-> gira senza mai rompere le relazioni documentate esistenti.
+> **Modalità non distruttiva.** La pipeline scrive solo sull'anteprima
+> `pipeline/pdnd-data.preview.json` e non tocca il grafo live
+> `src/data/pdnd-data.json`, che cambia soltanto quando promuovi l'anteprima
+> (vedi sotto).
 
 Il grafo è una **selezione editoriale** di entità significative, non l'intero
 catalogo (che ha oltre 15.000 e-service, in gran parte servizi comunali replicati).
@@ -52,6 +57,9 @@ Attivo↔Sospeso.
 | `entities.json` | Registro delle entità tracciate (nodi individuali) con i loro codici IPA |
 | `category-map.json` | Mappa categorie consumatori (`attributes.certified`) → nodi, per la baseline degli archi |
 | `connections-overrides.json` | Connessioni curate da documentazione, con precedenza sulla baseline |
+| `connections-reconstructed.json` | Relazioni del modello v1 (origine `ricostruita`): `anchored` per catalogId, sommate agli archi del catalogo; `unanchored` riportate così come sono. I servizi agganciati sono sempre inclusi, anche oltre `maxServices` |
+| `classi.json` | Classi di enti (nodi aggregati) allineate alle categorie ufficiali PagoPA: attributi certificati, categorie delle statistiche, totali ufficiali degli aderenti |
+| `connections-frozen.json` | Stime AI congelate (origine `inferita`), usate solo per gli e-service senza altri archi |
 | `pdnd-data.preview.json` | Anteprima generata dalla pipeline (NON è il dato live) |
 | `last-run-report.md` | Report generato ad ogni esecuzione |
 
@@ -87,6 +95,27 @@ sempre una tua decisione esplicita. Il backup del curato
 qualsiasi momento.
 
 
+## Selezione degli e-service per ente
+
+Per ogni entità tracciata la pipeline include:
+
+1. **sempre** gli e-service con archi curati (override documentati, relazioni
+   ricostruite v1, inferenze congelate), anche oltre `maxServices`;
+2. poi, fino a `maxServices`, i pubblicati con **rilevanza** più alta: il maggiore
+   fra enti abilitati (`e_service_con_piu_enti_abilitati_from_the_beginning.csv`) e
+   sessioni di scambio (`eservice_con_piu_token_staccati_from_the_beginning.csv`),
+   ciascuno rapportato al massimo dell'ente, da
+   [pdnd-opendata](https://github.com/italia/pdnd-opendata) (CC0);
+3. a parità di rilevanza, l'ordine alfabetico.
+
+Le classifiche elencano i primi 10 e-service per ogni coppia di categorie
+erogatore × fruitore e troncano i nomi a 60 caratteri: l'abbinamento al catalogo
+avviene su nome dell'erogatore e nome troncato. Il campo `enti_abilitati_min` è il
+massimo fra le classifiche in cui l'e-service compare, quindi un minimo garantito.
+Se il download delle classifiche fallisce la pipeline prosegue in ordine alfabetico
+e lo segnala nel report. Il report segnala anche gli e-service con archi curati
+che non risultano più pubblicati, da ri-agganciare al successore attivo.
+
 ## Guard di validazione
 
 Lo script si interrompe (exit 1) senza scrivere nulla se:
@@ -109,7 +138,7 @@ La pipeline è autonoma, ma ogni tanto conviene guardare il report
    `connections-overrides.json` usando l'UUID (`catalogId`) indicato nel report.
 
 2. **Candidati nuovi erogatori** — enti con molte API non ancora tracciati
-   (es. ANAC, altre Regioni). Per includerli, aggiungi una voce in `entities.json`
+   (per esempio enti nazionali o Regioni non ancora rappresentati). Per includerli, aggiungi una voce in `entities.json`
    con il loro codice IPA.
 
 ## Aggiungere un'entità tracciata
@@ -146,11 +175,15 @@ In `connections-overrides.json`, oggetto `overrides`, chiave = UUID dell'e-servi
 
 ## Inferenza AI degli archi mancanti
 
-Per gli e-service privi di categoria certificata e di override documentato, la
-pipeline può **inferire** i fruitori tramite AI, così da ottenere copertura
-completa. Ogni arco inferito è taggato `origine: "inferita"`, porta confidenza e
-motivazione, e va reso **tratteggiato** nel grafo (vedi
-`COMPONENTE-modifiche-provenienza.md`).
+Le stime AI sono **congelate** in `connections-frozen.json`: prodotte una volta,
+fissate nel dato versionato e applicate solo agli e-service rimasti senza altri
+archi. Così il grafo è deterministico e ogni build è riproducibile senza chiamate
+AI. Ogni arco inferito è taggato `origine: "inferita"` e nel grafo è disegnato
+**tratteggiato**.
+
+L'inferenza a runtime gira solo sui `catalogId` elencati in
+`inference-allowlist.json`; con l'allowlist vuota (lo stato attuale) non parte
+nessuna chiamata, anche se la chiave API è configurata.
 
 Caratteristiche pensate per l'affidabilità in pipeline automatica:
 
@@ -196,8 +229,11 @@ node pipeline/build-graph-data.mjs --no-ai     # solo archi certificati/document
 
 ## Nota metodologica
 
-Con questa pipeline la **baseline** degli archi è derivata automaticamente dal
-campo `attributes.certified` del catalogo (la categoria di enti autorizzati alla
-fruizione), mentre gli **override** documentati la raffinano. Tutto resta basato
-esclusivamente su informazioni già pubbliche. Aggiorna `METODOLOGIA.md` per
-riflettere questo approccio (vedi nota in fondo al file).
+Ogni arco dichiara la propria provenienza, in ordine di forza della prova:
+`documentata` (override da fonti ufficiali), `osservata` (connessioni e
+sessioni realmente registrate dalla PDND verso una classe di enti),
+`certificata` (classi abilitate dal campo `attributes.certified`),
+`ricostruita` (relazioni del modello v1) e `inferita` (stime AI congelate).
+Tutto resta basato esclusivamente su informazioni già pubbliche. Regole di
+mappatura, verifiche e limiti sono in
+[METODOLOGIA.md §7](../METODOLOGIA.md#7-modello-v2-novembre-2026).
