@@ -5,6 +5,7 @@
  */
 
 import { CATEGORY_COLORS } from "../constants/colors";
+import { GLOSSARIO } from "../constants/glossario";
 
 function Shortcut({ icon, label, desc }) {
   return (
@@ -52,7 +53,8 @@ const CATEGORY_DESCRIPTIONS = {
 
 export default function GuideView() {
   return (
-    <div style={{ flex: 1, overflowY: "auto", padding: "24px 28px", maxWidth: 720 }}>
+    <div style={{ flex: 1, overflowY: "auto", padding: "24px 20px" }}>
+    <div style={{ maxWidth: 760, margin: "0 auto" }}>
       <div style={{ fontSize: 10, color: "var(--ink-faint)", textTransform: "uppercase", letterSpacing: 1, marginBottom: 6 }}>Guida all'uso</div>
       <div style={{ fontSize: 22, fontWeight: 700, color: "#f1f5f9", marginBottom: 6 }}>Come navigare il grafo</div>
       <div style={{ fontSize: 13, color: "var(--ink-faint)", marginBottom: 24, lineHeight: 1.6 }}>
@@ -69,8 +71,8 @@ export default function GuideView() {
         <Shortcut icon="🏷" label="Click sulla legenda" desc="Filtra il grafo per categoria: vengono evidenziati solo gli enti della categoria selezionata. Clicca di nuovo per rimuovere il filtro." />
         <Shortcut icon="🔎" label="Barra di ricerca" desc="Cerca un ente per nome. I nodi non corrispondenti vengono attenuati." />
         <Shortcut icon="⇢" label="Filtro sulla provenienza" desc="Dal menu accanto alle categorie scegli quali archi vedere: tutti, solo l'uso osservato, solo le fonti ufficiali o senza stime AI. Su schermi ampi puoi anche cliccare le voci della legenda in basso a destra. Il filtro resta nell'indirizzo della pagina." />
-        <Shortcut icon="☰" label="Scheda Esplora" desc="Chi usa cosa: tutte le relazioni in tabella, con filtri per erogatore, fruitore, categoria e provenienza, riepilogo raggruppato e download CSV. L'indirizzo della pagina conserva i filtri, così puoi condividere la vista." />
-        <Shortcut icon="▤" label="Scheda e-service" desc="Clicca il nome di un e-service nel pannello dettagli, in Esplora o nelle Statistiche: si apre la sua scheda con erogatore, fruitori per provenienza, dati d'uso ufficiali e gli altri servizi dello stesso ente." />
+        <Shortcut icon="☰" label="Scheda Chi usa cosa" desc="Tutte le relazioni in tabella, con filtri per erogatore, fruitore, categoria e provenienza, riepilogo raggruppato e download CSV. L'indirizzo della pagina conserva i filtri, così puoi condividere la vista." />
+        <Shortcut icon="▤" label="Scheda e-service" desc="Clicca il nome di un e-service nel pannello dettagli, in «Chi usa cosa» o nella scheda Numeri: si apre la sua scheda con erogatore, fruitori per provenienza, dati d'uso ufficiali e gli altri servizi dello stesso ente." />
       </div>
 
       <div style={{ marginBottom: 32 }}>
@@ -105,12 +107,25 @@ export default function GuideView() {
         </div>
       </div>
 
+      <div style={{ marginBottom: 32 }}>
+        <div style={{ fontSize: 14, fontWeight: 700, color: "var(--ink)", marginBottom: 12, paddingBottom: 8, borderBottom: "1px solid rgba(100,160,220,.08)" }}>Parole chiave</div>
+        <dl style={{ margin: 0 }}>
+          {Object.entries(GLOSSARIO).map(([k, v]) => (
+            <div key={k} style={{ padding: "9px 0", borderBottom: "1px solid rgba(100,160,220,.06)" }}>
+              <dt style={{ fontSize: 13, fontWeight: 600, color: "var(--ink)" }}>{v.termine}</dt>
+              <dd style={{ margin: "2px 0 0", fontSize: 12.5, color: "var(--ink-muted)", lineHeight: 1.6 }}>{v.spiegazione}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+
       <div>
         <div style={{ fontSize: 14, fontWeight: 700, color: "var(--ink)", marginBottom: 12, paddingBottom: 8, borderBottom: "1px solid rgba(100,160,220,.08)" }}>Categorie degli enti</div>
         {Object.entries(CATEGORY_COLORS).map(([cat, col]) => (
           <LegendItem key={cat} color={col} label={cat} desc={CATEGORY_DESCRIPTIONS[cat]} />
         ))}
       </div>
+    </div>
     </div>
   );
 }

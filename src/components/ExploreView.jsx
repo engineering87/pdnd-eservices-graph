@@ -14,6 +14,7 @@ import {
 } from "../utils/relations";
 import { CATEGORY_COLORS, ORIGIN_STYLES } from "../constants/colors";
 import { useIsMobile } from "../utils/useIsMobile";
+import Termine from "./Termine";
 
 const ROWS = flattenRelations(PDND_DATA);
 const fmt = (n) => (n == null ? "—" : n.toLocaleString("it-IT"));
@@ -188,12 +189,13 @@ export default function ExploreView({ onOpenEntity, onOpenEservice }) {
   return (
     <div style={{ flex: 1, overflowY: "auto", padding: m ? "16px 14px" : "24px 28px" }}>
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-        <div style={{ fontSize: 10, color: "var(--ink-faint)", textTransform: "uppercase", letterSpacing: 1, marginBottom: 6 }}>Esplora</div>
+        <div style={{ fontSize: 11, color: "var(--ink-faint)", textTransform: "uppercase", letterSpacing: 1, marginBottom: 6 }}>Relazioni fra enti</div>
         <h2 style={{ fontSize: m ? 18 : 22, fontWeight: 700, color: "#f1f5f9", marginBottom: 6 }}>Chi usa cosa</h2>
         <p style={{ fontSize: 12.5, color: "var(--ink-muted)", lineHeight: 1.6, maxWidth: 820, marginBottom: 16 }}>
-          Ogni riga è una relazione del modello: un ente che eroga un e-service e un ente, o una classe di enti, che lo fruisce.
-          Enti abilitati e sessioni vengono dalle statistiche ufficiali PagoPA e sono minimi garantiti. La vista filtrata
-          ha un indirizzo proprio: copialo per condividerla.
+          Ogni riga dice quale ente offre un servizio di scambio dati (<Termine id="eservice">e-service</Termine>) e quale ente,
+          o <Termine id="classe">classe di enti</Termine>, lo usa. <Termine id="abilitati">Enti abilitati</Termine> e{" "}
+          <Termine id="sessioni">sessioni</Termine> vengono dalle statistiche ufficiali PagoPA. Scegli un percorso qui sotto o usa i filtri;
+          l'indirizzo della pagina conserva la vista, così puoi condividerla.
         </p>
 
         {/* Preset */}
@@ -237,7 +239,7 @@ export default function ExploreView({ onOpenEntity, onOpenEservice }) {
             </Campo>
           </div>
           <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 8, marginTop: 12 }}>
-            <span style={{ fontSize: 10, color: "var(--ink-faint)", textTransform: "uppercase", letterSpacing: .6, marginRight: 4 }}>Provenienza</span>
+            <span style={{ fontSize: 11, color: "var(--ink-faint)", textTransform: "uppercase", letterSpacing: .6, marginRight: 4 }}><Termine id="provenienza">Provenienza</Termine></span>
             {ORIGINI.map((o) => {
               const s = ORIGIN_STYLES[o];
               const on = f.origini.includes(o);

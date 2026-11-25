@@ -1,105 +1,108 @@
 /**
- * Finestra informativa: cosa mostra il grafo, come è stato costruito, quali
- * sono i limiti dichiarati del modello e come citare il progetto.
+ * Finestra "Il progetto": cosa mostra la mappa, come leggerla, come citarla e
+ * chi l'ha realizzata. È pensata per chi arriva senza conoscere la PDND, quindi
+ * parte dal significato e lascia in fondo autore e collegamenti tecnici.
  */
 
-function ContactLink({ href, icon, children, ...props }) {
-  return (
-    <a href={href} {...props}
-      style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 13, color: "var(--ink-muted)", textDecoration: "none", padding: "8px 12px", borderRadius: 6, background: "rgba(30,40,60,.4)", border: "1px solid rgba(100,160,220,.06)", transition: "all .2s" }}
-      onMouseEnter={e => { e.currentTarget.style.borderColor = "rgba(100,160,220,.2)"; e.currentTarget.style.color = "var(--ink)"; }}
-      onMouseLeave={e => { e.currentTarget.style.borderColor = "rgba(100,160,220,.06)"; e.currentTarget.style.color = "var(--ink-muted)"; }}
-    >
-      <span style={{ fontSize: 16 }}>{icon}</span>
-      <span>{children}</span>
-    </a>
-  );
-}
+import { useEffect } from "react";
+import Termine from "./Termine";
+import { useIsMobile } from "../utils/useIsMobile";
 
-function Badge({ color, children }) {
+function Section({ label, children }) {
   return (
-    <span style={{ fontSize: 11, padding: "3px 10px", borderRadius: 4, background: `${color}18`, color, fontWeight: 600 }}>
+    <div style={{ borderTop: "1px solid rgba(100,160,220,.1)", paddingTop: 16, marginBottom: 16 }}>
+      <div style={{ fontSize: 11, fontWeight: 700, color: "var(--ink-faint)", textTransform: "uppercase", letterSpacing: .8, marginBottom: 10 }}>{label}</div>
       {children}
-    </span>
-  );
-}
-
-export default function AboutModal({ onClose }) {
-  return (
-    <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, zIndex: 100, display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(0,0,0,.6)", backdropFilter: "blur(8px)" }} onClick={onClose}>
-      <div style={{ background: "linear-gradient(145deg,#131a2e,#0f1623)", border: "1px solid rgba(100,160,220,.2)", borderRadius: 16, padding: "32px 36px", maxWidth: 460, width: "92%", position: "relative" }} onClick={e => e.stopPropagation()}>
-        <button onClick={onClose} style={{ position: "absolute", top: 14, right: 16, background: "none", border: "none", color: "var(--ink-faint)", fontSize: 18, cursor: "pointer", lineHeight: 1 }}>✕</button>
-
-        {/* App identity */}
-        <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 20 }}>
-          <div style={{ width: 48, height: 48, borderRadius: 12, background: "linear-gradient(135deg,#06d6a0,var(--pa-blue))", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22, fontWeight: 800, color: "#fff", flexShrink: 0 }}>P</div>
-          <div>
-            <div style={{ fontSize: 20, fontWeight: 700, color: "#f1f5f9" }}>PDND E-Services Graph</div>
-            <div style={{ fontSize: 12, color: "var(--ink-faint)", marginTop: 2 }}>Mappa interattiva dell'interoperabilità tra le PA italiane</div>
-          </div>
-        </div>
-
-        {/* Version badges */}
-        <div style={{ display: "flex", gap: 8, marginBottom: 22 }}>
-          <Badge color="#06d6a0">v2.0.0</Badge>
-          <Badge color="#8338ec">Open Source</Badge>
-          <Badge color="#ef476f">AGPL-3.0</Badge>
-        </div>
-
-        {/* Author */}
-        <Section label="Autore">
-          <div style={{ fontSize: 16, fontWeight: 700, color: "#f1f5f9", marginBottom: 12 }}>Francesco Del Re</div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-            <ContactLink href="mailto:francesco.delre.87@gmail.com" icon="✉">
-              francesco.delre.87@gmail.com
-            </ContactLink>
-            <ContactLink href="https://github.com/engineering87" target="_blank" rel="noopener" icon="⌂">
-              github.com/engineering87
-            </ContactLink>
-            <ContactLink href="https://www.linkedin.com/in/francesco-delre/" target="_blank" rel="noopener" icon="in">
-              LinkedIn
-            </ContactLink>
-          </div>
-        </Section>
-
-        {/* Repository */}
-        <Section label="Repository">
-          <a href="https://github.com/engineering87/pdnd-eservices-graph" target="_blank" rel="noopener" style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 13, color: "#64b5f6", textDecoration: "none", padding: "8px 12px", borderRadius: 6, background: "rgba(30,40,60,.4)", border: "1px solid rgba(100,160,220,.06)" }}>
-            <span style={{ fontSize: 16 }}>📂</span>
-            <span style={{ wordBreak: "break-all" }}>github.com/engineering87/pdnd-eservices-graph</span>
-          </a>
-        </Section>
-
-        {/* Publication */}
-        <Section label="Pubblicazione">
-          <a href="https://doi.org/10.5281/zenodo.19989954" target="_blank" rel="noopener" style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 13, color: "var(--cite)", textDecoration: "none", padding: "8px 12px", borderRadius: 6, background: "rgba(255,209,102,.06)", border: "1px solid rgba(255,209,102,.18)" }}>
-            <span style={{ fontSize: 16 }}>📄</span>
-            <span style={{ wordBreak: "break-all" }}>Del Re, F. (2026). Zenodo. doi:10.5281/zenodo.19989954</span>
-          </a>
-        </Section>
-
-        {/* Data source */}
-        <div style={{ borderTop: "1px solid rgba(100,160,220,.1)", paddingTop: 18 }}>
-          <div style={{ fontSize: 10, fontWeight: 700, color: "var(--ink-faint)", textTransform: "uppercase", letterSpacing: .8, marginBottom: 10 }}>Dati</div>
-          <div style={{ fontSize: 12, color: "var(--ink-muted)", lineHeight: 1.6 }}>
-            Enti e e-services da{" "}
-            <a href="https://github.com/italia/pdnd-opendata" target="_blank" rel="noopener" style={{ color: "#64b5f6", textDecoration: "none" }}>italia/pdnd-opendata</a>{" "}
-            <span style={{ padding: "1px 6px", borderRadius: 3, background: "rgba(6,214,160,.1)", color: "#06d6a0", fontSize: 9, fontWeight: 600 }}>CC0 1.0</span>
-          </div>
-          <div style={{ fontSize: 11, color: "var(--ink-faint)", marginTop: 6 }}>
-            Connessioni dalle statistiche ufficiali di uso, dal catalogo e da documentazione pubblica, con provenienza dichiarata per ogni arco.
-          </div>
-        </div>
-      </div>
     </div>
   );
 }
 
-function Section({ label, children }) {
+function Riga({ simbolo, children }) {
   return (
-    <div style={{ borderTop: "1px solid rgba(100,160,220,.1)", paddingTop: 18, marginBottom: 18 }}>
-      <div style={{ fontSize: 10, fontWeight: 700, color: "var(--ink-faint)", textTransform: "uppercase", letterSpacing: .8, marginBottom: 10 }}>{label}</div>
-      {children}
+    <div style={{ display: "flex", gap: 10, alignItems: "flex-start", marginBottom: 9, fontSize: 13.5, color: "var(--ink-muted)", lineHeight: 1.55 }}>
+      <span aria-hidden="true" style={{ width: 26, flexShrink: 0, textAlign: "center", color: "var(--pa-blue)", fontSize: 15 }}>{simbolo}</span>
+      <span>{children}</span>
+    </div>
+  );
+}
+
+const linkStile = { color: "var(--pa-blue)", textDecoration: "none", fontSize: 13 };
+
+export default function AboutModal({ onClose, onWelcome }) {
+  const m = useIsMobile();
+
+  useEffect(() => {
+    const esc = (e) => { if (e.key === "Escape") onClose(); };
+    window.addEventListener("keydown", esc);
+    return () => window.removeEventListener("keydown", esc);
+  }, [onClose]);
+
+  return (
+    <div role="dialog" aria-modal="true" aria-labelledby="titolo-progetto"
+      style={{ position: "fixed", inset: 0, zIndex: 100, display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(0,0,0,.6)", backdropFilter: "blur(8px)", padding: 12 }}
+      onClick={onClose}>
+      <div style={{ background: "linear-gradient(145deg,#131a2e,#0f1623)", border: "1px solid rgba(100,160,220,.2)", borderRadius: 16, padding: m ? "22px 20px" : "30px 34px", maxWidth: 560, width: "100%", maxHeight: "92vh", overflowY: "auto", position: "relative" }} onClick={e => e.stopPropagation()}>
+        <button onClick={onClose} aria-label="Chiudi" style={{ position: "absolute", top: 14, right: 16, background: "none", border: "none", color: "var(--ink-faint)", fontSize: 20, cursor: "pointer", lineHeight: 1 }}>✕</button>
+
+        <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 16 }}>
+          <img src="/logo.svg" alt="" width={46} height={46} style={{ borderRadius: 10, flexShrink: 0 }} />
+          <div>
+            <h2 id="titolo-progetto" style={{ fontSize: 20, fontWeight: 700, color: "#f1f5f9" }}>PDND E-Services Graph</h2>
+            <div style={{ fontSize: 12.5, color: "var(--ink-faint)", marginTop: 2 }}>La rete dei dati fra le Pubbliche Amministrazioni italiane</div>
+          </div>
+        </div>
+
+        <p style={{ fontSize: 14, color: "#cbd5e1", lineHeight: 1.65, marginBottom: 16 }}>
+          Le amministrazioni pubbliche si scambiano dati attraverso la <Termine id="pdnd">PDND</Termine>, così cittadini
+          e imprese non devono fornire più volte le stesse informazioni. Questa mappa mostra quali enti offrono servizi
+          di scambio dati, gli <Termine id="eservice">e-service</Termine>, e quali enti li usano. È costruita
+          solo su dati pubblici, con la fonte dichiarata per ogni legame.
+        </p>
+
+        <Section label="Come leggere la mappa">
+          <Riga simbolo="●">Ogni cerchio è un ente, come INPS o l'Agenzia delle Entrate, oppure una <Termine id="classe">classe di enti</Termine>, come tutti i Comuni. Il colore indica il tipo di ente.</Riga>
+          <Riga simbolo="→">Una linea va dall'ente che offre i dati (<Termine id="erogatore">erogatore</Termine>) a quello che li usa (<Termine id="fruitore">fruitore</Termine>). Più è spessa, più servizi li collegano.</Riga>
+          <Riga simbolo="┄">Le linee azzurre indicano un uso reale registrato dalla PDND; quelle tratteggiate sono ricostruzioni o stime. La legenda della <Termine id="provenienza">provenienza</Termine> permette di filtrarle.</Riga>
+          <Riga simbolo="☰">La scheda «Chi usa cosa» elenca le stesse relazioni in tabella, con filtri e download.</Riga>
+          {onWelcome && (
+            <button type="button" onClick={onWelcome} style={{ marginTop: 6, padding: "8px 14px", borderRadius: 6, border: "1px solid var(--pa-blue)", background: "var(--pa-blue-soft)", color: "var(--ink)", fontFamily: "inherit", fontSize: 13, fontWeight: 600, cursor: "pointer" }}>
+              Rivedi l'introduzione
+            </button>
+          )}
+        </Section>
+
+        <Section label="Come citare">
+          <div style={{ padding: "12px 14px", borderRadius: 8, background: "rgba(212,168,67,.07)", border: "1px solid rgba(212,168,67,.3)", fontSize: 13, color: "var(--ink-muted)", lineHeight: 1.6 }}>
+            Se usi la mappa, i dati o le immagini in un lavoro, una tesi o una presentazione, cita:
+            <div style={{ color: "var(--ink)", marginTop: 6 }}>
+              Del Re, F. (2026). <em>The PDND E-Service Network: A Graph-Based Model from Italian Open Government Data</em>. Zenodo.{" "}
+              <a href="https://doi.org/10.5281/zenodo.19989954" target="_blank" rel="noopener" style={{ color: "var(--cite)" }}>doi:10.5281/zenodo.19989954</a>
+            </div>
+          </div>
+        </Section>
+
+        <Section label="Dati e limiti">
+          <div style={{ fontSize: 13, color: "var(--ink-muted)", lineHeight: 1.6 }}>
+            Enti, servizi e statistiche d'uso vengono dai dati aperti ufficiali{" "}
+            <a href="https://github.com/italia/pdnd-opendata" target="_blank" rel="noopener" style={linkStile}>italia/pdnd-opendata</a> (CC0 1.0).
+            La PDND non pubblica le coppie puntuali fra enti: la mappa le ricostruisce e dichiara per ognuna da dove viene.
+            È una fotografia a una data precisa e una selezione degli enti, non l'intera piattaforma. Il dettaglio è nella scheda Metodologia.
+          </div>
+        </Section>
+
+        <Section label="Autore e progetto">
+          <div style={{ fontSize: 14, fontWeight: 700, color: "#f1f5f9", marginBottom: 8 }}>Francesco Del Re</div>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "6px 16px" }}>
+            <a href="mailto:francesco.delre.87@gmail.com" style={linkStile}>Email</a>
+            <a href="https://github.com/engineering87" target="_blank" rel="noopener" style={linkStile}>GitHub</a>
+            <a href="https://www.linkedin.com/in/francesco-delre/" target="_blank" rel="noopener" style={linkStile}>LinkedIn</a>
+            <a href="https://github.com/engineering87/pdnd-eservices-graph" target="_blank" rel="noopener" style={linkStile}>Codice sorgente</a>
+          </div>
+          <div style={{ fontSize: 11.5, color: "var(--ink-faint)", marginTop: 10 }}>
+            Versione 2.0.0 · Software libero, licenza AGPL-3.0 con obbligo di attribuzione
+          </div>
+        </Section>
+      </div>
     </div>
   );
 }

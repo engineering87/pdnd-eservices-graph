@@ -87,13 +87,18 @@ I nodi ad alta centralità sono quelli la cui indisponibilità avrebbe effetto s
 
 ## Funzionalità
 
+**Primo accesso**
+- Schermata di benvenuto con i numeri ufficiali della PDND e domande pronte ("Quali servizi usano i Comuni?", "Qual è il servizio più usato?"…)
+- Finestra **Il progetto** con cosa mostra la mappa, come leggerla e come citarla
+- Parole tecniche spiegate in una riga al passaggio del mouse o al tocco, e un glossario nella Guida
+
 **Esplorazione**
 - Grafo force-directed interattivo: trascinamento dei nodi, zoom con la rotella, spostamento della vista
 - Filtro per categoria dalla legenda e ricerca testuale degli enti
 - Pannello dettagli con gli e-service erogati e fruiti da ogni ente e, per le classi, il numero di aderenti
 - Link diretti a ogni vista e a ogni ente, per esempio [pdndgraph.it/ente/inps](https://www.pdndgraph.it/ente/inps)
 
-**Chi usa cosa** (scheda Esplora)
+**Chi usa cosa** (scheda omonima)
 - Tutte le relazioni erogatore → e-service → fruitore in tabella, filtrabili per erogatore, fruitore, categoria, provenienza e testo
 - Riepilogo raggruppato per erogatore, fruitore, categoria, e-service o provenienza, con enti abilitati e sessioni osservate
 - Percorsi pronti ("Cosa usano i Comuni", "Chi usa i servizi ANPR"…), viste filtrate condivisibili via link e download in CSV
@@ -106,7 +111,7 @@ I nodi ad alta centralità sono quelli la cui indisponibilità avrebbe effetto s
 - Filtro per provenienza, dal menu o dalla legenda: per esempio solo l'uso osservato ([pdndgraph.it/?archi=osservata](https://www.pdndgraph.it/?archi=osservata)) o solo le fonti ufficiali
 - Enti abilitati e sessioni di scambio degli e-service, dove i dati ufficiali li riportano
 
-**Statistiche ed esportazione**
+**Numeri ed esportazione** (scheda Numeri)
 - E-service più adottati e più usati, archi per provenienza, classi di enti
 - Analisi di rete: matrice erogatori × classi di enti raggiunte, enti ponte (centralità di intermediazione), reciprocità e distribuzione dei gradi
 - Esportazione in GraphML, GEXF e CSV direttamente dal browser
@@ -236,7 +241,7 @@ Il report di esecuzione (`pipeline/last-run-report.md`) riporta il numero di rig
 
 ## Esportazione dei dati
 
-Il modello è disponibile in formati standard per l'analisi di rete, senza dover interpretare il JSON del progetto. I file sono nella cartella [`exports/`](exports/), rigenerabile con `npm run export`, e si scaricano anche dalla scheda **Statistiche** dell'app, che li genera nel browser senza chiamate di rete.
+Il modello è disponibile in formati standard per l'analisi di rete, senza dover interpretare il JSON del progetto. I file sono nella cartella [`exports/`](exports/), rigenerabile con `npm run export`, e si scaricano anche dalla scheda **Numeri** dell'app, che li genera nel browser senza chiamate di rete.
 
 | Formato | File | Aperto con |
 |---|---|---|

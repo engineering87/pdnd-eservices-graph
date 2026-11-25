@@ -335,7 +335,7 @@ catalogo, uno per ciascun ente che lo pubblica.
   misurata dallo script `compare-catalog`. Il gap residuo (~11%) è composto in
   larga parte da producer regionali con pochi endpoint, da società partecipate
   e da enti molto specifici fuori scope per il modello attuale.
-- L'avvertenza compare anche nell'app: nella vista **Statistiche** una nota
+- L'avvertenza compare anche nell'app: nella scheda **Numeri** una nota
   ricorda che alcuni record sono tipi di servizio; nel pannello dettagli del nodo
   *Comuni (aggregati)* compare un avviso analogo.
 

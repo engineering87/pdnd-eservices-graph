@@ -51,7 +51,8 @@ function Source({ name, url, desc, type }) {
 
 export default function MethodologyView() {
   return (
-    <div style={{ flex: 1, overflowY: "auto", padding: "24px 28px", maxWidth: 800 }}>
+    <div style={{ flex: 1, overflowY: "auto", padding: "24px 20px" }}>
+    <div style={{ maxWidth: 800, margin: "0 auto" }}>
       <div style={{ fontSize: 10, color: "var(--ink-faint)", textTransform: "uppercase", letterSpacing: 1, marginBottom: 6 }}>Trasparenza metodologica</div>
       <div style={{ fontSize: 22, fontWeight: 700, color: "#f1f5f9", marginBottom: 6 }}>Come sono stati costruiti i dati</div>
       <div style={{ fontSize: 13, color: "var(--ink-faint)", marginBottom: 28, lineHeight: 1.6 }}>
@@ -224,6 +225,7 @@ export default function MethodologyView() {
           <a href="https://github.com/engineering87/pdnd-eservices-graph/issues" target="_blank" rel="noopener" style={{ color: "#64b5f6", textDecoration: "none" }}>Issue su GitHub</a>.
         </div>
       </div>
+    </div>
     </div>
   );
 }

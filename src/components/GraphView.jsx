@@ -42,6 +42,8 @@ const VISTE_ARCHI = [
 // Archi del modello con id di erogatore e fruitore, mai mutati dalla simulazione.
 const ARCHI_BASE = buildGraph(PDND_DATA).links.map((l) => ({ source: l.source, target: l.target, origine: l.origine }));
 
+const TOT_LEGAMI = new Set(ARCHI_BASE.map((l) => `${l.source}->${l.target}`)).size;
+
 function vistaDi(origini) {
   const chiave = [...origini].sort().join(",");
   return VISTE_ARCHI.find((v) => [...v.origini].sort().join(",") === chiave)?.id || "personalizzata";
@@ -404,7 +406,7 @@ export default function GraphView({ entityId = null, onEntityChange, onOpenEserv
     <div style={{ flex: 1, minHeight: 0, display: "flex", flexDirection: "column", position: "relative", overflow: "hidden" }}>
       {/* Toolbar */}
       <div style={{ display: "flex", alignItems: "center", gap: 8, padding: m ? "6px 10px" : "6px 20px", background: "rgba(15,20,35,.5)", borderBottom: "1px solid rgba(100,160,220,.06)", flexWrap: "wrap", zIndex: 10 }}>
-        <input type="text" placeholder="Cerca ente..." value={search} onChange={e => setSearch(e.target.value)} style={{ background: "rgba(30,40,60,.8)", border: "1px solid rgba(100,160,220,.2)", borderRadius: 6, padding: "5px 10px", color: "var(--ink)", fontSize: 12, outline: "none", width: m ? 120 : 160, flex: m ? 1 : undefined }} />
+        <input type="text" placeholder="Cerca un ente…" aria-label="Cerca un ente" value={search} onChange={e => setSearch(e.target.value)} style={{ background: "rgba(30,40,60,.8)", border: "1px solid rgba(100,160,220,.2)", borderRadius: 6, padding: "5px 10px", color: "var(--ink)", fontSize: 12, outline: "none", width: m ? 120 : 160, flex: m ? 1 : undefined }} />
         <select value={filterCat} onChange={e => setFilterCat(e.target.value)} style={{ background: "rgba(30,40,60,.8)", border: "1px solid rgba(100,160,220,.2)", borderRadius: 6, padding: "5px 8px", color: "var(--ink)", fontSize: m ? 11 : 12, outline: "none" }}>{cats.map(c => <option key={c} value={c}>{c}</option>)}</select>
         <select
           value={vistaDi(origini)}
@@ -417,7 +419,7 @@ export default function GraphView({ entityId = null, onEntityChange, onOpenEserv
         </select>
         {filtroArchi && (
           <span style={{ fontSize: 11, color: "var(--ink-faint)" }}>
-            <span className="tabular" style={{ color: "#4fc3f7", fontWeight: 600 }}>{visibili.archi}</span> archi distinti visibili
+            <span className="tabular" style={{ color: "#4fc3f7", fontWeight: 600 }}>{visibili.archi}</span> legami visibili su {TOT_LEGAMI}
           </span>
         )}
       </div>
@@ -430,24 +432,24 @@ export default function GraphView({ entityId = null, onEntityChange, onOpenEserv
       <div style={{ flex: 1, minHeight: 0, position: "relative" }}>
         <canvas ref={canvasRef} width={dim.w * 2} height={dim.h * 2}
           role="img"
-          aria-label="Grafo dell'interoperabilità tra Pubbliche Amministrazioni sulla PDND. Il contenuto del grafo è disponibile in forma testuale nella sezione Statistiche."
+          aria-label="Grafo dell'interoperabilità tra Pubbliche Amministrazioni sulla PDND. Il contenuto del grafo è disponibile in forma testuale nelle schede «Chi usa cosa» e Numeri."
           style={{ width: "100%", height: "100%", cursor: "grab", touchAction: "none" }}
           onMouseDown={onMD} onMouseMove={onMM} onMouseUp={onMU} onMouseLeave={onMU}
         />
 
         {/* Legend */}
-        <div className="graph-legend-desktop" style={{ position: "absolute", bottom: 12, left: 12, zIndex: 5, background: "rgba(10,14,26,.88)", borderRadius: 8, border: "1px solid rgba(100,160,220,.1)", padding: "8px 12px", display: "flex", flexWrap: "wrap", gap: "4px 12px", maxWidth: 380 }}>
+        <div className="graph-legend-desktop" style={{ position: "absolute", bottom: 12, left: 12, zIndex: 5, background: "rgba(10,14,26,.88)", borderRadius: 8, border: "1px solid rgba(100,160,220,.1)", padding: "10px 14px", display: "flex", flexWrap: "wrap", gap: "5px 14px", maxWidth: 460 }}>
             {Object.entries(CATEGORY_COLORS).map(([cat, col]) => (
-              <div key={cat} style={{ display: "flex", alignItems: "center", gap: 4, fontSize: 9, cursor: "pointer", opacity: filterCat === "Tutte" || filterCat === cat ? 1 : .4 }} onClick={() => setFilterCat(filterCat === cat ? "Tutte" : cat)}>
-                <div style={{ width: 7, height: 7, borderRadius: "50%", background: col }} />
+              <div key={cat} style={{ display: "flex", alignItems: "center", gap: 5, fontSize: 11, cursor: "pointer", opacity: filterCat === "Tutte" || filterCat === cat ? 1 : .4 }} onClick={() => setFilterCat(filterCat === cat ? "Tutte" : cat)}>
+                <div style={{ width: 9, height: 9, borderRadius: "50%", background: col }} />
                 <span style={{ color: "var(--ink-muted)" }}>{cat}</span>
               </div>
           ))}
         </div>
 
         {/* Legenda provenienza archi */}
-        <div className="graph-legend-desktop" style={{ position: "absolute", bottom: 12, right: 12, zIndex: 5, background: "rgba(10,14,26,.88)", borderRadius: 8, border: "1px solid rgba(100,160,220,.1)", padding: "8px 12px", display: "flex", flexDirection: "column", gap: 5, fontSize: 9, color: "var(--ink-muted)" }}>
-            <div style={{ fontSize: 8, textTransform: "uppercase", letterSpacing: .6, color: "var(--ink-faint)", marginBottom: 1 }}>Provenienza archi · clic per filtrare</div>
+        <div className="graph-legend-desktop" style={{ position: "absolute", bottom: 12, right: 12, zIndex: 5, background: "rgba(10,14,26,.88)", borderRadius: 8, border: "1px solid rgba(100,160,220,.1)", padding: "8px 12px", display: "flex", flexDirection: "column", gap: 6, fontSize: 11, color: "var(--ink-muted)" }}>
+            <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: .6, color: "var(--ink-faint)", marginBottom: 2 }}>Da dove viene il legame · clic per filtrare</div>
             {[
               ["documentata", "Documentata", "rgba(100,160,220,.9)", null, 1.6],
               ["osservata", "Osservata (uso reale)", "rgba(79,195,247,1)", null, 1.8],
@@ -459,7 +461,7 @@ export default function GraphView({ entityId = null, onEntityChange, onOpenEserv
               return (
                 <button key={o} type="button" onClick={() => toggleOrigine(o)} aria-pressed={on}
                   title={on ? `Nascondi gli archi di provenienza ${ORIGIN_STYLES[o].nome.toLowerCase()}` : `Mostra gli archi di provenienza ${ORIGIN_STYLES[o].nome.toLowerCase()}`}
-                  style={{ display: "flex", alignItems: "center", gap: 6, background: "none", border: "none", padding: 0, cursor: "pointer", fontFamily: "inherit", fontSize: 9, color: "var(--ink-muted)", opacity: on ? 1 : .35, textAlign: "left" }}>
+                  style={{ display: "flex", alignItems: "center", gap: 6, background: "none", border: "none", padding: 0, cursor: "pointer", fontFamily: "inherit", fontSize: 11, color: "var(--ink-muted)", opacity: on ? 1 : .35, textAlign: "left" }}>
                   <svg width="22" height="6" aria-hidden="true"><line x1="0" y1="3" x2="22" y2="3" stroke={stroke} strokeWidth={sw} strokeDasharray={dash || undefined} /></svg>
                   <span style={{ textDecoration: on ? "none" : "line-through" }}>{label}</span>
                 </button>
@@ -501,15 +503,15 @@ export default function GraphView({ entityId = null, onEntityChange, onOpenEserv
                 </div>
               )}
               <div style={{ display: "flex", gap: 8, marginBottom: 16 }}>
-                {[["Erogati", selNode.erogati, "#06d6a0"], ["Fruiti", selNode.fruiti, "var(--pa-blue)"], ["Conn.", selNode.totalConnections, "#ef476f"]].map(([l, v, c]) => (
-                  <div key={l} style={{ flex: 1, textAlign: "center", padding: "6px 2px", background: "rgba(30,40,60,.5)", borderRadius: 6, border: `1px solid ${c}22` }}><div style={{ fontSize: 16, fontWeight: 800, color: c }}>{v}</div><div style={{ fontSize: 8, color: "var(--ink-faint)", textTransform: "uppercase", letterSpacing: .5 }}>{l}</div></div>
+                {[["Servizi offerti", selNode.erogati, "#06d6a0"], ["Servizi usati", selNode.fruiti, "var(--pa-blue)"], ["Legami", selNode.totalConnections, "#ef476f"]].map(([l, v, c]) => (
+                  <div key={l} style={{ flex: 1, textAlign: "center", padding: "6px 2px", background: "rgba(30,40,60,.5)", borderRadius: 6, border: `1px solid ${c}22` }}><div style={{ fontSize: 16, fontWeight: 800, color: c }}>{v}</div><div style={{ fontSize: 9.5, color: "var(--ink-faint)", textTransform: "uppercase", letterSpacing: .5 }}>{l}</div></div>
                 ))}
               </div>
-              {selNode.servizi_erogati?.length > 0 && <div style={{ marginBottom: 14 }}><div style={{ fontSize: 10, fontWeight: 700, color: "#06d6a0", textTransform: "uppercase", letterSpacing: .8, marginBottom: 6 }}>E-Services Erogati ({selNode.servizi_erogati.length})</div>{selNode.servizi_erogati.map(es => (
-                <div key={es.id} style={{ padding: "6px 8px", marginBottom: 3, borderRadius: 5, background: "rgba(6,214,160,.05)", border: "1px solid rgba(6,214,160,.08)", fontSize: 11 }}><button type="button" onClick={() => onOpenEservice?.(es.id)} title="Apri la scheda dell'e-service" style={{ fontWeight: 600, background: "none", border: "none", padding: 0, color: "inherit", font: "inherit", textAlign: "left", cursor: "pointer", textDecoration: "underline", textDecorationColor: "rgba(120,160,210,.3)", textUnderlineOffset: 2 }}>{es.nome}</button>{es.descrizione && <div style={{ color: "var(--ink-faint)", fontSize: 9, marginTop: 1 }}>{es.descrizione}</div>}<div style={{ color: "#4a6a5a", fontSize: 9, marginTop: 2 }}>v{es.versione} · {es.stato} · {es.fruitori.length} fruitori{es.enti_abilitati_min ? ` · ≥${es.enti_abilitati_min.toLocaleString("it-IT")} enti abilitati` : ""}{es.sessioni_min ? ` · ≥${(es.sessioni_min / 1e6).toLocaleString("it-IT", { maximumFractionDigits: 1 })} M sessioni` : ""}</div></div>
+              {selNode.servizi_erogati?.length > 0 && <div style={{ marginBottom: 14 }}><div style={{ fontSize: 11, fontWeight: 700, color: "#06d6a0", textTransform: "uppercase", letterSpacing: .8, marginBottom: 6 }}>Servizi che offre ({selNode.servizi_erogati.length})</div>{selNode.servizi_erogati.map(es => (
+                <div key={es.id} style={{ padding: "6px 8px", marginBottom: 3, borderRadius: 5, background: "rgba(6,214,160,.05)", border: "1px solid rgba(6,214,160,.08)", fontSize: 12 }}><button type="button" onClick={() => onOpenEservice?.(es.id)} title="Apri la scheda dell'e-service" style={{ fontWeight: 600, background: "none", border: "none", padding: 0, color: "inherit", font: "inherit", textAlign: "left", cursor: "pointer", textDecoration: "underline", textDecorationColor: "rgba(120,160,210,.3)", textUnderlineOffset: 2 }}>{es.nome}</button>{es.descrizione && <div style={{ color: "var(--ink-faint)", fontSize: 10.5, marginTop: 1 }}>{es.descrizione}</div>}<div style={{ color: "#4a6a5a", fontSize: 10.5, marginTop: 2 }}>v{es.versione} · {es.stato} · {es.fruitori.length} fruitori{es.enti_abilitati_min ? ` · ≥${es.enti_abilitati_min.toLocaleString("it-IT")} enti abilitati` : ""}{es.sessioni_min ? ` · ≥${(es.sessioni_min / 1e6).toLocaleString("it-IT", { maximumFractionDigits: 1 })} M sessioni` : ""}</div></div>
               ))}</div>}
-              {selNode.servizi_fruiti?.length > 0 && <div><div style={{ fontSize: 10, fontWeight: 700, color: "var(--pa-blue)", textTransform: "uppercase", letterSpacing: .8, marginBottom: 6 }}>E-Services Fruiti ({selNode.servizi_fruiti.length})</div>{selNode.servizi_fruiti.map(es => { const er = PDND_DATA.enti.find(e => e.id === es.erogatore); return (
-                <div key={es.id + selNode.id} style={{ padding: "6px 8px", marginBottom: 3, borderRadius: 5, background: "rgba(17,138,178,.05)", border: "1px solid rgba(17,138,178,.08)", fontSize: 11 }}><button type="button" onClick={() => onOpenEservice?.(es.id)} title="Apri la scheda dell'e-service" style={{ fontWeight: 600, background: "none", border: "none", padding: 0, color: "inherit", font: "inherit", textAlign: "left", cursor: "pointer", textDecoration: "underline", textDecorationColor: "rgba(120,160,210,.3)", textUnderlineOffset: 2 }}>{es.nome}</button><div style={{ color: "var(--ink-faint)", fontSize: 9, marginTop: 1 }}>da {er?.name} · v{es.versione}</div></div>
+              {selNode.servizi_fruiti?.length > 0 && <div><div style={{ fontSize: 11, fontWeight: 700, color: "var(--pa-blue)", textTransform: "uppercase", letterSpacing: .8, marginBottom: 6 }}>Servizi che usa ({selNode.servizi_fruiti.length})</div>{selNode.servizi_fruiti.map(es => { const er = PDND_DATA.enti.find(e => e.id === es.erogatore); return (
+                <div key={es.id + selNode.id} style={{ padding: "6px 8px", marginBottom: 3, borderRadius: 5, background: "rgba(17,138,178,.05)", border: "1px solid rgba(17,138,178,.08)", fontSize: 12 }}><button type="button" onClick={() => onOpenEservice?.(es.id)} title="Apri la scheda dell'e-service" style={{ fontWeight: 600, background: "none", border: "none", padding: 0, color: "inherit", font: "inherit", textAlign: "left", cursor: "pointer", textDecoration: "underline", textDecorationColor: "rgba(120,160,210,.3)", textUnderlineOffset: 2 }}>{es.nome}</button><div style={{ color: "var(--ink-faint)", fontSize: 10.5, marginTop: 1 }}>da {er?.name} · v{es.versione}</div></div>
               ); })}</div>}
             </div>); })()}
           </div>

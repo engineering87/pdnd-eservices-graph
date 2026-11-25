@@ -1,5 +1,5 @@
 /**
- * Analisi di rete nella scheda Statistiche: matrice erogatori × classi di enti,
+ * Analisi di rete nella scheda Numeri: matrice erogatori × classi di enti,
  * centralità di intermediazione, reciprocità e distribuzione dei gradi.
  *
  * Tutte le misure usano gli archi distinti erogatore → fruitore. Le classi di
