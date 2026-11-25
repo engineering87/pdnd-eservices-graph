@@ -8,6 +8,7 @@ import { useIsMobile } from "../utils/useIsMobile";
 
 const TABS = [
   { id: "grafo", label: "Grafo" },
+  { id: "esplora", label: "Esplora" },
   { id: "statistiche", label: "Statistiche" },
   { id: "metodologia", label: "Metodologia" },
   { id: "guida", label: "Guida" },

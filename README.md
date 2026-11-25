@@ -93,6 +93,12 @@ I nodi ad alta centralità sono quelli la cui indisponibilità avrebbe effetto s
 - Pannello dettagli con gli e-service erogati e fruiti da ogni ente e, per le classi, il numero di aderenti
 - Link diretti a ogni vista e a ogni ente, per esempio [pdndgraph.it/ente/inps](https://www.pdndgraph.it/ente/inps)
 
+**Chi usa cosa** (scheda Esplora)
+- Tutte le relazioni erogatore → e-service → fruitore in tabella, filtrabili per erogatore, fruitore, categoria, provenienza e testo
+- Riepilogo raggruppato per erogatore, fruitore, categoria, e-service o provenienza, con enti abilitati e sessioni osservate
+- Percorsi pronti ("Cosa usano i Comuni", "Chi usa i servizi ANPR"…), viste filtrate condivisibili via link e download in CSV
+- Scheda di ogni e-service ([esempio](https://www.pdndgraph.it/eservice/pagopa_cfc8a94d)): erogatore, fruitori per provenienza, enti abilitati e sessioni, identificativo del catalogo, altri servizi dello stesso erogatore
+
 **Lettura dei dati**
 - Frecce direzionali erogatore→fruitore, spessore proporzionale ai servizi condivisi
 - Colori per famiglia istituzionale: Ministero, Regione, Previdenza, Fisco, Digitale e altre
@@ -101,6 +107,7 @@ I nodi ad alta centralità sono quelli la cui indisponibilità avrebbe effetto s
 
 **Statistiche ed esportazione**
 - E-service più adottati e più usati, archi per provenienza, classi di enti
+- Analisi di rete: matrice erogatori × classi di enti raggiunte, enti ponte (centralità di intermediazione), reciprocità e distribuzione dei gradi
 - Esportazione in GraphML, GEXF e CSV direttamente dal browser
 - Schede Metodologia e Guida integrate nell'app
 

@@ -6,12 +6,14 @@ import Footer from "./Footer";
 import AboutModal from "./AboutModal";
 import GraphView from "./GraphView";
 import StatsView from "./StatsView";
+import ExploreView from "./ExploreView";
+import EServiceView from "./EServiceView";
 import MethodologyView from "./MethodologyView";
 import GuideView from "./GuideView";
 import { useUrlState } from "../utils/useUrlState";
 
 export default function PDNDGraph() {
-  const [{ tab: activeTab, entityId }, navigate] = useUrlState();
+  const [{ tab: activeTab, entityId, eserviceId }, navigate] = useUrlState();
   const [showAbout, setShowAbout] = useState(false);
 
   const graphData = useMemo(() => buildGraph(PDND_DATA), []);
@@ -21,9 +23,20 @@ export default function PDNDGraph() {
   useEffect(() => {
     const base = "PDND E-Services Graph";
     const ente = entityId && PDND_DATA.enti.find(e => e.id === entityId);
-    const sezione = { statistiche: "Statistiche", metodologia: "Metodologia", guida: "Guida" }[activeTab];
-    document.title = ente ? `${ente.name} — ${base}` : sezione ? `${sezione} — ${base}` : base;
-  }, [activeTab, entityId]);
+    const es = activeTab === "eservice" && PDND_DATA.eservices.find(s => s.id === eserviceId);
+    const sezione = { esplora: "Esplora", statistiche: "Statistiche", metodologia: "Metodologia", guida: "Guida" }[activeTab];
+    document.title = es ? `${es.nome} — ${base}` : ente ? `${ente.name} — ${base}` : sezione ? `${sezione} — ${base}` : base;
+  }, [activeTab, entityId, eserviceId]);
+
+  // Navigazione condivisa fra le viste.
+  const apriEnte = (id) => navigate({ tab: "grafo", entityId: id });
+  const apriEservice = (id) => navigate({ tab: "eservice", entityId: null, eserviceId: id });
+  // Esplora legge i filtri dalla query string: la scriviamo prima di cambiare vista.
+  const apriEsplora = (query) => {
+    window.history.pushState({}, "", `/esplora${query ? `?${query}` : ""}`);
+    navigate({ tab: "esplora", entityId: null });
+  };
+  const indietro = () => (window.history.length > 1 ? window.history.back() : navigate({ tab: "esplora" }));
   const stats = useMemo(() => ({
     enti: PDND_DATA.enti.length,
     es: PDND_DATA.eservices.length,
@@ -49,9 +62,23 @@ export default function PDNDGraph() {
         <GraphView
           entityId={entityId}
           onEntityChange={(id) => navigate({ entityId: id })}
+          onOpenEservice={apriEservice}
         />
       )}
-      {activeTab === "statistiche" && <StatsView graphData={graphData} />}
+      {activeTab === "esplora" && (
+        <ExploreView onOpenEntity={apriEnte} onOpenEservice={apriEservice} />
+      )}
+      {activeTab === "eservice" && (
+        <EServiceView
+          key={eserviceId}
+          eserviceId={eserviceId}
+          onOpenEntity={apriEnte}
+          onOpenEservice={apriEservice}
+          onExplore={apriEsplora}
+          onBack={indietro}
+        />
+      )}
+      {activeTab === "statistiche" && <StatsView graphData={graphData} onOpenEservice={apriEservice} />}
       {activeTab === "metodologia" && <MethodologyView />}
       {activeTab === "guida" && <GuideView />}
 

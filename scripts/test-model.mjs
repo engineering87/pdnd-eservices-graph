@@ -399,6 +399,87 @@ check("le esportazioni nel repository sono allineate al dato", () => {
     : `${stantii.length} file non allineati (${stantii.map((s) => s[0]).join(", ")}): eseguire npm run export`;
 });
 
+console.log("\nEsplora e analisi di rete (relations.js, networkMetrics.js)");
+
+const rel = await import(pathToFileURL(path.join(ROOT, "src/utils/relations.js")).href);
+const net = await import(pathToFileURL(path.join(ROOT, "src/utils/networkMetrics.js")).href);
+const RIGHE = rel.flattenRelations(DATA);
+
+check("una riga per ogni arco del modello", () => {
+  const archi = DATA.eservices.reduce((a, s) => a + (s.archi || s.fruitori).length, 0);
+  return RIGHE.length === archi || `${RIGHE.length} righe, ${archi} archi`;
+});
+
+check("i filtri restringono senza perdere righe valide", () => {
+  const f = rel.filterRelations(RIGHE, { erogatore: "inps", origini: ["osservata", "certificata"] });
+  if (!f.length) return "nessuna riga per INPS";
+  if (f.some((r) => r.erogatore !== "inps" || !["osservata", "certificata"].includes(r.origine))) return "riga fuori filtro";
+  const attese = RIGHE.filter((r) => r.erogatore === "inps" && ["osservata", "certificata"].includes(r.origine)).length;
+  return f.length === attese || `${f.length} invece di ${attese}`;
+});
+
+check("la ricerca ignora maiuscole e accenti", () => {
+  const a = rel.filterRelations(RIGHE, { q: "anpr" }).length;
+  const b = rel.filterRelations(RIGHE, { q: "ANPR" }).length;
+  return (a > 0 && a === b) || `risultati diversi: ${a} / ${b}`;
+});
+
+check("i raggruppamenti sommano al totale delle righe", () => {
+  for (const per of Object.keys(rel.RAGGRUPPAMENTI)) {
+    const tot = rel.groupRelations(RIGHE, per).reduce((a, g) => a + g.relazioni, 0);
+    if (tot !== RIGHE.length) return `${per}: ${tot} invece di ${RIGHE.length}`;
+  }
+  return true;
+});
+
+check("il CSV delle relazioni ha una riga per relazione più l'intestazione", () => {
+  const righe = rel.relationsToCSV(RIGHE.slice(0, 20)).trim().split("\n");
+  return righe.length === 21 || `${righe.length} righe`;
+});
+
+check("gli archi distinti coincidono con la definizione della densità", () => {
+  const adj = net.distinctAdjacency(DATA);
+  const coppie = new Set();
+  DATA.eservices.forEach((s) => s.fruitori.forEach((f) => f !== s.erogatore && coppie.add(`${s.erogatore}->${f}`)));
+  const tot = [...adj.values()].reduce((a, s) => a + s.size, 0);
+  return tot === coppie.size || `${tot} invece di ${coppie.size}`;
+});
+
+check("betweenness corretta su un grafo noto (catena a→b→c)", () => {
+  const adj = new Map([["a", new Set(["b"])], ["b", new Set(["c"])], ["c", new Set()]]);
+  const bc = net.betweenness(adj);
+  // Un solo cammino a→c passa da b; normalizzazione (n-1)(n-2) = 2.
+  return (bc.get("b") === 0.5 && bc.get("a") === 0 && bc.get("c") === 0) || JSON.stringify([...bc]);
+});
+
+check("reciprocità corretta su un grafo noto", () => {
+  const adj = new Map([["a", new Set(["b"])], ["b", new Set(["a", "c"])], ["c", new Set()]]);
+  return net.reciprocity(adj) === 2 / 3 || String(net.reciprocity(adj));
+});
+
+console.log("\nRotte (useUrlState.js)");
+
+const rotte = await import(pathToFileURL(path.join(ROOT, "src/utils/useUrlState.js")).href);
+
+check("le rotte si leggono e si riscrivono senza perdite", () => {
+  const casi = ["/", "/esplora", "/statistiche", "/ente/inps", `/eservice/${DATA.eservices[0].id}`];
+  for (const p of casi) {
+    const back = rotte.buildPath(rotte.parseLocation(p));
+    if (back !== p) return `${p} → ${back}`;
+  }
+  return true;
+});
+
+check("la rotta di un e-service porta l'id e la scheda giusta", () => {
+  const s = rotte.parseLocation("/eservice/pagopa_cfc8a94d");
+  return (s.tab === "eservice" && s.eserviceId === "pagopa_cfc8a94d" && s.entityId === null) || JSON.stringify(s);
+});
+
+check("ogni e-service ha un id utilizzabile come rotta", () => {
+  const rotti = DATA.eservices.filter((s) => rotte.parseLocation(rotte.buildPath({ tab: "eservice", eserviceId: s.id })).eserviceId !== s.id);
+  return rotti.length === 0 || rotti.map((s) => s.id).slice(0, 5).join(", ");
+});
+
 const totale = passed + failures.length;
 console.log(
   `\n${failures.length === 0 ? "Tutti i test superati" : "Test falliti"}: ${passed}/${totale}\n`

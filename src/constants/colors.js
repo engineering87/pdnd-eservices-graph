@@ -24,6 +24,18 @@
  * si distinguono per luminosità, così la parentela resta leggibile. Le altre
  * otto classi di enti condividono un solo colore ("Classi aggregate").
  */
+/**
+ * Colori e nomi delle provenienze degli archi, condivisi da Statistiche ed
+ * Esplora. L'ordine è quello di forza della prova.
+ */
+export const ORIGIN_STYLES = {
+  documentata: { nome: "Documentata", colore: "#06d6a0" },
+  osservata: { nome: "Osservata", colore: "#4fc3f7" },
+  certificata: { nome: "Certificata", colore: "#64a0dc" },
+  ricostruita: { nome: "Ricostruita (v1)", colore: "#c49a9a" },
+  inferita: { nome: "Inferita (AI)", colore: "#ffd166" },
+};
+
 export const CATEGORY_COLORS = {
   // Territorio: numeroso, volutamente recessivo
   Regione: "#7089ad",

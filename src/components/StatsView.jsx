@@ -11,6 +11,7 @@ import { useMemo, useState } from "react";
 import PDND_DATA from "../data/pdnd-data.json";
 import { FORMATI } from "../utils/exportGraph";
 import { CATEGORY_COLORS } from "../constants/colors";
+import NetworkAnalysis from "./NetworkAnalysis";
 
 const ORIGINI = [
   ["documentata", "Documentata", "#06d6a0"],
@@ -32,11 +33,13 @@ function Card({ title, color, children }) {
   );
 }
 
-function Bar({ label, value, max, color, sub, display }) {
+function Bar({ label, value, max, color, sub, display, onClick }) {
   return (
     <div style={{ marginBottom: 10 }}>
       <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, marginBottom: 3 }}>
-        <span style={{ color: "#cbd5e1" }}>{label}</span>
+        {onClick
+          ? <button type="button" onClick={onClick} title="Apri la scheda dell'e-service" style={{ color: "#cbd5e1", background: "none", border: "none", padding: 0, font: "inherit", textAlign: "left", cursor: "pointer", textDecoration: "underline", textDecorationColor: "rgba(120,160,210,.3)", textUnderlineOffset: 2 }}>{label}</button>
+          : <span style={{ color: "#cbd5e1" }}>{label}</span>}
         <span style={{ color, fontWeight: 700 }}>{display ?? value}</span>
       </div>
       <div style={{ height: 6, background: "rgba(30,40,60,.6)", borderRadius: 3 }}>
@@ -47,7 +50,7 @@ function Bar({ label, value, max, color, sub, display }) {
   );
 }
 
-export default function StatsView({ graphData }) {
+export default function StatsView({ graphData, onOpenEservice }) {
   const { nodes } = graphData;
 
   const catStats = useMemo(() => {
@@ -126,14 +129,14 @@ export default function StatsView({ graphData }) {
         <Card title="E-services più fruiti" color="var(--cite)">
           {topEservices.map(es => {
             const erog = PDND_DATA.enti.find(e => e.id === es.erogatore);
-            return <Bar key={es.id} label={es.nome} value={es.fruitori.length} max={topEservices[0]?.fruitori.length || 1} color="var(--cite)" sub={`Erogato da ${erog?.name}`} />;
+            return <Bar key={es.id} onClick={() => onOpenEservice?.(es.id)} label={es.nome} value={es.fruitori.length} max={topEservices[0]?.fruitori.length || 1} color="var(--cite)" sub={`Erogato da ${erog?.name}`} />;
           })}
         </Card>
         <Card title="E-service più adottati (enti abilitati)" color="#4fc3f7">
-          {topAdottati.map(es => <Bar key={es.id} label={es.nome} value={es.enti_abilitati_min} display={fmt(es.enti_abilitati_min)} max={topAdottati[0]?.enti_abilitati_min || 1} color="#4fc3f7" sub={`Erogato da ${nomeEnte(es.erogatore)} · almeno`} />)}
+          {topAdottati.map(es => <Bar key={es.id} onClick={() => onOpenEservice?.(es.id)} label={es.nome} value={es.enti_abilitati_min} display={fmt(es.enti_abilitati_min)} max={topAdottati[0]?.enti_abilitati_min || 1} color="#4fc3f7" sub={`Erogato da ${nomeEnte(es.erogatore)} · almeno`} />)}
         </Card>
         <Card title="E-service più usati (sessioni di scambio)" color="#8338ec">
-          {topUsati.map(es => <Bar key={es.id} label={es.nome} value={es.sessioni_min} display={milioni(es.sessioni_min)} max={topUsati[0]?.sessioni_min || 1} color="#8338ec" sub={`Erogato da ${nomeEnte(es.erogatore)} · almeno`} />)}
+          {topUsati.map(es => <Bar key={es.id} onClick={() => onOpenEservice?.(es.id)} label={es.nome} value={es.sessioni_min} display={milioni(es.sessioni_min)} max={topUsati[0]?.sessioni_min || 1} color="#8338ec" sub={`Erogato da ${nomeEnte(es.erogatore)} · almeno`} />)}
         </Card>
         <Card title="Archi per provenienza" color="#64a0dc">
           {perOrigine.map(([nome, n, col]) => <Bar key={nome} label={nome} value={n} display={fmt(n)} max={Math.max(...perOrigine.map(x => x[1]))} color={col} />)}
@@ -146,6 +149,8 @@ export default function StatsView({ graphData }) {
           {catStats.map(([cat, count]) => <Bar key={cat} label={cat} value={count} max={catStats[0]?.[1] || 1} color={CATEGORY_COLORS[cat] || "#667"} />)}
         </Card>
       </div>
+
+      <NetworkAnalysis />
 
       <ExportSection />
     </div>

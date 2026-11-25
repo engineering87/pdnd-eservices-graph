@@ -68,6 +68,8 @@ export default function GuideView() {
         <Shortcut icon="↔" label="Trascina lo sfondo" desc="Clicca e trascina su un'area vuota per spostare l'intera vista del grafo (pan)." />
         <Shortcut icon="🏷" label="Click sulla legenda" desc="Filtra il grafo per categoria: vengono evidenziati solo gli enti della categoria selezionata. Clicca di nuovo per rimuovere il filtro." />
         <Shortcut icon="🔎" label="Barra di ricerca" desc="Cerca un ente per nome. I nodi non corrispondenti vengono attenuati." />
+        <Shortcut icon="☰" label="Scheda Esplora" desc="Chi usa cosa: tutte le relazioni in tabella, con filtri per erogatore, fruitore, categoria e provenienza, riepilogo raggruppato e download CSV. L'indirizzo della pagina conserva i filtri, così puoi condividere la vista." />
+        <Shortcut icon="▤" label="Scheda e-service" desc="Clicca il nome di un e-service nel pannello dettagli, in Esplora o nelle Statistiche: si apre la sua scheda con erogatore, fruitori per provenienza, dati d'uso ufficiali e gli altri servizi dello stesso ente." />
       </div>
 
       <div style={{ marginBottom: 32 }}>

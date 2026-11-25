@@ -33,7 +33,7 @@ function lgt(hex, amount) {
   return `rgb(${Math.max(0, Math.min(255, (n >> 16) + amount))},${Math.max(0, Math.min(255, ((n >> 8) & 0xff) + amount))},${Math.max(0, Math.min(255, (n & 0xff) + amount))})`;
 }
 
-export default function GraphView({ entityId = null, onEntityChange }) {
+export default function GraphView({ entityId = null, onEntityChange, onOpenEservice }) {
   const m = useIsMobile();
   const canvasRef = useRef(null);
   const [dim, setDim] = useState({ w: 960, h: 700 });
@@ -394,10 +394,10 @@ export default function GraphView({ entityId = null, onEntityChange }) {
                 ))}
               </div>
               {selNode.servizi_erogati?.length > 0 && <div style={{ marginBottom: 14 }}><div style={{ fontSize: 10, fontWeight: 700, color: "#06d6a0", textTransform: "uppercase", letterSpacing: .8, marginBottom: 6 }}>E-Services Erogati ({selNode.servizi_erogati.length})</div>{selNode.servizi_erogati.map(es => (
-                <div key={es.id} style={{ padding: "6px 8px", marginBottom: 3, borderRadius: 5, background: "rgba(6,214,160,.05)", border: "1px solid rgba(6,214,160,.08)", fontSize: 11 }}><div style={{ fontWeight: 600 }}>{es.nome}</div>{es.descrizione && <div style={{ color: "var(--ink-faint)", fontSize: 9, marginTop: 1 }}>{es.descrizione}</div>}<div style={{ color: "#4a6a5a", fontSize: 9, marginTop: 2 }}>v{es.versione} · {es.stato} · {es.fruitori.length} fruitori{es.enti_abilitati_min ? ` · ≥${es.enti_abilitati_min.toLocaleString("it-IT")} enti abilitati` : ""}{es.sessioni_min ? ` · ≥${(es.sessioni_min / 1e6).toLocaleString("it-IT", { maximumFractionDigits: 1 })} M sessioni` : ""}</div></div>
+                <div key={es.id} style={{ padding: "6px 8px", marginBottom: 3, borderRadius: 5, background: "rgba(6,214,160,.05)", border: "1px solid rgba(6,214,160,.08)", fontSize: 11 }}><button type="button" onClick={() => onOpenEservice?.(es.id)} title="Apri la scheda dell'e-service" style={{ fontWeight: 600, background: "none", border: "none", padding: 0, color: "inherit", font: "inherit", textAlign: "left", cursor: "pointer", textDecoration: "underline", textDecorationColor: "rgba(120,160,210,.3)", textUnderlineOffset: 2 }}>{es.nome}</button>{es.descrizione && <div style={{ color: "var(--ink-faint)", fontSize: 9, marginTop: 1 }}>{es.descrizione}</div>}<div style={{ color: "#4a6a5a", fontSize: 9, marginTop: 2 }}>v{es.versione} · {es.stato} · {es.fruitori.length} fruitori{es.enti_abilitati_min ? ` · ≥${es.enti_abilitati_min.toLocaleString("it-IT")} enti abilitati` : ""}{es.sessioni_min ? ` · ≥${(es.sessioni_min / 1e6).toLocaleString("it-IT", { maximumFractionDigits: 1 })} M sessioni` : ""}</div></div>
               ))}</div>}
               {selNode.servizi_fruiti?.length > 0 && <div><div style={{ fontSize: 10, fontWeight: 700, color: "var(--pa-blue)", textTransform: "uppercase", letterSpacing: .8, marginBottom: 6 }}>E-Services Fruiti ({selNode.servizi_fruiti.length})</div>{selNode.servizi_fruiti.map(es => { const er = PDND_DATA.enti.find(e => e.id === es.erogatore); return (
-                <div key={es.id + selNode.id} style={{ padding: "6px 8px", marginBottom: 3, borderRadius: 5, background: "rgba(17,138,178,.05)", border: "1px solid rgba(17,138,178,.08)", fontSize: 11 }}><div style={{ fontWeight: 600 }}>{es.nome}</div><div style={{ color: "var(--ink-faint)", fontSize: 9, marginTop: 1 }}>da {er?.name} · v{es.versione}</div></div>
+                <div key={es.id + selNode.id} style={{ padding: "6px 8px", marginBottom: 3, borderRadius: 5, background: "rgba(17,138,178,.05)", border: "1px solid rgba(17,138,178,.08)", fontSize: 11 }}><button type="button" onClick={() => onOpenEservice?.(es.id)} title="Apri la scheda dell'e-service" style={{ fontWeight: 600, background: "none", border: "none", padding: 0, color: "inherit", font: "inherit", textAlign: "left", cursor: "pointer", textDecoration: "underline", textDecorationColor: "rgba(120,160,210,.3)", textUnderlineOffset: 2 }}>{es.nome}</button><div style={{ color: "var(--ink-faint)", fontSize: 9, marginTop: 1 }}>da {er?.name} · v{es.versione}</div></div>
               ); })}</div>}
             </div>); })()}
           </div>
