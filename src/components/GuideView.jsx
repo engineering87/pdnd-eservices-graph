@@ -69,6 +69,8 @@ export default function GuideView() {
         <Shortcut icon="🔍" label="Scroll (rotellina)" desc="Zoom avanti e indietro. Lo zoom è centrato sulla posizione del cursore." />
         <Shortcut icon="↔" label="Trascina lo sfondo" desc="Clicca e trascina su un'area vuota per spostare l'intera vista del grafo (pan)." />
         <Shortcut icon="🏷" label="Click sulla legenda" desc="Filtra il grafo per categoria: vengono evidenziati solo gli enti della categoria selezionata. Clicca di nuovo per rimuovere il filtro." />
+        <Shortcut icon="⤢" label="Pulsante Centra" desc="Riporta la mappa a tutto schermo dopo zoom e spostamenti. All'apertura la mappa si adatta da sola allo schermo." />
+        <Shortcut icon="Aa" label="Etichette" desc="Per restare leggibili, le etichette che si sovrapporrebbero vengono nascoste: avvicinati con lo zoom per vederle tutte, oppure passa il puntatore su un ente." />
         <Shortcut icon="🔎" label="Barra di ricerca" desc="Cerca un ente per nome. I nodi non corrispondenti vengono attenuati." />
         <Shortcut icon="⇢" label="Filtro sulla provenienza" desc="Dal menu accanto alle categorie scegli quali archi vedere: tutti, solo l'uso osservato, solo le fonti ufficiali o senza stime AI. Su schermi ampi puoi anche cliccare le voci della legenda in basso a destra. Il filtro resta nell'indirizzo della pagina." />
         <Shortcut icon="☰" label="Scheda Chi usa cosa" desc="Tutte le relazioni in tabella, con filtri per erogatore, fruitore, categoria e provenienza, riepilogo raggruppato e download CSV. L'indirizzo della pagina conserva i filtri, così puoi condividere la vista." />

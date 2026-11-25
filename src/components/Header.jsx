@@ -101,7 +101,7 @@ export default function Header({ stats, activeTab, onTabChange, onAbout }) {
         </div>
       </div>
 
-      <nav aria-label="Sezioni" style={{ display: "flex", padding: m ? "0 10px" : "0 28px", gap: 0, overflowX: m ? "auto" : undefined, WebkitOverflowScrolling: "touch" }}>
+      <nav aria-label="Sezioni" className="nav-tabs" style={{ display: "flex", padding: m ? "0 10px" : "0 28px", gap: 0, overflowX: m ? "auto" : undefined, WebkitOverflowScrolling: "touch" }}>
         {TABS.map(tab => {
           const active = activeTab === tab.id;
           return (

@@ -94,6 +94,7 @@ I nodi ad alta centralità sono quelli la cui indisponibilità avrebbe effetto s
 
 **Esplorazione**
 - Grafo force-directed interattivo: trascinamento dei nodi, zoom con la rotella, spostamento della vista
+- Mappa leggibile: nodi che non si sovrappongono, etichette senza sovrapposizioni che si infittiscono con lo zoom, adattamento automatico allo schermo e pulsante **Centra**, legenda dei colori per famiglie
 - Filtro per categoria dalla legenda e ricerca testuale degli enti
 - Pannello dettagli con gli e-service erogati e fruiti da ogni ente e, per le classi, il numero di aderenti
 - Link diretti a ogni vista e a ogni ente, per esempio [pdndgraph.it/ente/inps](https://www.pdndgraph.it/ente/inps)
