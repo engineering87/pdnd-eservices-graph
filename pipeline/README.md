@@ -10,7 +10,8 @@
 
 
 Questa cartella contiene la pipeline che mantiene aggiornato il grafo rispetto
-allo stato corrente del catalogo PDND, in modo automatico e senza intervento manuale.
+allo stato corrente del catalogo PDND. L'aggiornamento è automatico; solo la
+promozione a grafo live richiede un passo manuale.
 
 ## Come funziona
 
@@ -37,11 +38,10 @@ catalogo ufficiale PDND (CSV, 15.000+ e-service)
    GitHub Action mensile → commit dell'anteprima su main
 ```
 
-> **Modalità non distruttiva (importante).** La pipeline **non** sovrascrive il
-> grafo curato `src/data/pdnd-data.json`. Scrive sempre sull'anteprima
-> `pipeline/pdnd-data.preview.json`. Il grafo live mostrato dall'app resta quello
-> curato finché non sei tu a promuovere l'anteprima (vedi sotto). Così l'automazione
-> gira senza mai rompere le relazioni documentate esistenti.
+> **Modalità non distruttiva.** La pipeline scrive solo sull'anteprima
+> `pipeline/pdnd-data.preview.json` e non tocca il grafo live
+> `src/data/pdnd-data.json`, che cambia soltanto quando promuovi l'anteprima
+> (vedi sotto).
 
 Il grafo è una **selezione editoriale** di entità significative, non l'intero
 catalogo (che ha oltre 15.000 e-service, in gran parte servizi comunali replicati).

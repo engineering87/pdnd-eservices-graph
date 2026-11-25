@@ -1,7 +1,7 @@
 # Metodologia e Fonti Dati
 
 Questo documento descrive in modo trasparente come sono stati ottenuti, elaborati
-e rappresentati i dati pubblici visualizzati nel grafo degli e-services PDND.
+e rappresentati i dati pubblici visualizzati nel grafo degli e-service PDND.
 
 ## Indice
 
@@ -34,7 +34,7 @@ e rappresentati i dati pubblici visualizzati nel grafo degli e-services PDND.
   codice IPA, attributi di accesso, stato di pubblicazione e versione.
 
 **Utilizzo nel grafo:** questo dataset è la fonte primaria per i **nodi erogatori** e per
-l'elenco degli **e-services**. Ogni e-service nel CSV contiene l'identificativo dell'ente
+l'elenco degli **e-service**. Ogni e-service nel CSV contiene l'identificativo dell'ente
 che lo eroga (`producerId`, `producerName`).
 
 ### 1.2 Aderenti (`aderenti.csv`)
@@ -72,9 +72,7 @@ Al 24 novembre 2026 la stessa pagina riporta 55.504 connessioni (§7.5).
 
 ## 2. Fonti documentali per le relazioni erogatore–fruitore
 
-> **⚠️ NOTA IMPORTANTE**
->
-> I dataset open data della PDND **non pubblicano** le coppie puntuali
+> **Nota.** I dataset open data della PDND **non pubblicano** le coppie puntuali
 > `erogatore → fruitore → e-service`. Il dato sulle connessioni è disponibile solo
 > come conteggio aggregato. Le relazioni (archi) rappresentate nel grafo sono state
 > **ricostruite** a partire dalle seguenti fonti documentali ufficiali:
@@ -107,7 +105,7 @@ fruitori plausibili di ciascun e-service.
 
 Questa documentazione specifica quali e-service ANPR sono disponibili (Notifica,
 Comunicazione, Verifica, Accertamento, Verifica Decesso) e per quali categorie
-di enti l'approvazione è automatica vs. manuale.
+di enti l'approvazione è automatica o manuale.
 
 ### 2.3 Presentazione ANCI/DTD — 26 casi d'uso PDND
 
@@ -134,7 +132,7 @@ nell'ecosistema "Welfare as a Service" e altri casi d'uso, tra cui:
 - **Fonte:** [catalogo.impresainungiorno.gov.it — Manuale operativo E-Service Catalogo SSU](https://catalogo.impresainungiorno.gov.it/assets/config/files/manuale_operativo_Eservice_CatalogoSSU.pdf)
 - **Versione:** 3, Novembre 2024
 
-Documenta i 6 e-service del Catalogo SSU (Metadati, Back Office SUAP, Back Office
+Documenta i 6 e-service del Catalogo SSU (tra cui Metadati, Back Office SUAP, Back Office
 Enti Terzi, ComUnica, Registro Imprese) e il ruolo di Unioncamere come erogatore.
 
 ### 2.5 Articoli e approfondimenti tecnici
@@ -162,18 +160,17 @@ pubbliche elencate in questa sezione. L'AI è stata lo strumento per
 sistematizzare un lavoro di ricognizione che avrebbe altrimenti richiesto
 l'analisi manuale di decine di documenti eterogenei.
 
-> **Questo progetto si basa esclusivamente su informazioni già pubbliche,
-> rielaborate e messe in relazione. Nessun dato riservato o non pubblicato
-> è stato utilizzato.**
+Il progetto usa esclusivamente informazioni già pubbliche, rielaborate e messe in
+relazione: nessun dato riservato o non pubblicato.
 
 ## 3. Scelte di rappresentazione e aggregazioni
 
 ### 3.1 Aggregazione dei Comuni
 
-Il catalogo PDND contiene **14.102 API pubblicate** (snapshot 2026-05), la stragrande
-maggioranza delle quali sono servizi standard pubblicati individualmente da ciascun
-Comune italiano aderente (~7.500 Comuni). I servizi più diffusi, con i conteggi
-reali misurati sul catalogo:
+Il catalogo PDND contiene **14.102 API pubblicate** (snapshot 2026-05). Gran parte
+sono servizi standard pubblicati individualmente da ciascun Comune aderente (~7.500
+Comuni): i nove tipi più diffusi coprono da soli 6.382 endpoint, quasi la metà del
+catalogo. I conteggi misurati sul catalogo:
 
 | Tipo di servizio comunale       | Endpoint nel catalogo |
 |---------------------------------|----------------------:|
@@ -195,13 +192,13 @@ reali misurati sul catalogo:
 Rappresentare ogni Comune come nodo singolo renderebbe il grafo illeggibile
 (migliaia di nodi con servizi identici). Per questo motivo:
 
-- **I Comuni con meno di ~100.000 abitanti** sono stati aggregati in un unico
-  nodo chiamato **"Comuni (aggregati)"**, che rappresenta collettivamente i
-  ~7.500 Comuni minori aderenti alla PDND.
+- **I Comuni aderenti** sono aggregati in un unico nodo chiamato
+  **"Comuni (aggregati)"**, che rappresenta collettivamente i ~7.500 Comuni
+  aderenti alla PDND, tranne i 6 rappresentati individualmente.
 - **6 grandi Comuni** (Milano, Roma, Napoli, Bologna, Genova, Padova) sono
-  rappresentati come nodi individuali. Tre di essi — Bologna, Genova, Padova —
-  erogano servizi specifici non standard documentati. Gli altri tre — Milano,
-  Roma, Napoli — compaiono nel modello come `Fruitore`: la documentazione
+  rappresentati come nodi individuali. Tre di essi (Bologna, Genova, Padova)
+  erogano servizi specifici non standard documentati. Gli altri tre (Milano,
+  Roma, Napoli) compaiono nel modello come `Fruitore`: la documentazione
   pubblica non riporta ad oggi servizi specifici dichiarati erogati da loro
   sul catalogo PDND.
 - I **servizi comunali standard** (Albo Pretorio, SUAP, ecc.) sono rappresentati
@@ -210,7 +207,7 @@ Rappresentare ogni Comune come nodo singolo renderebbe il grafo illeggibile
 
 ### 3.2 Selezione degli enti rappresentati
 
-Il grafo include **51 enti**, selezionati con questi criteri:
+Il modello v1 include **51 nodi**, selezionati con questi criteri:
 
 - **Tutte le PA centrali** che erogano e-service documentati nel catalogo e nelle
   fonti ufficiali (Ministeri, INPS, INAIL, AgID, ANAC, Agenzia delle Entrate,
@@ -218,15 +215,11 @@ Il grafo include **51 enti**, selezionati con questi criteri:
   della Funzione Pubblica, Agenzia del Demanio, ecc.)
 - **6 grandi Comuni** come fruitori e micro-erogatori (Bologna, Genova, Padova
   come erogatori di servizi specifici; Milano, Roma, Napoli come fruitori)
-- **Tutte le 18 Regioni e Province Autonome** che pubblicano almeno ~25 endpoint
-  nel catalogo, più Bolzano. La copertura regionale è quasi completa, mancano
-  solo le Regioni con copertura marginale.
+- **Le 21 amministrazioni regionali**: 19 Regioni e le Province Autonome di
+  Trento e Bolzano.
 - **1 nodo aggregato** per i Comuni minori
 
-Il criterio di soglia per l'inclusione individuale di un ente regionale è di
-~25 endpoint nel catalogo, calibrato per evitare di rappresentare amministrazioni
-con presenza marginale. La soglia può essere rivista lanciando
-`npm run compare-catalog` per vedere i producer non rappresentati.
+Per vedere i producer non rappresentati si può lanciare `npm run compare-catalog`.
 
 ### 3.3 Categorizzazione degli enti
 
@@ -339,32 +332,29 @@ catalogo, uno per ciascun ente che lo pubblica.
   tabella in §3.1). Il resto dei nodi copre tipicamente uno-a-uno o uno-a-pochi
   endpoint del catalogo.
 - La copertura totale del modello rispetto al catalogo è del **~89%**
-  misurata dallo script `compare-catalog`. Il gap residuo (~20%) è composto in
+  misurata dallo script `compare-catalog`. Il gap residuo (~11%) è composto in
   larga parte da producer regionali con pochi endpoint, da società partecipate
   e da enti molto specifici fuori scope per il modello attuale.
-- Il caveat è esplicitato anche nel frontend: nella vista **Statistiche** un
-  banner ricorda che i numeri sono service-type; nel pannello dettagli del nodo
+- L'avvertenza compare anche nell'app: nella vista **Statistiche** una nota
+  ricorda che alcuni record sono tipi di servizio; nel pannello dettagli del nodo
   *Comuni (aggregati)* compare un avviso analogo.
 
 ## 4. Limitazioni note
 
 1. **Le connessioni erogatore–fruitore non sono dati aperti strutturati.**
    Il dataset ufficiale PDND pubblica il numero aggregato di connessioni
-   (~6.400+) ma non le coppie puntuali. Le relazioni nel grafo derivano da
-   documentazione ufficiale, campo `attributes` del CSV, e inferenza ragionevole.
+   (oltre 6.400 nel 2024) ma non le coppie puntuali. Le relazioni nel grafo derivano da
+   documentazione ufficiale, campo `attributes` del CSV e inferenza ragionevole.
 
 2. **I Comuni minori sono aggregati.** Questo significa che un arco tra
    "Comuni (aggregati)" e INPS non indica che tutti i 7.500 Comuni fruiscono
    del servizio, ma che il servizio è strutturalmente disponibile per la
    categoria "Comuni".
 
-3. **Le Regioni e Province Autonome rappresentate coprono i principali enti
-   regionali.** Sono incluse 18 amministrazioni regionali su 21 (le 20 Regioni
-   più 2 Province Autonome). Le poche escluse hanno un numero marginale di
-   endpoint nel catalogo. Il criterio di soglia per l'inclusione individuale
-   è di ~25 endpoint pubblicati: vedi `npm run compare-catalog` per
-   verificare la lista corrente. Nel modello v2 sono rappresentate tutte le
-   21 amministrazioni regionali.
+3. **Regioni e Province Autonome.** Sono rappresentate individualmente tutte le
+   21 amministrazioni regionali (19 Regioni e le Province Autonome di Trento e
+   Bolzano), sia nel v1 sia nel v2. Gli altri enti regionali (agenzie,
+   società in-house) non hanno un nodo proprio.
 
 4. **Versioni e-service.** Le versioni indicate nel grafo sono quelle
    documentate nelle fonti al momento della compilazione e potrebbero non

@@ -97,7 +97,7 @@ export default function MethodologyView() {
 
       <Section title="Aggregazione degli enti">
         <div style={{ fontSize: 13, color: "var(--ink-muted)", lineHeight: 1.75 }}>
-          Il catalogo PDND contiene circa 15.000 API, la maggior parte delle quali sono servizi standard replicati
+          Il catalogo PDND contiene circa 15.000 API, gran parte delle quali sono servizi standard replicati
           da ciascuno dei ~7.650 Comuni aderenti (Albo Pretorio, Pratiche SUAP, Numerazione Civica, ecc.).
           Rappresentarli tutti avrebbe prodotto un grafo illeggibile.
         </div>
