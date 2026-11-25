@@ -242,7 +242,8 @@ L'app sarà disponibile su `http://localhost:3000`.
 pdnd-eservices-graph/
 ├── .github/workflows/
 │   ├── azure-static-web-apps-polite-plant-07967ad10.yml  # CI/CD per Azure
-│   ├── ci.yml                                            # Lint, test e build
+│   ├── ci.yml                                            # Lint, test e build (main e develop)
+│   ├── codeql.yml                                        # Analisi di sicurezza CodeQL (main e develop)
 │   ├── update-graph-data.yml                             # Pipeline dati mensile
 │   └── promote-graph-data.yml                            # Promozione manuale dell'anteprima
 ├── docs/
