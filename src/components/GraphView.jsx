@@ -160,6 +160,9 @@ export default function GraphView({ entityId = null, onEntityChange }) {
 
       if (hl) { ctx.strokeStyle = `rgba(200,220,255,${.4 + w * .06})`; ctx.lineWidth = 1.5 + w * .5; ctx.shadowColor = "rgba(100,180,255,.3)"; ctx.shadowBlur = 6; }
       else if (dim2) { ctx.strokeStyle = "rgba(100,120,140,.04)"; ctx.lineWidth = .3; }
+      // Gli archi osservati (fruizione reale registrata dalla PDND) hanno una tinta più
+      // chiara e satura: sono la prova più forte del modello dopo quelli documentati.
+      else if (l.origine === "osservata") { ctx.strokeStyle = `rgba(79,195,247,${.14 + w * .04})`; ctx.lineWidth = .7 + w * .3; }
       else { ctx.strokeStyle = `rgba(100,160,220,${.08 + w * .03})`; ctx.lineWidth = .5 + w * .3; }
       // Stile per provenienza: continuo = ancorato a fonte (documentata/certificata),
       // tratto lungo = ricostruito da documentazione, punteggiato = inferito dall'AI.
@@ -347,6 +350,7 @@ export default function GraphView({ entityId = null, onEntityChange }) {
         <div className="graph-legend-desktop" style={{ position: "absolute", bottom: 12, right: 12, zIndex: 5, background: "rgba(10,14,26,.88)", borderRadius: 8, border: "1px solid rgba(100,160,220,.1)", padding: "8px 12px", display: "flex", flexDirection: "column", gap: 5, fontSize: 9, color: "var(--ink-muted)" }}>
             <div style={{ fontSize: 8, textTransform: "uppercase", letterSpacing: .6, color: "var(--ink-faint)", marginBottom: 1 }}>Provenienza archi</div>
             <div style={{ display: "flex", alignItems: "center", gap: 6 }}><svg width="22" height="6"><line x1="0" y1="3" x2="22" y2="3" stroke="rgba(100,160,220,.9)" strokeWidth="1.6" /></svg><span>Documentata / Certificata</span></div>
+            <div style={{ display: "flex", alignItems: "center", gap: 6 }}><svg width="22" height="6"><line x1="0" y1="3" x2="22" y2="3" stroke="rgba(79,195,247,1)" strokeWidth="1.8" /></svg><span>Osservata (uso reale)</span></div>
             <div style={{ display: "flex", alignItems: "center", gap: 6 }}><svg width="22" height="6"><line x1="0" y1="3" x2="22" y2="3" stroke="rgba(100,160,220,.9)" strokeWidth="1.6" strokeDasharray="10,3" /></svg><span>Ricostruita (documentazione)</span></div>
             <div style={{ display: "flex", alignItems: "center", gap: 6 }}><svg width="22" height="6"><line x1="0" y1="3" x2="22" y2="3" stroke="rgba(100,160,220,.9)" strokeWidth="1.6" strokeDasharray="5,4" /></svg><span>Inferita (AI)</span></div>
         </div>
@@ -371,6 +375,11 @@ export default function GraphView({ entityId = null, onEntityChange }) {
                 <div><div style={{ fontWeight: 700, fontSize: 14 }}>{selNode.name}</div><div style={{ fontSize: 10, color: "var(--ink-faint)" }}>{selNode.categoria} · {selNode.tipo}</div></div>
               </div>
               <div style={{ fontSize: 12, color: "var(--ink-muted)", marginBottom: 14 }}>{selNode.descrizione}</div>
+              {selNode.aggregato && selNode.aderenti > 0 && (
+                <div style={{ marginBottom: 14, fontSize: 11, color: "var(--ink-muted)" }}>
+                  Classe di enti: <strong style={{ color: "var(--ink)" }}>{selNode.aderenti.toLocaleString("it-IT")} aderenti</strong> alla PDND <span style={{ color: "var(--ink-faint)" }}>({selNode.aderenti_fonte})</span>
+                </div>
+              )}
               {selNode.id === "comuni_agg" && (
                 <div style={{ marginBottom: 14, padding: "10px 12px", borderRadius: 6, background: "rgba(255,209,102,.05)", border: "1px solid rgba(255,209,102,.18)" }}>
                   <div style={{ fontSize: 10, fontWeight: 700, color: "var(--cite)", textTransform: "uppercase", letterSpacing: .8, marginBottom: 4 }}>ⓘ Tipi di servizio</div>
@@ -385,7 +394,7 @@ export default function GraphView({ entityId = null, onEntityChange }) {
                 ))}
               </div>
               {selNode.servizi_erogati?.length > 0 && <div style={{ marginBottom: 14 }}><div style={{ fontSize: 10, fontWeight: 700, color: "#06d6a0", textTransform: "uppercase", letterSpacing: .8, marginBottom: 6 }}>E-Services Erogati ({selNode.servizi_erogati.length})</div>{selNode.servizi_erogati.map(es => (
-                <div key={es.id} style={{ padding: "6px 8px", marginBottom: 3, borderRadius: 5, background: "rgba(6,214,160,.05)", border: "1px solid rgba(6,214,160,.08)", fontSize: 11 }}><div style={{ fontWeight: 600 }}>{es.nome}</div>{es.descrizione && <div style={{ color: "var(--ink-faint)", fontSize: 9, marginTop: 1 }}>{es.descrizione}</div>}<div style={{ color: "#4a6a5a", fontSize: 9, marginTop: 2 }}>v{es.versione} · {es.stato} · {es.fruitori.length} fruitori</div></div>
+                <div key={es.id} style={{ padding: "6px 8px", marginBottom: 3, borderRadius: 5, background: "rgba(6,214,160,.05)", border: "1px solid rgba(6,214,160,.08)", fontSize: 11 }}><div style={{ fontWeight: 600 }}>{es.nome}</div>{es.descrizione && <div style={{ color: "var(--ink-faint)", fontSize: 9, marginTop: 1 }}>{es.descrizione}</div>}<div style={{ color: "#4a6a5a", fontSize: 9, marginTop: 2 }}>v{es.versione} · {es.stato} · {es.fruitori.length} fruitori{es.enti_abilitati_min ? ` · ≥${es.enti_abilitati_min.toLocaleString("it-IT")} enti abilitati` : ""}{es.sessioni_min ? ` · ≥${(es.sessioni_min / 1e6).toLocaleString("it-IT", { maximumFractionDigits: 1 })} M sessioni` : ""}</div></div>
               ))}</div>}
               {selNode.servizi_fruiti?.length > 0 && <div><div style={{ fontSize: 10, fontWeight: 700, color: "var(--pa-blue)", textTransform: "uppercase", letterSpacing: .8, marginBottom: 6 }}>E-Services Fruiti ({selNode.servizi_fruiti.length})</div>{selNode.servizi_fruiti.map(es => { const er = PDND_DATA.enti.find(e => e.id === es.erogatore); return (
                 <div key={es.id + selNode.id} style={{ padding: "6px 8px", marginBottom: 3, borderRadius: 5, background: "rgba(17,138,178,.05)", border: "1px solid rgba(17,138,178,.08)", fontSize: 11 }}><div style={{ fontWeight: 600 }}>{es.nome}</div><div style={{ color: "var(--ink-faint)", fontSize: 9, marginTop: 1 }}>da {er?.name} · v{es.versione}</div></div>

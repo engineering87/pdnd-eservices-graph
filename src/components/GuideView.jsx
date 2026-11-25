@@ -45,7 +45,8 @@ const CATEGORY_DESCRIPTIONS = {
   Regione: "Regioni, Province Autonome",
   Comune: "Grandi Comuni individuali",
   "Comuni Aggregati": "~7.500 Comuni minori aggregati",
-  "Regioni Aggregate": "Regioni e Province Autonome come classe aggregata (eleggibilità stimata)",
+  "Regioni Aggregate": "Regioni e Province Autonome come classe di enti",
+  "Classi aggregate": "Altre classi di enti aderenti: Province, Scuole, Università, Sanità, Gestori, Enti privati, PA locali e centrali",
 };
 
 export default function GuideView() {

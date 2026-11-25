@@ -102,10 +102,10 @@
         "agid"
       ]
     },
-    "0cbb919f-1d53-4130-b415-ff1294581dbc": {
+    "8ffc6245-0ab1-4e2e-8423-6e1a855c320a": {
       "v1": "inps_isee",
       "nome_v1": "Consultazione ISEE",
-      "nome_catalogo": "Consultazione ISEE",
+      "nome_catalogo": "Consultazione Indicatore ISEE",
       "fruitori": [
         "c_milano",
         "c_roma",
@@ -134,7 +134,8 @@
         "r_basilicata",
         "r_sardegna",
         "r_calabria"
-      ]
+      ],
+      "nota": "Record originale 0cbb919f-1d53-4130-b415-ff1294581dbc sospeso nel catalogo (novembre 2026): agganciato al successore attivo."
     },
     "90176150-111e-4733-80c7-9714483e0b55": {
       "v1": "inps_siuss",
@@ -205,10 +206,10 @@
         "anac"
       ]
     },
-    "94fc27c6-a771-475d-a109-c057eafdde69": {
+    "0bb78282-87bc-486b-8ef0-27a11852c8fb": {
       "v1": "ade_piva",
       "nome_v1": "Verifica Partita IVA",
-      "nome_catalogo": "Verifica Partita Iva",
+      "nome_catalogo": "VPIVA1 - Verifica Partita Iva",
       "fruitori": [
         "unioncamere",
         "inps",
@@ -218,7 +219,8 @@
         "comuni_agg",
         "mef",
         "anac"
-      ]
+      ],
+      "nota": "Record originale 94fc27c6-a771-475d-a109-c057eafdde69 sospeso nel catalogo (novembre 2026): agganciato al successore attivo."
     },
     "2d97cffc-27cb-4705-a21d-9e1084aec9e3": {
       "v1": "agid_inad",

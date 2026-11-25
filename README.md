@@ -29,7 +29,7 @@ I nodi sono gli enti, gli archi le relazioni erogatore→fruitore, lo spessore i
 
 <div align="center">
 
-**56** nodi (54 enti individuali + 2 aggregati) &nbsp;·&nbsp; **305** e-service &nbsp;·&nbsp; **446** archi &nbsp;·&nbsp; densità **0,1448** &nbsp;·&nbsp; copertura **~89%** del catalogo
+**63** nodi (53 enti + 10 classi aggregate) &nbsp;·&nbsp; **312** e-service &nbsp;·&nbsp; **600** archi &nbsp;·&nbsp; densità **0,1536** &nbsp;·&nbsp; copertura **~89%** del catalogo
 
 <sub>I nodi sono una selezione editoriale, non l'intero insieme degli enti aderenti. Vedi [Cosa rappresentano i nodi](#cosa-rappresentano-i-51-nodi). Il report Zenodo descrive il modello v1 di maggio 2026 (51 nodi, 86 tipi di e-service, 343 archi), conservato in `src/data/snapshots/`.</sub>
 
@@ -81,11 +81,11 @@ Il progetto mantiene due livelli distinti, per separare l'automazione dal dato p
 
 | Livello | File | Aggiornato al | Contenuto |
 |---|---|---|---|
-| **Grafo live** (v2) | `src/data/pdnd-data.json` | **25 novembre 2026** | 56 nodi, 305 e-service, 446 archi distinti |
+| **Grafo live** (v2) | `src/data/pdnd-data.json` | **25 novembre 2026** | 63 nodi, 312 e-service, 600 archi distinti |
 | **Anteprima** (automatica) | `pipeline/pdnd-data.preview.json` | 25 novembre 2026 | allineata al grafo live |
 | **Snapshot v1** (report) | `src/data/snapshots/pdnd-data.2026-05-02.json` | 2 maggio 2026 | 51 nodi, 86 tipi di e-service, 343 archi, congelato |
 
-L'anteprima viene rigenerata dalla pipeline mensile ma **non sostituisce** il grafo live: la promozione è un atto manuale, deliberato, che segue l'ispezione del report di esecuzione. Questa separazione evita che un cambiamento automatico del catalogo cancelli relazioni ricostruite e documentate a mano. Le 570 relazioni del modello v1 sono conservate nella pipeline (`pipeline/connections-reconstructed.json`) e confluiscono in ogni nuova anteprima con origine `ricostruita`; un test verifica che nessuna coppia erogatore→fruitore del v1 vada persa.
+L'anteprima viene rigenerata dalla pipeline mensile ma **non sostituisce** il grafo live: la promozione è un atto manuale, deliberato, che segue l'ispezione del report di esecuzione. Questa separazione evita che un cambiamento automatico del catalogo cancelli relazioni ricostruite e documentate a mano. Le 570 relazioni del modello v1 sono conservate nella pipeline (`pipeline/connections-reconstructed.json`) e confluiscono in ogni nuova anteprima con origine `ricostruita`; un test verifica che nessuna coppia erogatore→fruitore del v1 vada persa. Per ogni ente la pipeline sceglie gli e-service più adottati secondo le classifiche ufficiali di enti abilitati (`pdnd-opendata`), non più i primi in ordine alfabetico; il campo `enti_abilitati_min` di ciascun e-service riporta il minimo garantito di enti fruitori abilitati.
 
 ### Verificare lo scarto rispetto al presente
 
@@ -102,7 +102,7 @@ I numeri riportati in questo README e nel report Zenodo si riferiscono allo snap
 
 ## Il modello in numeri
 
-Valori del modello **v1** descritto nel report Zenodo, calcolati sullo snapshot del **2 maggio 2026** (`src/data/snapshots/pdnd-data.2026-05-02.json`). Il modello v2 corrente conta 56 nodi, 305 e-service, 446 archi distinti, 1.024 relazioni e densità 0,1448; le sue metriche sono nella scheda Statistiche dell'app.
+Valori del modello **v1** descritto nel report Zenodo, calcolati sullo snapshot del **2 maggio 2026** (`src/data/snapshots/pdnd-data.2026-05-02.json`). Il modello v2 corrente conta 63 nodi (10 classi di enti aggregate), 312 e-service, 600 archi distinti, 1.469 relazioni e densità 0,1536; le sue metriche sono nella scheda Statistiche dell'app.
 
 | Metrica | Valore |
 |---|---|
@@ -166,8 +166,9 @@ La lettura pratica è diretta. I nodi ad alta centralità sono i punti la cui in
 ## Funzionalità
 
 - **Grafo force-directed** interattivo con simulazione fisica
-- **51 nodi** (50 enti individuali più 1 nodo che aggrega circa 7.500 Comuni) e **86 tipi di e-service** derivati dal catalogo ufficiale PDND
-- **343 archi** diretti erogatore→fruitore
+- **63 nodi** (53 enti più 10 classi di enti aggregate, con il numero di aderenti) e **312 e-service** del catalogo ufficiale PDND, scelti per uso reale
+- **600 archi** diretti erogatore→fruitore, con provenienza dichiarata e, dove disponibili, connessioni e sessioni osservate
+- **Statistiche d'uso ufficiali**: e-service più adottati, più usati, archi per provenienza, classi di enti
 - **Drag & drop** dei nodi, **zoom** con scroll, **pan** con trascinamento
 - **Pannello dettagli** con elenco e-services erogati e fruiti per ogni ente
 - **Filtro per categoria** (cliccabile dalla legenda) e **ricerca testuale**
@@ -319,13 +320,14 @@ Ogni arco generato dalla pipeline porta un campo `origine` che ne dichiara la fo
 | Origine | Significato |
 |---|---|
 | `documentata` | Override da fonti ufficiali pubbliche (circolari, manuali, presentazioni) |
+| `osservata` | Connessioni o sessioni di scambio realmente registrate dalla PDND verso una classe di enti (statistiche ufficiali) |
 | `certificata` | Derivata dal campo `attributes.certified` del catalogo |
 | `ricostruita` | Ricostruita da documentazione pubblica, senza provenienza per singolo arco |
 | `inferita` | Stima prodotta dal motore di inferenza, con punteggio di confidenza |
 
 Gli archi inferiti sono dichiarati come stime e non come fatti documentati. Il progetto si basa esclusivamente su informazioni già pubbliche.
 
-Il grafo pubblicato (modello v2, novembre 2026) porta la provenienza per singolo arco: 484 `certificata`, 6 `documentata`, 510 `ricostruita` (relazioni del modello v1, secondo la [metodologia](METODOLOGIA.md)) e 24 `inferita`. Altre 60 relazioni del v1 coincidono con archi certificati dal catalogo e compaiono con quell'origine.
+Il grafo pubblicato (modello v2, novembre 2026) porta la provenienza per singolo arco: 6 `documentata`, 265 `osservata`, 628 `certificata`, 545 `ricostruita` (relazioni del modello v1, secondo la [metodologia](METODOLOGIA.md)) e 25 `inferita`. Delle 570 relazioni del v1, 25 trovano conferma nei dati ufficiali (18 certificate, 7 osservate). I fruitori non rappresentati individualmente sono raccolti in 10 classi di enti allineate alle categorie ufficiali PagoPA (Comuni, Regioni, Province, Scuole, Università, Sanità, Gestori, Enti privati, PA locali e centrali), ciascuna con il proprio numero di aderenti. Dettagli nella [sezione 7 della metodologia](METODOLOGIA.md#7-modello-v2-novembre-2026).
 
 ## Esportazione dei dati
 
@@ -392,8 +394,8 @@ Analisi di rete con NetworkX.
 import networkx as nx
 
 G = nx.read_graphml("pdnd-eservices-graph-graphml.graphml")
-print(G.number_of_nodes(), G.number_of_edges())   # 56 446
-print(round(nx.density(G), 4))                    # 0.1448
+print(G.number_of_nodes(), G.number_of_edges())   # 63 600
+print(round(nx.density(G), 4))                    # 0.1536
 
 # Enti che servono il maggior numero di controparti
 for n, d in sorted(G.out_degree, key=lambda x: -x[1])[:3]:

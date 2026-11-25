@@ -20,7 +20,8 @@ catalogo ufficiale PDND (CSV, 15.000+ e-service)
               ▼
    build-graph-data.mjs
    ├── filtra le entità tracciate (entities.json)
-   ├── estrae i loro e-service (nome, stato, versione)
+   ├── estrae i loro e-service (nome, stato, versione), scegliendo per ente
+   │     i curati e poi i più adottati (classifiche enti abilitati)
    ├── deriva gli archi erogatore→fruitore:
    │     1. override curati (connections-overrides.json)  ← precedenza
    │     2. baseline da attributes.certified (category-map.json)
@@ -52,6 +53,7 @@ Attivo↔Sospeso.
 | `category-map.json` | Mappa categorie consumatori (`attributes.certified`) → nodi, per la baseline degli archi |
 | `connections-overrides.json` | Connessioni curate da documentazione, con precedenza sulla baseline |
 | `connections-reconstructed.json` | Relazioni del modello v1 (origine `ricostruita`): `anchored` per catalogId, sommate agli archi del catalogo; `unanchored` riportate così come sono. I servizi agganciati sono sempre inclusi, anche oltre `maxServices` |
+| `classi.json` | Classi di enti (nodi aggregati) allineate alle categorie ufficiali PagoPA: attributi certificati, categorie delle statistiche, totali ufficiali degli aderenti |
 | `connections-frozen.json` | Stime AI congelate (origine `inferita`), usate solo per gli e-service senza altri archi |
 | `pdnd-data.preview.json` | Anteprima generata dalla pipeline (NON è il dato live) |
 | `last-run-report.md` | Report generato ad ogni esecuzione |
@@ -87,6 +89,27 @@ sempre una tua decisione esplicita. Il backup del curato
 (`src/data/pdnd-data.curated-backup.json`) ti permette di tornare indietro in
 qualsiasi momento.
 
+
+## Selezione degli e-service per ente
+
+Per ogni entità tracciata la pipeline include:
+
+1. **sempre** gli e-service con archi curati (override documentati, relazioni
+   ricostruite v1, inferenze congelate), anche oltre `maxServices`;
+2. poi, fino a `maxServices`, i pubblicati con **rilevanza** più alta: il maggiore
+   fra enti abilitati (`e_service_con_piu_enti_abilitati_from_the_beginning.csv`) e
+   sessioni di scambio (`eservice_con_piu_token_staccati_from_the_beginning.csv`),
+   ciascuno rapportato al massimo dell'ente, da
+   [pdnd-opendata](https://github.com/italia/pdnd-opendata) (CC0);
+3. a parità di adozione, l'ordine alfabetico.
+
+Le classifiche elencano i primi 10 e-service per ogni coppia di categorie
+erogatore × fruitore e troncano i nomi a 60 caratteri: l'abbinamento al catalogo
+avviene su nome dell'erogatore e nome troncato. Il campo `enti_abilitati_min` è il
+massimo fra le classifiche in cui l'e-service compare, quindi un minimo garantito.
+Se il download delle classifiche fallisce la pipeline prosegue in ordine alfabetico
+e lo segnala nel report. Il report segnala anche gli e-service con archi curati
+che non risultano più pubblicati, da ri-agganciare al successore attivo.
 
 ## Guard di validazione
 

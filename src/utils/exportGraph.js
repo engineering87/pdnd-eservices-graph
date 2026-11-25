@@ -50,7 +50,9 @@ export function toEdgeList(data) {
     categoria: e.categoria || "",
     tipo: e.tipo || "",
     descrizione: e.descrizione || "",
-    aggregato: AGGREGATI.has(e.id),
+    aggregato: Boolean(e.aggregato) || AGGREGATI.has(e.id),
+    // Numero di aderenti della classe, solo per i nodi aggregati che lo dichiarano.
+    aderenti: e.aderenti ?? "",
   }));
 
   const acc = new Map();
@@ -59,12 +61,16 @@ export function toEdgeList(data) {
     for (const a of archi) {
       const key = `${s.erogatore}\u0000${a.fruitore}`;
       if (!acc.has(key)) {
-        acc.set(key, { source: s.erogatore, target: a.fruitore, weight: 0, origini: new Set(), servizi: [] });
+        acc.set(key, { source: s.erogatore, target: a.fruitore, weight: 0, origini: new Set(), servizi: [], connessioni: 0, sessioni: 0 });
       }
       const e = acc.get(key);
       e.weight += 1;
       e.origini.add(a.origine || "ricostruita");
       e.servizi.push(s.nome);
+      // Connessioni osservate: massimo fra gli e-service della coppia, perché lo
+      // stesso ente fruitore può usarne più d'uno. Sessioni: si sommano.
+      e.connessioni = Math.max(e.connessioni, a.connessioni || 0);
+      e.sessioni += a.sessioni || 0;
     }
   }
 
@@ -77,6 +83,8 @@ export function toEdgeList(data) {
     // sono elencate tutte: appiattirle su una sola perderebbe informazione.
     origine: [...e.origini].sort().join("|"),
     servizi: e.servizi.join("; "),
+    connessioni: e.connessioni || "",
+    sessioni: e.sessioni || "",
   }));
 
   return { nodes, edges };
@@ -98,12 +106,15 @@ export function toGraphML(data) {
     ["n_categoria", "categoria", "string"],
     ["n_tipo", "tipo", "string"],
     ["n_aggregato", "aggregato", "boolean"],
+    ["n_aderenti", "aderenti", "long"],
     ["n_descrizione", "descrizione", "string"],
   ];
   const attrArco = [
     ["e_weight", "weight", "int"],
     ["e_origine", "origine", "string"],
     ["e_servizi", "servizi", "string"],
+    ["e_connessioni", "connessioni", "long"],
+    ["e_sessioni", "sessioni", "long"],
   ];
 
   const righe = [];
@@ -132,6 +143,7 @@ export function toGraphML(data) {
     righe.push(`      <data key="n_categoria">${esc(n.categoria)}</data>`);
     righe.push(`      <data key="n_tipo">${esc(n.tipo)}</data>`);
     righe.push(`      <data key="n_aggregato">${n.aggregato}</data>`);
+    if (n.aderenti !== "") righe.push(`      <data key="n_aderenti">${n.aderenti}</data>`);
     righe.push(`      <data key="n_descrizione">${esc(n.descrizione)}</data>`);
     righe.push("    </node>");
   }
@@ -140,6 +152,8 @@ export function toGraphML(data) {
     righe.push(`      <data key="e_weight">${e.weight}</data>`);
     righe.push(`      <data key="e_origine">${esc(e.origine)}</data>`);
     righe.push(`      <data key="e_servizi">${esc(e.servizi)}</data>`);
+    if (e.connessioni !== "") righe.push(`      <data key="e_connessioni">${e.connessioni}</data>`);
+    if (e.sessioni !== "") righe.push(`      <data key="e_sessioni">${e.sessioni}</data>`);
     righe.push("    </edge>");
   }
   righe.push("  </graph>");
@@ -163,10 +177,13 @@ export function toGEXF(data) {
   righe.push('      <attribute id="0" title="categoria" type="string"/>');
   righe.push('      <attribute id="1" title="tipo" type="string"/>');
   righe.push('      <attribute id="2" title="aggregato" type="boolean"/>');
+  righe.push('      <attribute id="3" title="aderenti" type="long"/>');
   righe.push("    </attributes>");
   righe.push('    <attributes class="edge">');
   righe.push('      <attribute id="0" title="origine" type="string"/>');
   righe.push('      <attribute id="1" title="servizi" type="string"/>');
+  righe.push('      <attribute id="2" title="connessioni" type="long"/>');
+  righe.push('      <attribute id="3" title="sessioni" type="long"/>');
   righe.push("    </attributes>");
   righe.push("    <nodes>");
   for (const n of nodes) {
@@ -175,6 +192,7 @@ export function toGEXF(data) {
     righe.push(`          <attvalue for="0" value="${esc(n.categoria)}"/>`);
     righe.push(`          <attvalue for="1" value="${esc(n.tipo)}"/>`);
     righe.push(`          <attvalue for="2" value="${n.aggregato}"/>`);
+    if (n.aderenti !== "") righe.push(`          <attvalue for="3" value="${n.aderenti}"/>`);
     righe.push("        </attvalues>");
     righe.push("      </node>");
   }
@@ -185,6 +203,8 @@ export function toGEXF(data) {
     righe.push("        <attvalues>");
     righe.push(`          <attvalue for="0" value="${esc(e.origine)}"/>`);
     righe.push(`          <attvalue for="1" value="${esc(e.servizi)}"/>`);
+    if (e.connessioni !== "") righe.push(`          <attvalue for="2" value="${e.connessioni}"/>`);
+    if (e.sessioni !== "") righe.push(`          <attvalue for="3" value="${e.sessioni}"/>`);
     righe.push("        </attvalues>");
     righe.push("      </edge>");
   }
@@ -203,18 +223,18 @@ const csvRiga = (campi) => campi.map(csvCampo).join(",");
 /** CSV dei nodi, con intestazione. */
 export function toNodesCSV(data) {
   const { nodes } = toEdgeList(data);
-  const righe = [csvRiga(["id", "label", "categoria", "tipo", "aggregato", "descrizione"])];
+  const righe = [csvRiga(["id", "label", "categoria", "tipo", "aggregato", "aderenti", "descrizione"])];
   for (const n of nodes)
-    righe.push(csvRiga([n.id, n.label, n.categoria, n.tipo, n.aggregato, n.descrizione]));
+    righe.push(csvRiga([n.id, n.label, n.categoria, n.tipo, n.aggregato, n.aderenti, n.descrizione]));
   return righe.join("\n");
 }
 
 /** CSV degli archi, con intestazione compatibile con Gephi (Source/Target/Weight). */
 export function toEdgesCSV(data) {
   const { edges } = toEdgeList(data);
-  const righe = [csvRiga(["Source", "Target", "Weight", "Type", "origine", "servizi"])];
+  const righe = [csvRiga(["Source", "Target", "Weight", "Type", "origine", "connessioni", "sessioni", "servizi"])];
   for (const e of edges)
-    righe.push(csvRiga([e.source, e.target, e.weight, "Directed", e.origine, e.servizi]));
+    righe.push(csvRiga([e.source, e.target, e.weight, "Directed", e.origine, e.connessioni, e.sessioni, e.servizi]));
   return righe.join("\n");
 }
 

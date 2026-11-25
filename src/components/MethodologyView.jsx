@@ -7,7 +7,8 @@
 import PDND_DATA from "../data/pdnd-data.json";
 
 const ORIGINI = [
-  ["certificata", "Certificata", "Dal campo attributes.certified del catalogo: le categorie di enti abilitati alla fruizione."],
+  ["osservata", "Osservata", "Connessioni o sessioni di scambio realmente registrate dalla PDND verso una classe di enti, dalle statistiche ufficiali PagoPA. È la prova più forte dopo la documentazione puntuale."],
+  ["certificata", "Certificata", "Dal campo attributes.certified del catalogo: le categorie di enti abilitati alla fruizione, mappate sui nodi aggregati quando indicano una classe."],
   ["documentata", "Documentata", "Override con una fonte ufficiale puntuale (norma, circolare, manuale) citata per l'e-service."],
   ["ricostruita", "Ricostruita", "Relazioni del modello v1 (maggio 2026), ricostruite da documentazione pubblica con l'ausilio di modelli AI."],
   ["inferita", "Inferita", "Stima AI congelata nel dato, normalizzata sugli aggregati. Dichiarata come stima, non come fatto."],
@@ -161,7 +162,7 @@ export default function MethodologyView() {
         {[
           "Le connessioni rappresentano relazioni documentate o inferite, non necessariamente accordi di interoperabilità attivi e verificati sulla piattaforma.",
           "I Comuni aggregati non indicano che tutti i ~7.500 Comuni fruiscono effettivamente di ogni servizio.",
-          "Gli archi inferiti dall'AI sono normalizzati sugli aggregati: città e regioni confluiscono nei nodi \"Comuni (aggregati)\" e \"Regioni (aggregati)\", così l'arco dichiara un'eleggibilità di classe stimata e non una connessione puntuale. Gli archi certificati e documentati mantengono i nomi puntuali.",
+          "Archi certificati e inferiti dichiarano un'eleggibilità di classe: le categorie ampie del catalogo (\"Regioni…\", \"Pubbliche Amministrazioni\") e le stime AI confluiscono nei nodi \"Comuni (aggregati)\" e \"Regioni (aggregati)\", non su un campione di enti. Restano nominati gli enti citati esplicitamente nel catalogo, i ministeri e gli archi documentati o ricostruiti. Province e Città metropolitane non hanno un nodo e non generano archi.",
           "Per le 18 Regioni e Province Autonome rappresentate, gli e-service sono esposti come categoria aggregata (un record per ente) con il numero di endpoint del catalogo annotato in descrizione.",
           "Il modello è una selezione editoriale di enti, non l'intero catalogo: università, conservatori e società in-house regionali con pochi endpoint ciascuno restano fuori.",
           "Le versioni degli e-service potrebbero non corrispondere all'ultima versione attiva nel catalogo.",

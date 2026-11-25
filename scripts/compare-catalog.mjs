@@ -88,36 +88,39 @@ async function getCatalogCsv() {
 }
 
 // ───────────────────────────────────────────────────────────────────
-// Parser CSV minimale (gestisce campi con virgolette)
+// Parser CSV (gestisce virgolette, virgole e a capo dentro i campi)
 // ───────────────────────────────────────────────────────────────────
-function parseCsvLine(line) {
-  const out = [];
-  let cur = '', q = false;
-  for (let i = 0; i < line.length; i++) {
-    const c = line[i];
-    if (c === '"') {
-      // Doppia virgoletta = escape
-      if (q && line[i + 1] === '"') { cur += '"'; i++; }
-      else q = !q;
-    } else if (c === ',' && !q) {
-      out.push(cur); cur = '';
-    } else cur += c;
+// Le descrizioni del catalogo contengono a capo dentro campi quotati: dividere il
+// testo per righe produce record fantasma (469 nel catalogo di novembre 2026) e
+// falsa i conteggi. Il parser legge quindi carattere per carattere.
+function parseCsvRecords(text) {
+  const rows = [];
+  let row = [], cur = '', q = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (q) {
+      if (c === '"' && text[i + 1] === '"') { cur += '"'; i++; }
+      else if (c === '"') q = false;
+      else cur += c;
+    } else if (c === '"') q = true;
+    else if (c === ',') { row.push(cur); cur = ''; }
+    else if (c === '\r') { /* ignorato */ }
+    else if (c === '\n') { row.push(cur); rows.push(row); row = []; cur = ''; }
+    else cur += c;
   }
-  out.push(cur);
-  return out;
+  if (cur.length > 0 || row.length > 0) { row.push(cur); rows.push(row); }
+  return rows.filter(r => r.length > 1);
 }
 
 function parseCsv(text) {
-  const lines = text.split(/\r?\n/).filter(l => l.length > 0);
-  if (lines.length < 2) return { header: [], rows: [] };
-  const header = parseCsvLine(lines[0]).map(s => s.trim());
-  const rows = [];
-  for (let i = 1; i < lines.length; i++) {
-    const fields = parseCsvLine(lines[i]);
+  const records = parseCsvRecords(text);
+  if (records.length < 2) return { header: [], rows: [] };
+  const header = records[0].map(s => s.trim());
+  const rows = records.slice(1).map(fields => {
     const obj = {};
     header.forEach((h, idx) => { obj[h] = (fields[idx] ?? '').trim(); });
-    rows.push(obj);
-  }
+    return obj;
+  });
   return { header, rows };
 }
 

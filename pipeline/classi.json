@@ -1,0 +1,131 @@
+{
+  "_comment": "Classi di enti rappresentate da nodi aggregati, allineate alle 12 categorie di fruitori usate da PagoPA nelle statistiche ufficiali (pdnd-opendata). 'attributi': attributi certificati PDND che identificano la classe; generano archi 'certificata' verso il nodo (salvo diversa indicazione in category-map.json, che ha precedenza) e servono a contare gli aderenti. 'categorie_ufficiali': nomi delle categorie di fruitori nelle classifiche ufficiali, usati per gli archi 'osservata'. 'totale_ufficiale': riga di totale_enti.csv da preferire al conteggio per attributo, che include anche articolazioni interne degli enti. L'ordine delle classi è la priorità con cui un aderente con più attributi viene assegnato a una sola classe nel conteggio.",
+  "classi": [
+    {
+      "id": "privati_agg",
+      "name": "Enti privati (aggregati)",
+      "descrizione": "Imprese iscritte al Registro Imprese e assicurazioni aderenti alla PDND (aperta alle imprese dal 15 gennaio 2026)",
+      "attributi": ["Adesione dal Registro Imprese", "Assicurazioni"],
+      "categorie_ufficiali": ["Enti privati"],
+      "totale_ufficiale": "Enti privati"
+    },
+    {
+      "id": "scuole_agg",
+      "name": "Scuole (aggregati)",
+      "descrizione": "Istituti di istruzione statale di ogni ordine e grado aderenti",
+      "attributi": ["Istituti di Istruzione Statale di Ogni Ordine e Grado"],
+      "categorie_ufficiali": ["Scuole"]
+    },
+    {
+      "id": "universita_agg",
+      "name": "Università e AFAM (aggregati)",
+      "descrizione": "Università pubbliche, istituzioni AFAM ed enti per il diritto allo studio aderenti",
+      "attributi": [
+        "Universita' e Istituti di Istruzione Universitaria Pubblici",
+        "Istituzioni per l'Alta Formazione Artistica, Musicale e Coreutica - AFAM",
+        "Agenzie, Enti e Consorzi Pubblici per il Diritto allo Studio Universitario"
+      ],
+      "categorie_ufficiali": ["Università e AFAM"],
+      "totale_ufficiale": "Università e AFAM"
+    },
+    {
+      "id": "sanita_agg",
+      "name": "Sanità (aggregati)",
+      "descrizione": "Aziende sanitarie locali, aziende ospedaliere, IRCCS e agenzie sanitarie aderenti",
+      "attributi": [
+        "Aziende Sanitarie Locali",
+        "Aziende Ospedaliere, Aziende Ospedaliere Universitarie, Policlinici e Istituti di Ricovero e Cura a Carattere Scientifico Pubblici",
+        "Agenzie Regionali Sanitarie",
+        "Istituti Zooprofilattici Sperimentali"
+      ],
+      "attributi_prefisso": ["Azienda Sanitaria Provinciale"],
+      "categorie_ufficiali": ["Aziende sanitarie locali e Strutture di ricovero"]
+    },
+    {
+      "id": "gestori_agg",
+      "name": "Gestori di pubblici servizi e stazioni appaltanti (aggregati)",
+      "descrizione": "Gestori di pubblici servizi, stazioni appaltanti e società a controllo pubblico aderenti",
+      "attributi": [
+        "Gestori di Pubblici Servizi",
+        "Stazioni Appaltanti",
+        "Stazioni Appaltanti Gestori di Pubblici Servizi",
+        "Società a Controllo Pubblico - Registro Imprese",
+        "Societa' in Conto Economico Consolidato",
+        "Societa' in Conto Economico Consolidato - Tipologia IPA"
+      ],
+      "categorie_ufficiali": ["Stazioni Appaltanti e Gestori di pubblici servizi"]
+    },
+    {
+      "id": "province_agg",
+      "name": "Province e Città metropolitane (aggregati)",
+      "descrizione": "Province, Città metropolitane e loro consorzi aderenti",
+      "attributi": ["Province e loro Consorzi e Associazioni", "Citta' Metropolitane"],
+      "attributi_prefisso": ["Citta' Metropolitana di"],
+      "categorie_ufficiali": ["Province e Città Metropolitane"]
+    },
+    {
+      "id": "regioni_agg",
+      "name": "Regioni (aggregati)",
+      "descrizione": "Regioni e Province autonome aderenti, come classe",
+      "attributi": ["Regioni, Province Autonome e loro Consorzi e Associazioni"],
+      "categorie_ufficiali": ["Regioni e Province Autonome"],
+      "totale_ufficiale": "Regioni e Province Autonome"
+    },
+    {
+      "id": "comuni_agg",
+      "name": "Comuni (aggregati)",
+      "descrizione": "Comuni aderenti, come classe; i servizi standard comunali sono aggregati qui",
+      "attributi": ["Comuni e loro Consorzi e Associazioni"],
+      "categorie_ufficiali": ["Comuni"],
+      "totale_ufficiale": "Comuni"
+    },
+    {
+      "id": "pa_centrali_agg",
+      "name": "PA centrali (aggregati)",
+      "descrizione": "Amministrazioni centrali, ordini professionali, enti di ricerca, autorità indipendenti ed enti previdenziali non rappresentati individualmente",
+      "attributi": [
+        "Presidenza del Consiglio dei Ministri, Ministeri e Avvocatura dello Stato",
+        "Enti di Previdenza ed Assistenza Sociale in Conto Economico Consolidato",
+        "Federazioni Nazionali, Ordini, Collegi e Consigli Professionali",
+        "Forze di Polizia ad Ordinamento Civile e Militare per la Tutela dell'Ordine e della Sicurezza Pubblica",
+        "Enti e Istituzioni di Ricerca Pubblici",
+        "Enti Pubblici Non Economici",
+        "Autorita' Amministrative Indipendenti",
+        "Agenzie Fiscali",
+        "Organi Costituzionali e di Rilievo Costituzionale",
+        "Enti di Previdenza ed Assistenza Sociale in Conto Economico Consolidato privati ",
+        "Commissari Straordinari Governativi",
+        "Enti Pubblici Produttori di Servizi Assistenziali, Ricreativi e Culturali "
+      ],
+      "categorie_ufficiali": [
+        "Pubbliche Amministrazioni Centrali",
+        "Altre Pubbliche Amministrazioni Centrali",
+        "Enti Nazionali di Previdenza ed Assistenza Sociale"
+      ]
+    },
+    {
+      "id": "pa_locali_agg",
+      "name": "Altre PA locali (aggregati)",
+      "descrizione": "Unioni di Comuni, Comunità montane, consorzi, parchi, ASP, camere di commercio, agenzie regionali e altri enti locali aderenti",
+      "attributi": [
+        "Unioni di Comuni e loro Consorzi e Associazioni",
+        "Comunita' Montane e loro Consorzi e Associazioni",
+        "Consorzi tra Amministrazioni Locali",
+        "Parchi Nazionali, Consorzi e Enti Gestori di Parchi e Aree Naturali Protette",
+        "Aziende Pubbliche di Servizi alla Persona",
+        "Altri Enti Locali",
+        "Aziende e Consorzi Pubblici Territoriali per l'Edilizia Residenziale",
+        "Agenzie ed Enti Regionali per la Formazione, la Ricerca e l'Ambiente",
+        "Agenzie ed Enti Regionali del Lavoro",
+        "Camere di Commercio, Industria, Artigianato e Agricoltura e loro Unioni Regionali",
+        "Agenzie Regionali per le Erogazioni in Agricoltura",
+        "Consorzi di Bacino Imbrifero Montano",
+        "Agenzie ed Enti Regionali di Sviluppo Agricolo",
+        "Autorita' di Bacino",
+        "Autorita' Portuali",
+        "Enti di Regolazione dei Servizi Idrici e o dei Rifiuti"
+      ],
+      "categorie_ufficiali": ["Altre Pubbliche Amministrazioni locali"]
+    }
+  ]
+}

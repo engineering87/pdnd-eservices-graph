@@ -112,6 +112,21 @@ check("nessun nodo orfano (ogni ente compare in almeno un arco)", () => {
   return orfani.length === 0 || `${orfani.length} orfani: ${orfani.join(", ")}`;
 });
 
+// Un arco "osservata" afferma una fruizione reale: deve portare il dato ufficiale
+// che lo prova (enti abilitati o sessioni di scambio), altrimenti è un'affermazione
+// senza fonte.
+check("ogni arco osservato riporta connessioni o sessioni", () => {
+  const bad = DATA.eservices.flatMap((s) => (s.archi || [])
+    .filter((a) => a.origine === "osservata" && !(a.connessioni > 0) && !(a.sessioni > 0))
+    .map((a) => `${s.id}->${a.fruitore}`));
+  return bad.length === 0 || `${bad.length} archi osservati senza dato (es. ${bad[0]})`;
+});
+
+check("ogni nodo di classe dichiara il numero di aderenti e la fonte", () => {
+  const bad = DATA.enti.filter((e) => e.aggregato && !(e.aderenti > 0 && e.aderenti_fonte)).map((e) => e.id);
+  return bad.length === 0 || `nodi aggregati senza aderenti: ${bad.join(", ")}`;
+});
+
 check("il meta dichiara la fonte delle connessioni", () => {
   return (
     (DATA.meta && DATA.meta.fonte_connessioni && DATA.meta.note_connessioni)
@@ -123,7 +138,7 @@ check("il meta dichiara la fonte delle connessioni", () => {
 console.log("\nComportamento di buildGraph");
 
 const graph = buildGraph(DATA);
-const ORIGINI_VALIDE = new Set(["documentata", "certificata", "ricostruita", "inferita"]);
+const ORIGINI_VALIDE = new Set(["documentata", "osservata", "certificata", "ricostruita", "inferita"]);
 
 check("restituisce nodes, links e linkCounts", () => {
   return (

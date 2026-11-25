@@ -29,6 +29,9 @@ export const CATEGORY_COLORS = {
   "Regioni Aggregate": "#b6c6dd",
   Comune: "#978565",
   "Comuni Aggregati": "#d0c2a6",
+  // Altre classi di enti (scuole, sanità, gestori, privati…): un solo colore per
+  // tutte, sobrio come gli altri aggregati. Contrasto 7.7:1, Delta E minimo 21.5.
+  "Classi aggregate": "#c49a9a",
 
   // Amministrazione centrale: pochi nodi ma hub della rete
   Ministero: "#3d8ad4",
