@@ -42,11 +42,22 @@ come grafo interattivo, costruito su dati aperti ufficiali e con la provenienza 
 - **Riusa i dati**: grafo esportabile in GraphML, GEXF e CSV, pronto per Gephi, NetworkX, R o un foglio di calcolo.
 
 > [!IMPORTANT]
-> **Il grafo è una fotografia datata.** Enti, e-service e connessioni cambiano ogni giorno. Il grafo pubblicato fotografa il **25 novembre 2026**; il report Zenodo descrive il modello v1 del 2 maggio 2026. I numeri correnti sono su [interop.pagopa.it/numeri](https://www.interop.pagopa.it/numeri). Chi cita dati di questo progetto dovrebbe indicare sempre la data dello snapshot.
+> **Se usi questo strumento, citalo.** Chi riprende grafo, dati, esportazioni, analisi o immagini di PDND E-Services Graph, in una pubblicazione, una tesi, un report, una presentazione o un altro progetto, deve citare:
+>
+> **Del Re, F. (2026). *The PDND E-Service Network: A Graph-Based Model from Italian Open Government Data*. Zenodo. [doi:10.5281/zenodo.19989954](https://doi.org/10.5281/zenodo.19989954)**
+>
+> BibTeX e dettagli in [Come citare](#come-citare).
+
+> [!NOTE]
+> **Il grafo è una fotografia datata.** Enti, e-service e connessioni cambiano ogni giorno. Il grafo pubblicato fotografa il **25 novembre 2026**; il report Zenodo descrive il modello v1 del 2 maggio 2026. I numeri correnti sono su [interop.pagopa.it/numeri](https://www.interop.pagopa.it/numeri). Citando dati di questo progetto, indica sempre la data dello snapshot.
 
 ## Indice
 
-[Perché questo progetto](#perché-questo-progetto) · [Cosa emerge dal grafo](#cosa-emerge-dal-grafo) · [Funzionalità](#funzionalità) · [Il modello](#il-modello) · [Fonti e provenienza](#fonti-e-provenienza) · [Aggiornamento dei dati](#aggiornamento-dei-dati) · [Esportazione dei dati](#esportazione-dei-dati) · [Sviluppo](#sviluppo) · [Contribuire](#contribuire) · [Come citare](#come-citare) · [Licenza](#licenza)
+| Capire | Approfondire | Usare | Partecipare |
+|---|---|---|---|
+| [Perché questo progetto](#perché-questo-progetto) | [Il modello](#il-modello) | [Funzionalità](#funzionalità) | [Contribuire](#contribuire) |
+| [Cosa emerge dal grafo](#cosa-emerge-dal-grafo) | [Fonti e provenienza](#fonti-e-provenienza) | [Esportazione dei dati](#esportazione-dei-dati) | [**Come citare**](#come-citare) |
+| | [Aggiornamento dei dati](#aggiornamento-dei-dati) | [Sviluppo](#sviluppo) | [Licenza](#licenza) |
 
 ## Perché questo progetto
 
@@ -137,6 +148,29 @@ Grado, centralità e densità sono quindi calcolati **su questo insieme**, non s
 
 ### Come è costruito il grafo
 
+Dai dati aperti della piattaforma al grafo, in quattro passaggi:
+
+```mermaid
+flowchart LR
+    subgraph FONTI["Fonti pubbliche"]
+        direction TB
+        C["Catalogo e-service"]
+        E["Enti aderenti"]
+        U["Statistiche di uso<br/>connessioni e sessioni"]
+        D["Documentazione ufficiale<br/>circolari, manuali"]
+    end
+
+    P["Modellazione<br/>sceglie gli enti rilevanti<br/>raggruppa gli altri in classi<br/>ricava gli archi con la loro provenienza"]
+    G[("Grafo diretto pesato<br/>nodi: enti e classi<br/>archi: erogatore → fruitore")]
+    A(["pdndgraph.it"])
+    X(["Esportazioni<br/>GraphML, GEXF, CSV"])
+
+    FONTI --> P
+    P -->|"revisione e<br/>promozione manuale"| G
+    G --> A
+    G --> X
+```
+
 L'interoperabilità è un problema di rete: soggetti che producono dati e soggetti che li consumano, collegati da accordi e interfacce. Un elenco risponde alla domanda "quali servizi esistono"; un grafo risponde anche a "che forma ha la rete che ne risulta".
 
 Il modello è un **grafo diretto pesato**: un arco da A a B indica che A eroga almeno un e-service fruito da B, e il peso conta i servizi condivisi sulla coppia. La direzione conta: che INPS eroghi verso i Comuni non implica il contrario.
@@ -178,32 +212,6 @@ Il catalogo cresce con l'adesione di nuovi enti e la pubblicazione di nuovi e-se
 | **Snapshot v1** (report) | `src/data/snapshots/pdnd-data.2026-05-02.json` | 2 maggio 2026 | 51 nodi, 86 tipi di e-service, 343 archi, congelato |
 
 Una GitHub Action mensile rigenera l'anteprima, che **non sostituisce** il grafo live: la promozione è manuale e avviene dopo aver controllato il report di esecuzione. Così un cambiamento automatico del catalogo non può cancellare relazioni ricostruite e documentate a mano. Le 570 relazioni del v1 vivono in `pipeline/connections-reconstructed.json` e confluiscono in ogni anteprima; un test verifica che nessuna coppia erogatore→fruitore del v1 vada persa.
-
-```mermaid
-flowchart TD
-    A[("Catalogo ufficiale PDND<br/>CSV")] --> B[build-graph-data.mjs]
-    S[("Classifiche di uso<br/>aderenti, totali")] --> B
-    B --> C{{"Filtra entità tracciate<br/>entities.json"}}
-    C --> D["Estrae e-service<br/>nome, stato, versione"]
-    D --> E["Deriva archi erogatore→fruitore"]
-    E --> F["documentata<br/>connections-overrides.json"]
-    E --> O["osservata<br/>connessioni e sessioni ufficiali"]
-    E --> G["certificata<br/>attributes.certified"]
-    E --> R["ricostruita<br/>relazioni v1"]
-    E --> H["inferita<br/>stime congelate"]
-    F --> I["Guard di validazione"]
-    O --> I
-    G --> I
-    R --> I
-    H --> I
-    I --> J["pipeline/pdnd-data.preview.json<br/><b>ANTEPRIMA</b>"]
-    J -.->|"promozione manuale"| K["src/data/pdnd-data.json<br/><b>GRAFO LIVE</b>"]
-    K --> L(["pdndgraph.it"])
-
-    style J fill:#fff3cd,stroke:#856404,color:#000
-    style K fill:#d4edda,stroke:#155724,color:#000
-    style L fill:#cce5ff,stroke:#004085,color:#000
-```
 
 Per ogni ente la pipeline sceglie gli e-service più rilevanti secondo le classifiche ufficiali, cioè il maggiore fra enti abilitati e sessioni di scambio; i campi `enti_abilitati_min` e `sessioni_min` ne riportano i minimi garantiti. Ogni fruitore compare una volta per e-service, con la provenienza più forte; connessioni e sessioni osservate accompagnano l'arco qualunque sia la sua provenienza.
 
@@ -387,6 +395,7 @@ pdnd-eservices-graph/
 ├── package.json
 ├── staticwebapp.config.json             # Config Azure Static Web Apps
 ├── vite.config.js
+├── ADDITIONAL-TERMS.md                  # Termine di attribuzione AGPL 7(b)
 ├── CITATION.cff
 ├── METODOLOGIA.md                       # ← Fonti, metodologia, limitazioni
 └── README.md
@@ -409,6 +418,8 @@ Le pull request sono benvenute, in particolare le correzioni alle relazioni erog
 
 ## Come citare
 
+**Ogni uso del progetto va accompagnato dalla citazione del report tecnico**, indicando anche la data dello snapshot dei dati usati.
+
 La metodologia è documentata nel report tecnico, distribuito con licenza CC-BY-4.0, che descrive il modello v1: fonti, pipeline di ricostruzione, ruolo dei modelli linguistici come strumento di estrazione e copertura misurata (~89% di 14.102 endpoint). Il sorgente LaTeX è in [pdnd-graph-paper](https://github.com/engineering87/pdnd-graph-paper).
 
 > Del Re, F. (2026). *The PDND E-Service Network: A Graph-Based Model from Italian Open Government Data*. Zenodo, v1.0.0, 3 maggio 2026. [doi:10.5281/zenodo.19989954](https://doi.org/10.5281/zenodo.19989954)
@@ -430,14 +441,15 @@ La metodologia è documentata nel report tecnico, distribuito con licenza CC-BY-
 GitHub genera la citazione anche dal pulsante **Cite this repository**, a partire da [`CITATION.cff`](CITATION.cff). I numeri del report si riferiscono al modello v1, quelli di questo README al modello v2: indica sempre la data dello snapshot che usi.
 
 > [!NOTE]
-> **Cosa è dovuto e cosa è richiesto.** Il report è sotto **CC-BY-4.0**, quindi il suo riutilizzo richiede l'attribuzione. Il codice è sotto **AGPL-3.0**, che impone di conservare le note di copyright e di licenza e di rilasciare le opere derivate con la stessa licenza, ma non prevede un obbligo di citazione accademica. La citazione resta quindi una richiesta; in un contesto scientifico o istituzionale permette a chi legge di risalire alla metodologia e ai suoi limiti.
+> **Su cosa si basa la citazione.** Il report è sotto **CC-BY-4.0**: chi ne riprende contenuti deve attribuirli all'autore. Il codice è sotto **AGPL-3.0**: chi lo usa o lo modifica deve conservare le note di copyright e di licenza e rilasciare le opere derivate con la stessa licenza. La citazione del report è la forma con cui l'autore chiede di riconoscere ogni uso del progetto, e permette a chi legge di risalire alla metodologia e ai suoi limiti.
 
 ## Licenza
 
-Il codice è distribuito sotto licenza **AGPL-3.0** (vedi [LICENSE](LICENSE)):
+Il codice è distribuito sotto licenza **AGPL-3.0** (vedi [LICENSE](LICENSE)), con un termine aggiuntivo di attribuzione ai sensi della sezione 7(b) (vedi [ADDITIONAL-TERMS.md](ADDITIONAL-TERMS.md)):
 
 - puoi **usare, modificare e distribuire** liberamente il codice;
 - se **distribuisci una versione modificata**, devi renderla disponibile con la stessa licenza;
-- se **la offri come servizio in rete** (per esempio una web app), devi rendere disponibile agli utenti il codice sorgente della versione in esecuzione.
+- se **la offri come servizio in rete** (per esempio una web app), devi rendere disponibile agli utenti il codice sorgente della versione in esecuzione;
+- in ogni copia, versione modificata o servizio in rete devi **conservare l'attribuzione all'autore e la citazione del report**, nel codice e nel piè di pagina dell'interfaccia.
 
 I dati sugli e-service provengono da [PDND Open Data](https://github.com/italia/pdnd-opendata) e sono distribuiti con licenza **CC0 1.0 Universal** (pubblico dominio) dalla Presidenza del Consiglio dei Ministri – Dipartimento per la Trasformazione Digitale.

@@ -1,5 +1,9 @@
 /**
  * Piè di pagina: attribuzione, licenze e collegamento al report pubblicato.
+ *
+ * Attribuzione obbligatoria (AGPL-3.0 sezione 7(b), vedi ADDITIONAL-TERMS.md):
+ * il nome dell'autore e il collegamento al report devono restare visibili in
+ * ogni versione, anche modificata, dell'interfaccia.
  * Le licenze sono due e vanno tenute distinte: AGPL-3.0 per il codice,
  * CC0 1.0 per i dati di origine.
  */
