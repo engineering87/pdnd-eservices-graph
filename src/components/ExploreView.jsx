@@ -1,5 +1,5 @@
 /**
- * Esplora: chi usa cosa.
+ * Relazioni: quali enti offrono quali servizi e quali enti li usano.
  *
  * Le relazioni del modello in forma tabellare, filtrabili per erogatore,
  * fruitore, categoria, provenienza e testo, con un riepilogo raggruppato e il
@@ -190,7 +190,7 @@ export default function ExploreView({ onOpenEntity, onOpenEservice }) {
     <div style={{ flex: 1, overflowY: "auto", padding: m ? "16px 14px" : "24px 28px" }}>
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
         <div style={{ fontSize: 11, color: "var(--ink-faint)", textTransform: "uppercase", letterSpacing: 1, marginBottom: 6 }}>Relazioni fra enti</div>
-        <h2 style={{ fontSize: m ? 18 : 22, fontWeight: 700, color: "#f1f5f9", marginBottom: 6 }}>Chi usa cosa</h2>
+        <h2 style={{ fontSize: m ? 18 : 22, fontWeight: 700, color: "#f1f5f9", marginBottom: 6 }}>Chi offre i dati e chi li usa</h2>
         <p style={{ fontSize: 12.5, color: "var(--ink-muted)", lineHeight: 1.6, maxWidth: 820, marginBottom: 16 }}>
           Ogni riga dice quale ente offre un servizio di scambio dati (<Termine id="eservice">e-service</Termine>) e quale ente,
           o <Termine id="classe">classe di enti</Termine>, lo usa. <Termine id="abilitati">Enti abilitati</Termine> e{" "}

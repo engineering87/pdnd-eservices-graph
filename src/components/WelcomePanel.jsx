@@ -22,8 +22,8 @@ const NUMERI = [
 const DATA_NUMERI = "24 novembre 2026";
 
 const DOMANDE = [
-  { testo: "Quali servizi usano i Comuni?", url: "/esplora?fruitore=comuni_agg", nota: "Chi usa cosa" },
-  { testo: "Chi usa i dati dell'anagrafe nazionale?", url: "/esplora?erogatore=min_interno&per=fruitore", nota: "Chi usa cosa" },
+  { testo: "Quali servizi usano i Comuni?", url: "/esplora?fruitore=comuni_agg", nota: "Relazioni" },
+  { testo: "Chi usa i dati dell'anagrafe nazionale?", url: "/esplora?erogatore=min_interno&per=fruitore", nota: "Relazioni" },
   PIU_USATO && { testo: `Qual è il servizio più usato? (${PIU_USATO.nome})`, url: `/eservice/${encodeURIComponent(PIU_USATO.id)}`, nota: "Scheda del servizio" },
   { testo: "Dove passa l'uso reale dei dati?", url: "/?archi=osservata", nota: "Mappa" },
   { testo: "Quali enti fanno da ponte nella rete?", url: "/statistiche", nota: "Numeri" },

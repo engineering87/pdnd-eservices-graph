@@ -73,8 +73,8 @@ export default function GuideView() {
         <Shortcut icon="Aa" label="Etichette" desc="Per restare leggibili, le etichette che si sovrapporrebbero vengono nascoste: avvicinati con lo zoom per vederle tutte, oppure passa il puntatore su un ente." />
         <Shortcut icon="🔎" label="Barra di ricerca" desc="Cerca un ente per nome. I nodi non corrispondenti vengono attenuati." />
         <Shortcut icon="⇢" label="Filtro sulla provenienza" desc="Dal menu accanto alle categorie scegli quali archi vedere: tutti, solo l'uso osservato, solo le fonti ufficiali o senza stime AI. Su schermi ampi puoi anche cliccare le voci della legenda in basso a destra. Il filtro resta nell'indirizzo della pagina." />
-        <Shortcut icon="☰" label="Scheda Chi usa cosa" desc="Tutte le relazioni in tabella, con filtri per erogatore, fruitore, categoria e provenienza, riepilogo raggruppato e download CSV. L'indirizzo della pagina conserva i filtri, così puoi condividere la vista." />
-        <Shortcut icon="▤" label="Scheda e-service" desc="Clicca il nome di un e-service nel pannello dettagli, in «Chi usa cosa» o nella scheda Numeri: si apre la sua scheda con erogatore, fruitori per provenienza, dati d'uso ufficiali e gli altri servizi dello stesso ente." />
+        <Shortcut icon="☰" label="Scheda Relazioni" desc="Tutte le relazioni in tabella, con filtri per erogatore, fruitore, categoria e provenienza, riepilogo raggruppato e download CSV. L'indirizzo della pagina conserva i filtri, così puoi condividere la vista." />
+        <Shortcut icon="▤" label="Scheda e-service" desc="Clicca il nome di un e-service nel pannello dettagli, nella scheda Relazioni o nella scheda Numeri: si apre la sua scheda con erogatore, fruitori per provenienza, dati d'uso ufficiali e gli altri servizi dello stesso ente." />
       </div>
 
       <div style={{ marginBottom: 32 }}>

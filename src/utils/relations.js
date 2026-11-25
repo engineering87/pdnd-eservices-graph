@@ -1,6 +1,6 @@
 /**
  * Relazioni erogatore → e-service → fruitore in forma tabellare, con filtri e
- * raggruppamenti. Sono la base della vista Esplora ("chi usa cosa").
+ * raggruppamenti. Sono la base della scheda Relazioni.
  *
  * Ogni riga è un arco del modello: un fruitore di un e-service, con la sua
  * provenienza e, se pubblicati dalle statistiche ufficiali, enti abilitati e

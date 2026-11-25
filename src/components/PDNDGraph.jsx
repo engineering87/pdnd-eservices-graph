@@ -33,7 +33,7 @@ export default function PDNDGraph() {
   const [showAbout, setShowAbout] = useState(false);
   const [showWelcome, setShowWelcome] = useState(benvenutoDaMostrare);
   // Cambia quando si apre un indirizzo con filtri nella query string: le viste
-  // che li leggono al montaggio (Mappa, Chi usa cosa) ripartono con i nuovi.
+  // che li leggono al montaggio (Mappa, Relazioni) ripartono con i nuovi.
   const [rev, setRev] = useState(0);
 
   const graphData = useMemo(() => buildGraph(PDND_DATA), []);
@@ -44,7 +44,7 @@ export default function PDNDGraph() {
     const base = "PDND E-Services Graph";
     const ente = entityId && PDND_DATA.enti.find(e => e.id === entityId);
     const es = activeTab === "eservice" && PDND_DATA.eservices.find(s => s.id === eserviceId);
-    const sezione = { esplora: "Chi usa cosa", statistiche: "Numeri", metodologia: "Metodologia", guida: "Guida" }[activeTab];
+    const sezione = { esplora: "Relazioni", statistiche: "Numeri", metodologia: "Metodologia", guida: "Guida" }[activeTab];
     document.title = es ? `${es.nome} — ${base}` : ente ? `${ente.name} — ${base}` : sezione ? `${sezione} — ${base}` : base;
   }, [activeTab, entityId, eserviceId]);
 

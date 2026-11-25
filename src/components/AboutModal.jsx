@@ -63,7 +63,7 @@ export default function AboutModal({ onClose, onWelcome }) {
           <Riga simbolo="●">Ogni cerchio è un ente, come INPS o l'Agenzia delle Entrate, oppure una <Termine id="classe">classe di enti</Termine>, come tutti i Comuni. Il colore indica il tipo di ente.</Riga>
           <Riga simbolo="→">Una linea va dall'ente che offre i dati (<Termine id="erogatore">erogatore</Termine>) a quello che li usa (<Termine id="fruitore">fruitore</Termine>). Più è spessa, più servizi li collegano.</Riga>
           <Riga simbolo="┄">Le linee azzurre indicano un uso reale registrato dalla PDND; quelle tratteggiate sono ricostruzioni o stime. La legenda della <Termine id="provenienza">provenienza</Termine> permette di filtrarle.</Riga>
-          <Riga simbolo="☰">La scheda «Chi usa cosa» elenca le stesse relazioni in tabella, con filtri e download.</Riga>
+          <Riga simbolo="☰">La scheda Relazioni elenca le stesse relazioni in tabella, con filtri e download.</Riga>
           {onWelcome && (
             <button type="button" onClick={onWelcome} style={{ marginTop: 6, padding: "8px 14px", borderRadius: 6, border: "1px solid var(--pa-blue)", background: "var(--pa-blue-soft)", color: "var(--ink)", fontFamily: "inherit", fontSize: 13, fontWeight: 600, cursor: "pointer" }}>
               Rivedi l'introduzione

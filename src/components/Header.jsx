@@ -9,7 +9,7 @@ import Termine from "./Termine";
 
 const TABS = [
   { id: "grafo", label: "Mappa" },
-  { id: "esplora", label: "Chi usa cosa" },
+  { id: "esplora", label: "Relazioni" },
   { id: "statistiche", label: "Numeri" },
   { id: "metodologia", label: "Metodologia" },
   { id: "guida", label: "Guida" },

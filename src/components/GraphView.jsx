@@ -513,7 +513,7 @@ export default function GraphView({ entityId = null, onEntityChange, onOpenEserv
       <div style={{ flex: 1, minHeight: 0, position: "relative" }}>
         <canvas ref={canvasRef} width={dim.w * 2} height={dim.h * 2}
           role="img"
-          aria-label="Grafo dell'interoperabilità tra Pubbliche Amministrazioni sulla PDND. Il contenuto del grafo è disponibile in forma testuale nelle schede «Chi usa cosa» e Numeri."
+          aria-label="Grafo dell'interoperabilità tra Pubbliche Amministrazioni sulla PDND. Il contenuto del grafo è disponibile in forma testuale nelle schede Relazioni e Numeri."
           style={{ width: "100%", height: "100%", cursor: "grab", touchAction: "none" }}
           onMouseDown={onMD} onMouseMove={onMM} onMouseUp={onMU} onMouseLeave={onMU}
         />

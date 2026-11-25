@@ -99,7 +99,7 @@ I nodi ad alta centralità sono quelli la cui indisponibilità avrebbe effetto s
 - Pannello dettagli con gli e-service erogati e fruiti da ogni ente e, per le classi, il numero di aderenti
 - Link diretti a ogni vista e a ogni ente, per esempio [pdndgraph.it/ente/inps](https://www.pdndgraph.it/ente/inps)
 
-**Chi usa cosa** (scheda omonima)
+**Relazioni fra enti** (scheda Relazioni)
 - Tutte le relazioni erogatore → e-service → fruitore in tabella, filtrabili per erogatore, fruitore, categoria, provenienza e testo
 - Riepilogo raggruppato per erogatore, fruitore, categoria, e-service o provenienza, con enti abilitati e sessioni osservate
 - Percorsi pronti ("Cosa usano i Comuni", "Chi usa i servizi ANPR"…), viste filtrate condivisibili via link e download in CSV

@@ -66,7 +66,7 @@ export default function EServiceView({ eserviceId, onOpenEntity, onOpenEservice,
       <div style={{ flex: 1, padding: "40px 28px", textAlign: "center", color: "var(--ink-muted)" }}>
         <div style={{ fontSize: 16, color: "var(--ink)", marginBottom: 8 }}>E-service non trovato</div>
         <div style={{ fontSize: 12.5, marginBottom: 16 }}>L'identificativo «{eserviceId}» non corrisponde a nessun e-service del modello pubblicato.</div>
-        <button type="button" onClick={() => onExplore("")} style={{ ...link, color: "var(--pa-blue)" }}>Cerca fra le relazioni in «Chi usa cosa»</button>
+        <button type="button" onClick={() => onExplore("")} style={{ ...link, color: "var(--pa-blue)" }}>Cerca nella scheda Relazioni</button>
       </div>
     );
   }
@@ -145,7 +145,7 @@ export default function EServiceView({ eserviceId, onOpenEntity, onOpenEservice,
             Enti abilitati e sessioni sono minimi garantiti: le classifiche ufficiali elencano i primi 10 e-service per categoria.
           </div>
           <button type="button" onClick={() => onExplore(esploraQuery)} style={{ ...link, color: "var(--pa-blue)", fontSize: 12, marginTop: 12 }}>
-            Apri queste relazioni in «Chi usa cosa»
+            Apri queste relazioni nella scheda Relazioni
           </button>
         </div>
 
