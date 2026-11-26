@@ -14,7 +14,8 @@
     "paper-metrics": "node scripts/compute-paper-metrics.mjs",
     "test": "node scripts/test-model.mjs",
     "lint": "eslint .",
-    "export": "node scripts/export-graph.mjs"
+    "export": "node scripts/export-graph.mjs",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "react": "^19.3.1",
@@ -22,6 +23,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.65.1",
     "@vitejs/plugin-react": "^6.3.0",
     "eslint": "^10.15.0",
     "eslint-plugin-react-hooks": "^7.1.1",

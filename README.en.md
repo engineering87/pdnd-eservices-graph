@@ -363,6 +363,7 @@ npm run dev        # http://localhost:3000
 | `npm run dev` / `npm run build` | Development server / production build |
 | `npm run lint` | Static code analysis |
 | `npm test` | Model invariants, v1 retention, export alignment |
+| `npm run test:e2e` | End-to-end tests with Playwright: the real app in Chromium, on desktop and smartphone (first time: `npx playwright install chromium`) |
 | `npm run audit` | JSON audit: counts, degrees, consistency checks |
 | `npm run compare-catalog` | Model coverage against the official catalogue |
 | `npm run export` | Regenerates GraphML, GEXF and CSV in `exports/` |
@@ -397,7 +398,7 @@ npm run export && npm test
 pdnd-eservices-graph/
 ├── .github/workflows/
 │   ├── azure-static-web-apps-polite-plant-07967ad10.yml  # CI/CD for Azure
-│   ├── ci.yml                                            # Lint, test and build (main and develop)
+│   ├── ci.yml                                            # Lint, tests, build and end-to-end (main and develop)
 │   ├── codeql.yml                                        # CodeQL security analysis (main and develop)
 │   ├── dependabot.yml                                    # (in .github/) dependency updates on develop
 │   ├── update-graph-data.yml                             # Monthly data pipeline
@@ -419,6 +420,7 @@ pdnd-eservices-graph/
 │   ├── last-run-report.md               # Report of the last run
 │   └── README.md
 ├── public/                              # favicon and logo
+├── e2e/                                 # End-to-end tests (Playwright)
 ├── scripts/                             # audit, comparison, tests, export, report metrics
 ├── src/
 │   ├── components/                      # PDNDGraph, GraphView, StatsView, MethodologyView, GuideView…
@@ -434,6 +436,7 @@ pdnd-eservices-graph/
 │   └── main.jsx
 ├── index.html
 ├── package.json
+├── playwright.config.js               # End-to-end test configuration
 ├── staticwebapp.config.json             # Azure Static Web Apps config
 ├── vite.config.js
 ├── ADDITIONAL-TERMS.md                  # AGPL 7(b) attribution term
@@ -454,7 +457,7 @@ Pull requests are welcome, especially corrections to provider→consumer relatio
 
 1. Fork the repository and create a branch (`git checkout -b feature/nuovo-ente`)
 2. Edit the files in `pipeline/` or the components
-3. Run `npm run lint`, `npm test` and `npm run audit`
+3. Run `npm run lint`, `npm test`, `npm run test:e2e` and `npm run audit`
 4. Open a pull request
 
 ## How to cite

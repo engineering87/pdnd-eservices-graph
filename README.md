@@ -363,6 +363,7 @@ npm run dev        # http://localhost:3000
 | `npm run dev` / `npm run build` | Avvio in sviluppo / build di produzione |
 | `npm run lint` | Controllo statico del codice |
 | `npm test` | Invarianti del modello, conservazione del v1, allineamento delle esportazioni |
+| `npm run test:e2e` | Test end-to-end con Playwright: l'app vera in Chromium, su desktop e smartphone (la prima volta: `npx playwright install chromium`) |
 | `npm run audit` | Audit del JSON: conteggi, gradi, controlli di coerenza |
 | `npm run compare-catalog` | Copertura del modello rispetto al catalogo ufficiale |
 | `npm run export` | Rigenera GraphML, GEXF e CSV in `exports/` |
@@ -397,7 +398,7 @@ npm run export && npm test
 pdnd-eservices-graph/
 ├── .github/workflows/
 │   ├── azure-static-web-apps-polite-plant-07967ad10.yml  # CI/CD per Azure
-│   ├── ci.yml                                            # Lint, test e build (main e develop)
+│   ├── ci.yml                                            # Lint, test, build ed end-to-end (main e develop)
 │   ├── codeql.yml                                        # Analisi di sicurezza CodeQL (main e develop)
 │   ├── dependabot.yml                                    # (in .github/) aggiornamenti delle dipendenze su develop
 │   ├── update-graph-data.yml                             # Pipeline dati mensile
@@ -419,6 +420,7 @@ pdnd-eservices-graph/
 │   ├── last-run-report.md               # Report dell'ultima esecuzione
 │   └── README.md
 ├── public/                              # favicon e logo
+├── e2e/                                 # Test end-to-end (Playwright)
 ├── scripts/                             # audit, confronto, test, export, metriche del report
 ├── src/
 │   ├── components/                      # PDNDGraph, GraphView, StatsView, MethodologyView, GuideView…
@@ -434,6 +436,7 @@ pdnd-eservices-graph/
 │   └── main.jsx
 ├── index.html
 ├── package.json
+├── playwright.config.js               # Configurazione dei test end-to-end
 ├── staticwebapp.config.json             # Config Azure Static Web Apps
 ├── vite.config.js
 ├── ADDITIONAL-TERMS.md                  # Termine di attribuzione AGPL 7(b)
@@ -454,7 +457,7 @@ Le pull request sono benvenute, in particolare le correzioni alle relazioni erog
 
 1. Fai un fork del repository e crea un branch (`git checkout -b feature/nuovo-ente`)
 2. Modifica i file di `pipeline/` o i componenti
-3. Esegui `npm run lint`, `npm test` e `npm run audit`
+3. Esegui `npm run lint`, `npm test`, `npm run test:e2e` e `npm run audit`
 4. Apri una pull request
 
 ## Come citare
