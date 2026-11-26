@@ -28,7 +28,7 @@ const conteggi = (() => {
 function Section({ title, children }) {
   return (
     <div style={{ marginBottom: 28 }}>
-      <div style={{ fontSize: 15, fontWeight: 700, color: "var(--ink)", marginBottom: 10, paddingBottom: 8, borderBottom: "1px solid rgba(100,160,220,.08)" }}>{title}</div>
+      <div style={{ fontSize: 15, fontWeight: 700, color: "var(--ink)", marginBottom: 10, paddingBottom: 8, borderBottom: "1px solid var(--line)" }}>{title}</div>
       <div style={{ fontSize: 13, color: "var(--ink-muted)", lineHeight: 1.75 }}>{children}</div>
     </div>
   );
@@ -36,15 +36,15 @@ function Section({ title, children }) {
 
 function Source({ name, url, desc, type }) {
   return (
-    <div style={{ padding: "10px 14px", marginBottom: 6, borderRadius: 6, background: "rgba(30,40,60,.4)", border: "1px solid rgba(100,160,220,.06)" }}>
+    <div style={{ padding: "10px 14px", marginBottom: 6, borderRadius: 6, background: "var(--card-inset)", border: "1px solid var(--line)" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 4 }}>
         <span style={{ fontSize: 13, fontWeight: 600, color: "var(--ink)" }}>{name}</span>
-        <span style={{ fontSize: 9, padding: "2px 8px", borderRadius: 3, fontWeight: 600, background: type === "ufficiale" ? "rgba(6,214,160,.1)" : "rgba(255,209,102,.1)", color: type === "ufficiale" ? "#06d6a0" : "var(--cite)" }}>
+        <span style={{ fontSize: 9, padding: "2px 8px", borderRadius: 3, fontWeight: 600, background: type === "ufficiale" ? "rgba(6,214,160,.1)" : "rgba(255,209,102,.1)", color: type === "ufficiale" ? "var(--acc-green)" : "var(--cite)" }}>
           {type === "ufficiale" ? "✓ Dato ufficiale" : "⚠ Ricostruzione"}
         </span>
       </div>
       <div style={{ fontSize: 11, color: "var(--ink-faint)" }}>{desc}</div>
-      {url && <a href={url} target="_blank" rel="noopener" style={{ fontSize: 11, color: "#64b5f6", textDecoration: "none" }}>{url}</a>}
+      {url && <a href={url} target="_blank" rel="noopener" style={{ fontSize: 11, color: "var(--link)", textDecoration: "none" }}>{url}</a>}
     </div>
   );
 }
@@ -54,7 +54,7 @@ export default function MethodologyView() {
     <div style={{ flex: 1, overflowY: "auto", padding: "24px 20px" }}>
     <div style={{ maxWidth: 800, margin: "0 auto" }}>
       <div style={{ fontSize: 10, color: "var(--ink-faint)", textTransform: "uppercase", letterSpacing: 1, marginBottom: 6 }}>Trasparenza metodologica</div>
-      <div style={{ fontSize: 22, fontWeight: 700, color: "#f1f5f9", marginBottom: 6 }}>Come sono stati costruiti i dati</div>
+      <div style={{ fontSize: 22, fontWeight: 700, color: "var(--ink-strong)", marginBottom: 6 }}>Come sono stati costruiti i dati</div>
       <div style={{ fontSize: 13, color: "var(--ink-faint)", marginBottom: 28, lineHeight: 1.6 }}>
         Questo progetto si basa esclusivamente su informazioni già pubbliche, rielaborate e messe in relazione.
         Di seguito sono documentate le fonti, le scelte di rappresentazione e le limitazioni note.
@@ -89,9 +89,9 @@ export default function MethodologyView() {
           uno per ciascun e-service che li collega.
         </div>
         {ORIGINI.map(([chiave, nome, desc]) => (
-          <div key={chiave} style={{ display: "flex", justifyContent: "space-between", gap: 16, padding: "8px 0", borderBottom: "1px solid rgba(100,160,220,.04)", fontSize: 12 }}>
+          <div key={chiave} style={{ display: "flex", justifyContent: "space-between", gap: 16, padding: "8px 0", borderBottom: "1px solid var(--line)", fontSize: 12 }}>
             <span><strong style={{ color: "var(--ink)" }}>{nome}</strong> — {desc}</span>
-            <span style={{ color: "#06d6a0", fontWeight: 700, whiteSpace: "nowrap" }}>{conteggi.perOrigine[chiave] || 0}</span>
+            <span style={{ color: "var(--acc-green)", fontWeight: 700, whiteSpace: "nowrap" }}>{conteggi.perOrigine[chiave] || 0}</span>
           </div>
         ))}
       </Section>
@@ -102,10 +102,10 @@ export default function MethodologyView() {
           da ciascuno dei ~7.650 Comuni aderenti (Albo Pretorio, Pratiche SUAP, Numerazione Civica, ecc.).
           Rappresentarli tutti avrebbe prodotto un grafo illeggibile.
         </div>
-        <div style={{ margin: "14px 0", padding: "12px 16px", borderRadius: 8, background: "rgba(30,40,60,.4)", border: "1px solid rgba(100,160,220,.06)" }}>
+        <div style={{ margin: "14px 0", padding: "12px 16px", borderRadius: 8, background: "var(--card-inset)", border: "1px solid var(--line)" }}>
           <div style={{ fontSize: 12, color: "var(--ink)", fontWeight: 600, marginBottom: 8 }}>Scelta adottata</div>
           <div style={{ fontSize: 12, color: "var(--ink-muted)", lineHeight: 1.6 }}>
-            I Comuni minori sono aggregati in un <strong style={{ color: "#4a7c91" }}>unico nodo</strong> chiamato "Comuni (aggregati)".
+            I Comuni minori sono aggregati in un <strong style={{ color: "var(--acc-cyan)" }}>unico nodo</strong> chiamato "Comuni (aggregati)".
             6 grandi Comuni (Milano, Roma, Napoli, Bologna, Genova, Padova) sono mantenuti come nodi individuali
             perché erogano anche servizi specifici non standard.
             Con lo stesso criterio, gli altri fruitori sono raccolti in 10 classi di enti allineate alle categorie
@@ -122,7 +122,7 @@ export default function MethodologyView() {
           Lo stesso servizio standardizzato (es. <em>Albo Pretorio</em>) compare nel grafo come un nodo solo
           ma corrisponde a centinaia o migliaia di endpoint reali nel catalogo, uno per ciascun Comune che lo pubblica.
         </div>
-        <div style={{ padding: "12px 16px", borderRadius: 8, background: "rgba(30,40,60,.4)", border: "1px solid rgba(100,160,220,.06)", marginBottom: 14 }}>
+        <div style={{ padding: "12px 16px", borderRadius: 8, background: "var(--card-inset)", border: "1px solid var(--line)", marginBottom: 14 }}>
           <div style={{ fontSize: 11, color: "var(--ink-faint)", marginBottom: 8 }}>Mappatura misurata sul catalogo per i 9 servizi standard del nodo aggregato (snapshot 2026-05)</div>
           {[
             ["Albo Pretorio Online", "1.451"],
@@ -135,31 +135,31 @@ export default function MethodologyView() {
             ["Dati Sensori IoT", "221"],
             ["Amministrazione Trasparente", "101"],
           ].map(([nome, count]) => (
-            <div key={nome} style={{ display: "flex", justifyContent: "space-between", padding: "5px 0", fontSize: 12, borderBottom: "1px solid rgba(100,160,220,.04)" }}>
-              <span style={{ color: "#cbd5e1" }}>{nome}</span>
-              <span style={{ color: "#4a7c91", fontWeight: 600 }}>{count} endpoint</span>
+            <div key={nome} style={{ display: "flex", justifyContent: "space-between", padding: "5px 0", fontSize: 12, borderBottom: "1px solid var(--line)" }}>
+              <span style={{ color: "var(--ink-soft)" }}>{nome}</span>
+              <span style={{ color: "var(--acc-cyan)", fontWeight: 600 }}>{count} endpoint</span>
             </div>
           ))}
           <div style={{ display: "flex", justifyContent: "space-between", padding: "8px 0 2px 0", fontSize: 12, fontWeight: 700, marginTop: 4 }}>
             <span style={{ color: "var(--ink)" }}>Totale endpoint coperti dal nodo aggregato</span>
-            <span style={{ color: "#06d6a0" }}>6.382</span>
+            <span style={{ color: "var(--acc-green)" }}>6.382</span>
           </div>
         </div>
         <div style={{ fontSize: 12, color: "var(--ink-muted)", lineHeight: 1.6 }}>
           Nello snapshot di maggio 2026 il catalogo PDND contava <strong style={{ color: "var(--ink)" }}>14.102 API pubblicate</strong> da 6.388 enti distinti,
           e il modello v1 descritto nel report rappresentava 86 tipi di servizio in 51 nodi: i 9 sopra (servizi standardizzati comunali)
-          coprivano 6.382 endpoint, con una copertura totale del catalogo dell'<strong style={{ color: "#06d6a0" }}>~89%</strong>.
+          coprivano 6.382 endpoint, con una copertura totale del catalogo dell'<strong style={{ color: "var(--acc-green)" }}>~89%</strong>.
           Il modello attuale conta <strong style={{ color: "var(--ink)" }}>{conteggi.eservices} e-service in {conteggi.nodi} nodi</strong> e {conteggi.archi} archi:
           oltre ai tipi di servizio del v1, include e-service puntuali del catalogo, ciascuno con il proprio identificativo.
           La copertura rispetto al catalogo corrente è misurabile lanciando{" "}
-          <code style={{ fontSize: 11, padding: "1px 5px", borderRadius: 3, background: "rgba(30,40,60,.6)", color: "var(--ink)" }}>npm run compare-catalog</code>.
+          <code style={{ fontSize: 11, padding: "1px 5px", borderRadius: 3, background: "var(--track)", color: "var(--ink)" }}>npm run compare-catalog</code>.
         </div>
       </Section>
 
       <Section title="Utilizzo di modelli AI">
         <div style={{ fontSize: 13, color: "var(--ink-muted)", lineHeight: 1.75 }}>
           I modelli AI sono stati utilizzati come strumento per incrociare le fonti documentali, estrarre informazioni
-          da documenti non strutturati e collegare il campo <code style={{ fontSize: 11, padding: "1px 5px", borderRadius: 3, background: "rgba(30,40,60,.6)", color: "var(--ink)" }}>attributes</code> del catalogo con la documentazione istituzionale.
+          da documenti non strutturati e collegare il campo <code style={{ fontSize: 11, padding: "1px 5px", borderRadius: 3, background: "var(--track)", color: "var(--ink)" }}>attributes</code> del catalogo con la documentazione istituzionale.
           I modelli non hanno generato informazioni autonomamente: ogni connessione è riconducibile a fonti pubbliche verificabili.
         </div>
       </Section>
@@ -175,7 +175,7 @@ export default function MethodologyView() {
           "Le versioni degli e-service potrebbero non corrispondere all'ultima versione attiva nel catalogo.",
         ].map((text, i) => (
           <div key={i} style={{ display: "flex", gap: 10, marginBottom: 8, fontSize: 12 }}>
-            <span style={{ color: "#ef476f", flexShrink: 0, marginTop: 2 }}>•</span>
+            <span style={{ color: "var(--acc-red)", flexShrink: 0, marginTop: 2 }}>•</span>
             <span>{text}</span>
           </div>
         ))}
@@ -185,7 +185,7 @@ export default function MethodologyView() {
         <div style={{ fontSize: 13, color: "var(--ink-muted)", lineHeight: 1.75, marginBottom: 12 }}>
           La metodologia adottata in questo progetto è documentata nel paper:
         </div>
-        <div style={{ padding: "14px 16px", borderRadius: 8, background: "rgba(30,40,60,.4)", border: "1px solid rgba(100,160,220,.1)", marginBottom: 12 }}>
+        <div style={{ padding: "14px 16px", borderRadius: 8, background: "var(--card-inset)", border: "1px solid var(--border)", marginBottom: 12 }}>
           <div style={{ fontSize: 13, color: "var(--ink)", fontWeight: 600, marginBottom: 6, lineHeight: 1.4 }}>
             The PDND E-Service Network: A Graph-Based Model from Italian Open Government Data
           </div>
@@ -206,7 +206,7 @@ export default function MethodologyView() {
               href="https://github.com/engineering87/pdnd-graph-paper"
               target="_blank"
               rel="noopener"
-              style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "6px 12px", borderRadius: 6, background: "rgba(30,40,60,.6)", border: "1px solid rgba(100,160,220,.15)", color: "#cbd5e1", fontSize: 12, textDecoration: "none" }}
+              style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "6px 12px", borderRadius: 6, background: "var(--track)", border: "1px solid rgba(100,160,220,.15)", color: "var(--ink-soft)", fontSize: 12, textDecoration: "none" }}
             >
               Sorgente LaTeX su GitHub →
             </a>
@@ -217,12 +217,12 @@ export default function MethodologyView() {
         </div>
       </Section>
 
-      <div style={{ padding: "14px 16px", borderRadius: 8, background: "rgba(100,160,220,.04)", border: "1px solid rgba(100,160,220,.1)" }}>
+      <div style={{ padding: "14px 16px", borderRadius: 8, background: "var(--line)", border: "1px solid var(--border)" }}>
         <div style={{ fontSize: 12, color: "var(--ink-muted)", lineHeight: 1.6 }}>
           La documentazione completa è disponibile nel file{" "}
-          <a href="https://github.com/engineering87/pdnd-eservices-graph/blob/main/METODOLOGIA.md" target="_blank" rel="noopener" style={{ color: "#64b5f6", textDecoration: "none", fontWeight: 600 }}>METODOLOGIA.md</a> del repository.
+          <a href="https://github.com/engineering87/pdnd-eservices-graph/blob/main/METODOLOGIA.md" target="_blank" rel="noopener" style={{ color: "var(--link)", textDecoration: "none", fontWeight: 600 }}>METODOLOGIA.md</a> del repository.
           Per segnalare correzioni o contribuire con dati più precisi, apri una{" "}
-          <a href="https://github.com/engineering87/pdnd-eservices-graph/issues" target="_blank" rel="noopener" style={{ color: "#64b5f6", textDecoration: "none" }}>Issue su GitHub</a>.
+          <a href="https://github.com/engineering87/pdnd-eservices-graph/issues" target="_blank" rel="noopener" style={{ color: "var(--link)", textDecoration: "none" }}>Issue su GitHub</a>.
         </div>
       </div>
     </div>

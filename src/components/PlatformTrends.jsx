@@ -10,18 +10,11 @@
 import { useMemo, useRef, useState } from "react";
 import PDND_DATA from "../data/pdnd-data.json";
 import { useIsMobile } from "../utils/useIsMobile";
+import { numero, compatto, dataLunga, meseAnno } from "../utils/format";
 
 const P = PDND_DATA.meta?.piattaforma;
-const COLORE = "#4d94ff";
-const MESI = ["gen", "feb", "mar", "apr", "mag", "giu", "lug", "ago", "set", "ott", "nov", "dic"];
-const meseAnno = (iso) => { const [a, m] = iso.split("-"); return `${MESI[+m - 1]} ${a}`; };
+const COLORE = "var(--pa-blue)";
 // Separatore delle migliaia anche a 4 cifre (9.826), coerente con gli altri numeri.
-const intero = (n) => Math.round(n).toLocaleString("it-IT", { useGrouping: "always" });
-const compatto = (n) =>
-  n >= 1e9 ? `${(n / 1e9).toLocaleString("it-IT", { maximumFractionDigits: 2 })} mld`
-  : n >= 1e6 ? `${(n / 1e6).toLocaleString("it-IT", { maximumFractionDigits: 1 })} mln`
-  : n >= 1e3 ? `${(n / 1e3).toLocaleString("it-IT", { maximumFractionDigits: 1 })} mila`
-  : intero(n);
 
 /** Tacche "tonde" per l'asse verticale. */
 function tacche(max, n = 4) {
@@ -30,12 +23,10 @@ function tacche(max, n = 4) {
   const quante = Math.ceil(max / passo);
   return Array.from({ length: quante + 1 }, (_, i) => i * passo);
 }
-const MESI_LUNGHI = ["gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio", "agosto", "settembre", "ottobre", "novembre", "dicembre"];
-const dataLunga = (iso) => { const [a, m, g] = iso.split("-"); return `${+g} ${MESI_LUNGHI[+m - 1]} ${a}`; };
 
 function Tile({ etichetta, valore, delta, nota }) {
   return (
-    <div style={{ flex: "1 1 140px", minWidth: 0, padding: "14px 16px", background: "rgba(15,20,35,.6)", border: "1px solid rgba(100,160,220,.08)", borderRadius: 10 }}>
+    <div style={{ flex: "1 1 140px", minWidth: 0, padding: "14px 16px", background: "var(--card)", border: "1px solid var(--line)", borderRadius: 10 }}>
       <div style={{ fontSize: 11, color: "var(--ink-faint)", textTransform: "uppercase", letterSpacing: .6, marginBottom: 6 }}>{etichetta}</div>
       <div className="tabular" style={{ fontSize: 26, fontWeight: 700, color: "var(--ink)", lineHeight: 1.1 }}>{valore}</div>
       {delta != null && <div style={{ fontSize: 12, color: "var(--ink-muted)", marginTop: 4 }}>{delta}</div>}
@@ -85,7 +76,7 @@ function Grafico({ titolo, sottotitolo, serie, forma, formato }) {
   const sel = attivo != null ? serie[attivo] : null;
 
   return (
-    <figure style={{ flex: "1 1 420px", minWidth: 0, margin: 0, background: "rgba(15,20,35,.6)", border: "1px solid rgba(100,160,220,.08)", borderRadius: 10, padding: "16px 18px 12px" }}>
+    <figure style={{ flex: "1 1 420px", minWidth: 0, margin: 0, background: "var(--card)", border: "1px solid var(--line)", borderRadius: 10, padding: "16px 18px 12px" }}>
       <figcaption style={{ marginBottom: 8 }}>
         <div style={{ fontSize: 14, fontWeight: 700, color: "var(--ink)" }}>{titolo}</div>
         <div style={{ fontSize: 12, color: "var(--ink-faint)", marginTop: 2 }}>{sottotitolo}</div>
@@ -98,11 +89,11 @@ function Grafico({ titolo, sottotitolo, serie, forma, formato }) {
           {yt.map((t) => (
             <g key={t}>
               <line x1={sx} x2={W - dx} y1={Y(t)} y2={Y(t)} stroke="rgba(120,160,210,.12)" strokeWidth="1" />
-              <text x={sx - 8} y={Y(t)} textAnchor="end" dominantBaseline="middle" fontSize="11" fill="#8b9bb0" fontFamily="inherit">{compatto(t)}</text>
+              <text x={sx - 8} y={Y(t)} textAnchor="end" dominantBaseline="middle" fontSize="11" fill="var(--ink-faint)" fontFamily="inherit">{compatto(t)}</text>
             </g>
           ))}
           {etichetteX.map(([d, i]) => (
-            <text key={d} x={X(i)} y={H - 8} textAnchor="middle" fontSize="11" fill="#8b9bb0" fontFamily="inherit">{i === 0 ? meseAnno(d) : d.slice(0, 4)}</text>
+            <text key={d} x={X(i)} y={H - 8} textAnchor="middle" fontSize="11" fill="var(--ink-faint)" fontFamily="inherit">{i === 0 ? meseAnno(d) : d.slice(0, 4)}</text>
           ))}
           {forma === "area" && area && (
             <>
@@ -117,7 +108,7 @@ function Grafico({ titolo, sottotitolo, serie, forma, formato }) {
           {sel && (
             <g pointerEvents="none">
               <line x1={X(attivo)} x2={X(attivo)} y1={alto} y2={Y(0)} stroke="rgba(220,230,245,.45)" strokeWidth="1" strokeDasharray="3 3" />
-              {forma === "area" && <circle cx={X(attivo)} cy={Y(sel[1])} r="5" fill={COLORE} stroke="#0a0e1a" strokeWidth="2" />}
+              {forma === "area" && <circle cx={X(attivo)} cy={Y(sel[1])} r="5" fill={COLORE} stroke="var(--surface-0)" strokeWidth="2" />}
             </g>
           )}
           {/* Etichetta diretta solo sull'ultimo valore. */}
@@ -129,11 +120,11 @@ function Grafico({ titolo, sottotitolo, serie, forma, formato }) {
           <div role="status" style={{
             position: "absolute", top: 0, pointerEvents: "none",
             left: `${(X(attivo) / W) * 100}%`, transform: `translateX(${attivo > n * .6 ? "calc(-100% - 10px)" : "10px"})`,
-            background: "#16203a", border: "1px solid var(--border-strong)", borderRadius: 6, padding: "6px 10px", whiteSpace: "nowrap",
-            boxShadow: "0 6px 18px rgba(0,0,0,.4)",
+            background: "var(--tooltip)", border: "1px solid var(--border-strong)", borderRadius: 6, padding: "6px 10px", whiteSpace: "nowrap",
+            boxShadow: "var(--shadow)",
           }}>
             <div style={{ fontSize: 11, color: "var(--ink-faint)" }}>{meseAnno(sel[0])}</div>
-            <div className="tabular" style={{ fontSize: 14, fontWeight: 700, color: "var(--ink)" }}>{intero(sel[1])}</div>
+            <div className="tabular" style={{ fontSize: 14, fontWeight: 700, color: "var(--ink)" }}>{numero(sel[1])}</div>
           </div>
         )}
       </div>
@@ -141,10 +132,10 @@ function Grafico({ titolo, sottotitolo, serie, forma, formato }) {
         <summary style={{ fontSize: 11.5, color: "var(--ink-faint)", cursor: "pointer" }}>Mostra i dati in tabella</summary>
         <div style={{ maxHeight: 220, overflowY: "auto", marginTop: 6 }}>
           <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12 }}>
-            <thead><tr><th style={{ textAlign: "left", color: "var(--ink-faint)", fontWeight: 600, padding: "4px 6px" }}>Mese</th><th style={{ textAlign: "right", color: "var(--ink-faint)", fontWeight: 600, padding: "4px 6px" }}>Valore</th></tr></thead>
+            <thead><tr><th scope="col" style={{ textAlign: "left", color: "var(--ink-faint)", fontWeight: 600, padding: "4px 6px" }}>Mese</th><th scope="col" style={{ textAlign: "right", color: "var(--ink-faint)", fontWeight: 600, padding: "4px 6px" }}>Valore</th></tr></thead>
             <tbody>
               {[...serie].reverse().map(([d, v]) => (
-                <tr key={d}><td style={{ padding: "3px 6px", color: "var(--ink-muted)" }}>{meseAnno(d)}</td><td className="tabular" style={{ padding: "3px 6px", textAlign: "right", color: "var(--ink)" }}>{intero(v)}</td></tr>
+                <tr key={d}><td style={{ padding: "3px 6px", color: "var(--ink-muted)" }}>{meseAnno(d)}</td><td className="tabular" style={{ padding: "3px 6px", textAlign: "right", color: "var(--ink)" }}>{numero(v)}</td></tr>
               ))}
             </tbody>
           </table>
@@ -157,7 +148,7 @@ function Grafico({ titolo, sottotitolo, serie, forma, formato }) {
 export default function PlatformTrends() {
   if (!P?.aderenti?.serie?.length || !P?.sessioni?.serie?.length) return null;
   const al = P.aderenti.serie[P.aderenti.serie.length - 1][0];
-  const piu = (x) => (x?.ultimo_mese != null ? `+${intero(x.ultimo_mese)} nell'ultimo mese${x.variazione != null ? ` (+${x.variazione.toLocaleString("it-IT")}%)` : ""}` : null);
+  const piu = (x) => (x?.ultimo_mese != null ? `+${numero(x.ultimo_mese)} nell'ultimo mese${x.variazione != null ? ` (+${x.variazione.toLocaleString("it-IT")}%)` : ""}` : null);
 
   return (
     <section style={{ marginBottom: 28 }}>
@@ -168,13 +159,13 @@ export default function PlatformTrends() {
         </span>
       </div>
       <div style={{ display: "flex", flexWrap: "wrap", gap: 12, marginBottom: 16 }}>
-        <Tile etichetta="Enti aderenti" valore={intero(P.aderenti.totale ?? P.aderenti.serie.at(-1)[1])} delta={piu(P.aderenti)} />
-        <Tile etichetta="E-service pubblicati" valore={intero(P.eservice.totale)} delta={piu(P.eservice)} />
-        <Tile etichetta="Connessioni attive" valore={intero(P.connessioni.totale)} delta={piu(P.connessioni)} />
+        <Tile etichetta="Enti aderenti" valore={numero(P.aderenti.totale ?? P.aderenti.serie.at(-1)[1])} delta={piu(P.aderenti)} />
+        <Tile etichetta="E-service pubblicati" valore={numero(P.eservice.totale)} delta={piu(P.eservice)} />
+        <Tile etichetta="Connessioni attive" valore={numero(P.connessioni.totale)} delta={piu(P.connessioni)} />
         <Tile etichetta="Sessioni di scambio" valore={compatto(P.sessioni.totale)} delta={piu(P.sessioni)} nota="dall'avvio della piattaforma" />
       </div>
       <div style={{ display: "flex", flexWrap: "wrap", gap: 16 }}>
-        <Grafico titolo="Enti aderenti" sottotitolo="Totale cumulato, mese per mese" serie={P.aderenti.serie} forma="area" formato={intero} />
+        <Grafico titolo="Enti aderenti" sottotitolo="Totale cumulato, mese per mese" serie={P.aderenti.serie} forma="area" formato={numero} />
         <Grafico titolo="Sessioni di scambio al mese" sottotitolo="Scambi di dati avvenuti nel mese" serie={P.sessioni.serie} forma="barre" formato={compatto} />
       </div>
     </section>

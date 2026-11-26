@@ -5,6 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Mappa interattiva degli scambi di dati fra le Pubbliche Amministrazioni italiane sulla PDND: chi offre i dati, chi li usa e quanto, da dati aperti ufficiali." />
     <meta name="theme-color" content="#0a0e1a" />
+    <!-- Tema applicato prima del primo disegno: la scelta salvata vince,
+         altrimenti la preferenza del sistema (vedi src/utils/useTheme.js). -->
+    <script>
+      (function () {
+        var t = null;
+        try { t = localStorage.getItem("pdnd-graph-tema"); } catch (e) { /* archivio non disponibile */ }
+        if (t !== "light" && t !== "dark") {
+          t = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+        }
+        document.documentElement.setAttribute("data-theme", t);
+      })();
+    </script>
     <!-- Anteprime di condivisione. Per ogni ente ed e-service il build scrive
          una pagina con titolo, descrizione e indirizzo propri
          (scripts/prerender-meta.mjs). -->

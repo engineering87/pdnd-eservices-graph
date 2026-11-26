@@ -3,18 +3,40 @@
    suggerire alcuna affiliazione istituzionale: il progetto e' indipendente. */
 @import url('https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Roboto+Mono:wght@400;500;700&display=swap');
 
+/* Temi. Tutti i colori dell'interfaccia passano da queste variabili: il tema
+   scuro e' quello predefinito, il chiaro si attiva con data-theme="light"
+   sull'elemento <html> (scelta dell'utente o preferenza del sistema, vedi
+   index.html e src/utils/useTheme.js). I valori di testo superano il rapporto
+   4.5:1 delle WCAG 2.1 AA sulle superfici del proprio tema. */
 :root {
+  color-scheme: dark;
+
   /* Superfici */
   --surface-0: #0a0e1a;
   --surface-1: #111827;
   --surface-2: #16203a;
   --surface-raised: rgba(24, 33, 56, .55);
+  --app-bg: linear-gradient(145deg, #0a0e1a 0%, #111827 40%, #0d1525 100%);
+  --card: rgba(15, 20, 35, .6);
+  --card-inset: rgba(30, 40, 60, .4);
+  --track: rgba(30, 40, 60, .6);
+  --input: rgba(30, 40, 60, .8);
+  --header-bg: rgba(10, 14, 26, .85);
+  --footer-bg: rgba(8, 11, 20, .9);
+  --panel: rgba(10, 14, 26, .94);
+  --modal-bg: linear-gradient(145deg, #131a2e, #0f1623);
+  --tooltip: #16203a;
+  --overlay: rgba(0, 0, 0, .6);
+  --line: rgba(100, 160, 220, .07);
   --border: rgba(120, 160, 210, .16);
   --border-strong: rgba(120, 160, 210, .3);
+  --underline: rgba(120, 160, 210, .35);
+  --shadow: 0 8px 24px rgba(0, 0, 0, .45);
 
-  /* Testo. I valori superano il rapporto di contrasto 4.5:1 richiesto dalle
-     WCAG 2.1 AA per il testo normale sul fondo --surface-0. */
+  /* Testo */
+  --ink-strong: #f8fafc;
   --ink: #f1f5f9;
+  --ink-soft: #cbd5e1;
   --ink-muted: #a8b6c8;
   --ink-faint: #8b9bb0;
 
@@ -24,12 +46,65 @@
   --pa-blue: #4d94ff;
   --pa-blue-deep: #0066cc;
   --pa-blue-soft: rgba(77, 148, 255, .12);
+  --link: #64b5f6;
 
   /* Accento secondario, riservato ai riferimenti bibliografici (DOI, paper). */
   --cite: #d4a843;
 
+  /* Accenti dei dati: valori, barre e indicatori. */
+  --acc-green: #06d6a0;
+  --acc-cyan: #4fc3f7;
+  --acc-violet: #a47cf3;
+  --acc-red: #f2617f;
+  --acc-yellow: #ffd166;
+  --acc-blue2: #64a0dc;
+
   --radius: 6px;
   --radius-sm: 4px;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  --surface-0: #f4f7fb;
+  --surface-1: #ffffff;
+  --surface-2: #e8eef7;
+  --surface-raised: #ffffff;
+  --app-bg: linear-gradient(145deg, #f7f9fc 0%, #eef3f9 100%);
+  --card: #ffffff;
+  --card-inset: #f1f4f9;
+  --track: #e2e8f0;
+  --input: #ffffff;
+  --header-bg: rgba(255, 255, 255, .9);
+  --footer-bg: rgba(255, 255, 255, .94);
+  --panel: rgba(255, 255, 255, .97);
+  --modal-bg: #ffffff;
+  --tooltip: #ffffff;
+  --overlay: rgba(15, 23, 42, .45);
+  --line: rgba(20, 40, 80, .09);
+  --border: rgba(20, 40, 80, .16);
+  --border-strong: rgba(20, 40, 80, .32);
+  --underline: rgba(20, 60, 120, .4);
+  --shadow: 0 8px 24px rgba(15, 23, 42, .14);
+
+  --ink-strong: #0b1220;
+  --ink: #0f172a;
+  --ink-soft: #334155;
+  --ink-muted: #475569;
+  --ink-faint: #5b6b80;
+
+  --pa-blue: #0b5fcc;
+  --pa-blue-soft: rgba(11, 95, 204, .08);
+  --link: #0b5fcc;
+
+  --cite: #8a6410;
+
+  --acc-green: #047857;
+  --acc-cyan: #0369a1;
+  --acc-violet: #6d28d9;
+  --acc-red: #be123c;
+  --acc-yellow: #8f5606;
+  --acc-blue2: #1d4ed8;
 }
 
 *, *::before, *::after {
@@ -126,3 +201,20 @@ body {
    una barra di scorrimento sotto le etichette. */
 .nav-tabs { scrollbar-width: none; }
 .nav-tabs::-webkit-scrollbar { display: none; }
+
+/* Link "Vai al contenuto": nascosto finché non riceve il fuoco da tastiera. */
+.salta-al-contenuto {
+  position: absolute;
+  left: 12px;
+  top: -48px;
+  z-index: 300;
+  padding: 8px 14px;
+  border-radius: var(--radius);
+  background: var(--pa-blue-deep);
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+}
+.salta-al-contenuto:focus {
+  top: 12px;
+}

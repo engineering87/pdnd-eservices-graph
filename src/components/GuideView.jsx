@@ -9,8 +9,8 @@ import { GLOSSARIO } from "../constants/glossario";
 
 function Shortcut({ icon, label, desc }) {
   return (
-    <div style={{ display: "flex", gap: 14, alignItems: "flex-start", padding: "14px 0", borderBottom: "1px solid rgba(100,160,220,.06)" }}>
-      <div style={{ width: 44, height: 44, borderRadius: 10, background: "rgba(30,40,60,.5)", border: "1px solid rgba(100,160,220,.08)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20, flexShrink: 0 }}>{icon}</div>
+    <div style={{ display: "flex", gap: 14, alignItems: "flex-start", padding: "14px 0", borderBottom: "1px solid var(--line)" }}>
+      <div style={{ width: 44, height: 44, borderRadius: 10, background: "var(--card-inset)", border: "1px solid var(--line)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20, flexShrink: 0 }}>{icon}</div>
       <div>
         <div style={{ fontSize: 13, fontWeight: 600, color: "var(--ink)", marginBottom: 3 }}>{label}</div>
         <div style={{ fontSize: 12, color: "var(--ink-muted)", lineHeight: 1.6 }}>{desc}</div>
@@ -56,14 +56,14 @@ export default function GuideView() {
     <div style={{ flex: 1, overflowY: "auto", padding: "24px 20px" }}>
     <div style={{ maxWidth: 760, margin: "0 auto" }}>
       <div style={{ fontSize: 10, color: "var(--ink-faint)", textTransform: "uppercase", letterSpacing: 1, marginBottom: 6 }}>Guida all'uso</div>
-      <div style={{ fontSize: 22, fontWeight: 700, color: "#f1f5f9", marginBottom: 6 }}>Come navigare il grafo</div>
+      <div style={{ fontSize: 22, fontWeight: 700, color: "var(--ink-strong)", marginBottom: 6 }}>Come navigare il grafo</div>
       <div style={{ fontSize: 13, color: "var(--ink-faint)", marginBottom: 24, lineHeight: 1.6 }}>
         Il grafo rappresenta la rete dell'interoperabilità tra le Pubbliche Amministrazioni italiane.
         Ogni nodo è un ente, ogni arco è un flusso di dati tramite e-service.
       </div>
 
       <div style={{ marginBottom: 32 }}>
-        <div style={{ fontSize: 14, fontWeight: 700, color: "var(--ink)", marginBottom: 12, paddingBottom: 8, borderBottom: "1px solid rgba(100,160,220,.08)" }}>Interazioni</div>
+        <div style={{ fontSize: 14, fontWeight: 700, color: "var(--ink)", marginBottom: 12, paddingBottom: 8, borderBottom: "1px solid var(--line)" }}>Interazioni</div>
         <Shortcut icon="🖱" label="Click su un nodo" desc="Apre il pannello dettagli con l'elenco degli e-services erogati e fruiti dall'ente selezionato." />
         <Shortcut icon="✋" label="Trascina un nodo" desc="Sposta il nodo nella posizione desiderata. Gli altri nodi si riadattano automaticamente grazie alla simulazione fisica." />
         <Shortcut icon="🔍" label="Scroll (rotellina)" desc="Zoom avanti e indietro. Lo zoom è centrato sulla posizione del cursore." />
@@ -71,16 +71,17 @@ export default function GuideView() {
         <Shortcut icon="🏷" label="Click sulla legenda" desc="Filtra il grafo per categoria: vengono evidenziati solo gli enti della categoria selezionata. Clicca di nuovo per rimuovere il filtro." />
         <Shortcut icon="⤢" label="Pulsante Centra" desc="Riporta la mappa a tutto schermo dopo zoom e spostamenti. All'apertura la mappa si adatta da sola allo schermo." />
         <Shortcut icon="Aa" label="Etichette" desc="Per restare leggibili, le etichette che si sovrapporrebbero vengono nascoste: avvicinati con lo zoom per vederle tutte, oppure passa il puntatore su un ente." />
-        <Shortcut icon="🔎" label="Barra di ricerca" desc="Cerca un ente per nome. I nodi non corrispondenti vengono attenuati." />
+        <Shortcut icon="🔎" label="Barra di ricerca" desc="Cerca un ente per nome: i nodi non corrispondenti vengono attenuati e compaiono i suggerimenti. Con Invio apri il primo ente trovato, con Esc svuoti la ricerca o chiudi il pannello. È il modo per usare la mappa da tastiera." />
+        <Shortcut icon="☀" label="Tema chiaro o scuro" desc="Il pulsante accanto a «Il progetto» alterna i due temi. La scelta resta memorizzata nel browser; finché non scegli, vale la preferenza del sistema." />
         <Shortcut icon="⇢" label="Filtro sulla provenienza" desc="Dal menu accanto alle categorie scegli quali archi vedere: tutti, solo l'uso osservato, solo le fonti ufficiali o senza stime AI. Su schermi ampi puoi anche cliccare le voci della legenda in basso a destra. Il filtro resta nell'indirizzo della pagina." />
         <Shortcut icon="☰" label="Scheda Relazioni" desc="Tutte le relazioni in tabella, con filtri per erogatore, fruitore, categoria e provenienza, riepilogo raggruppato e download CSV. L'indirizzo della pagina conserva i filtri, così puoi condividere la vista." />
         <Shortcut icon="▤" label="Scheda e-service" desc="Clicca il nome di un e-service nel pannello dettagli, nella scheda Relazioni o nella scheda Numeri: si apre la sua scheda con erogatore, fruitori per provenienza, dati d'uso ufficiali e gli altri servizi dello stesso ente." />
       </div>
 
       <div style={{ marginBottom: 32 }}>
-        <div style={{ fontSize: 14, fontWeight: 700, color: "var(--ink)", marginBottom: 12, paddingBottom: 8, borderBottom: "1px solid rgba(100,160,220,.08)" }}>Come leggere il grafo</div>
+        <div style={{ fontSize: 14, fontWeight: 700, color: "var(--ink)", marginBottom: 12, paddingBottom: 8, borderBottom: "1px solid var(--line)" }}>Come leggere il grafo</div>
 
-        <div style={{ padding: "14px 16px", borderRadius: 8, background: "rgba(30,40,60,.3)", border: "1px solid rgba(100,160,220,.06)", marginBottom: 16 }}>
+        <div style={{ padding: "14px 16px", borderRadius: 8, background: "var(--card-inset)", border: "1px solid var(--line)", marginBottom: 16 }}>
           <div style={{ fontSize: 12, fontWeight: 600, color: "var(--ink)", marginBottom: 8 }}>Nodi</div>
           <div style={{ fontSize: 12, color: "var(--ink-muted)", lineHeight: 1.7 }}>
             Ogni nodo rappresenta un ente aderente alla PDND. La <strong style={{ color: "var(--ink)" }}>dimensione</strong> è proporzionale
@@ -89,7 +90,7 @@ export default function GuideView() {
           </div>
         </div>
 
-        <div style={{ padding: "14px 16px", borderRadius: 8, background: "rgba(30,40,60,.3)", border: "1px solid rgba(100,160,220,.06)", marginBottom: 16 }}>
+        <div style={{ padding: "14px 16px", borderRadius: 8, background: "var(--card-inset)", border: "1px solid var(--line)", marginBottom: 16 }}>
           <div style={{ fontSize: 12, fontWeight: 600, color: "var(--ink)", marginBottom: 8 }}>Archi</div>
           <div style={{ fontSize: 12, color: "var(--ink-muted)", lineHeight: 1.7 }}>
             Ogni arco rappresenta una relazione erogatore→fruitore. La <strong style={{ color: "var(--ink)" }}>freccia</strong> indica
@@ -99,7 +100,7 @@ export default function GuideView() {
           </div>
         </div>
 
-        <div style={{ padding: "14px 16px", borderRadius: 8, background: "rgba(30,40,60,.3)", border: "1px solid rgba(100,160,220,.06)" }}>
+        <div style={{ padding: "14px 16px", borderRadius: 8, background: "var(--card-inset)", border: "1px solid var(--line)" }}>
           <div style={{ fontSize: 12, fontWeight: 600, color: "var(--ink)", marginBottom: 8 }}>Layout force-directed</div>
           <div style={{ fontSize: 12, color: "var(--ink-muted)", lineHeight: 1.7 }}>
             I nodi si dispongono automaticamente tramite una simulazione fisica: gli enti collegati si attraggono,
@@ -110,10 +111,10 @@ export default function GuideView() {
       </div>
 
       <div style={{ marginBottom: 32 }}>
-        <div style={{ fontSize: 14, fontWeight: 700, color: "var(--ink)", marginBottom: 12, paddingBottom: 8, borderBottom: "1px solid rgba(100,160,220,.08)" }}>Parole chiave</div>
+        <div style={{ fontSize: 14, fontWeight: 700, color: "var(--ink)", marginBottom: 12, paddingBottom: 8, borderBottom: "1px solid var(--line)" }}>Parole chiave</div>
         <dl style={{ margin: 0 }}>
           {Object.entries(GLOSSARIO).map(([k, v]) => (
-            <div key={k} style={{ padding: "9px 0", borderBottom: "1px solid rgba(100,160,220,.06)" }}>
+            <div key={k} style={{ padding: "9px 0", borderBottom: "1px solid var(--line)" }}>
               <dt style={{ fontSize: 13, fontWeight: 600, color: "var(--ink)" }}>{v.termine}</dt>
               <dd style={{ margin: "2px 0 0", fontSize: 12.5, color: "var(--ink-muted)", lineHeight: 1.6 }}>{v.spiegazione}</dd>
             </div>
@@ -122,7 +123,7 @@ export default function GuideView() {
       </div>
 
       <div>
-        <div style={{ fontSize: 14, fontWeight: 700, color: "var(--ink)", marginBottom: 12, paddingBottom: 8, borderBottom: "1px solid rgba(100,160,220,.08)" }}>Categorie degli enti</div>
+        <div style={{ fontSize: 14, fontWeight: 700, color: "var(--ink)", marginBottom: 12, paddingBottom: 8, borderBottom: "1px solid var(--line)" }}>Categorie degli enti</div>
         {Object.entries(CATEGORY_COLORS).map(([cat, col]) => (
           <LegendItem key={cat} color={col} label={cat} desc={CATEGORY_DESCRIPTIONS[cat]} />
         ))}

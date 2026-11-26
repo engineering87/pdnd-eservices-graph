@@ -1,7 +1,7 @@
 // src/utils/buildGraph.js
 // Versione provenance-aware: legge il campo `archi` (con origine) se presente,
 // altrimenti ricade su `fruitori` (retrocompatibile). Ogni link porta `origine`:
-// "documentata" | "certificata" | "inferita".
+// "documentata" | "osservata" | "certificata" | "ricostruita" | "inferita".
 
 export function buildGraph(data) {
   const nodes = data.enti.map((e) => {

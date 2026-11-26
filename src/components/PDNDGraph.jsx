@@ -18,6 +18,7 @@ function Caricamento() {
   return <div role="status" style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", color: "var(--ink-faint)", fontSize: 13 }}>Caricamento…</div>;
 }
 import { useUrlState, parseLocation } from "../utils/useUrlState";
+import { useTheme } from "../utils/useTheme";
 
 // Il benvenuto compare una sola volta, e solo a chi arriva sulla pagina
 // iniziale: un collegamento condiviso a un ente o a una vista filtrata deve
@@ -36,6 +37,7 @@ function segnaBenvenutoVisto() {
 
 export default function PDNDGraph() {
   const [{ tab: activeTab, entityId, eserviceId }, navigate] = useUrlState();
+  const [tema, cambiaTema] = useTheme();
   const [showAbout, setShowAbout] = useState(false);
   const [showWelcome, setShowWelcome] = useState(benvenutoDaMostrare);
   // Cambia quando si apre un indirizzo con filtri nella query string: le viste
@@ -81,24 +83,30 @@ export default function PDNDGraph() {
   return (
     <div style={{
       width: "100%", height: "100vh",
-      background: "linear-gradient(145deg,#0a0e1a 0%,#111827 40%,#0d1525 100%)",
+      background: "var(--app-bg)",
       fontFamily: "'Titillium Web',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif",
       color: "var(--ink)",
       display: "flex", flexDirection: "column", overflow: "hidden",
     }}>
+      <a href="#contenuto" className="salta-al-contenuto">Vai al contenuto</a>
       <Header
         stats={stats}
         activeTab={activeTab}
         onTabChange={(tab) => navigate({ tab, entityId: null })}
         onAbout={() => setShowAbout(true)}
+        tema={tema}
+        onToggleTheme={cambiaTema}
       />
 
+      {/* Regione principale: destinazione del link "Vai al contenuto". */}
+      <main id="contenuto" tabIndex={-1} style={{ flex: 1, minHeight: 0, display: "flex", flexDirection: "column", outline: "none" }}>
       {activeTab === "grafo" && (
         <GraphView
           key={`grafo-${rev}`}
           entityId={entityId}
           onEntityChange={(id) => navigate({ entityId: id })}
           onOpenEservice={apriEservice}
+          tema={tema}
         />
       )}
       <Suspense fallback={<Caricamento />}>
@@ -119,6 +127,7 @@ export default function PDNDGraph() {
       {activeTab === "metodologia" && <MethodologyView />}
       {activeTab === "guida" && <GuideView />}
       </Suspense>
+      </main>
 
       <Footer />
 

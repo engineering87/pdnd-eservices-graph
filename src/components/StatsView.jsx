@@ -14,21 +14,21 @@ import { CATEGORY_COLORS } from "../constants/colors";
 import NetworkAnalysis from "./NetworkAnalysis";
 import PlatformTrends from "./PlatformTrends";
 import ChangesView from "./ChangesView";
+import { numero, breve } from "../utils/format";
 
 const ORIGINI = [
-  ["documentata", "Documentata", "#06d6a0"],
-  ["osservata", "Osservata", "#4fc3f7"],
-  ["certificata", "Certificata", "#64a0dc"],
+  ["documentata", "Documentata", "var(--acc-green)"],
+  ["osservata", "Osservata", "var(--acc-cyan)"],
+  ["certificata", "Certificata", "var(--acc-blue2)"],
   ["ricostruita", "Ricostruita (v1)", "#c49a9a"],
   ["inferita", "Inferita (AI)", "#ffd166"],
 ];
-const fmt = (n) => n.toLocaleString("it-IT");
-const milioni = (n) => n >= 1e6 ? `${(n / 1e6).toLocaleString("it-IT", { maximumFractionDigits: 1 })} M` : fmt(n);
-const nomeEnte = (id) => PDND_DATA.enti.find(e => e.id === id)?.name || id;
+const NOMI = new Map(PDND_DATA.enti.map(e => [e.id, e.name]));
+const nomeEnte = (id) => NOMI.get(id) || id;
 
 function Card({ title, color, children }) {
   return (
-    <div style={{ background: "rgba(15,20,35,.6)", border: "1px solid rgba(100,160,220,.08)", borderRadius: 10, padding: "20px 22px", flex: "1 1 340px", minWidth: 300 }}>
+    <div style={{ background: "var(--card)", border: "1px solid var(--line)", borderRadius: 10, padding: "20px 22px", flex: "1 1 340px", minWidth: 300 }}>
       <div style={{ fontSize: 11, fontWeight: 700, color, textTransform: "uppercase", letterSpacing: .8, marginBottom: 14 }}>{title}</div>
       {children}
     </div>
@@ -40,12 +40,12 @@ function Bar({ label, value, max, color, sub, display, onClick }) {
     <div style={{ marginBottom: 10 }}>
       <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, marginBottom: 3 }}>
         {onClick
-          ? <button type="button" onClick={onClick} title="Apri la scheda dell'e-service" style={{ color: "#cbd5e1", background: "none", border: "none", padding: 0, font: "inherit", textAlign: "left", cursor: "pointer", textDecoration: "underline", textDecorationColor: "rgba(120,160,210,.3)", textUnderlineOffset: 2 }}>{label}</button>
-          : <span style={{ color: "#cbd5e1" }}>{label}</span>}
+          ? <button type="button" onClick={onClick} title="Apri la scheda dell'e-service" style={{ color: "var(--ink-soft)", background: "none", border: "none", padding: 0, font: "inherit", textAlign: "left", cursor: "pointer", textDecoration: "underline", textDecorationColor: "var(--underline)", textUnderlineOffset: 2 }}>{label}</button>
+          : <span style={{ color: "var(--ink-soft)" }}>{label}</span>}
         <span style={{ color, fontWeight: 700 }}>{display ?? value}</span>
       </div>
-      <div style={{ height: 6, background: "rgba(30,40,60,.6)", borderRadius: 3 }}>
-        <div style={{ height: "100%", width: `${(value / max) * 100}%`, background: `linear-gradient(90deg, ${color}, ${color}88)`, borderRadius: 3, transition: "width .6s ease" }} />
+      <div style={{ height: 6, background: "var(--track)", borderRadius: 3 }}>
+        <div style={{ height: "100%", width: `${(value / max) * 100}%`, background: color, borderRadius: 3, transition: "width .6s ease" }} />
       </div>
       {sub && <div style={{ fontSize: 9, color: "var(--ink-faint)", marginTop: 2 }}>{sub}</div>}
     </div>
@@ -121,20 +121,20 @@ export default function StatsView({ graphData, onOpenEservice, onOpenEntity }) {
       </div>
       <div style={{ display: "flex", gap: 12, marginBottom: 24, flexWrap: "wrap" }}>
         {[
-          ["Densità del grafo", density, "#8338ec", "ρ = |E| / (|V| × (|V|-1))"],
-          ["Enti erogatori", nodes.filter(n => n.erogati > 0).length, "#06d6a0", "Enti che pubblicano almeno 1 e-service"],
+          ["Densità del grafo", density, "var(--acc-violet)", "ρ = |E| / (|V| × (|V|-1))"],
+          ["Enti erogatori", nodes.filter(n => n.erogati > 0).length, "var(--acc-green)", "Enti che pubblicano almeno 1 e-service"],
           ["Enti fruitori", nodes.filter(n => n.fruiti > 0).length, "var(--pa-blue)", "Enti che fruiscono almeno 1 e-service"],
           ["Categorie", Object.keys(CATEGORY_COLORS).length, "var(--cite)", "Categorie di enti rappresentate"],
         ].map(([label, val, color, tooltip]) => (
-          <div key={label} title={tooltip} style={{ flex: "1 1 160px", textAlign: "center", padding: "14px 10px", background: "rgba(15,20,35,.6)", border: "1px solid rgba(100,160,220,.08)", borderRadius: 10 }}>
+          <div key={label} title={tooltip} style={{ flex: "1 1 160px", textAlign: "center", padding: "14px 10px", background: "var(--card)", border: "1px solid var(--line)", borderRadius: 10 }}>
             <div style={{ fontSize: 26, fontWeight: 800, color }}>{val}</div>
             <div style={{ fontSize: 10, color: "var(--ink-faint)", textTransform: "uppercase", letterSpacing: .5, marginTop: 4 }}>{label}</div>
           </div>
         ))}
       </div>
       <div style={{ display: "flex", flexWrap: "wrap", gap: 16 }}>
-        <Card title="Top erogatori" color="#06d6a0">
-          {topErogatori.map(n => <Bar key={n.id} label={n.name} value={n.erogati} max={topErogatori[0]?.erogati || 1} color="#06d6a0" sub={n.categoria} />)}
+        <Card title="Top erogatori" color="var(--acc-green)">
+          {topErogatori.map(n => <Bar key={n.id} label={n.name} value={n.erogati} max={topErogatori[0]?.erogati || 1} color="var(--acc-green)" sub={n.categoria} />)}
         </Card>
         <Card title="Top fruitori" color="var(--pa-blue)">
           {topFruitori.map(n => <Bar key={n.id} label={n.name} value={n.fruiti} max={topFruitori[0]?.fruiti || 1} color="var(--pa-blue)" sub={n.categoria} />)}
@@ -145,14 +145,14 @@ export default function StatsView({ graphData, onOpenEservice, onOpenEntity }) {
             return <Bar key={es.id} onClick={() => onOpenEservice?.(es.id)} label={es.nome} value={es.fruitori.length} max={topEservices[0]?.fruitori.length || 1} color="var(--cite)" sub={`Erogato da ${erog?.name}`} />;
           })}
         </Card>
-        <Card title="E-service più adottati (enti abilitati)" color="#4fc3f7">
-          {topAdottati.map(es => <Bar key={es.id} onClick={() => onOpenEservice?.(es.id)} label={es.nome} value={es.enti_abilitati_min} display={fmt(es.enti_abilitati_min)} max={topAdottati[0]?.enti_abilitati_min || 1} color="#4fc3f7" sub={`Erogato da ${nomeEnte(es.erogatore)} · almeno`} />)}
+        <Card title="E-service più adottati (enti abilitati)" color="var(--acc-cyan)">
+          {topAdottati.map(es => <Bar key={es.id} onClick={() => onOpenEservice?.(es.id)} label={es.nome} value={es.enti_abilitati_min} display={numero(es.enti_abilitati_min)} max={topAdottati[0]?.enti_abilitati_min || 1} color="var(--acc-cyan)" sub={`Erogato da ${nomeEnte(es.erogatore)} · almeno`} />)}
         </Card>
-        <Card title="E-service più usati (sessioni di scambio)" color="#8338ec">
-          {topUsati.map(es => <Bar key={es.id} onClick={() => onOpenEservice?.(es.id)} label={es.nome} value={es.sessioni_min} display={milioni(es.sessioni_min)} max={topUsati[0]?.sessioni_min || 1} color="#8338ec" sub={`Erogato da ${nomeEnte(es.erogatore)} · almeno`} />)}
+        <Card title="E-service più usati (sessioni di scambio)" color="var(--acc-violet)">
+          {topUsati.map(es => <Bar key={es.id} onClick={() => onOpenEservice?.(es.id)} label={es.nome} value={es.sessioni_min} display={breve(es.sessioni_min)} max={topUsati[0]?.sessioni_min || 1} color="var(--acc-violet)" sub={`Erogato da ${nomeEnte(es.erogatore)} · almeno`} />)}
         </Card>
         {tendenze.su.length > 0 && (
-          <Card title="Andamento negli ultimi 6 mesi" color="#4fc3f7">
+          <Card title="Andamento negli ultimi 6 mesi" color="var(--acc-cyan)">
             <div style={{ fontSize: 11.5, color: "var(--ink-faint)", lineHeight: 1.5, marginBottom: 12 }}>
               Sessioni degli ultimi 6 mesi rispetto ai 6 precedenti, fra i servizi con almeno 100.000 sessioni nel periodo precedente.
             </div>
@@ -160,11 +160,11 @@ export default function StatsView({ graphData, onOpenEservice, onOpenEntity }) {
               <div key={titolo} style={{ marginBottom: 12 }}>
                 <div style={{ fontSize: 11, fontWeight: 700, color: "var(--ink-muted)", textTransform: "uppercase", letterSpacing: .5, marginBottom: 6 }}>{titolo}</div>
                 {lista.map(es => (
-                  <div key={es.id} style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "baseline", padding: "4px 0", borderBottom: "1px solid rgba(100,160,220,.05)" }}>
+                  <div key={es.id} style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "baseline", padding: "4px 0", borderBottom: "1px solid var(--line)" }}>
                     <span style={{ minWidth: 0 }}>
                       <button type="button" onClick={() => onOpenEservice?.(es.id)} title="Apri la scheda dell'e-service"
-                        style={{ color: "#cbd5e1", background: "none", border: "none", padding: 0, font: "inherit", fontSize: 12, textAlign: "left", cursor: "pointer", textDecoration: "underline", textDecorationColor: "rgba(120,160,210,.3)", textUnderlineOffset: 2 }}>{es.nome}</button>
-                      <span style={{ display: "block", fontSize: 10, color: "var(--ink-faint)" }}>{nomeEnte(es.erogatore)} · {milioni(es.sessioni_6m ?? 0)} negli ultimi 6 mesi</span>
+                        style={{ color: "var(--ink-soft)", background: "none", border: "none", padding: 0, font: "inherit", fontSize: 12, textAlign: "left", cursor: "pointer", textDecoration: "underline", textDecorationColor: "var(--underline)", textUnderlineOffset: 2 }}>{es.nome}</button>
+                      <span style={{ display: "block", fontSize: 10, color: "var(--ink-faint)" }}>{nomeEnte(es.erogatore)} · {breve(es.sessioni_6m ?? 0)} negli ultimi 6 mesi</span>
                     </span>
                     <span className="tabular" style={{ fontSize: 12.5, fontWeight: 700, color: "var(--ink)", whiteSpace: "nowrap" }}>
                       {es.tendenza_6m > 0 ? "▲ +" : "▼ "}{es.tendenza_6m.toLocaleString("it-IT", { maximumFractionDigits: 1 })}%
@@ -178,12 +178,12 @@ export default function StatsView({ graphData, onOpenEservice, onOpenEntity }) {
             </div>
           </Card>
         )}
-        <Card title="Archi per provenienza" color="#64a0dc">
-          {perOrigine.map(([nome, n, col]) => <Bar key={nome} label={nome} value={n} display={fmt(n)} max={Math.max(...perOrigine.map(x => x[1]))} color={col} />)}
+        <Card title="Archi per provenienza" color="var(--acc-blue2)">
+          {perOrigine.map(([nome, n, col]) => <Bar key={nome} label={nome} value={n} display={numero(n)} max={Math.max(...perOrigine.map(x => x[1]))} color={col} />)}
           <div style={{ fontSize: 10, color: "var(--ink-faint)", marginTop: 8, lineHeight: 1.5 }}>Osservata: connessioni o sessioni realmente registrate dalla PDND verso una classe di enti. Certificata: classe abilitata nel catalogo. Vedi Metodologia.</div>
         </Card>
         <Card title="Classi di enti aderenti" color="#c49a9a">
-          {classi.map(e => <Bar key={e.id} label={e.name.replace(" (aggregati)", "")} value={e.aderenti} display={fmt(e.aderenti)} max={classi[0]?.aderenti || 1} color={CATEGORY_COLORS[e.categoria] || "#c49a9a"} sub={e.aderenti_fonte} />)}
+          {classi.map(e => <Bar key={e.id} label={e.name.replace(" (aggregati)", "")} value={e.aderenti} display={numero(e.aderenti)} max={classi[0]?.aderenti || 1} color={CATEGORY_COLORS[e.categoria] || "#c49a9a"} sub={e.aderenti_fonte} />)}
         </Card>
         <Card title="Distribuzione per categoria" color="var(--pa-blue)">
           {catStats.map(([cat, count]) => <Bar key={cat} label={cat} value={count} max={catStats[0]?.[1] || 1} color={CATEGORY_COLORS[cat] || "#667"} />)}

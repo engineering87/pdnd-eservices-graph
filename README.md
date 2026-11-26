@@ -1,5 +1,7 @@
 <div align="center">
 
+**Italiano** · [English](README.en.md)
+
 <img src="public/logo.svg" alt="PDND E-Services Graph" width="88" height="88">
 
 # PDND E-Services Graph
@@ -98,6 +100,12 @@ I nodi ad alta centralità sono quelli la cui indisponibilità avrebbe effetto s
 - Filtro per categoria dalla legenda e ricerca testuale degli enti
 - Pannello dettagli con gli e-service erogati e fruiti da ogni ente e, per le classi, il numero di aderenti
 - Link diretti a ogni vista e a ogni ente, per esempio [pdndgraph.it/ente/inps](https://www.pdndgraph.it/ente/inps)
+
+**Accessibilità e temi**
+- Tema chiaro e tema scuro, con un pulsante nell'intestazione; al primo accesso segue la preferenza del sistema
+- Colori del testo verificati sul contrasto WCAG 2.1 AA (almeno 4,5:1) in entrambi i temi
+- Uso da tastiera: link «Vai al contenuto», ricerca di un ente con suggerimenti e apertura con Invio, finestre di dialogo che trattengono il fuoco e si chiudono con Esc
+- Rispetto della preferenza «riduci movimento» e tabelle con intestazioni dichiarate per i lettori di schermo
 
 **Relazioni fra enti** (scheda Relazioni)
 - Tutte le relazioni erogatore → e-service → fruitore in tabella, filtrabili per erogatore, fruitore, categoria, provenienza e testo

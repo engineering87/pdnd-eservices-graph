@@ -14,7 +14,7 @@ export default function Footer() {
   const m = useIsMobile();
 
   return (
-    <footer style={{ background: "rgba(8,11,20,.9)", borderTop: "1px solid var(--border)", padding: m ? "10px 14px" : "14px 28px", display: "flex", flexDirection: m ? "column" : "row", justifyContent: "space-between", alignItems: m ? "flex-start" : "center", gap: m ? 6 : 12, zIndex: 20 }}>
+    <footer style={{ background: "var(--footer-bg)", borderTop: "1px solid var(--border)", padding: m ? "10px 14px" : "14px 28px", display: "flex", flexDirection: m ? "column" : "row", justifyContent: "space-between", alignItems: m ? "flex-start" : "center", gap: m ? 6 : 12, zIndex: 20 }}>
       <div style={{ display: "flex", alignItems: "center", gap: m ? 10 : 20, fontSize: m ? 10 : 11, color: "var(--ink-muted)", flexWrap: "wrap" }}>
         <span>Progetto di <span style={{ color: "var(--ink)", fontWeight: 600 }}>Francesco Del Re</span></span>
         <span style={{ opacity: .3 }}>|</span>

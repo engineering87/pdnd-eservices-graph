@@ -516,6 +516,51 @@ check("ogni istantanea è un modello valido con la sua data", () => {
   return true;
 });
 
+console.log("\nDisposizione della mappa (layout.js)");
+
+const lay = await import(pathToFileURL(path.join(ROOT, "src/utils/layout.js")).href);
+
+check("la disposizione è compatta e senza nodi scagliati lontano", () => {
+  const g = buildGraph(DATA);
+  const cx = 480, cy = 350;
+  g.nodes.forEach((n) => { const [u, v] = lay.posizioneDaId(n.id); n.x = cx + (u - .5) * 500; n.y = cy + (v - .5) * 400; });
+  const byId = new Map(g.nodes.map((n) => [n.id, n]));
+  const links = g.links.map((l) => ({ ...l, source: byId.get(l.source), target: byId.get(l.target) }));
+  const sim = lay.mkSim(g.nodes, links, cx, cy);
+  for (let i = 0; i < 320; i++) sim.tick();
+  const dist = g.nodes.map((n) => Math.hypot(n.x - cx, n.y - cy)).sort((a, b) => a - b);
+  const mediana = dist[Math.floor(dist.length / 2)], massima = dist.at(-1);
+  if (g.nodes.some((n) => !Number.isFinite(n.x) || !Number.isFinite(n.y))) return "posizioni non finite";
+  return massima < mediana * 3 || `nodo a ${Math.round(massima)} dal centro, mediana ${Math.round(mediana)}`;
+});
+
+check("le posizioni iniziali sono stabili e distribuite", () => {
+  const a = lay.posizioneDaId("inps"), b = lay.posizioneDaId("inps");
+  if (a[0] !== b[0] || a[1] !== b[1]) return "posizione non deterministica";
+  const tutte = DATA.enti.map((e) => lay.posizioneDaId(e.id));
+  return tutte.every(([u, v]) => u >= 0 && u < 1 && v >= 0 && v < 1) || "valori fuori da [0, 1)";
+});
+
+console.log("\nFormattazione (format.js)");
+
+const fmtMod = await import(pathToFileURL(path.join(ROOT, "src/utils/format.js")).href);
+
+check("numeri con separatore delle migliaia anche a 4 cifre", () => {
+  const casi = [[9826, "9.826"], [15291, "15.291"], [7, "7"], [null, "—"]];
+  const ko = casi.filter(([n, atteso]) => fmtMod.numero(n) !== atteso);
+  return ko.length === 0 || ko.map(([n]) => `${n} → ${fmtMod.numero(n)}`).join(", ");
+});
+
+check("abbreviazioni e date in italiano", () => {
+  const casi = [
+    [fmtMod.breve(861909182), "861,9 M"], [fmtMod.compatto(1872260806), "1,87 mld"],
+    [fmtMod.compatto(76308615), "76,3 mln"], [fmtMod.dataLunga("2026-11-24"), "24 novembre 2026"],
+    [fmtMod.meseAnno("2026-06-24"), "giu 2026"],
+  ];
+  const ko = casi.filter(([a, b]) => a !== b);
+  return ko.length === 0 || ko.map(([a, b]) => `${a} invece di ${b}`).join(", ");
+});
+
 console.log("\nRotte (useUrlState.js)");
 
 const rotte = await import(pathToFileURL(path.join(ROOT, "src/utils/useUrlState.js")).href);

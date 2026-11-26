@@ -11,26 +11,24 @@
 import { useEffect, useMemo, useState } from "react";
 import PDND_DATA from "../data/pdnd-data.json";
 import { compareModels, dataIstantanea } from "../utils/compare";
+import { numero, dataLunga } from "../utils/format";
 
 const CARICATORI = import.meta.glob("../data/snapshots/pdnd-data.*.json", { import: "default" });
 const V1 = "2026-05-02";
-const MESI = ["gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio", "agosto", "settembre", "ottobre", "novembre", "dicembre"];
-const dataLunga = (iso) => { const [a, m, g] = iso.split("-"); return `${+g} ${MESI[+m - 1]} ${a}`; };
-const it = (n) => n.toLocaleString("it-IT", { useGrouping: "always" });
 const ISTANTANEE = Object.keys(CARICATORI).map((p) => ({ data: dataIstantanea(p), percorso: p })).filter((x) => x.data).sort((a, b) => b.data.localeCompare(a.data));
 const OGGI = PDND_DATA.meta?.ultimo_aggiornamento;
 
-const link = { background: "none", border: "none", padding: 0, color: "#cbd5e1", cursor: "pointer", fontFamily: "inherit", fontSize: "inherit", textAlign: "left", textDecoration: "underline", textDecorationColor: "rgba(120,160,210,.3)", textUnderlineOffset: 2 };
+const link = { background: "none", border: "none", padding: 0, color: "var(--ink-soft)", cursor: "pointer", fontFamily: "inherit", fontSize: "inherit", textAlign: "left", textDecoration: "underline", textDecorationColor: "var(--underline)", textUnderlineOffset: 2 };
 
 function Delta({ etichetta, coppia }) {
   const [a, b] = coppia;
   if (a == null || b == null) return null;
   const d = b - a;
   return (
-    <div style={{ flex: "1 1 140px", minWidth: 0, padding: "12px 14px", background: "rgba(15,20,35,.6)", border: "1px solid rgba(100,160,220,.08)", borderRadius: 8 }}>
+    <div style={{ flex: "1 1 140px", minWidth: 0, padding: "12px 14px", background: "var(--card)", border: "1px solid var(--line)", borderRadius: 8 }}>
       <div style={{ fontSize: 11, color: "var(--ink-faint)", textTransform: "uppercase", letterSpacing: .5, marginBottom: 4 }}>{etichetta}</div>
-      <div className="tabular" style={{ fontSize: 22, fontWeight: 700, color: "var(--ink)" }}>{d > 0 ? "+" : ""}{it(d)}</div>
-      <div className="tabular" style={{ fontSize: 11.5, color: "var(--ink-muted)" }}>da {it(a)} a {it(b)}</div>
+      <div className="tabular" style={{ fontSize: 22, fontWeight: 700, color: "var(--ink)" }}>{d > 0 ? "+" : ""}{numero(d)}</div>
+      <div className="tabular" style={{ fontSize: 11.5, color: "var(--ink-muted)" }}>da {numero(a)} a {numero(b)}</div>
     </div>
   );
 }
@@ -39,7 +37,7 @@ function Lista({ titolo, nota, voci, rendi, vuota }) {
   const [tutte, setTutte] = useState(false);
   const mostrate = tutte ? voci : voci.slice(0, 8);
   return (
-    <div style={{ flex: "1 1 320px", minWidth: 0, background: "rgba(15,20,35,.6)", border: "1px solid rgba(100,160,220,.08)", borderRadius: 10, padding: "14px 16px" }}>
+    <div style={{ flex: "1 1 320px", minWidth: 0, background: "var(--card)", border: "1px solid var(--line)", borderRadius: 10, padding: "14px 16px" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 8 }}>
         <div style={{ fontSize: 12, fontWeight: 700, color: "var(--ink)" }}>{titolo}</div>
         <div className="tabular" style={{ fontSize: 12, color: "var(--ink-faint)" }}>{voci.length}</div>
@@ -47,7 +45,7 @@ function Lista({ titolo, nota, voci, rendi, vuota }) {
       {nota && <div style={{ fontSize: 11, color: "var(--ink-faint)", margin: "2px 0 8px", lineHeight: 1.45 }}>{nota}</div>}
       {voci.length === 0 && <div style={{ fontSize: 12, color: "var(--ink-faint)", padding: "6px 0" }}>{vuota}</div>}
       {mostrate.map((v, i) => (
-        <div key={i} style={{ fontSize: 12, padding: "5px 0", borderBottom: "1px solid rgba(100,160,220,.05)", lineHeight: 1.4 }}>{rendi(v)}</div>
+        <div key={i} style={{ fontSize: 12, padding: "5px 0", borderBottom: "1px solid var(--line)", lineHeight: 1.4 }}>{rendi(v)}</div>
       ))}
       {voci.length > 8 && (
         <button type="button" onClick={() => setTutte((t) => !t)} style={{ ...link, color: "var(--pa-blue)", fontSize: 11.5, marginTop: 8, textDecoration: "none" }}>
@@ -83,11 +81,11 @@ export default function ChangesView({ onOpenEntity, onOpenEservice }) {
   const ente = (id, nome) => (entiLive.has(id) ? <button type="button" style={link} onClick={() => onOpenEntity(id)}>{nome}</button> : nome);
   const es = (v) => (
     <>
-      {nelLive.has(v.id) ? <button type="button" style={link} onClick={() => onOpenEservice(v.id)}>{v.nome}</button> : <span style={{ color: "#cbd5e1" }}>{v.nome}</span>}
+      {nelLive.has(v.id) ? <button type="button" style={link} onClick={() => onOpenEservice(v.id)}>{v.nome}</button> : <span style={{ color: "var(--ink-soft)" }}>{v.nome}</span>}
       <span style={{ display: "block", fontSize: 10.5, color: "var(--ink-faint)" }}>{v.erogatoreNome}</span>
     </>
   );
-  const leg = (v) => <span style={{ color: "#cbd5e1" }}>{ente(v.erogatore, v.erogatoreNome)} <span style={{ color: "var(--ink-faint)" }}>→</span> {ente(v.fruitore, v.fruitoreNome)}</span>;
+  const leg = (v) => <span style={{ color: "var(--ink-soft)" }}>{ente(v.erogatore, v.erogatoreNome)} <span style={{ color: "var(--ink-faint)" }}>→</span> {ente(v.fruitore, v.fruitoreNome)}</span>;
 
   return (
     <section style={{ marginBottom: 28 }}>
@@ -124,7 +122,7 @@ export default function ChangesView({ onOpenEntity, onOpenEservice }) {
               rendi={(v) => (
                 <div style={{ display: "flex", justifyContent: "space-between", gap: 10 }}>
                   <span style={{ minWidth: 0 }}>{es(v)}</span>
-                  <span className="tabular" style={{ color: "var(--ink)", fontWeight: 600, whiteSpace: "nowrap" }}>+{it(v.nuove)}</span>
+                  <span className="tabular" style={{ color: "var(--ink)", fontWeight: 600, whiteSpace: "nowrap" }}>+{numero(v.nuove)}</span>
                 </div>
               )} />
             <Lista titolo="Nuovi legami" nota="Coppie erogatore → fruitore che prima non c'erano." voci={diff.legamiAggiunti} vuota="Nessuno." rendi={leg} />
@@ -133,7 +131,7 @@ export default function ChangesView({ onOpenEntity, onOpenEservice }) {
             <Lista titolo="E-service usciti dalla mappa" voci={diff.esRimossi} vuota="Nessuno." rendi={es} />
             {(diff.entiAggiunti.length > 0 || diff.entiRimossi.length > 0) && (
               <Lista titolo="Enti aggiunti o rimossi" voci={[...diff.entiAggiunti.map((e) => ({ ...e, segno: "+" })), ...diff.entiRimossi.map((e) => ({ ...e, segno: "−" }))]}
-                vuota="Nessuno." rendi={(v) => <span style={{ color: "#cbd5e1" }}>{v.segno} {v.nome}</span>} />
+                vuota="Nessuno." rendi={(v) => <span style={{ color: "var(--ink-soft)" }}>{v.segno} {v.nome}</span>} />
             )}
           </div>
         </>

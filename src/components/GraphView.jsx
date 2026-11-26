@@ -12,11 +12,37 @@ import PDND_DATA from "../data/pdnd-data.json";
 import { CATEGORY_COLORS, ORIGIN_STYLES } from "../constants/colors";
 import { ORIGINI } from "../utils/relations";
 import { buildGraph } from "../utils/buildGraph";
+import { gR, mkSim, posizioneDaId } from "../utils/layout";
 import { useIsMobile } from "../utils/useIsMobile";
 
-// Raggio del nodo. Cresce con la radice dei legami, così gli hub restano
-// riconoscibili senza coprire i vicini (da 11 a circa 48 px).
-function gR(n) { return 7 + Math.sqrt(n.totalConnections) * 2.4; }
+
+// Tavolozze del canvas per i due temi. Il canvas non legge le variabili CSS:
+// i colori degli archi, delle etichette e dei contorni vivono qui. Sul tema
+// chiaro archi ed etichette sono più scuri e più opachi, per restare leggibili.
+const TAVOLOZZE = {
+  dark: {
+    sfondo: ["rgba(20,28,50,.3)", "rgba(10,14,26,0)"],
+    evidenziato: (a) => `rgba(200,220,255,${a})`, alone: "rgba(100,180,255,.3)", freccia: "rgba(200,220,255,.5)",
+    attenuato: "rgba(100,120,140,.04)",
+    osservato: (w) => `rgba(79,195,247,${.14 + w * .04})`,
+    normale: (w) => `rgba(100,160,220,${.08 + w * .03})`,
+    nodoSpento: "rgba(40,50,65,.15)",
+    bordoSel: "#fff", bordoHov: "rgba(255,255,255,.8)", riflesso: "rgba(255,255,255,.12)",
+    bordoBadge: "rgba(10,14,26,.6)",
+    fondoEtichetta: "rgba(10,14,26,.8)", etichetta: "#cbd5e1", etichettaAttiva: "#fff",
+  },
+  light: {
+    sfondo: ["rgba(190,208,232,.35)", "rgba(244,247,251,0)"],
+    evidenziato: (a) => `rgba(15,40,90,${Math.min(.9, a + .1)})`, alone: "rgba(11,95,204,.25)", freccia: "rgba(15,40,90,.65)",
+    attenuato: "rgba(60,80,110,.06)",
+    osservato: (w) => `rgba(3,105,161,${.28 + w * .05})`,
+    normale: (w) => `rgba(40,80,140,${.16 + w * .04})`,
+    nodoSpento: "rgba(100,116,139,.18)",
+    bordoSel: "#0f172a", bordoHov: "rgba(15,23,42,.7)", riflesso: "rgba(255,255,255,.35)",
+    bordoBadge: "rgba(255,255,255,.95)",
+    fondoEtichetta: "rgba(255,255,255,.9)", etichetta: "#1e293b", etichettaAttiva: "#0b1220",
+  },
+};
 
 // Famiglie di categorie per la legenda: venti voci in fila non si leggono.
 const FAMIGLIE = [
@@ -25,26 +51,6 @@ const FAMIGLIE = [
   ["Classi di enti", ["Regioni Aggregate", "Comuni Aggregati", "Classi aggregate"]],
 ];
 
-// Simulazione a forze minimale: muta in posto le posizioni dei nodi.
-function mkSim(nodes, links, cx, cy) {
-  const a = { current: 1 };
-  function tick() {
-    a.current *= .985; if (a.current < .001) a.current = 0;
-    nodes.forEach(n => { n.vx = (n.vx || 0) + (cx - n.x) * .005 * a.current; n.vy = (n.vy || 0) + (cy - n.y) * .005 * a.current; });
-    links.forEach(l => { const dx = l.target.x - l.source.x, dy = l.target.y - l.source.y, d = Math.sqrt(dx * dx + dy * dy) || 1, f = (d - 170) * .002 * a.current; l.source.vx += dx / d * f; l.source.vy += dy / d * f; l.target.vx -= dx / d * f; l.target.vy -= dy / d * f; });
-    for (let i = 0; i < nodes.length; i++) for (let j = i + 1; j < nodes.length; j++) {
-      const dx = nodes[j].x - nodes[i].x, dy = nodes[j].y - nodes[i].y, d = Math.sqrt(dx * dx + dy * dy) || 1;
-      const f = -5200 / (d * d) * a.current;
-      nodes[i].vx += dx / d * f; nodes[i].vy += dy / d * f; nodes[j].vx -= dx / d * f; nodes[j].vy -= dy / d * f;
-      // Collisione: due nodi non si sovrappongono mai, nemmeno a simulazione
-      // ferma o dopo un trascinamento. Non dipende da alpha di proposito.
-      const min = gR(nodes[i]) + gR(nodes[j]) + 10;
-      if (d < min) { const p = (min - d) * .25; nodes[i].vx -= dx / d * p; nodes[i].vy -= dy / d * p; nodes[j].vx += dx / d * p; nodes[j].vy += dy / d * p; }
-    }
-    nodes.forEach(n => { if (n.fx != null) { n.x = n.fx; n.vx = 0; } else { n.vx *= .55; n.x += n.vx; } if (n.fy != null) { n.y = n.fy; n.vy = 0; } else { n.vy *= .55; n.y += n.vy; } });
-  }
-  return { alpha: a, tick, stopped: false, reheat() { a.current = .3; }, stop() { this.stopped = true; } };
-}
 
 // Viste predefinite sulla provenienza degli archi. "Fonti ufficiali" tiene le
 // prove ancorate a un dato pubblico puntuale o aggregato; "Senza stime" toglie
@@ -56,14 +62,22 @@ const VISTE_ARCHI = [
   { id: "senza-stime", label: "Senza stime AI", origini: ["documentata", "osservata", "certificata", "ricostruita"] },
 ];
 
-// Due numeri in [0, 1) ricavati da una stringa (FNV-1a), stabili fra le sessioni.
-function posizioneDaId(id) {
-  let h = 2166136261;
-  for (let i = 0; i < id.length; i++) { h ^= id.charCodeAt(i); h = Math.imul(h, 16777619); }
-  const a = (h >>> 0) / 4294967296;
-  h = Math.imul(h ^ (h >>> 15), 2246822507);
-  return [a, (h >>> 0) / 4294967296];
+
+// Trasformazione che porta un nodo al centro della zona libera: il pannello
+// dettagli copre 330 px a destra su desktop e la parte bassa su smartphone.
+function bersaglioCentrato(cv, kAttuale, nd) {
+  const k = Math.max(kAttuale, 1.1);
+  const mobile = window.innerWidth < 768;
+  const cx = mobile ? cv.width / 2 : (cv.width - 660) / 2;
+  const cy = mobile ? cv.height * .22 : cv.height / 2;
+  return { k, x: cx - nd.x * k, y: cy - nd.y * k };
 }
+
+// Nomi degli enti per i suggerimenti della ricerca.
+const NOMI_ENTI = PDND_DATA.enti.map((e) => e.name).sort((a, b) => a.localeCompare(b, "it"));
+
+// Preferenza di sistema "riduci movimento": niente animazioni di spostamento.
+const MOTO_RIDOTTO = typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
 
 // Trasformazione che fa entrare tutti i nodi nel canvas, con un margine per
 // le etichette. Il canvas lavora a doppia risoluzione (width = 2 × CSS px).
@@ -101,7 +115,8 @@ function lgt(hex, amount) {
   return `rgb(${Math.max(0, Math.min(255, (n >> 16) + amount))},${Math.max(0, Math.min(255, ((n >> 8) & 0xff) + amount))},${Math.max(0, Math.min(255, (n & 0xff) + amount))})`;
 }
 
-export default function GraphView({ entityId = null, onEntityChange, onOpenEservice }) {
+export default function GraphView({ entityId = null, onEntityChange, onOpenEservice, tema = "dark" }) {
+  const P = TAVOLOZZE[tema] || TAVOLOZZE.dark;
   const m = useIsMobile();
   const canvasRef = useRef(null);
   const [dim, setDim] = useState({ w: 960, h: 700 });
@@ -155,13 +170,7 @@ export default function GraphView({ entityId = null, onEntityChange, onOpenEserv
     const centra = () => {
       const cv = canvasRef.current;
       if (!cv || nd.x == null) return;
-      // Il pannello dettagli copre 330 px a destra su desktop e la parte bassa
-      // su smartphone: il nodo va al centro della zona che resta libera.
-      const k = Math.max(tRef.current.k, 1.1);
-      const mobile = window.innerWidth < 768;
-      const cx = mobile ? cv.width / 2 : (cv.width - 660) / 2;
-      const cy = mobile ? cv.height * .22 : cv.height / 2;
-      tTargetRef.current = { k, x: cx - nd.x * k, y: cy - nd.y * k };
+      tTargetRef.current = bersaglioCentrato(cv, tRef.current.k, nd);
     };
     const id = setTimeout(centra, 250);
     return () => clearTimeout(id);
@@ -181,6 +190,21 @@ export default function GraphView({ entityId = null, onEntityChange, onOpenEserv
   const selectNode = (n) => {
     setSelNode(n);
     onEntityChange?.(n ? n.id : null);
+  };
+
+  const tastoRicerca = (e) => {
+    if (e.key === "Enter") {
+      const q = search.trim().toLowerCase();
+      if (!q) return;
+      const nodi = graph.current.nodes;
+      const nd = nodi.find(n => n.name.toLowerCase() === q) || nodi.find(n => n.name.toLowerCase().startsWith(q)) || nodi.find(n => n.name.toLowerCase().includes(q));
+      if (!nd) return;
+      selectNode(nd);
+      const cv = canvasRef.current;
+      if (cv && nd.x != null) tTargetRef.current = bersaglioCentrato(cv, tRef.current.k, nd);
+    } else if (e.key === "Escape") {
+      if (search) setSearch(""); else selectNode(null);
+    }
   };
 
   // Filtro di provenienza -> query string. replaceState: cambiare filtro non
@@ -233,6 +257,7 @@ export default function GraphView({ entityId = null, onEntityChange, onOpenEserv
     tRef.current.y = (dim.h * 2) / 2 - cy * k;
     simRef.current = mkSim(nodesRef.current, linksRef.current, cx, cy);
     for (let i = 0; i < 320; i++) simRef.current.tick();
+    if (MOTO_RIDOTTO) simRef.current.alpha.current = 0;
     // Il ciclo di disegno parte dall'effetto su `draw` più sotto, eseguito
     // nello stesso commit subito dopo questo.
     return () => { simRef.current.stop(); cancelAnimationFrame(afRef.current); };
@@ -253,6 +278,7 @@ export default function GraphView({ entityId = null, onEntityChange, onOpenEserv
       if (fit) Object.assign(t, fit);
       fitPendingRef.current = false;
     }
+    if (tTargetRef.current && MOTO_RIDOTTO) { Object.assign(t, tTargetRef.current); tTargetRef.current = null; }
     if (tTargetRef.current) {
       const g = tTargetRef.current;
       t.x += (g.x - t.x) * .2; t.y += (g.y - t.y) * .2; t.k += (g.k - t.k) * .2;
@@ -261,7 +287,7 @@ export default function GraphView({ entityId = null, onEntityChange, onOpenEserv
     ctx.clearRect(0, 0, cv.width, cv.height);
 
     const bgGrad = ctx.createRadialGradient(cv.width / 2, cv.height / 2, 0, cv.width / 2, cv.height / 2, cv.width * .6);
-    bgGrad.addColorStop(0, "rgba(20,28,50,.3)"); bgGrad.addColorStop(1, "rgba(10,14,26,0)");
+    bgGrad.addColorStop(0, P.sfondo[0]); bgGrad.addColorStop(1, P.sfondo[1]);
     ctx.fillStyle = bgGrad; ctx.fillRect(0, 0, cv.width, cv.height);
 
     ctx.save(); ctx.translate(t.x, t.y); ctx.scale(t.k, t.k);
@@ -287,12 +313,12 @@ export default function GraphView({ entityId = null, onEntityChange, onOpenEserv
       if (curvature > 0) { ctx.moveTo(s.x, s.y); ctx.quadraticCurveTo(cx2, cy2, tg.x, tg.y); }
       else { ctx.moveTo(s.x, s.y); ctx.lineTo(tg.x, tg.y); }
 
-      if (hl) { ctx.strokeStyle = `rgba(200,220,255,${.4 + w * .06})`; ctx.lineWidth = 1.5 + w * .5; ctx.shadowColor = "rgba(100,180,255,.3)"; ctx.shadowBlur = 6; }
-      else if (dim2) { ctx.strokeStyle = "rgba(100,120,140,.04)"; ctx.lineWidth = .3; }
+      if (hl) { ctx.strokeStyle = P.evidenziato(.4 + w * .06); ctx.lineWidth = 1.5 + w * .5; ctx.shadowColor = P.alone; ctx.shadowBlur = 6; }
+      else if (dim2) { ctx.strokeStyle = P.attenuato; ctx.lineWidth = .3; }
       // Gli archi osservati (fruizione reale registrata dalla PDND) hanno una tinta più
       // chiara e satura: sono la prova più forte del modello dopo quelli documentati.
-      else if (l.origine === "osservata") { ctx.strokeStyle = `rgba(79,195,247,${.14 + w * .04})`; ctx.lineWidth = .7 + w * .3; }
-      else { ctx.strokeStyle = `rgba(100,160,220,${.08 + w * .03})`; ctx.lineWidth = .5 + w * .3; }
+      else if (l.origine === "osservata") { ctx.strokeStyle = P.osservato(w); ctx.lineWidth = .7 + w * .3; }
+      else { ctx.strokeStyle = P.normale(w); ctx.lineWidth = .5 + w * .3; }
       // Stile per provenienza: continuo = ancorato a fonte (documentata/certificata),
       // tratto lungo = ricostruito da documentazione, punteggiato = inferito dall'AI.
       if (l.origine === "inferita") ctx.setLineDash([6, 5]);
@@ -306,14 +332,14 @@ export default function GraphView({ entityId = null, onEntityChange, onOpenEserv
         ctx.beginPath(); ctx.moveTo(ax, ay);
         ctx.lineTo(ax - Math.cos(angle - .35) * 8, ay - Math.sin(angle - .35) * 8);
         ctx.lineTo(ax - Math.cos(angle + .35) * 8, ay - Math.sin(angle + .35) * 8);
-        ctx.closePath(); ctx.fillStyle = "rgba(200,220,255,.5)"; ctx.fill();
+        ctx.closePath(); ctx.fillStyle = P.freccia; ctx.fill();
       }
     });
 
     // Nodes
     nodes.forEach(n => {
       if (!n.x) return;
-      if (isFilt && !vis.has(n.id)) { const r = gR(n) * .35; ctx.beginPath(); ctx.arc(n.x, n.y, r, 0, Math.PI * 2); ctx.fillStyle = "rgba(40,50,65,.15)"; ctx.fill(); return; }
+      if (isFilt && !vis.has(n.id)) { const r = gR(n) * .35; ctx.beginPath(); ctx.arc(n.x, n.y, r, 0, Math.PI * 2); ctx.fillStyle = P.nodoSpento; ctx.fill(); return; }
       const r = gR(n), col = CATEGORY_COLORS[n.categoria] || "#667", isSel = selNode?.id === n.id, isHov = hovNode?.id === n.id;
 
       if (isSel || isHov) {
@@ -331,11 +357,11 @@ export default function GraphView({ entityId = null, onEntityChange, onOpenEserv
       g2.addColorStop(0, lgt(col, 60)); g2.addColorStop(.7, col); g2.addColorStop(1, lgt(col, -20));
       ctx.fillStyle = g2; ctx.fill();
 
-      ctx.strokeStyle = isSel ? "#fff" : isHov ? "rgba(255,255,255,.8)" : col + "40";
+      ctx.strokeStyle = isSel ? P.bordoSel : isHov ? P.bordoHov : col + "40";
       ctx.lineWidth = isSel ? 2.5 : isHov ? 2 : 1; ctx.stroke();
 
       ctx.beginPath(); ctx.arc(n.x, n.y, r * .75, Math.PI * 1.1, Math.PI * 1.7);
-      ctx.strokeStyle = "rgba(255,255,255,.12)"; ctx.lineWidth = 1.5; ctx.stroke();
+      ctx.strokeStyle = P.riflesso; ctx.lineWidth = 1.5; ctx.stroke();
 
       // Badge con il numero di legami: solo quando il nodo è abbastanza grande
       // sullo schermo da ospitarlo, o se è selezionato o sotto il puntatore.
@@ -343,7 +369,7 @@ export default function GraphView({ entityId = null, onEntityChange, onOpenEserv
         const bx = n.x + r * .7, by = n.y - r * .7, br = 16 / t.k;
         ctx.beginPath(); ctx.arc(bx, by, br, 0, Math.PI * 2);
         ctx.fillStyle = n.erogati > 0 ? "#06d6a0" : "#118ab2"; ctx.fill();
-        ctx.strokeStyle = "rgba(10,14,26,.6)"; ctx.lineWidth = 3 / t.k; ctx.stroke();
+        ctx.strokeStyle = P.bordoBadge; ctx.lineWidth = 3 / t.k; ctx.stroke();
         ctx.font = `bold ${17 / t.k}px 'Titillium Web',sans-serif`; ctx.fillStyle = "#fff";
         ctx.textAlign = "center"; ctx.textBaseline = "middle";
         ctx.fillText(n.totalConnections, bx, by + 1 / t.k);
@@ -375,9 +401,9 @@ export default function GraphView({ entityId = null, onEntityChange, onOpenEserv
         if (!forzata && occupati.some(o => x < o.x + o.w && x + w > o.x && y < o.y + o.h && y + h > o.y)) return;
         occupati.push({ x, y, w, h });
         const isSel = selNode?.id === n.id, isHov = hovNode?.id === n.id;
-        ctx.fillStyle = "rgba(10,14,26,.8)";
+        ctx.fillStyle = P.fondoEtichetta;
         ctx.beginPath(); ctx.roundRect(x, y, w, h, 6 / t.k); ctx.fill();
-        ctx.fillStyle = isSel || isHov ? "#fff" : "#cbd5e1";
+        ctx.fillStyle = isSel || isHov ? P.etichettaAttiva : P.etichetta;
         ctx.fillText(n.name, n.x, y + h / 2 + 1 / t.k);
       });
     ctx.restore();
@@ -386,7 +412,7 @@ export default function GraphView({ entityId = null, onEntityChange, onOpenEserv
     // con la nuova istanza, quindi il riferimento non resta mai indietro.
     // eslint-disable-next-line react-hooks/immutability
     afRef.current = requestAnimationFrame(draw);
-  }, [selNode, hovNode, filterCat, search, origini, filtroArchi, visibili]);
+  }, [selNode, hovNode, filterCat, search, origini, filtroArchi, visibili, P]);
 
   useEffect(() => { cancelAnimationFrame(afRef.current); draw(); }, [draw]);
 
@@ -489,14 +515,15 @@ export default function GraphView({ entityId = null, onEntityChange, onOpenEserv
   return (
     <div style={{ flex: 1, minHeight: 0, display: "flex", flexDirection: "column", position: "relative", overflow: "hidden" }}>
       {/* Toolbar */}
-      <div style={{ display: "flex", alignItems: "center", gap: 8, padding: m ? "6px 10px" : "6px 20px", background: "rgba(15,20,35,.5)", borderBottom: "1px solid rgba(100,160,220,.06)", flexWrap: "wrap", zIndex: 10 }}>
-        <input type="text" placeholder="Cerca un ente…" aria-label="Cerca un ente" value={search} onChange={e => setSearch(e.target.value)} style={{ background: "rgba(30,40,60,.8)", border: "1px solid rgba(100,160,220,.2)", borderRadius: 6, padding: "5px 10px", color: "var(--ink)", fontSize: 12, outline: "none", width: m ? 120 : 160, flex: m ? 1 : undefined }} />
-        <select value={filterCat} onChange={e => setFilterCat(e.target.value)} style={{ background: "rgba(30,40,60,.8)", border: "1px solid rgba(100,160,220,.2)", borderRadius: 6, padding: "5px 8px", color: "var(--ink)", fontSize: m ? 11 : 12, outline: "none" }}>{cats.map(c => <option key={c} value={c}>{c}</option>)}</select>
+      <div style={{ display: "flex", alignItems: "center", gap: 8, padding: m ? "6px 10px" : "6px 20px", background: "var(--card)", borderBottom: "1px solid var(--line)", flexWrap: "wrap", zIndex: 10 }}>
+        <input type="search" list="elenco-enti" placeholder="Cerca un ente…" aria-label="Cerca un ente: Invio per aprirlo, Esc per annullare" value={search} onChange={e => setSearch(e.target.value)} onKeyDown={tastoRicerca} style={{ background: "var(--input)", border: "1px solid var(--border)", borderRadius: 6, padding: "5px 10px", color: "var(--ink)", fontSize: 12, outline: "none", width: m ? 120 : 160, flex: m ? 1 : undefined }} />
+        <datalist id="elenco-enti">{NOMI_ENTI.map(n => <option key={n} value={n} />)}</datalist>
+        <select value={filterCat} onChange={e => setFilterCat(e.target.value)} style={{ background: "var(--input)", border: "1px solid var(--border)", borderRadius: 6, padding: "5px 8px", color: "var(--ink)", fontSize: m ? 11 : 12, outline: "none" }}>{cats.map(c => <option key={c} value={c}>{c}</option>)}</select>
         <select
           value={vistaDi(origini)}
           onChange={e => { const v = VISTE_ARCHI.find(x => x.id === e.target.value); if (v) setOrigini(new Set(v.origini)); }}
           aria-label="Filtra gli archi per provenienza"
-          style={{ background: filtroArchi ? "rgba(79,195,247,.12)" : "rgba(30,40,60,.8)", border: `1px solid ${filtroArchi ? "rgba(79,195,247,.5)" : "rgba(100,160,220,.2)"}`, borderRadius: 6, padding: "5px 8px", color: "var(--ink)", fontSize: m ? 11 : 12, outline: "none" }}
+          style={{ background: filtroArchi ? "var(--pa-blue-soft)" : "var(--input)", border: `1px solid ${filtroArchi ? "var(--acc-cyan)" : "var(--border)"}`, borderRadius: 6, padding: "5px 8px", color: "var(--ink)", fontSize: m ? 11 : 12, outline: "none" }}
         >
           {VISTE_ARCHI.map(v => <option key={v.id} value={v.id}>{v.label}</option>)}
           {vistaDi(origini) === "personalizzata" && <option value="personalizzata">Provenienze scelte</option>}
@@ -505,13 +532,13 @@ export default function GraphView({ entityId = null, onEntityChange, onOpenEserv
           type="button"
           onClick={() => { const cv = canvasRef.current; const fit = cv && calcolaInquadratura(nodesRef.current, cv); if (fit) tTargetRef.current = fit; }}
           title="Adatta la mappa allo schermo"
-          style={{ background: "rgba(30,40,60,.8)", border: "1px solid rgba(100,160,220,.2)", borderRadius: 6, padding: "5px 10px", color: "var(--ink)", fontSize: m ? 11 : 12, cursor: "pointer", fontFamily: "inherit" }}
+          style={{ background: "var(--input)", border: "1px solid var(--border)", borderRadius: 6, padding: "5px 10px", color: "var(--ink)", fontSize: m ? 11 : 12, cursor: "pointer", fontFamily: "inherit" }}
         >
           ⤢ Centra
         </button>
         {filtroArchi && (
           <span style={{ fontSize: 11, color: "var(--ink-faint)" }}>
-            <span className="tabular" style={{ color: "#4fc3f7", fontWeight: 600 }}>{visibili.archi}</span> legami visibili su {TOT_LEGAMI}
+            <span className="tabular" style={{ color: "var(--acc-cyan)", fontWeight: 600 }}>{visibili.archi}</span> legami visibili su {TOT_LEGAMI}
           </span>
         )}
       </div>
@@ -524,13 +551,13 @@ export default function GraphView({ entityId = null, onEntityChange, onOpenEserv
       <div style={{ flex: 1, minHeight: 0, position: "relative" }}>
         <canvas ref={canvasRef} width={dim.w * 2} height={dim.h * 2}
           role="img"
-          aria-label="Grafo dell'interoperabilità tra Pubbliche Amministrazioni sulla PDND. Il contenuto del grafo è disponibile in forma testuale nelle schede Relazioni e Numeri."
+          aria-label="Mappa degli scambi di dati fra Pubbliche Amministrazioni sulla PDND. Per aprire un ente da tastiera usa la ricerca e premi Invio; lo stesso contenuto è disponibile in forma testuale nelle schede Relazioni e Numeri."
           style={{ width: "100%", height: "100%", cursor: "grab", touchAction: "none" }}
           onMouseDown={onMD} onMouseMove={onMM} onMouseUp={onMU} onMouseLeave={onMU}
         />
 
         {/* Legenda dei colori, per famiglie, richiudibile. */}
-        <div className="graph-legend-desktop" style={{ position: "absolute", bottom: 12, left: 12, zIndex: 5, background: "rgba(10,14,26,.9)", borderRadius: 8, border: "1px solid rgba(100,160,220,.12)", padding: legendaAperta ? "10px 14px 12px" : "6px 12px", maxWidth: 440 }}>
+        <div className="graph-legend-desktop" style={{ position: "absolute", bottom: 12, left: 12, zIndex: 5, background: "var(--panel)", borderRadius: 8, border: "1px solid var(--border)", padding: legendaAperta ? "10px 14px 12px" : "6px 12px", maxWidth: 440 }}>
           <button type="button" onClick={() => setLegendaAperta(a => !a)} aria-expanded={legendaAperta}
             style={{ background: "none", border: "none", padding: 0, cursor: "pointer", fontFamily: "inherit", fontSize: 10, textTransform: "uppercase", letterSpacing: .6, color: "var(--ink-faint)", display: "flex", alignItems: "center", gap: 6 }}>
             {legendaAperta ? "▾" : "▸"} Tipi di ente · clic per filtrare
@@ -556,14 +583,14 @@ export default function GraphView({ entityId = null, onEntityChange, onOpenEserv
         </div>
 
         {/* Legenda provenienza archi */}
-        <div className="graph-legend-desktop" style={{ position: "absolute", bottom: 12, right: 12, zIndex: 5, background: "rgba(10,14,26,.88)", borderRadius: 8, border: "1px solid rgba(100,160,220,.1)", padding: "8px 12px", display: "flex", flexDirection: "column", gap: 6, fontSize: 11, color: "var(--ink-muted)" }}>
+        <div className="graph-legend-desktop" style={{ position: "absolute", bottom: 12, right: 12, zIndex: 5, background: "var(--panel)", borderRadius: 8, border: "1px solid var(--border)", padding: "8px 12px", display: "flex", flexDirection: "column", gap: 6, fontSize: 11, color: "var(--ink-muted)" }}>
             <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: .6, color: "var(--ink-faint)", marginBottom: 2 }}>Da dove viene il legame · clic per filtrare</div>
             {[
-              ["documentata", "Documentata", "rgba(100,160,220,.9)", null, 1.6],
-              ["osservata", "Osservata (uso reale)", "rgba(79,195,247,1)", null, 1.8],
-              ["certificata", "Certificata (catalogo)", "rgba(100,160,220,.9)", null, 1.6],
-              ["ricostruita", "Ricostruita (documentazione)", "rgba(100,160,220,.9)", "10,3", 1.6],
-              ["inferita", "Inferita (AI)", "rgba(100,160,220,.9)", "5,4", 1.6],
+              ["documentata", "Documentata", "var(--acc-blue2)", null, 1.6],
+              ["osservata", "Osservata (uso reale)", "var(--acc-cyan)", null, 1.8],
+              ["certificata", "Certificata (catalogo)", "var(--acc-blue2)", null, 1.6],
+              ["ricostruita", "Ricostruita (documentazione)", "var(--acc-blue2)", "10,3", 1.6],
+              ["inferita", "Inferita (AI)", "var(--acc-blue2)", "5,4", 1.6],
             ].map(([o, label, stroke, dash, sw]) => {
               const on = origini.has(o);
               return (
@@ -581,8 +608,8 @@ export default function GraphView({ entityId = null, onEntityChange, onOpenEserv
         {selNode && (
           <div style={{
             position: "absolute", right: 0, bottom: 0,
-            ...(m ? { left: 0, top: "40%", borderTop: "1px solid rgba(100,160,220,.1)", borderRadius: "14px 14px 0 0" } : { top: 0, width: 330, borderLeft: "1px solid rgba(100,160,220,.1)" }),
-            background: "rgba(10,14,26,.96)", padding: 16, overflowY: "auto", backdropFilter: "blur(14px)", zIndex: 10,
+            ...(m ? { left: 0, top: "40%", borderTop: "1px solid var(--border)", borderRadius: "14px 14px 0 0" } : { top: 0, width: 330, borderLeft: "1px solid var(--border)" }),
+            background: "var(--panel)", padding: 16, overflowY: "auto", backdropFilter: "blur(14px)", zIndex: 10,
           }}>
             <button onClick={() => selectNode(null)} aria-label="Chiudi dettaglio" style={{ position: "absolute", top: 10, right: 12, background: "none", border: "none", color: "var(--ink-faint)", fontSize: 16, cursor: "pointer", lineHeight: 1, zIndex: 1 }}>✕</button>
             <button
@@ -590,7 +617,7 @@ export default function GraphView({ entityId = null, onEntityChange, onOpenEserv
               title="Copia il collegamento diretto a questo ente"
               style={{ position: "absolute", top: 10, right: 40, background: "none", border: "none", color: copiato ? "var(--pa-blue)" : "var(--ink-faint)", fontSize: 10, fontWeight: 600, cursor: "pointer", lineHeight: 1, zIndex: 1, fontFamily: "inherit", letterSpacing: .3 }}
             >{copiato ? "COPIATO" : "COPIA LINK"}</button>
-            {m && <div style={{ width: 36, height: 4, borderRadius: 2, background: "rgba(100,160,220,.2)", margin: "0 auto 12px" }} />}
+            {m && <div style={{ width: 36, height: 4, borderRadius: 2, background: "var(--border)", margin: "0 auto 12px" }} />}
             {(() => { const col = CATEGORY_COLORS[selNode.categoria] || "#667"; return (<div>
               <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 14 }}>
                 <div style={{ width: 38, height: 38, borderRadius: "50%", background: `linear-gradient(135deg,${col},${col}88)`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 15, fontWeight: 800, flexShrink: 0 }}>{selNode.name[0]}</div>
@@ -611,15 +638,15 @@ export default function GraphView({ entityId = null, onEntityChange, onOpenEserv
                 </div>
               )}
               <div style={{ display: "flex", gap: 8, marginBottom: 16 }}>
-                {[["Servizi offerti", selNode.erogati, "#06d6a0"], ["Servizi usati", selNode.fruiti, "var(--pa-blue)"], ["Legami", selNode.totalConnections, "#ef476f"]].map(([l, v, c]) => (
-                  <div key={l} style={{ flex: 1, textAlign: "center", padding: "6px 2px", background: "rgba(30,40,60,.5)", borderRadius: 6, border: `1px solid ${c}22` }}><div style={{ fontSize: 16, fontWeight: 800, color: c }}>{v}</div><div style={{ fontSize: 9.5, color: "var(--ink-faint)", textTransform: "uppercase", letterSpacing: .5 }}>{l}</div></div>
+                {[["Servizi offerti", selNode.erogati, "var(--acc-green)"], ["Servizi usati", selNode.fruiti, "var(--pa-blue)"], ["Legami", selNode.totalConnections, "var(--acc-red)"]].map(([l, v, c]) => (
+                  <div key={l} style={{ flex: 1, textAlign: "center", padding: "6px 2px", background: "var(--card-inset)", borderRadius: 6, border: `1px solid ${c}22` }}><div style={{ fontSize: 16, fontWeight: 800, color: c }}>{v}</div><div style={{ fontSize: 9.5, color: "var(--ink-faint)", textTransform: "uppercase", letterSpacing: .5 }}>{l}</div></div>
                 ))}
               </div>
-              {selNode.servizi_erogati?.length > 0 && <div style={{ marginBottom: 14 }}><div style={{ fontSize: 11, fontWeight: 700, color: "#06d6a0", textTransform: "uppercase", letterSpacing: .8, marginBottom: 6 }}>Servizi che offre ({selNode.servizi_erogati.length})</div>{selNode.servizi_erogati.map(es => (
-                <div key={es.id} style={{ padding: "6px 8px", marginBottom: 3, borderRadius: 5, background: "rgba(6,214,160,.05)", border: "1px solid rgba(6,214,160,.08)", fontSize: 12 }}><button type="button" onClick={() => onOpenEservice?.(es.id)} title="Apri la scheda dell'e-service" style={{ fontWeight: 600, background: "none", border: "none", padding: 0, color: "inherit", font: "inherit", textAlign: "left", cursor: "pointer", textDecoration: "underline", textDecorationColor: "rgba(120,160,210,.3)", textUnderlineOffset: 2 }}>{es.nome}</button>{es.descrizione && <div style={{ color: "var(--ink-faint)", fontSize: 10.5, marginTop: 1 }}>{es.descrizione}</div>}<div style={{ color: "#4a6a5a", fontSize: 10.5, marginTop: 2 }}>v{es.versione} · {es.stato} · {es.fruitori.length} fruitori{es.enti_abilitati_min ? ` · ≥${es.enti_abilitati_min.toLocaleString("it-IT")} enti abilitati` : ""}{es.sessioni_min ? ` · ≥${(es.sessioni_min / 1e6).toLocaleString("it-IT", { maximumFractionDigits: 1 })} M sessioni` : ""}</div></div>
+              {selNode.servizi_erogati?.length > 0 && <div style={{ marginBottom: 14 }}><div style={{ fontSize: 11, fontWeight: 700, color: "var(--acc-green)", textTransform: "uppercase", letterSpacing: .8, marginBottom: 6 }}>Servizi che offre ({selNode.servizi_erogati.length})</div>{selNode.servizi_erogati.map(es => (
+                <div key={es.id} style={{ padding: "6px 8px", marginBottom: 3, borderRadius: 5, background: "rgba(6,214,160,.05)", border: "1px solid rgba(6,214,160,.08)", fontSize: 12 }}><button type="button" onClick={() => onOpenEservice?.(es.id)} title="Apri la scheda dell'e-service" style={{ fontWeight: 600, background: "none", border: "none", padding: 0, color: "inherit", font: "inherit", textAlign: "left", cursor: "pointer", textDecoration: "underline", textDecorationColor: "var(--underline)", textUnderlineOffset: 2 }}>{es.nome}</button>{es.descrizione && <div style={{ color: "var(--ink-faint)", fontSize: 10.5, marginTop: 1 }}>{es.descrizione}</div>}<div style={{ color: "var(--ink-faint)", fontSize: 10.5, marginTop: 2 }}>v{es.versione} · {es.stato} · {es.fruitori.length} fruitori{es.enti_abilitati_min ? ` · ≥${es.enti_abilitati_min.toLocaleString("it-IT")} enti abilitati` : ""}{es.sessioni_min ? ` · ≥${(es.sessioni_min / 1e6).toLocaleString("it-IT", { maximumFractionDigits: 1 })} M sessioni` : ""}</div></div>
               ))}</div>}
               {selNode.servizi_fruiti?.length > 0 && <div><div style={{ fontSize: 11, fontWeight: 700, color: "var(--pa-blue)", textTransform: "uppercase", letterSpacing: .8, marginBottom: 6 }}>Servizi che usa ({selNode.servizi_fruiti.length})</div>{selNode.servizi_fruiti.map(es => { const er = PDND_DATA.enti.find(e => e.id === es.erogatore); return (
-                <div key={es.id + selNode.id} style={{ padding: "6px 8px", marginBottom: 3, borderRadius: 5, background: "rgba(17,138,178,.05)", border: "1px solid rgba(17,138,178,.08)", fontSize: 12 }}><button type="button" onClick={() => onOpenEservice?.(es.id)} title="Apri la scheda dell'e-service" style={{ fontWeight: 600, background: "none", border: "none", padding: 0, color: "inherit", font: "inherit", textAlign: "left", cursor: "pointer", textDecoration: "underline", textDecorationColor: "rgba(120,160,210,.3)", textUnderlineOffset: 2 }}>{es.nome}</button><div style={{ color: "var(--ink-faint)", fontSize: 10.5, marginTop: 1 }}>da {er?.name} · v{es.versione}</div></div>
+                <div key={es.id + selNode.id} style={{ padding: "6px 8px", marginBottom: 3, borderRadius: 5, background: "rgba(17,138,178,.05)", border: "1px solid rgba(17,138,178,.08)", fontSize: 12 }}><button type="button" onClick={() => onOpenEservice?.(es.id)} title="Apri la scheda dell'e-service" style={{ fontWeight: 600, background: "none", border: "none", padding: 0, color: "inherit", font: "inherit", textAlign: "left", cursor: "pointer", textDecoration: "underline", textDecorationColor: "var(--underline)", textUnderlineOffset: 2 }}>{es.nome}</button><div style={{ color: "var(--ink-faint)", fontSize: 10.5, marginTop: 1 }}>da {er?.name} · v{es.versione}</div></div>
               ); })}</div>}
             </div>); })()}
           </div>
