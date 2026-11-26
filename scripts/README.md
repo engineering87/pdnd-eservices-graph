@@ -12,6 +12,7 @@ Zenodo paper aligned with the data.
 | `test-model.mjs` | `npm test` | Model invariants and export checks |
 | `export-graph.mjs` | `npm run export` | GraphML, GEXF and CSV in `exports/` |
 | `update-data.mjs` | `npm run update-data` | Summary of the official catalogue |
+| `prerender-meta.mjs` | runs after `vite build` | Per-route HTML with share previews |
 
 All are pure ES modules, no dependencies, run with Node.js
 (>= 18 for `fetch` support). They are idempotent and can be re-run
@@ -32,7 +33,7 @@ node scripts/audit-model.mjs
 The script also prints a "modelling note" reminding that each
 `eservices[]` record stands for a service type, not a catalogue
 endpoint. This is the convention used in METODOLOGIA.md §3.5 and is
-the reason why the model's e-service count (312 in model v2) is not
+the reason why the model's e-service count (313 in model v2) is not
 comparable with the ~15,000 endpoints of the official catalogue.
 
 Some warnings are expected in model v2: e-services without consumers

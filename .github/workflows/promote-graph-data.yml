@@ -2,7 +2,8 @@ name: Promuovi anteprima a grafo live
 
 # Sostituisce il grafo live (src/data/pdnd-data.json) con l'anteprima generata
 # dalla pipeline. Azione DELIBERATA: solo manuale, con conferma esplicita.
-# Apre una Pull Request verso main (branch protetto).
+# Apre una Pull Request verso develop: il grafo arriva sul sito con la release
+# da develop a main, dopo revisione.
 
 on:
   workflow_dispatch:
@@ -22,6 +23,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5
+        with:
+          ref: develop
+
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: "24"
 
       - name: Verifica conferma
         run: |
@@ -65,6 +73,8 @@ jobs:
             cp src/data/pdnd-data.json src/data/pdnd-data.curated-backup.json
           fi
           cp pipeline/pdnd-data.preview.json src/data/pdnd-data.json
+          # Le esportazioni devono restare allineate al dato: i test della CI lo verificano.
+          node scripts/export-graph.mjs
           if [ -z "$(git status --porcelain -- src/data/pdnd-data.json src/data/pdnd-data.curated-backup.json)" ]; then
             echo "Il grafo live era già allineato all'anteprima."
             exit 0
@@ -73,12 +83,12 @@ jobs:
           git config user.name "pdnd-graph-bot"
           git config user.email "actions@github.com"
           git checkout -b "$BRANCH"
-          git add src/data/pdnd-data.json src/data/pdnd-data.curated-backup.json
+          git add src/data/pdnd-data.json src/data/pdnd-data.curated-backup.json exports/
           git commit -m "chore: promozione anteprima a grafo live"
           git push -f -u origin "$BRANCH"
           if [ -n "$(gh pr list --head "$BRANCH" --state open --json number -q '.[0].number' 2>/dev/null)" ]; then
             echo "PR di promozione già aperta: aggiornata."
-          elif gh pr create --base main --head "$BRANCH" \
+          elif gh pr create --base develop --head "$BRANCH" \
               --title "Promozione anteprima a grafo live" \
               --body "Sostituzione del grafo live con l'anteprima della pipeline. Backup del curato in \`src/data/pdnd-data.curated-backup.json\`. Rivedi e mergia per pubblicare." 2>/dev/null; then
             echo "Pull request di promozione creata."

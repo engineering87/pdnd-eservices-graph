@@ -1,6 +1,6 @@
 # Report aggiornamento grafo PDND
 
-Data: 2026-11-25T12:32:39.015Z
+Data: 2026-11-26T00:21:05.224Z
 Modalità: WRITE
 
 ## Download catalogo
@@ -11,15 +11,15 @@ Modalità: WRITE
 
 ## Risultato
 - Nodi (enti): **63** (prima: 63)
-- E-service: **312** (prima: 312)
-- Nuovi e-service: **0**
+- E-service: **313** (prima: 312)
+- Nuovi e-service: **1**
 - E-service rimossi: **0**
 - E-service senza fruitori: **44**
 
 ### Archi per provenienza
-- 📄 Documentata (override): **6**
-- 👁️ Osservata (connessioni ufficiali): **265**
-- ✅ Certificata (attributes): **628**
+- 📄 Documentata (override): **12**
+- 👁️ Osservata (connessioni ufficiali): **264**
+- ✅ Certificata (attributes): **630**
 - 🧩 Ricostruita (grafo curato v1): **545**
 - 🤖 Inferita (AI): **25**
 
@@ -36,6 +36,9 @@ Modalità: WRITE
 - Altre PA locali (aggregati): 350 aderenti (conteggio per attributo certificato)
 
 ℹ️  Inferenza AI disattivata (--no-ai).
+
+### Nuovi e-service
+- INPS — Consultazione Indicatore Riscontro ISEE
 
 ### E-service senza archi (aggiungi override in connections-overrides.json)
 - analytics-services_SDG (7afa3f39-5c80-45b2-a314-5b3ecda1bfea)

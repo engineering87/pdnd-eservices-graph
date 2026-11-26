@@ -1,4 +1,5 @@
 {
+  "trailingSlash": "auto",
   "navigationFallback": {
     "rewrite": "/index.html"
   },

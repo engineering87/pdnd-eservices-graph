@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, lazy, Suspense } from "react";
 import PDND_DATA from "../data/pdnd-data.json";
 import { buildGraph } from "../utils/buildGraph";
 import Header from "./Header";
@@ -6,11 +6,17 @@ import Footer from "./Footer";
 import AboutModal from "./AboutModal";
 import WelcomePanel from "./WelcomePanel";
 import GraphView from "./GraphView";
-import StatsView from "./StatsView";
-import ExploreView from "./ExploreView";
-import EServiceView from "./EServiceView";
-import MethodologyView from "./MethodologyView";
-import GuideView from "./GuideView";
+// La mappa è la vista iniziale e resta nel pacchetto principale; le altre si
+// caricano alla prima apertura, così la prima visita scarica meno codice.
+const StatsView = lazy(() => import("./StatsView"));
+const ExploreView = lazy(() => import("./ExploreView"));
+const EServiceView = lazy(() => import("./EServiceView"));
+const MethodologyView = lazy(() => import("./MethodologyView"));
+const GuideView = lazy(() => import("./GuideView"));
+
+function Caricamento() {
+  return <div role="status" style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", color: "var(--ink-faint)", fontSize: 13 }}>Caricamento…</div>;
+}
 import { useUrlState, parseLocation } from "../utils/useUrlState";
 
 // Il benvenuto compare una sola volta, e solo a chi arriva sulla pagina
@@ -95,6 +101,7 @@ export default function PDNDGraph() {
           onOpenEservice={apriEservice}
         />
       )}
+      <Suspense fallback={<Caricamento />}>
       {activeTab === "esplora" && (
         <ExploreView key={`esplora-${rev}`} onOpenEntity={apriEnte} onOpenEservice={apriEservice} />
       )}
@@ -111,6 +118,7 @@ export default function PDNDGraph() {
       {activeTab === "statistiche" && <StatsView graphData={graphData} onOpenEservice={apriEservice} />}
       {activeTab === "metodologia" && <MethodologyView />}
       {activeTab === "guida" && <GuideView />}
+      </Suspense>
 
       <Footer />
 

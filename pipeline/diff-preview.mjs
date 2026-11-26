@@ -44,7 +44,7 @@ const esRemoved = [...liveByName.keys()].filter(k => !prevByName.has(k));
 const esCommon = [...prevByName.keys()].filter(k => liveByName.has(k));
 
 // --- Connessioni per provenienza nell'anteprima ---
-const byOrigine = { documentata: 0, certificata: 0, ricostruita: 0, inferita: 0, altro: 0 };
+const byOrigine = { documentata: 0, osservata: 0, certificata: 0, ricostruita: 0, inferita: 0, altro: 0 };
 for (const e of prev.eservices) {
   for (const a of (e.archi || [])) {
     if (byOrigine[a.origine] === undefined) byOrigine.altro++;
@@ -83,12 +83,13 @@ line(`Connessioni cambiate  : ${keptChangedConn}`);
 
 line(`\n--- Provenienza delle connessioni nell'anteprima ---`);
 line(`Documentata (curata/override): ${byOrigine.documentata}`);
+line(`Osservata (uso registrato)   : ${byOrigine.osservata}`);
 line(`Certificata (dal catalogo)   : ${byOrigine.certificata}`);
 line(`Ricostruita (grafo curato v1): ${byOrigine.ricostruita}`);
 line(`Inferita (stima AI)          : ${byOrigine.inferita}`);
 if (byOrigine.altro) line(`Altro                        : ${byOrigine.altro}`);
 
-const totPrev = byOrigine.documentata + byOrigine.certificata + byOrigine.ricostruita + byOrigine.inferita + byOrigine.altro;
+const totPrev = byOrigine.documentata + byOrigine.osservata + byOrigine.certificata + byOrigine.ricostruita + byOrigine.inferita + byOrigine.altro;
 const pctInf = totPrev ? ((100 * byOrigine.inferita) / totPrev).toFixed(0) : "0";
 line(`\n=> Nell'anteprima, ${pctInf}% delle connessioni sono stime AI, non fatti documentati.`);
 line(`=> Le relazioni del grafo curato confluiscono nell'anteprima tramite`);

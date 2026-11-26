@@ -5,9 +5,11 @@ on:
     - cron: "0 4 1 * *"   # giorno 1 di ogni mese, 04:00 UTC
   workflow_dispatch: {}    # avvio manuale dalla tab Actions
 
+# Le PR automatiche partono da develop e puntano su develop, il ramo di
+# integrazione: arrivano su main, e quindi sul sito, solo con la release.
 permissions:
   contents: write
-  pull-requests: write     # per aprire la PR (main è protetto)
+  pull-requests: write
 
 jobs:
   update:
@@ -26,6 +28,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5
+        with:
+          ref: develop
 
       - name: Setup Node
         uses: actions/setup-node@v5
@@ -54,13 +58,25 @@ jobs:
           git add pipeline/pdnd-data.preview.json pipeline/last-run-report.md pipeline/ai-cache.json
           git commit -m "chore: aggiornamento anteprima grafo PDND"
           git push -f -u origin "$BRANCH"
-          # Apri la PR se non già aperta. Se l'organizzazione/repo non consente alle
-          # Actions di creare PR, il branch resta pushato e viene stampato il link manuale.
+          # Il corpo della PR contiene il report di esecuzione: e-service nuovi e
+          # rimossi, archi per provenienza, classi di enti, avvisi.
+          BODY="$RUNNER_TEMP/pr-body.md"
+          {
+            echo "Aggiornamento automatico dell'anteprima (\`pipeline/pdnd-data.preview.json\`). Il grafo live non è toccato."
+            echo "Dopo il merge, per pubblicarla lancia il workflow \"Promuovi anteprima a grafo live\"."
+            echo
+            echo "---"
+            echo
+            cat pipeline/last-run-report.md
+          } > "$BODY"
+          # Apri la PR se non già aperta, altrimenti aggiornane il corpo. Se le
+          # Actions non possono creare PR, il branch resta pushato e si stampa il link.
           if [ -n "$(gh pr list --head "$BRANCH" --state open --json number -q '.[0].number' 2>/dev/null)" ]; then
-            echo "PR già aperta per $BRANCH: aggiornata col nuovo commit."
-          elif gh pr create --base main --head "$BRANCH" \
+            gh pr edit "$BRANCH" --body-file "$BODY" 2>/dev/null || true
+            echo "PR già aperta per $BRANCH: aggiornata col nuovo commit e il nuovo report."
+          elif gh pr create --base develop --head "$BRANCH" \
               --title "Aggiornamento anteprima grafo PDND" \
-              --body "Aggiornamento automatico dell'anteprima (\`pipeline/pdnd-data.preview.json\`). Il grafo live non è toccato. Rivedi il report e mergia per versionare l'anteprima." 2>/dev/null; then
+              --body-file "$BODY" 2>/dev/null; then
             echo "Pull request creata."
           else
             echo "::warning::Creazione PR non consentita alle Actions. Branch pushato: aprila a mano qui:"

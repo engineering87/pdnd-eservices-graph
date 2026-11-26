@@ -463,8 +463,8 @@ La presente elaborazione (aggregazione, inferenza delle connessioni, visualizzaz
 Il modello v2 è prodotto dalla pipeline (`pipeline/build-graph-data.mjs`) a partire
 dai dataset ufficiali di [pdnd-opendata](https://github.com/italia/pdnd-opendata)
 (CC0) e conserva, con provenienza dichiarata, tutte le 570 relazioni del v1.
-Snapshot del 25 novembre 2026: 63 nodi (10 aggregati), 312 e-service, 600 archi
-distinti erogatore→fruitore, 1.469 relazioni, densità 0,1536.
+Snapshot del 26 novembre 2026: 63 nodi (10 aggregati), 313 e-service, 600 archi
+distinti erogatore→fruitore, 1.476 relazioni, densità 0,1536.
 
 ### 7.1 Fonti ufficiali usate dalla pipeline
 
@@ -511,15 +511,27 @@ la più forte, in quest'ordine:
 
 | Origine | Significato | Archi |
 |---|---|---|
-| `documentata` | Override con fonte ufficiale puntuale (`connections-overrides.json`) | 6 |
-| `osservata` | Connessioni abilitate o sessioni di scambio realmente registrate dalla PDND verso una classe di enti | 265 |
-| `certificata` | Classe di enti abilitata nel campo `attributes.certified` del catalogo | 628 |
+| `documentata` | Override con fonte ufficiale puntuale (`connections-overrides.json`) | 12 |
+| `osservata` | Connessioni abilitate o sessioni di scambio realmente registrate dalla PDND verso una classe di enti | 264 |
+| `certificata` | Classe di enti abilitata nel campo `attributes.certified` del catalogo | 630 |
 | `ricostruita` | Relazione del modello v1 (`connections-reconstructed.json`) | 545 |
 | `inferita` | Stima AI congelata (`connections-frozen.json`), solo se manca ogni altra prova | 25 |
 
 Il numero di connessioni e di sessioni osservate accompagna l'arco qualunque sia la
 sua provenienza. Delle 570 relazioni del v1, 25 trovano conferma nei dati
 ufficiali (18 certificate, 7 osservate); le altre restano `ricostruita`.
+
+**Archi documentati da norma (aggiornamento del 26 novembre 2026).** Il DL 19
+febbraio 2026, n. 19, art. 6, convertito dalla L. 20 aprile 2026, n. 50, prevede che
+scuole, università e Comuni che erogano prestazioni agevolate acquisiscano d'ufficio
+dall'INPS, tramite la PDND, i dati ISEE strettamente necessari. Gli archi INPS →
+Scuole, Università e AFAM, Comuni sono quindi `documentata` sui due servizi generali
+di consultazione ISEE (Indicatore e Attestazione). La norma non indica il singolo
+e-service: la scelta dei due servizi generali, e non delle varianti per residenti od
+operatori, è del progetto ed è dichiarata in `connections-overrides.json`. Un arco
+documentato da una norma attesta l'obbligo o la facoltà di acquisire il dato, non il
+volume effettivo d'uso: quello resta indicato, dove pubblicato, da connessioni e
+sessioni osservate.
 
 ### 7.4 Selezione degli e-service
 

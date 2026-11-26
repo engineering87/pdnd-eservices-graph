@@ -56,6 +56,15 @@ const VISTE_ARCHI = [
   { id: "senza-stime", label: "Senza stime AI", origini: ["documentata", "osservata", "certificata", "ricostruita"] },
 ];
 
+// Due numeri in [0, 1) ricavati da una stringa (FNV-1a), stabili fra le sessioni.
+function posizioneDaId(id) {
+  let h = 2166136261;
+  for (let i = 0; i < id.length; i++) { h ^= id.charCodeAt(i); h = Math.imul(h, 16777619); }
+  const a = (h >>> 0) / 4294967296;
+  h = Math.imul(h ^ (h >>> 15), 2246822507);
+  return [a, (h >>> 0) / 4294967296];
+}
+
 // Trasformazione che fa entrare tutti i nodi nel canvas, con un margine per
 // le etichette. Il canvas lavora a doppia risoluzione (width = 2 × CSS px).
 function calcolaInquadratura(nodes, cv) {
@@ -214,7 +223,9 @@ export default function GraphView({ entityId = null, onEntityChange, onOpenEserv
     const { nodes, links, linkCounts } = graph.current;
     lcRef.current = linkCounts;
     const cx = dim.w / 2, cy = dim.h / 2;
-    nodes.forEach(n => { n.x = cx + (Math.random() - .5) * 500; n.y = cy + (Math.random() - .5) * 400; });
+    // Posizioni iniziali deterministiche, ricavate dall'id di ogni ente: la
+    // mappa ha la stessa forma a ogni apertura e un ente nuovo non sposta gli altri.
+    nodes.forEach(n => { const [u, v] = posizioneDaId(n.id); n.x = cx + (u - .5) * 500; n.y = cy + (v - .5) * 400; });
     nodesRef.current = nodes;
     linksRef.current = links.map(l => ({ ...l, source: nodes.find(n => n.id === l.source) || l.source, target: nodes.find(n => n.id === l.target) || l.target }));
     const k = tRef.current.k;

@@ -1,12 +1,12 @@
 {
   "meta": {
-    "generato": "2026-11-25T12:32:40.090Z",
-    "ultimo_aggiornamento": "2026-11-25",
+    "generato": "2026-11-26T00:21:08.360Z",
+    "ultimo_aggiornamento": "2026-11-26",
     "versione_modello": "v2",
     "fonte_enti": "github.com/italia/pdnd-opendata — aderenti.csv (CC0 1.0)",
     "fonte_eservices": "github.com/italia/pdnd-opendata — eservice_a_catalogo.csv (CC0 1.0)",
     "fonte_connessioni": "Per arco, campo 'origine': override documentati, campo attributes.certified del catalogo, relazioni ricostruite del grafo curato v1, stime AI congelate — vedi METODOLOGIA.md e pipeline/README.md",
-    "snapshot_catalogo": "15301 righe nel catalogo scaricato il 2026-11-25",
+    "snapshot_catalogo": "15301 righe nel catalogo scaricato il 2026-11-26",
     "fonte_adozione": "github.com/italia/pdnd-opendata — e_service_con_piu_enti_abilitati_from_the_beginning.csv (CC0 1.0). Il campo enti_abilitati_min è il massimo di enti fruitori abilitati fra le classifiche per categoria in cui l'e-service compare: un minimo garantito, non il totale. Gli e-service di ogni ente sono scelti per adozione decrescente.",
     "metodologia": "METODOLOGIA.md",
     "paper_doi": "10.5281/zenodo.19989954",
@@ -1769,6 +1769,67 @@
       "sessioni_min": 9035634
     },
     {
+      "id": "inps_843ac013",
+      "nome": "Consultazione Attestazione ISEE",
+      "erogatore": "inps",
+      "fruitori": [
+        "scuole_agg",
+        "universita_agg",
+        "comuni_agg",
+        "regioni_agg",
+        "pa_locali_agg",
+        "sanita_agg",
+        "gestori_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "scuole_agg",
+          "origine": "documentata"
+        },
+        {
+          "fruitore": "universita_agg",
+          "origine": "documentata",
+          "connessioni": 58,
+          "sessioni": 280617
+        },
+        {
+          "fruitore": "comuni_agg",
+          "origine": "documentata",
+          "connessioni": 47,
+          "sessioni": 592764
+        },
+        {
+          "fruitore": "regioni_agg",
+          "origine": "osservata",
+          "connessioni": 13,
+          "sessioni": 1035897
+        },
+        {
+          "fruitore": "pa_locali_agg",
+          "origine": "osservata",
+          "connessioni": 14,
+          "sessioni": 89488
+        },
+        {
+          "fruitore": "sanita_agg",
+          "origine": "osservata",
+          "connessioni": 2
+        },
+        {
+          "fruitore": "gestori_agg",
+          "origine": "osservata",
+          "connessioni": 1,
+          "sessioni": 87
+        }
+      ],
+      "versione": "3",
+      "stato": "Attivo",
+      "descrizione": "Servizio di consultazione Attestazione ISEE",
+      "catalogId": "843ac013-941a-4afe-8243-e668142e73e6",
+      "enti_abilitati_min": 135,
+      "sessioni_min": 1998853
+    },
+    {
       "id": "inps_19efdb32",
       "nome": "Consultazione DURC",
       "erogatore": "inps",
@@ -1890,9 +1951,10 @@
       "nome": "Consultazione Indicatore ISEE",
       "erogatore": "inps",
       "fruitori": [
+        "scuole_agg",
         "universita_agg",
-        "pa_locali_agg",
         "comuni_agg",
+        "pa_locali_agg",
         "regioni_agg",
         "sanita_agg",
         "gestori_agg",
@@ -1925,22 +1987,26 @@
       ],
       "archi": [
         {
+          "fruitore": "scuole_agg",
+          "origine": "documentata"
+        },
+        {
           "fruitore": "universita_agg",
-          "origine": "osservata",
+          "origine": "documentata",
           "connessioni": 30,
           "sessioni": 28753
+        },
+        {
+          "fruitore": "comuni_agg",
+          "origine": "documentata",
+          "connessioni": 36,
+          "sessioni": 13262
         },
         {
           "fruitore": "pa_locali_agg",
           "origine": "osservata",
           "connessioni": 10,
           "sessioni": 79
-        },
-        {
-          "fruitore": "comuni_agg",
-          "origine": "osservata",
-          "connessioni": 36,
-          "sessioni": 13262
         },
         {
           "fruitore": "regioni_agg",
@@ -2328,62 +2394,6 @@
       "catalogId": "2dd25168-da15-485e-bef8-21003b03d2b3"
     },
     {
-      "id": "inps_843ac013",
-      "nome": "Consultazione Attestazione ISEE",
-      "erogatore": "inps",
-      "fruitori": [
-        "regioni_agg",
-        "universita_agg",
-        "pa_locali_agg",
-        "comuni_agg",
-        "sanita_agg",
-        "gestori_agg"
-      ],
-      "archi": [
-        {
-          "fruitore": "regioni_agg",
-          "origine": "osservata",
-          "connessioni": 13,
-          "sessioni": 1035897
-        },
-        {
-          "fruitore": "universita_agg",
-          "origine": "osservata",
-          "connessioni": 58,
-          "sessioni": 280617
-        },
-        {
-          "fruitore": "pa_locali_agg",
-          "origine": "osservata",
-          "connessioni": 14,
-          "sessioni": 89488
-        },
-        {
-          "fruitore": "comuni_agg",
-          "origine": "osservata",
-          "connessioni": 47,
-          "sessioni": 592764
-        },
-        {
-          "fruitore": "sanita_agg",
-          "origine": "osservata",
-          "connessioni": 2
-        },
-        {
-          "fruitore": "gestori_agg",
-          "origine": "osservata",
-          "connessioni": 1,
-          "sessioni": 87
-        }
-      ],
-      "versione": "3",
-      "stato": "Attivo",
-      "descrizione": "Servizio di consultazione Attestazione ISEE",
-      "catalogId": "843ac013-941a-4afe-8243-e668142e73e6",
-      "enti_abilitati_min": 135,
-      "sessioni_min": 1998853
-    },
-    {
       "id": "inps_2303d392",
       "nome": "Consultazione Attestazione Residenti ISEE",
       "erogatore": "inps",
@@ -2664,6 +2674,51 @@
       "descrizione": "Il servizio consente la trasmissione da parte degli enti erogatori verso INPS dei dati delle prestazioni erogate come previsti per il SIUSS",
       "catalogId": "9eb24c8d-05ae-4b3a-a1f6-af9afc9bd93d",
       "enti_abilitati_min": 53
+    },
+    {
+      "id": "inps_7950aa09",
+      "nome": "Consultazione Indicatore Riscontro ISEE",
+      "erogatore": "inps",
+      "fruitori": [
+        "comuni_agg",
+        "regioni_agg",
+        "universita_agg",
+        "sanita_agg",
+        "pa_locali_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "osservata",
+          "connessioni": 28,
+          "sessioni": 1703
+        },
+        {
+          "fruitore": "regioni_agg",
+          "origine": "osservata",
+          "connessioni": 1,
+          "sessioni": 11
+        },
+        {
+          "fruitore": "universita_agg",
+          "origine": "osservata",
+          "connessioni": 1
+        },
+        {
+          "fruitore": "sanita_agg",
+          "origine": "certificata"
+        },
+        {
+          "fruitore": "pa_locali_agg",
+          "origine": "certificata"
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Servizio per la Consultazione dell'indicatore ISEE tramite dato di riscontro (protocollo DSU)",
+      "catalogId": "7950aa09-8155-4f8b-a882-22f3fe6d7d44",
+      "enti_abilitati_min": 30,
+      "sessioni_min": 1703
     },
     {
       "id": "ade_c0db9916",

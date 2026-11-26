@@ -10,11 +10,23 @@
       "mlps",
       "inps",
       "inail"
+    ],
+    "8ffc6245-0ab1-4e2e-8423-6e1a855c320a": [
+      "scuole_agg",
+      "universita_agg",
+      "comuni_agg"
+    ],
+    "843ac013-941a-4afe-8243-e668142e73e6": [
+      "scuole_agg",
+      "universita_agg",
+      "comuni_agg"
     ]
   },
   "_sources": {
     "_nota": "Basi documentali degli override promossi a origine=documentata. Dove la fonte e una stima e non un atto ufficiale, va mantenuta come inferita.",
     "1f0bdc23-544c-4c8a-a620-fadca0c0a77b": "Comunicazione Obbligatoria UniUrg (assunzioni urgenti). Le Comunicazioni Obbligatorie confluiscono nel Sistema Informativo Unitario del Ministero del Lavoro (DM 30/10/2007) e sono rese disponibili a INPS e INAIL per gli adempimenti previdenziali e assicurativi.",
-    "3bac69b0-9d84-45bb-b36b-80e9ae9d4c81": "Comunicazioni Obbligatorie UNILAV (instaurazione/proroga/trasformazione/cessazione rapporti di lavoro). Stesso flusso normativo: MLPS quale titolare del sistema CO, con fruizione da parte di INPS e INAIL."
+    "3bac69b0-9d84-45bb-b36b-80e9ae9d4c81": "Comunicazioni Obbligatorie UNILAV (instaurazione/proroga/trasformazione/cessazione rapporti di lavoro). Stesso flusso normativo: MLPS quale titolare del sistema CO, con fruizione da parte di INPS e INAIL.",
+    "8ffc6245-0ab1-4e2e-8423-6e1a855c320a": "Consultazione Indicatore ISEE (INPS). DL 19 febbraio 2026, n. 19, art. 6, convertito dalla L. 20 aprile 2026, n. 50: scuole, università e Comuni che erogano prestazioni agevolate acquisiscono d'ufficio dall'INPS, tramite la PDND, i dati ISEE strettamente necessari. La norma non indica il singolo e-service: l'override riguarda i due servizi generali di consultazione ISEE (indicatore e attestazione), non le varianti per residenti od operatori.",
+    "843ac013-941a-4afe-8243-e668142e73e6": "Consultazione Attestazione ISEE (INPS). Stessa base normativa: DL 19/2026, art. 6, convertito dalla L. 50/2026."
   }
 }

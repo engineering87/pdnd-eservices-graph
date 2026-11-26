@@ -35,7 +35,7 @@ catalogo ufficiale PDND (CSV, 15.000+ e-service)
    └── scrive pipeline/pdnd-data.preview.json  (ANTEPRIMA, non distruttiva)
               │
               ▼
-   GitHub Action mensile → commit dell'anteprima su main
+   GitHub Action mensile → pull request su develop con il report
 ```
 
 > **Modalità non distruttiva.** La pipeline scrive solo sull'anteprima
@@ -81,7 +81,9 @@ della qualità dell'aggiornamento, hai due modi per promuovere l'anteprima a gra
 **Dalla GitHub Action (consigliato).** Tab **Actions** → workflow
 "Promuovi anteprima a grafo live" → **Run workflow** → scrivi `PROMUOVI` nel campo
 di conferma. Il workflow valida l'anteprima, salva un backup del curato, sostituisce
-il grafo live e committa. La conferma esplicita evita promozioni accidentali.
+il grafo live, rigenera le esportazioni in `exports/` e apre una pull request su
+`develop`. La conferma esplicita evita promozioni accidentali; il grafo arriva sul
+sito con la release da `develop` a `main`.
 
 **Da riga di comando.**
 
@@ -125,8 +127,10 @@ Lo script si interrompe (exit 1) senza scrivere nulla se:
 - vengono generati **zero** e-service (problema di matching IPA);
 - il numero di nodi cala di oltre il **30%** rispetto alla versione precedente.
 
-Nel workflow GitHub, un guard fallito interrompe il job **prima** del commit:
-`main` non viene mai aggiornato con dati rotti.
+Nel workflow GitHub, un guard fallito interrompe il job **prima** della pull
+request: nessun ramo riceve dati rotti. Quando l'anteprima cambia, il workflow
+apre (o aggiorna) una pull request su `develop` con il report di esecuzione nel
+testo, da rivedere prima del merge.
 
 ## Manutenzione periodica
 

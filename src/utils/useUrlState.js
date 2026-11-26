@@ -60,7 +60,9 @@ export function useUrlState() {
   // impilare voci nella cronologia quando è stato il browser a cambiare rotta.
   useEffect(() => {
     const next = buildPath(state);
-    if (next !== window.location.pathname) {
+    // La barra finale non conta: il server può servire /ente/inps/ per la
+    // pagina con l'anteprima di condivisione di /ente/inps.
+    if (next !== (window.location.pathname.replace(/\/+$/, "") || "/")) {
       // Dentro la stessa vista la query string resta: selezionare un ente nel
       // grafo non deve perdere il filtro sulla provenienza degli archi.
       const stessaVista = parseLocation(window.location.pathname).tab === state.tab;
