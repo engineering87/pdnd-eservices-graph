@@ -99,6 +99,8 @@ High-centrality nodes are those whose unavailability would affect many other org
 - Readable map: nodes that do not overlap, non-overlapping labels that get denser as you zoom, automatic fit to the screen and a **Centra** (Centre) button, colour legend by family
 - Filter by category from the legend and text search for organisations
 - Details panel with the e-services each organisation provides and consumes and, for classes, the number of members
+- **Dentro la classe** (Inside the class): for each class of organisations, the types of organisation it contains (for example local health authorities, hospitals and research hospitals in Sanità) with their members and the e-services enabled only for that type, the top publishers and a search among its members
+- Opening a class in the map: its types of organisation appear next to the class, with the catalogue enablements addressed only to them; observed use stays on the class, because it is published per category ([example](https://www.pdndgraph.it/ente/sanita_agg?aperte=sanita_agg))
 - Direct links to every view and every organisation, for example [pdndgraph.it/ente/inps](https://www.pdndgraph.it/ente/inps)
 
 **Accessibility and themes**

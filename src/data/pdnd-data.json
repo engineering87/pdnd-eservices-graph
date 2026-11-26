@@ -1,7 +1,8 @@
 {
   "meta": {
-    "generato": "2026-11-26T00:42:11.242Z",
+    "generato": "2026-11-26T22:54:07.425Z",
     "ultimo_aggiornamento": "2026-11-26",
+    "versione_dati_aperti": "italia/pdnd-opendata@15eb5a4736cd90038c43b8b97dfe005f6a19fff4",
     "versione_modello": "v2",
     "fonte_enti": "github.com/italia/pdnd-opendata — aderenti.csv (CC0 1.0)",
     "fonte_eservices": "github.com/italia/pdnd-opendata — eservice_a_catalogo.csv (CC0 1.0)",
@@ -866,7 +867,19 @@
       "descrizione": "Imprese iscritte al Registro Imprese e assicurazioni aderenti alla PDND (aperta alle imprese dal 15 gennaio 2026)",
       "aggregato": true,
       "aderenti": 306,
-      "aderenti_fonte": "totale ufficiale PagoPA"
+      "aderenti_fonte": "totale ufficiale PagoPA",
+      "sottotipi": [
+        {
+          "id": "privati_agg__imprese",
+          "nome": "Imprese",
+          "aderenti": 219
+        },
+        {
+          "id": "privati_agg__assicurazioni",
+          "nome": "Assicurazioni",
+          "aderenti": 99
+        }
+      ]
     },
     {
       "id": "scuole_agg",
@@ -886,7 +899,24 @@
       "descrizione": "Università pubbliche, istituzioni AFAM ed enti per il diritto allo studio aderenti",
       "aggregato": true,
       "aderenti": 172,
-      "aderenti_fonte": "totale ufficiale PagoPA"
+      "aderenti_fonte": "totale ufficiale PagoPA",
+      "sottotipi": [
+        {
+          "id": "universita_agg__universita",
+          "nome": "Università",
+          "aderenti": 73
+        },
+        {
+          "id": "universita_agg__afam",
+          "nome": "AFAM",
+          "aderenti": 102
+        },
+        {
+          "id": "universita_agg__diritto_studio",
+          "nome": "Diritto allo studio",
+          "aderenti": 14
+        }
+      ]
     },
     {
       "id": "sanita_agg",
@@ -896,7 +926,29 @@
       "descrizione": "Aziende sanitarie locali, aziende ospedaliere, IRCCS e agenzie sanitarie aderenti",
       "aggregato": true,
       "aderenti": 123,
-      "aderenti_fonte": "conteggio per attributo certificato"
+      "aderenti_fonte": "conteggio per attributo certificato",
+      "sottotipi": [
+        {
+          "id": "sanita_agg__asl",
+          "nome": "ASL e ASP",
+          "aderenti": 76
+        },
+        {
+          "id": "sanita_agg__ospedali",
+          "nome": "Aziende ospedaliere e IRCCS",
+          "aderenti": 40
+        },
+        {
+          "id": "sanita_agg__agenzie_sanitarie",
+          "nome": "Agenzie regionali sanitarie",
+          "aderenti": 4
+        },
+        {
+          "id": "sanita_agg__zooprofilattici",
+          "nome": "Istituti zooprofilattici",
+          "aderenti": 3
+        }
+      ]
     },
     {
       "id": "gestori_agg",
@@ -906,7 +958,24 @@
       "descrizione": "Gestori di pubblici servizi, stazioni appaltanti e società a controllo pubblico aderenti",
       "aggregato": true,
       "aderenti": 343,
-      "aderenti_fonte": "conteggio per attributo certificato"
+      "aderenti_fonte": "conteggio per attributo certificato",
+      "sottotipi": [
+        {
+          "id": "gestori_agg__gestori",
+          "nome": "Gestori di pubblici servizi",
+          "aderenti": 259
+        },
+        {
+          "id": "gestori_agg__stazioni_appaltanti",
+          "nome": "Stazioni appaltanti",
+          "aderenti": 61
+        },
+        {
+          "id": "gestori_agg__societa_pubbliche",
+          "nome": "Società pubbliche",
+          "aderenti": 23
+        }
+      ]
     },
     {
       "id": "province_agg",
@@ -916,7 +985,19 @@
       "descrizione": "Province, Città metropolitane e loro consorzi aderenti",
       "aggregato": true,
       "aderenti": 99,
-      "aderenti_fonte": "conteggio per attributo certificato"
+      "aderenti_fonte": "conteggio per attributo certificato",
+      "sottotipi": [
+        {
+          "id": "province_agg__province",
+          "nome": "Province",
+          "aderenti": 82
+        },
+        {
+          "id": "province_agg__citta_metropolitane",
+          "nome": "Città metropolitane",
+          "aderenti": 17
+        }
+      ]
     },
     {
       "id": "pa_centrali_agg",
@@ -926,7 +1007,59 @@
       "descrizione": "Amministrazioni centrali, ordini professionali, enti di ricerca, autorità indipendenti ed enti previdenziali non rappresentati individualmente",
       "aggregato": true,
       "aderenti": 415,
-      "aderenti_fonte": "conteggio per attributo certificato"
+      "aderenti_fonte": "conteggio per attributo certificato",
+      "sottotipi": [
+        {
+          "id": "pa_centrali_agg__ministeri",
+          "nome": "Ministeri e Presidenza del Consiglio",
+          "aderenti": 100
+        },
+        {
+          "id": "pa_centrali_agg__previdenza",
+          "nome": "Enti di previdenza",
+          "aderenti": 6
+        },
+        {
+          "id": "pa_centrali_agg__ordini",
+          "nome": "Ordini e collegi professionali",
+          "aderenti": 220
+        },
+        {
+          "id": "pa_centrali_agg__polizia",
+          "nome": "Forze di polizia",
+          "aderenti": 23
+        },
+        {
+          "id": "pa_centrali_agg__ricerca",
+          "nome": "Enti di ricerca",
+          "aderenti": 22
+        },
+        {
+          "id": "pa_centrali_agg__enti_non_economici",
+          "nome": "Enti pubblici non economici",
+          "aderenti": 25
+        },
+        {
+          "id": "pa_centrali_agg__autorita",
+          "nome": "Autorità indipendenti",
+          "aderenti": 6
+        },
+        {
+          "id": "pa_centrali_agg__agenzie_fiscali",
+          "nome": "Agenzie fiscali",
+          "aderenti": 5
+        },
+        {
+          "id": "pa_centrali_agg__organi_costituzionali",
+          "nome": "Organi costituzionali",
+          "aderenti": 5
+        },
+        {
+          "id": "pa_centrali_agg__commissari",
+          "nome": "Commissari straordinari",
+          "aderenti": 3
+        }
+      ]
     },
     {
       "id": "pa_locali_agg",
@@ -936,7 +1069,54 @@
       "descrizione": "Unioni di Comuni, Comunità montane, consorzi, parchi, ASP, camere di commercio, agenzie regionali e altri enti locali aderenti",
       "aggregato": true,
       "aderenti": 350,
-      "aderenti_fonte": "conteggio per attributo certificato"
+      "aderenti_fonte": "conteggio per attributo certificato",
+      "sottotipi": [
+        {
+          "id": "pa_locali_agg__unioni",
+          "nome": "Unioni di Comuni e Comunità montane",
+          "aderenti": 161
+        },
+        {
+          "id": "pa_locali_agg__consorzi",
+          "nome": "Consorzi locali",
+          "aderenti": 28
+        },
+        {
+          "id": "pa_locali_agg__servizi_persona",
+          "nome": "Aziende di servizi alla persona",
+          "aderenti": 27
+        },
+        {
+          "id": "pa_locali_agg__camere_commercio",
+          "nome": "Camere di commercio",
+          "aderenti": 8
+        },
+        {
+          "id": "pa_locali_agg__agenzie_regionali",
+          "nome": "Agenzie ed enti regionali",
+          "aderenti": 35
+        },
+        {
+          "id": "pa_locali_agg__parchi",
+          "nome": "Parchi e aree protette",
+          "aderenti": 31
+        },
+        {
+          "id": "pa_locali_agg__edilizia",
+          "nome": "Edilizia residenziale pubblica",
+          "aderenti": 18
+        },
+        {
+          "id": "pa_locali_agg__autorita_territoriali",
+          "nome": "Autorità di bacino, portuali e di regolazione",
+          "aderenti": 20
+        },
+        {
+          "id": "pa_locali_agg__altri",
+          "nome": "Altri enti locali",
+          "aderenti": 22
+        }
+      ]
     }
   ],
   "eservices": [
@@ -1008,7 +1188,11 @@
         },
         {
           "fruitore": "province_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "province_agg__citta_metropolitane",
+            "province_agg__province"
+          ]
         },
         {
           "fruitore": "scuole_agg",
@@ -1028,7 +1212,10 @@
         },
         {
           "fruitore": "pa_centrali_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "pa_centrali_agg__organi_costituzionali"
+          ]
         },
         {
           "fruitore": "adm",
@@ -1264,7 +1451,11 @@
         },
         {
           "fruitore": "province_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "province_agg__citta_metropolitane",
+            "province_agg__province"
+          ]
         },
         {
           "fruitore": "scuole_agg",
@@ -1284,7 +1475,10 @@
         },
         {
           "fruitore": "pa_centrali_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "pa_centrali_agg__organi_costituzionali"
+          ]
         },
         {
           "fruitore": "adm",
@@ -1473,11 +1667,18 @@
         },
         {
           "fruitore": "province_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "province_agg__citta_metropolitane",
+            "province_agg__province"
+          ]
         },
         {
           "fruitore": "pa_centrali_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "pa_centrali_agg__organi_costituzionali"
+          ]
         },
         {
           "fruitore": "mlps",
@@ -1640,12 +1841,18 @@
         {
           "fruitore": "province_agg",
           "origine": "osservata",
+          "sottotipi": [
+            "province_agg__province"
+          ],
           "connessioni": 47,
           "sessioni": 30074
         },
         {
           "fruitore": "gestori_agg",
           "origine": "osservata",
+          "sottotipi": [
+            "gestori_agg__gestori"
+          ],
           "connessioni": 81
         },
         {
@@ -1707,6 +1914,9 @@
         {
           "fruitore": "privati_agg",
           "origine": "osservata",
+          "sottotipi": [
+            "privati_agg__assicurazioni"
+          ],
           "connessioni": 96,
           "sessioni": 66460488
         },
@@ -1718,6 +1928,9 @@
         {
           "fruitore": "gestori_agg",
           "origine": "osservata",
+          "sottotipi": [
+            "gestori_agg__gestori"
+          ],
           "connessioni": 39
         },
         {
@@ -1797,11 +2010,17 @@
         {
           "fruitore": "province_agg",
           "origine": "osservata",
+          "sottotipi": [
+            "province_agg__province"
+          ],
           "connessioni": 39
         },
         {
           "fruitore": "gestori_agg",
           "origine": "osservata",
+          "sottotipi": [
+            "gestori_agg__gestori"
+          ],
           "connessioni": 68
         },
         {
@@ -1889,6 +2108,9 @@
         {
           "fruitore": "gestori_agg",
           "origine": "osservata",
+          "sottotipi": [
+            "gestori_agg__gestori"
+          ],
           "connessioni": 106,
           "sessioni": 10474994
         },
@@ -1947,6 +2169,9 @@
         {
           "fruitore": "province_agg",
           "origine": "osservata",
+          "sottotipi": [
+            "province_agg__province"
+          ],
           "connessioni": 35
         },
         {
@@ -1978,7 +2203,10 @@
         },
         {
           "fruitore": "gestori_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "gestori_agg__gestori"
+          ]
         }
       ],
       "versione": "2",
@@ -2023,6 +2251,9 @@
         {
           "fruitore": "province_agg",
           "origine": "osservata",
+          "sottotipi": [
+            "province_agg__province"
+          ],
           "connessioni": 31
         },
         {
@@ -2056,7 +2287,10 @@
         },
         {
           "fruitore": "gestori_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "gestori_agg__gestori"
+          ]
         }
       ],
       "versione": "2",
@@ -2120,7 +2354,10 @@
         },
         {
           "fruitore": "gestori_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "gestori_agg__gestori"
+          ]
         }
       ],
       "versione": "2",
@@ -2160,6 +2397,9 @@
         {
           "fruitore": "pa_centrali_agg",
           "origine": "osservata",
+          "sottotipi": [
+            "pa_centrali_agg__organi_costituzionali"
+          ],
           "connessioni": 2,
           "sessioni": 12935158
         },
@@ -2178,7 +2418,11 @@
         },
         {
           "fruitore": "province_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "province_agg__citta_metropolitane",
+            "province_agg__province"
+          ]
         },
         {
           "fruitore": "scuole_agg",
@@ -2264,6 +2508,11 @@
         {
           "fruitore": "universita_agg",
           "origine": "documentata",
+          "sottotipi": [
+            "universita_agg__afam",
+            "universita_agg__diritto_studio",
+            "universita_agg__universita"
+          ],
           "connessioni": 58,
           "sessioni": 280617
         },
@@ -2282,12 +2531,18 @@
         {
           "fruitore": "pa_locali_agg",
           "origine": "osservata",
+          "sottotipi": [
+            "pa_locali_agg__edilizia"
+          ],
           "connessioni": 14,
           "sessioni": 89488
         },
         {
           "fruitore": "sanita_agg",
           "origine": "osservata",
+          "sottotipi": [
+            "sanita_agg__asl"
+          ],
           "connessioni": 2
         },
         {
@@ -2473,6 +2728,11 @@
         {
           "fruitore": "universita_agg",
           "origine": "documentata",
+          "sottotipi": [
+            "universita_agg__afam",
+            "universita_agg__diritto_studio",
+            "universita_agg__universita"
+          ],
           "connessioni": 30,
           "sessioni": 28753
         },
@@ -2485,6 +2745,9 @@
         {
           "fruitore": "pa_locali_agg",
           "origine": "osservata",
+          "sottotipi": [
+            "pa_locali_agg__edilizia"
+          ],
           "connessioni": 10,
           "sessioni": 79
         },
@@ -2497,6 +2760,9 @@
         {
           "fruitore": "sanita_agg",
           "origine": "osservata",
+          "sottotipi": [
+            "sanita_agg__asl"
+          ],
           "connessioni": 1,
           "sessioni": 3
         },
@@ -2668,19 +2934,33 @@
         },
         {
           "fruitore": "universita_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "universita_agg__diritto_studio",
+            "universita_agg__universita"
+          ]
         },
         {
           "fruitore": "pa_locali_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "pa_locali_agg__servizi_persona",
+            "pa_locali_agg__unioni"
+          ]
         },
         {
           "fruitore": "sanita_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "sanita_agg__asl"
+          ]
         },
         {
           "fruitore": "province_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "province_agg__citta_metropolitane"
+          ]
         },
         {
           "fruitore": "c_milano",
@@ -3044,6 +3324,9 @@
         {
           "fruitore": "pa_locali_agg",
           "origine": "osservata",
+          "sottotipi": [
+            "pa_locali_agg__edilizia"
+          ],
           "connessioni": 3,
           "sessioni": 470
         },
@@ -3060,11 +3343,19 @@
         {
           "fruitore": "universita_agg",
           "origine": "osservata",
+          "sottotipi": [
+            "universita_agg__afam",
+            "universita_agg__diritto_studio",
+            "universita_agg__universita"
+          ],
           "connessioni": 4
         },
         {
           "fruitore": "sanita_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "sanita_agg__asl"
+          ]
         },
         {
           "fruitore": "regioni_agg",
@@ -3101,12 +3392,20 @@
         {
           "fruitore": "universita_agg",
           "origine": "osservata",
+          "sottotipi": [
+            "universita_agg__afam",
+            "universita_agg__diritto_studio",
+            "universita_agg__universita"
+          ],
           "connessioni": 3,
           "sessioni": 184
         },
         {
           "fruitore": "sanita_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "sanita_agg__asl"
+          ]
         },
         {
           "fruitore": "regioni_agg",
@@ -3114,7 +3413,10 @@
         },
         {
           "fruitore": "pa_locali_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "pa_locali_agg__edilizia"
+          ]
         }
       ],
       "versione": "1",
@@ -3146,11 +3448,18 @@
         },
         {
           "fruitore": "pa_locali_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "pa_locali_agg__servizi_persona",
+            "pa_locali_agg__unioni"
+          ]
         },
         {
           "fruitore": "province_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "province_agg__citta_metropolitane"
+          ]
         },
         {
           "fruitore": "regioni_agg",
@@ -3158,11 +3467,18 @@
         },
         {
           "fruitore": "sanita_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "sanita_agg__asl"
+          ]
         },
         {
           "fruitore": "universita_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "universita_agg__diritto_studio",
+            "universita_agg__universita"
+          ]
         }
       ],
       "versione": "2",
@@ -3198,15 +3514,26 @@
         {
           "fruitore": "universita_agg",
           "origine": "osservata",
+          "sottotipi": [
+            "universita_agg__afam",
+            "universita_agg__diritto_studio",
+            "universita_agg__universita"
+          ],
           "connessioni": 1
         },
         {
           "fruitore": "sanita_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "sanita_agg__asl"
+          ]
         },
         {
           "fruitore": "pa_locali_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "pa_locali_agg__edilizia"
+          ]
         }
       ],
       "versione": "1",
@@ -3258,6 +3585,10 @@
         {
           "fruitore": "universita_agg",
           "origine": "osservata",
+          "sottotipi": [
+            "universita_agg__afam",
+            "universita_agg__universita"
+          ],
           "connessioni": 11,
           "sessioni": 3957
         },
@@ -3272,11 +3603,17 @@
         },
         {
           "fruitore": "pa_locali_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "pa_locali_agg__autorita_territoriali"
+          ]
         },
         {
           "fruitore": "province_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "province_agg__citta_metropolitane"
+          ]
         },
         {
           "fruitore": "min_interno",
@@ -3444,15 +3781,25 @@
         },
         {
           "fruitore": "universita_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "universita_agg__afam",
+            "universita_agg__universita"
+          ]
         },
         {
           "fruitore": "pa_locali_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "pa_locali_agg__autorita_territoriali"
+          ]
         },
         {
           "fruitore": "province_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "province_agg__citta_metropolitane"
+          ]
         },
         {
           "fruitore": "min_interno",
@@ -3642,11 +3989,17 @@
         {
           "fruitore": "pa_centrali_agg",
           "origine": "osservata",
+          "sottotipi": [
+            "pa_centrali_agg__ricerca"
+          ],
           "connessioni": 7
         },
         {
           "fruitore": "province_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "province_agg__citta_metropolitane"
+          ]
         },
         {
           "fruitore": "min_interno",
@@ -3690,7 +4043,10 @@
         },
         {
           "fruitore": "pa_locali_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "pa_locali_agg__autorita_territoriali"
+          ]
         },
         {
           "fruitore": "agid",
@@ -3863,6 +4219,9 @@
         {
           "fruitore": "gestori_agg",
           "origine": "osservata",
+          "sottotipi": [
+            "gestori_agg__gestori"
+          ],
           "connessioni": 80
         },
         {
@@ -5699,7 +6058,11 @@
       "archi": [
         {
           "fruitore": "pa_centrali_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "pa_centrali_agg__enti_non_economici",
+            "pa_centrali_agg__organi_costituzionali"
+          ]
         },
         {
           "fruitore": "min_interno",
@@ -5782,7 +6145,11 @@
       "archi": [
         {
           "fruitore": "pa_centrali_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "pa_centrali_agg__enti_non_economici",
+            "pa_centrali_agg__organi_costituzionali"
+          ]
         },
         {
           "fruitore": "min_interno",
@@ -5879,7 +6246,11 @@
       "archi": [
         {
           "fruitore": "pa_centrali_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "pa_centrali_agg__enti_non_economici",
+            "pa_centrali_agg__organi_costituzionali"
+          ]
         },
         {
           "fruitore": "min_interno",
@@ -5942,7 +6313,11 @@
       "archi": [
         {
           "fruitore": "pa_centrali_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "pa_centrali_agg__enti_non_economici",
+            "pa_centrali_agg__organi_costituzionali"
+          ]
         },
         {
           "fruitore": "min_interno",
@@ -6005,7 +6380,11 @@
       "archi": [
         {
           "fruitore": "pa_centrali_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "pa_centrali_agg__enti_non_economici",
+            "pa_centrali_agg__organi_costituzionali"
+          ]
         },
         {
           "fruitore": "min_interno",
@@ -6068,7 +6447,11 @@
       "archi": [
         {
           "fruitore": "pa_centrali_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "pa_centrali_agg__enti_non_economici",
+            "pa_centrali_agg__organi_costituzionali"
+          ]
         },
         {
           "fruitore": "min_interno",
@@ -6490,6 +6873,10 @@
         {
           "fruitore": "gestori_agg",
           "origine": "osservata",
+          "sottotipi": [
+            "gestori_agg__gestori",
+            "gestori_agg__stazioni_appaltanti"
+          ],
           "connessioni": 42,
           "sessioni": 75609659
         },
@@ -7865,7 +8252,10 @@
       "archi": [
         {
           "fruitore": "province_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "province_agg__citta_metropolitane"
+          ]
         },
         {
           "fruitore": "comuni_agg",
@@ -8063,7 +8453,10 @@
         },
         {
           "fruitore": "pa_locali_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "pa_locali_agg__unioni"
+          ]
         }
       ],
       "versione": "1",
@@ -8103,11 +8496,17 @@
         },
         {
           "fruitore": "pa_locali_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "pa_locali_agg__unioni"
+          ]
         },
         {
           "fruitore": "universita_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "universita_agg__universita"
+          ]
         }
       ],
       "versione": "1",
@@ -8136,11 +8535,17 @@
         },
         {
           "fruitore": "universita_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "universita_agg__universita"
+          ]
         },
         {
           "fruitore": "province_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "province_agg__citta_metropolitane"
+          ]
         }
       ],
       "versione": "1",
@@ -8179,7 +8584,10 @@
         },
         {
           "fruitore": "province_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "province_agg__citta_metropolitane"
+          ]
         }
       ],
       "versione": "1",
@@ -8207,7 +8615,10 @@
         },
         {
           "fruitore": "province_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "province_agg__citta_metropolitane"
+          ]
         }
       ],
       "versione": "1",
@@ -8235,7 +8646,10 @@
         },
         {
           "fruitore": "province_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "province_agg__citta_metropolitane"
+          ]
         }
       ],
       "versione": "1",
@@ -8342,6 +8756,9 @@
         {
           "fruitore": "sanita_agg",
           "origine": "osservata",
+          "sottotipi": [
+            "sanita_agg__asl"
+          ],
           "connessioni": 1
         }
       ],
@@ -8362,6 +8779,9 @@
         {
           "fruitore": "sanita_agg",
           "origine": "osservata",
+          "sottotipi": [
+            "sanita_agg__asl"
+          ],
           "connessioni": 1,
           "sessioni": 5
         }
@@ -8386,6 +8806,9 @@
         {
           "fruitore": "sanita_agg",
           "origine": "osservata",
+          "sottotipi": [
+            "sanita_agg__asl"
+          ],
           "connessioni": 1,
           "sessioni": 4
         }
@@ -8763,6 +9186,10 @@
         {
           "fruitore": "province_agg",
           "origine": "osservata",
+          "sottotipi": [
+            "province_agg__citta_metropolitane",
+            "province_agg__province"
+          ],
           "connessioni": 1,
           "sessioni": 4
         }
@@ -8792,7 +9219,11 @@
         },
         {
           "fruitore": "province_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "province_agg__citta_metropolitane",
+            "province_agg__province"
+          ]
         }
       ],
       "versione": "2",
@@ -8818,7 +9249,11 @@
         },
         {
           "fruitore": "province_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "province_agg__citta_metropolitane",
+            "province_agg__province"
+          ]
         }
       ],
       "versione": "2",

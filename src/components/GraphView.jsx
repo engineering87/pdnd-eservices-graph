@@ -12,6 +12,8 @@ import PDND_DATA from "../data/pdnd-data.json";
 import { CATEGORY_COLORS, ORIGIN_STYLES } from "../constants/colors";
 import { ORIGINI } from "../utils/relations";
 import { buildGraph } from "../utils/buildGraph";
+import ClassInside from "./ClassInside";
+import { apriClassi, classiApribili, legamiAppartenenza } from "../utils/expandClasses";
 import { gR, mkSim, posizioneDaId } from "../utils/layout";
 import { useIsMobile } from "../utils/useIsMobile";
 
@@ -91,10 +93,25 @@ function calcolaInquadratura(nodes, cv) {
   return { k, x: cv.width / 2 - ((x0 + x1) / 2) * k, y: cv.height / 2 - ((y0 + y1) / 2) * k };
 }
 
-// Archi del modello con id di erogatore e fruitore, mai mutati dalla simulazione.
-const ARCHI_BASE = buildGraph(PDND_DATA).links.map((l) => ({ source: l.source, target: l.target, origine: l.origine }));
+// Classi aperte nei loro tipi di ente (src/utils/expandClasses.js). Anche
+// questa scelta vive nella query string (?aperte=sanita_agg), come il filtro.
+const APRIBILI = new Set(classiApribili(PDND_DATA));
+function leggiAperte() {
+  if (typeof window === "undefined") return new Set();
+  const p = new URLSearchParams(window.location.search).get("aperte");
+  return new Set((p || "").split(",").filter((id) => APRIBILI.has(id)));
+}
 
-const TOT_LEGAMI = new Set(ARCHI_BASE.map((l) => `${l.source}->${l.target}`)).size;
+// Grafo da disegnare: il modello con le classi aperte, più i legami di
+// appartenenza fra una classe aperta e i suoi tipi di ente.
+function costruisciVista(aperte) {
+  const modello = apriClassi(PDND_DATA, aperte);
+  const g = buildGraph(modello);
+  return { ...g, links: [...g.links, ...legamiAppartenenza(modello)] };
+}
+
+// Archi con id di erogatore e fruitore, mai mutati dalla simulazione.
+const archiDi = (vista) => vista.links.filter((l) => l.origine !== "appartenenza").map((l) => ({ source: l.source, target: l.target, origine: l.origine }));
 
 function vistaDi(origini) {
   const chiave = [...origini].sort().join(",");
@@ -115,7 +132,7 @@ function lgt(hex, amount) {
   return `rgb(${Math.max(0, Math.min(255, (n >> 16) + amount))},${Math.max(0, Math.min(255, ((n >> 8) & 0xff) + amount))},${Math.max(0, Math.min(255, (n & 0xff) + amount))})`;
 }
 
-export default function GraphView({ entityId = null, onEntityChange, onOpenEservice, tema = "dark" }) {
+export default function GraphView({ entityId = null, onEntityChange, onOpenEservice, onOpenAderente, tema = "dark" }) {
   const P = TAVOLOZZE[tema] || TAVOLOZZE.dark;
   const m = useIsMobile();
   const canvasRef = useRef(null);
@@ -135,7 +152,11 @@ export default function GraphView({ entityId = null, onEntityChange, onOpenEserv
   const panRef = useRef(null);
   const afRef = useRef(null);
   const lcRef = useRef({});
-  const graph = useRef(buildGraph(PDND_DATA));
+  const [aperte, setAperte] = useState(leggiAperte);
+  const [vistaIniziale] = useState(() => costruisciVista(aperte));
+  const graph = useRef(vistaIniziale);
+  const archiBase = useMemo(() => archiDi(costruisciVista(aperte)), [aperte]);
+  const totLegami = useMemo(() => new Set(archiBase.map((l) => `${l.source}->${l.target}`)).size, [archiBase]);
   const cats = useMemo(() => ["Tutte", ...new Set(PDND_DATA.enti.map(e => e.categoria))], []);
   const lastTouchDist = useRef(null);
   // Inquadratura: al primo disegno con le dimensioni reali il grafo viene
@@ -230,7 +251,7 @@ export default function GraphView({ entityId = null, onEntityChange, onOpenEserv
     const conta = {};
     const nodi = new Set();
     const diretti = new Set();
-    for (const l of ARCHI_BASE) {
+    for (const l of archiBase) {
       if (!origini.has(l.origine)) continue;
       const k = [l.source, l.target].sort().join("--");
       conta[k] = (conta[k] || 0) + 1;
@@ -239,7 +260,50 @@ export default function GraphView({ entityId = null, onEntityChange, onOpenEserv
     }
     // Archi distinti diretti erogatore -> fruitore, come nel resto del progetto.
     return { conta, nodi, archi: diretti.size };
-  }, [origini]);
+  }, [origini, archiBase]);
+
+  // Classi aperte -> query string, senza voci nella cronologia.
+  useEffect(() => {
+    const p = new URLSearchParams(window.location.search);
+    if (aperte.size) p.set("aperte", [...aperte].sort().join(",")); else p.delete("aperte");
+    const q = p.toString().replace(/%2C/g, ",");
+    const url = window.location.pathname + (q ? `?${q}` : "");
+    if (url !== window.location.pathname + window.location.search) window.history.replaceState({}, "", url);
+  }, [aperte]);
+
+  // Apre o richiude una classe. I nodi che restano conservano posizione e
+  // identità (la simulazione lavora sugli stessi array); i tipi di ente nuovi
+  // partono in cerchio attorno alla loro classe.
+  const alternaClasse = (id) => {
+    const next = new Set(aperte);
+    if (next.has(id)) next.delete(id); else next.add(id);
+    const vista = costruisciVista(next);
+    const vecchi = new Map(nodesRef.current.map((n) => [n.id, n]));
+    const fratelli = new Map();
+    const nodi = vista.nodes.map((n) => {
+      const v = vecchi.get(n.id);
+      if (v) { const { x, y, vx, vy, fx, fy } = v; return Object.assign(v, n, { x, y, vx, vy, fx, fy }); }
+      const padre = vecchi.get(n.sottotipo_di);
+      const i = fratelli.get(n.sottotipo_di) || 0;
+      fratelli.set(n.sottotipo_di, i + 1);
+      const tot = PDND_DATA.enti.find((e) => e.id === n.sottotipo_di)?.sottotipi?.length || 1;
+      const ang = (i / tot) * Math.PI * 2;
+      return Object.assign(n, { x: (padre?.x ?? dim.w / 2) + Math.cos(ang) * 90, y: (padre?.y ?? dim.h / 2) + Math.sin(ang) * 90, vx: 0, vy: 0 });
+    });
+    const perId = new Map(nodi.map((n) => [n.id, n]));
+    nodesRef.current.splice(0, nodesRef.current.length, ...nodi);
+    linksRef.current.splice(0, linksRef.current.length, ...vista.links.map((l) => ({ ...l, source: perId.get(l.source), target: perId.get(l.target) })));
+    lcRef.current = vista.linkCounts;
+    graph.current = { ...vista, nodes: nodi };
+    const sim = simRef.current;
+    if (sim) {
+      sim.alpha.current = .5;
+      if (MOTO_RIDOTTO) { for (let k = 0; k < 200; k++) sim.tick(); sim.alpha.current = 0; }
+    }
+    setAperte(next);
+    // Un tipo di ente selezionato sparisce quando si richiude la sua classe.
+    if (selNode && !perId.has(selNode.id)) selectNode(perId.get(selNode.sottotipo_di) || null);
+  };
 
   // ── Simulation ──────────────────────────────────────────────
 
@@ -250,6 +314,15 @@ export default function GraphView({ entityId = null, onEntityChange, onOpenEserv
     // Posizioni iniziali deterministiche, ricavate dall'id di ogni ente: la
     // mappa ha la stessa forma a ogni apertura e un ente nuovo non sposta gli altri.
     nodes.forEach(n => { const [u, v] = posizioneDaId(n.id); n.x = cx + (u - .5) * 500; n.y = cy + (v - .5) * 400; });
+    // I tipi di ente di una classe già aperta partono in cerchio attorno a essa.
+    const giro = new Map();
+    nodes.forEach(n => {
+      const p = n.sottotipo_di && nodes.find(x => x.id === n.sottotipo_di);
+      if (!p) return;
+      const i = giro.get(p.id) || 0, tot = nodes.filter(x => x.sottotipo_di === p.id).length;
+      giro.set(p.id, i + 1);
+      n.x = p.x + Math.cos((i / tot) * Math.PI * 2) * 90; n.y = p.y + Math.sin((i / tot) * Math.PI * 2) * 90;
+    });
     nodesRef.current = nodes;
     linksRef.current = links.map(l => ({ ...l, source: nodes.find(n => n.id === l.source) || l.source, target: nodes.find(n => n.id === l.target) || l.target }));
     const k = tRef.current.k;
@@ -299,6 +372,13 @@ export default function GraphView({ entityId = null, onEntityChange, onOpenEserv
     // Links
     links.forEach(l => {
       const s = l.source, tg = l.target; if (!s.x || !tg.x) return;
+      // Appartenenza di un tipo di ente alla sua classe aperta: tratto sottile
+      // a puntini, senza freccia, non soggetto al filtro di provenienza.
+      if (l.origine === "appartenenza") {
+        ctx.beginPath(); ctx.moveTo(s.x, s.y); ctx.lineTo(tg.x, tg.y);
+        ctx.strokeStyle = P.normale(4); ctx.lineWidth = 1.2; ctx.setLineDash([2, 5]); ctx.stroke(); ctx.setLineDash([]);
+        return;
+      }
       if (!origini.has(l.origine)) return;
       if (isFilt && !vis.has(s.id) && !vis.has(tg.id)) return;
       const k = [s.id, tg.id].sort().join("--"), w = (filtroArchi ? visibili.conta[k] : lcRef.current[k]) || 1;
@@ -538,7 +618,7 @@ export default function GraphView({ entityId = null, onEntityChange, onOpenEserv
         </button>
         {filtroArchi && (
           <span style={{ fontSize: 11, color: "var(--ink-faint)" }}>
-            <span className="tabular" style={{ color: "var(--acc-cyan)", fontWeight: 600 }}>{visibili.archi}</span> legami visibili su {TOT_LEGAMI}
+            <span className="tabular" style={{ color: "var(--acc-cyan)", fontWeight: 600 }}>{visibili.archi}</span> legami visibili su {totLegami}
           </span>
         )}
       </div>
@@ -626,8 +706,25 @@ export default function GraphView({ entityId = null, onEntityChange, onOpenEserv
               <div style={{ fontSize: 12, color: "var(--ink-muted)", marginBottom: 14 }}>{selNode.descrizione}</div>
               {selNode.aggregato && selNode.aderenti > 0 && (
                 <div style={{ marginBottom: 14, fontSize: 11, color: "var(--ink-muted)" }}>
-                  Classe di enti: <strong style={{ color: "var(--ink)" }}>{selNode.aderenti.toLocaleString("it-IT")} aderenti</strong> alla PDND <span style={{ color: "var(--ink-faint)" }}>({selNode.aderenti_fonte})</span>
+                  {selNode.sottotipo_di ? "Tipo di ente" : "Classe di enti"}: <strong style={{ color: "var(--ink)" }}>{selNode.aderenti.toLocaleString("it-IT")} aderenti</strong> alla PDND <span style={{ color: "var(--ink-faint)" }}>({selNode.aderenti_fonte})</span>
                 </div>
+              )}
+              {selNode.sottotipo_di && (
+                <div style={{ marginBottom: 14, fontSize: 11, color: "var(--ink-muted)", lineHeight: 1.55 }}>
+                  Parte della classe{" "}
+                  <button type="button" onClick={() => { const p = nodesRef.current.find((n) => n.id === selNode.sottotipo_di); if (p) selectNode(p); }}
+                    style={{ background: "none", border: "none", padding: 0, color: "var(--ink)", font: "inherit", cursor: "pointer", textDecoration: "underline", textDecorationColor: "var(--underline)", textUnderlineOffset: 2 }}>
+                    {PDND_DATA.enti.find((e) => e.id === selNode.sottotipo_di)?.name.replace(" (aggregati)", "")}
+                  </button>.{" "}
+                  <button type="button" onClick={() => alternaClasse(selNode.sottotipo_di)}
+                    style={{ background: "none", border: "none", padding: 0, color: "var(--pa-blue)", font: "inherit", cursor: "pointer" }}>
+                    Richiudi la classe
+                  </button>
+                </div>
+              )}
+              {selNode.aggregato && !selNode.sottotipo_di && (
+                <ClassInside key={selNode.id} nodo={selNode} onOpenAderente={onOpenAderente} onOpenEservice={onOpenEservice}
+                  aperta={aperte.has(selNode.id)} onToggleAperta={APRIBILI.has(selNode.id) ? () => alternaClasse(selNode.id) : undefined} />
               )}
               {selNode.id === "comuni_agg" && (
                 <div style={{ marginBottom: 14, padding: "10px 12px", borderRadius: 6, background: "rgba(255,209,102,.05)", border: "1px solid rgba(255,209,102,.18)" }}>

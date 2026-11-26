@@ -99,6 +99,8 @@ I nodi ad alta centralità sono quelli la cui indisponibilità avrebbe effetto s
 - Mappa leggibile: nodi che non si sovrappongono, etichette senza sovrapposizioni che si infittiscono con lo zoom, adattamento automatico allo schermo e pulsante **Centra**, legenda dei colori per famiglie
 - Filtro per categoria dalla legenda e ricerca testuale degli enti
 - Pannello dettagli con gli e-service erogati e fruiti da ogni ente e, per le classi, il numero di aderenti
+- **Dentro la classe**: per ogni classe di enti, i tipi di ente che la compongono (per esempio ASL, aziende ospedaliere e IRCCS nella Sanità) con gli aderenti e gli e-service abilitati solo a quel tipo, chi pubblica più e-service e la ricerca fra i suoi enti
+- Apertura di una classe nella mappa: accanto alla classe compaiono i suoi tipi di ente, con le abilitazioni del catalogo rivolte solo a loro; l'uso osservato resta sulla classe, perché è pubblicato per categoria ([esempio](https://www.pdndgraph.it/ente/sanita_agg?aperte=sanita_agg))
 - Link diretti a ogni vista e a ogni ente, per esempio [pdndgraph.it/ente/inps](https://www.pdndgraph.it/ente/inps)
 
 **Accessibilità e temi**

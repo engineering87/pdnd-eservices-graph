@@ -310,16 +310,24 @@ async function main() {
     return null;
   };
   const certTargets = (name) => categoryMap[name] ?? (classOfAttr(name) ? [classOfAttr(name)] : []);
+  // Sottotipo di una classe (classi.json, 'sottotipi'): il gruppo di attributi a
+  // cui appartiene un attributo certificato. Serve ad aprire la classe nella mappa.
+  const classeById = new Map(classi.map(c => [c.id, c]));
+  const sottotipoDiAttr = (classId, name) =>
+    (classeById.get(classId)?.sottotipi || []).find(t => (t.attributi || []).includes(name) || (t.attributi_prefisso || []).some(p => name.startsWith(p)))?.id || null;
   const classOfOfficial = new Map(classi.flatMap(c => (c.categorie_ufficiali || []).map(o => [o, c.id])));
   // Dimensione delle classi: totale ufficiale dove PagoPA lo pubblica, altrimenti
   // conteggio degli aderenti per attributo certificato (una classe per aderente,
   // nell'ordine di classi.json).
   const classSize = new Map();
+  const subSize = new Map();
   for (const a of aderenti) {
     let attrs = [];
     try { attrs = JSON.parse(a.attributes || "[]").filter(x => x.type === "Certified").map(x => x.name); } catch { /* */ }
     const c = classi.find(c => attrs.some(n => (c.attributi || []).includes(n) || (c.attributi_prefisso || []).some(p => n.startsWith(p))));
     if (c) classSize.set(c.id, (classSize.get(c.id) || 0) + 1);
+    const t = c && attrs.map(n => sottotipoDiAttr(c.id, n)).find(Boolean);
+    if (t) subSize.set(t, (subSize.get(t) || 0) + 1);
   }
   const classInfo = new Map(classi.map(c => {
     const ufficiale = c.totale_ufficiale && totaliUfficiali.get(c.totale_ufficiale);
@@ -327,6 +335,12 @@ async function main() {
       ? { aderenti: ufficiale, aderenti_fonte: "totale ufficiale PagoPA" }
       : classSize.has(c.id) ? { aderenti: classSize.get(c.id), aderenti_fonte: "conteggio per attributo certificato" } : {}];
   }));
+  // Sottotipi con il numero di aderenti dell'elenco ufficiale (conteggio per
+  // attributo: la somma può differire dal totale ufficiale della classe).
+  for (const c of classi) {
+    if (!c.sottotipi?.length) continue;
+    classInfo.get(c.id).sottotipi = c.sottotipi.map(t => ({ id: t.id, nome: t.nome, aderenti: subSize.get(t.id) || 0 }));
+  }
   const overrides = loadJSON(join(__dirname, "connections-overrides.json")).overrides;
   // Layer congelato: inferenze AI curate e fissate nel dato versionato (deterministico).
   let frozen = {};
@@ -411,6 +425,14 @@ async function main() {
       }
       if (overrides[r.id]) add(overrides[r.id], "documentata");
       add([...new Set([...conn.keys(), ...sess.keys()])], "osservata");
+      // Sottotipi abilitati per ogni classe: dicono a quale parte della classe
+      // il catalogo apre l'e-service, qualunque sia l'origine dell'arco.
+      const certSub = new Map();
+      for (const c of certifiedCategories(r.attributes)) {
+        if (categoryMap[c]) continue;
+        const cls = classOfAttr(c), t = cls && sottotipoDiAttr(cls, c);
+        if (t) certSub.set(cls, new Set([...(certSub.get(cls) || []), t]));
+      }
       if (!overrides[r.id]) {
         const set = new Set();
         for (const c of certifiedCategories(r.attributes)) certTargets(c).forEach(n => set.add(n));
@@ -423,6 +445,7 @@ async function main() {
       // Il numero di connessioni osservate accompagna l'arco qualunque sia la sua
       // provenienza: è un dato ufficiale sul peso reale della relazione.
       for (const a of archi) {
+        if (certSub.has(a.fruitore)) a.sottotipi = [...certSub.get(a.fruitore)].sort();
         if (conn.has(a.fruitore)) a.connessioni = conn.get(a.fruitore);
         if (sess.has(a.fruitore)) a.sessioni = sess.get(a.fruitore);
       }
@@ -587,20 +610,28 @@ async function main() {
     const c = classi.find(c => attrs.some(n => (c.attributi || []).includes(n) || (c.attributi_prefisso || []).some(p => n.startsWith(p))));
     return c ? c.id : "";
   };
+  const sottotipoDi = (a, classe) => {
+    if (!classe) return "";
+    let attrs = [];
+    try { attrs = JSON.parse(a.attributes || "[]").filter(x => x.type === "Certified").map(x => x.name); } catch { /* */ }
+    return attrs.map(n => sottotipoDiAttr(classe, n)).find(Boolean) || "";
+  };
   const indiceAderenti = aderenti.length ? {
     meta: {
       generato: new Date().toISOString(),
       data: DATA_DATI || new Date().toISOString().slice(0, 10),
       fonte: "github.com/italia/pdnd-opendata — aderenti.csv ed eservice_a_catalogo.csv (CC0 1.0)",
-      formato: "enti: [nome, codiceIPA, classe, nodo della mappa, e-service pubblicati, [[id catalogo (8 cifre), nome], ...] fino a 8]",
+      formato: "enti: [nome, codiceIPA, classe, nodo della mappa, e-service pubblicati, [[id catalogo (8 cifre), nome], ...] fino a 8, sottotipo]",
     },
     classi: Object.fromEntries(classi.map(c => [c.id, c.name])),
+    sottotipi: Object.fromEntries(classi.flatMap(c => (c.sottotipi || []).map(t => [t.id, t.nome]))),
     enti: aderenti
       .filter(a => a.name)
       .map(a => {
         const pub = pubblicatiDi.get(a.id) || [];
         pub.sort((x, y) => x[1].localeCompare(y[1], "it"));
-        return [a.name.trim(), a.ipaCode || "", classeDi(a), nodoDiIpa.get(a.ipaCode) || "", pub.length, pub.slice(0, 8)];
+        const classe = classeDi(a);
+        return [a.name.trim(), a.ipaCode || "", classe, nodoDiIpa.get(a.ipaCode) || "", pub.length, pub.slice(0, 8), sottotipoDi(a, classe)];
       })
       .sort((x, y) => x[0].localeCompare(y[0], "it")),
   } : null;

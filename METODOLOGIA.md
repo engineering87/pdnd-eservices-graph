@@ -506,6 +506,21 @@ dal progetto. Restano nominati gli enti citati esplicitamente nel catalogo e i
 ministeri (enti distinti, tutti quelli tracciati). L'attributo "Pubbliche
 Amministrazioni" (qualsiasi PA) va su tutte le classi pubbliche.
 
+**Tipi di ente dentro le classi.** Sette classi riuniscono più tipologie IPA: per
+esempio Sanità comprende ASL, aziende ospedaliere e IRCCS, agenzie regionali
+sanitarie e istituti zooprofilattici. In `classi.json` il campo `sottotipi`
+raggruppa gli attributi certificati di ogni classe sotto un nome breve; ogni
+attributo sta in un solo sottotipo. La pipeline conta gli aderenti di ogni
+sottotipo sull'elenco ufficiale e, per ogni arco verso una classe, registra in
+`sottotipi` a quali tipi il catalogo apre l'e-service.
+
+Nella mappa una classe si può aprire nei suoi tipi di ente. Si spostano sui tipi
+solo le abilitazioni del catalogo rivolte a una parte della classe. Restano sulla
+classe l'uso osservato, perché le statistiche ufficiali sono per categoria e non
+per tipo di ente, e le abilitazioni rivolte all'intera classe, come l'attributo
+"Pubbliche Amministrazioni". L'apertura cambia solo la vista: densità, comunità e
+misure nel tempo restano calcolate con le classi chiuse.
+
 ### 7.3 Provenienza degli archi
 
 Ogni arco dichiara una provenienza; quando più fonti sostengono lo stesso arco vale

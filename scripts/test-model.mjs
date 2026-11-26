@@ -590,7 +590,7 @@ const INDICE = JSON.parse(fs.readFileSync(path.join(ROOT, "src/data/aderenti-ind
 const ID_ENTI = new Set(DATA.enti.map((e) => e.id));
 
 check("l'indice ha righe ben formate", () => {
-  const rotte = INDICE.enti.filter((r) => !Array.isArray(r) || r.length !== 6 || typeof r[0] !== "string" || !r[0] || typeof r[4] !== "number" || !Array.isArray(r[5]));
+  const rotte = INDICE.enti.filter((r) => !Array.isArray(r) || r.length !== 7 || typeof r[0] !== "string" || !r[0] || typeof r[4] !== "number" || !Array.isArray(r[5]));
   return (INDICE.enti.length > 1000 && rotte.length === 0) || `${INDICE.enti.length} righe, ${rotte.length} malformate`;
 });
 
@@ -633,6 +633,34 @@ check("network-history.json è allineato alle istantanee (npm run export)", () =
   const atteso = JSON.stringify(storia.serieStorica(ist, DATA), null, 1) + "\n";
   const f = path.join(ROOT, "src/data/network-history.json");
   return (fs.existsSync(f) && fs.readFileSync(f, "utf8") === atteso) || "file non allineato: eseguire npm run export";
+});
+
+console.log("\nApertura delle classi (expandClasses.js)");
+
+const esp = await import(pathToFileURL(path.join(ROOT, "src/utils/expandClasses.js")).href);
+
+check("i sottotipi di ogni classe hanno id e conteggi validi", () => {
+  const ko = DATA.enti.filter((e) => e.sottotipi).filter((e) => e.sottotipi.some((t) => !t.id.startsWith(`${e.id}__`) || !(t.aderenti >= 0)));
+  return ko.length === 0 || ko.map((e) => e.id).join(", ");
+});
+
+check("aprire una classe sposta sui tipi solo le abilitazioni parziali", () => {
+  const ids = esp.classiApribili(DATA);
+  const aperto = esp.apriClassi(DATA, new Set(ids));
+  const tipi = new Set(aperto.enti.filter((e) => e.sottotipo_di).map((e) => e.id));
+  const contaClasse = (d) => d.eservices.reduce((n, s) => n + (s.archi || []).filter((a) => ids.includes(a.fruitore) && a.origine !== "certificata").length, 0);
+  const versoTipi = aperto.eservices.reduce((n, s) => n + (s.archi || []).filter((a) => tipi.has(a.fruitore)).length, 0);
+  const soloCertificata = aperto.eservices.every((s) => (s.archi || []).every((a) => !tipi.has(a.fruitore) || a.origine === "certificata"));
+  const coerenti = aperto.eservices.every((s) => s.fruitori.every((f) => (s.archi || []).some((a) => a.fruitore === f)));
+  return (ids.length > 0 && versoTipi > 0 && soloCertificata && coerenti && contaClasse(aperto) === contaClasse(DATA))
+    || `classi=${ids.length} versoTipi=${versoTipi} soloCert=${soloCertificata} coerenti=${coerenti}`;
+});
+
+check("con nessuna classe aperta il modello resta identico", () => esp.apriClassi(DATA, new Set()) === DATA || "modello copiato");
+
+check("l'indice assegna ogni sottotipo alla classe giusta", () => {
+  const ko = INDICE.enti.filter((r) => r[6] && !r[6].startsWith(`${r[2]}__`));
+  return ko.length === 0 || ko.slice(0, 3).map((r) => r[0]).join(", ");
 });
 
 const totale = passed + failures.length;

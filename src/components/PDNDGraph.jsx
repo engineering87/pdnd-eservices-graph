@@ -106,6 +106,7 @@ export default function PDNDGraph() {
           key={`grafo-${rev}`}
           entityId={entityId}
           onEntityChange={(id) => navigate({ entityId: id })}
+          onOpenAderente={(ipa) => vaiA(`/enti?ente=${encodeURIComponent(ipa)}`)}
           onOpenEservice={apriEservice}
           tema={tema}
         />

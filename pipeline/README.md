@@ -60,7 +60,7 @@ Attivo↔Sospeso.
 | `category-map.json` | Mappa categorie consumatori (`attributes.certified`) → nodi, per la baseline degli archi |
 | `connections-overrides.json` | Connessioni curate da documentazione, con precedenza sulla baseline |
 | `connections-reconstructed.json` | Relazioni del modello v1 (origine `ricostruita`): `anchored` per catalogId, sommate agli archi del catalogo; `unanchored` riportate così come sono. I servizi agganciati sono sempre inclusi, anche oltre `maxServices` |
-| `classi.json` | Classi di enti (nodi aggregati) allineate alle categorie ufficiali PagoPA: attributi certificati, categorie delle statistiche, totali ufficiali degli aderenti |
+| `classi.json` | Classi di enti (nodi aggregati) allineate alle categorie ufficiali PagoPA: attributi certificati, categorie delle statistiche, totali ufficiali degli aderenti, tipi di ente (`sottotipi`) per aprire la classe nella mappa |
 | `connections-frozen.json` | Stime AI congelate (origine `inferita`), usate solo per gli e-service senza altri archi |
 | `pdnd-data.preview.json` | Anteprima generata dalla pipeline (NON è il dato live) |
 | `aderenti-index.preview.json` | Indice compatto di tutti gli aderenti (nome, codice IPA, classe, nodo della mappa, e-service pubblicati) per la scheda «Il tuo ente». Non viene scritto con `--out` |
