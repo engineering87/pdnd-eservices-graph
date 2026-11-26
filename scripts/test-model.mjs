@@ -474,6 +474,48 @@ check("le serie mensili sono ordinate, positive e coerenti con i totali", () => 
   return (somma <= p.sessioni.totale * 1.001 && somma > p.sessioni.totale * .9) || `somma mensile ${somma} vs totale ${p.sessioni.totale}`;
 });
 
+check("l'andamento recente per e-service è coerente", () => {
+  for (const s of DATA.eservices) {
+    if (s.sessioni_6m != null && s.sessioni_12m != null && s.sessioni_6m > s.sessioni_12m) return `${s.id}: 6 mesi oltre i 12 mesi`;
+    if (s.tendenza_6m != null && (s.sessioni_12m == null || s.sessioni_6m == null)) return `${s.id}: tendenza senza le sessioni delle due finestre`;
+    if (s.tendenza_6m != null && !(s.tendenza_6m >= -100)) return `${s.id}: tendenza non valida (${s.tendenza_6m})`;
+  }
+  return true;
+});
+
+console.log("\nConfronto fra date (compare.js e istantanee)");
+
+const cmp = await import(pathToFileURL(path.join(ROOT, "src/utils/compare.js")).href);
+const SNAP_DIR = path.join(ROOT, "src/data/snapshots");
+const istantanee = fs.readdirSync(SNAP_DIR).filter((f) => cmp.dataIstantanea(f)).sort();
+
+check("un modello confrontato con se stesso non ha differenze", () => {
+  const r = cmp.compareModels(DATA, DATA);
+  const vuote = ["entiAggiunti", "entiRimossi", "esAggiunti", "esRimossi", "legamiAggiunti", "legamiRimossi", "sessioni"].every((k) => r[k].length === 0);
+  return vuote || "differenze trovate confrontando il dato con se stesso";
+});
+
+check("aggiunte e rimozioni sono coerenti con i totali", () => {
+  const prec = istantanee.filter((f) => f !== "pdnd-data.2026-05-02.json").at(-1);
+  if (!prec) return "nessuna istantanea mensile in src/data/snapshots";
+  const A = JSON.parse(fs.readFileSync(path.join(SNAP_DIR, prec), "utf8"));
+  const r = cmp.compareModels(A, DATA);
+  const [la, lb] = r.totali.legami;
+  if (lb - la !== r.legamiAggiunti.length - r.legamiRimossi.length) return `legami: ${la}→${lb} ma +${r.legamiAggiunti.length} −${r.legamiRimossi.length}`;
+  return true;
+});
+
+check("ogni istantanea è un modello valido con la sua data", () => {
+  for (const f of istantanee) {
+    const d = JSON.parse(fs.readFileSync(path.join(SNAP_DIR, f), "utf8"));
+    if (!d.enti?.length || !d.eservices?.length) return `${f}: vuota`;
+    const ids = new Set(d.enti.map((e) => e.id));
+    const rotto = d.eservices.find((s) => !ids.has(s.erogatore) || s.fruitori.some((x) => !ids.has(x)));
+    if (rotto) return `${f}: riferimento a un ente inesistente in ${rotto.id}`;
+  }
+  return true;
+});
+
 console.log("\nRotte (useUrlState.js)");
 
 const rotte = await import(pathToFileURL(path.join(ROOT, "src/utils/useUrlState.js")).href);

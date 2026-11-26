@@ -98,7 +98,17 @@ export default function EServiceView({ eserviceId, onOpenEntity, onOpenEservice,
         <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginBottom: 18 }}>
           <Tile label="Fruitori nel modello" value={fmt(archi.length)} sub={classi ? `di cui ${classi} classi di enti` : null} />
           <Tile label="Enti abilitati" value={fmt(es.enti_abilitati_min)} sub={es.enti_abilitati_min ? "almeno, dato ufficiale" : "non nelle classifiche"} colore={es.enti_abilitati_min ? "#4fc3f7" : "var(--ink-faint)"} />
-          <Tile label="Sessioni di scambio" value={breve(es.sessioni_min)} sub={es.sessioni_min ? "almeno, dato ufficiale" : "non nelle classifiche"} colore={es.sessioni_min ? "#8338ec" : "var(--ink-faint)"} />
+          <Tile label="Sessioni di scambio" value={breve(es.sessioni_min)} sub={es.sessioni_min ? "almeno, dall'avvio" : "non nelle classifiche"} colore={es.sessioni_min ? "#8338ec" : "var(--ink-faint)"} />
+          {es.sessioni_12m != null && (
+            <Tile label="Ultimi 12 mesi" value={breve(es.sessioni_12m)} sub={es.sessioni_6m != null ? `di cui ${breve(es.sessioni_6m)} negli ultimi 6` : "sessioni, almeno"} />
+          )}
+          {es.tendenza_6m != null && (
+            <Tile
+              label="Ultimi 6 mesi"
+              value={`${es.tendenza_6m > 0 ? "▲ +" : es.tendenza_6m < 0 ? "▼ " : ""}${es.tendenza_6m.toLocaleString("it-IT", { maximumFractionDigits: 1 })}%`}
+              sub="sessioni rispetto ai 6 mesi precedenti"
+            />
+          )}
         </div>
 
         <div style={box}>

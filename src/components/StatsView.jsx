@@ -13,6 +13,7 @@ import { FORMATI } from "../utils/exportGraph";
 import { CATEGORY_COLORS } from "../constants/colors";
 import NetworkAnalysis from "./NetworkAnalysis";
 import PlatformTrends from "./PlatformTrends";
+import ChangesView from "./ChangesView";
 
 const ORIGINI = [
   ["documentata", "Documentata", "#06d6a0"],
@@ -51,7 +52,7 @@ function Bar({ label, value, max, color, sub, display, onClick }) {
   );
 }
 
-export default function StatsView({ graphData, onOpenEservice }) {
+export default function StatsView({ graphData, onOpenEservice, onOpenEntity }) {
   const { nodes } = graphData;
 
   const catStats = useMemo(() => {
@@ -74,6 +75,14 @@ export default function StatsView({ graphData, onOpenEservice }) {
   const topUsati = useMemo(() =>
     PDND_DATA.eservices.filter(s => s.sessioni_min > 0)
       .sort((a, b) => b.sessioni_min - a.sessioni_min).slice(0, 10), []);
+  // Andamento recente: i servizi con la variazione più ampia nei due versi.
+  const tendenze = useMemo(() => {
+    const con = PDND_DATA.eservices.filter(s => s.tendenza_6m != null);
+    return {
+      su: con.filter(s => s.tendenza_6m > 0).sort((a, b) => b.tendenza_6m - a.tendenza_6m).slice(0, 5),
+      giu: con.filter(s => s.tendenza_6m < 0).sort((a, b) => a.tendenza_6m - b.tendenza_6m).slice(0, 5),
+    };
+  }, []);
   const perOrigine = useMemo(() => {
     const conta = {};
     PDND_DATA.eservices.forEach(s => (s.archi || []).forEach(a => { conta[a.origine] = (conta[a.origine] || 0) + 1; }));
@@ -99,6 +108,7 @@ export default function StatsView({ graphData, onOpenEservice }) {
   return (
     <div style={{ flex: 1, overflowY: "auto", padding: "24px 28px" }}>
       <PlatformTrends />
+      <ChangesView onOpenEntity={onOpenEntity} onOpenEservice={onOpenEservice} />
       <h2 style={{ fontSize: 15, fontWeight: 700, color: "var(--ink)", marginBottom: 12 }}>Il modello rappresentato nella mappa</h2>
       <div style={{ marginBottom: 20, padding: "12px 16px", borderRadius: 8, background: "rgba(255,209,102,.04)", border: "1px solid rgba(255,209,102,.14)", display: "flex", gap: 12 }}>
         <div style={{ fontSize: 18, color: "var(--cite)", flexShrink: 0, lineHeight: 1 }}>ⓘ</div>
@@ -141,6 +151,33 @@ export default function StatsView({ graphData, onOpenEservice }) {
         <Card title="E-service più usati (sessioni di scambio)" color="#8338ec">
           {topUsati.map(es => <Bar key={es.id} onClick={() => onOpenEservice?.(es.id)} label={es.nome} value={es.sessioni_min} display={milioni(es.sessioni_min)} max={topUsati[0]?.sessioni_min || 1} color="#8338ec" sub={`Erogato da ${nomeEnte(es.erogatore)} · almeno`} />)}
         </Card>
+        {tendenze.su.length > 0 && (
+          <Card title="Andamento negli ultimi 6 mesi" color="#4fc3f7">
+            <div style={{ fontSize: 11.5, color: "var(--ink-faint)", lineHeight: 1.5, marginBottom: 12 }}>
+              Sessioni degli ultimi 6 mesi rispetto ai 6 precedenti, fra i servizi con almeno 100.000 sessioni nel periodo precedente.
+            </div>
+            {[["In crescita", tendenze.su], ["In calo", tendenze.giu]].map(([titolo, lista]) => lista.length > 0 && (
+              <div key={titolo} style={{ marginBottom: 12 }}>
+                <div style={{ fontSize: 11, fontWeight: 700, color: "var(--ink-muted)", textTransform: "uppercase", letterSpacing: .5, marginBottom: 6 }}>{titolo}</div>
+                {lista.map(es => (
+                  <div key={es.id} style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "baseline", padding: "4px 0", borderBottom: "1px solid rgba(100,160,220,.05)" }}>
+                    <span style={{ minWidth: 0 }}>
+                      <button type="button" onClick={() => onOpenEservice?.(es.id)} title="Apri la scheda dell'e-service"
+                        style={{ color: "#cbd5e1", background: "none", border: "none", padding: 0, font: "inherit", fontSize: 12, textAlign: "left", cursor: "pointer", textDecoration: "underline", textDecorationColor: "rgba(120,160,210,.3)", textUnderlineOffset: 2 }}>{es.nome}</button>
+                      <span style={{ display: "block", fontSize: 10, color: "var(--ink-faint)" }}>{nomeEnte(es.erogatore)} · {milioni(es.sessioni_6m ?? 0)} negli ultimi 6 mesi</span>
+                    </span>
+                    <span className="tabular" style={{ fontSize: 12.5, fontWeight: 700, color: "var(--ink)", whiteSpace: "nowrap" }}>
+                      {es.tendenza_6m > 0 ? "▲ +" : "▼ "}{es.tendenza_6m.toLocaleString("it-IT", { maximumFractionDigits: 1 })}%
+                    </span>
+                  </div>
+                ))}
+              </div>
+            ))}
+            <div style={{ fontSize: 10, color: "var(--ink-faint)", lineHeight: 1.5 }}>
+              Confronto sulle sole categorie di enti presenti in entrambe le classifiche ufficiali. Uno spostamento fra due servizi simili appare come crescita dell'uno e calo dell'altro.
+            </div>
+          </Card>
+        )}
         <Card title="Archi per provenienza" color="#64a0dc">
           {perOrigine.map(([nome, n, col]) => <Bar key={nome} label={nome} value={n} display={fmt(n)} max={Math.max(...perOrigine.map(x => x[1]))} color={col} />)}
           <div style={{ fontSize: 10, color: "var(--ink-faint)", marginTop: 8, lineHeight: 1.5 }}>Osservata: connessioni o sessioni realmente registrate dalla PDND verso una classe di enti. Certificata: classe abilitata nel catalogo. Vedi Metodologia.</div>

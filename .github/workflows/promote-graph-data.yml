@@ -71,6 +71,15 @@ jobs:
           set -e
           if [ -f src/data/pdnd-data.json ]; then
             cp src/data/pdnd-data.json src/data/pdnd-data.curated-backup.json
+            # Il grafo che sta per essere sostituito entra nello storico, con la sua
+            # data: alimenta il confronto "Cosa è cambiato" nella scheda Numeri.
+            node -e '
+              const fs = require("fs");
+              const d = JSON.parse(fs.readFileSync("src/data/pdnd-data.json", "utf8"));
+              const data = d.meta && d.meta.ultimo_aggiornamento;
+              const out = `src/data/snapshots/pdnd-data.${data}.json`;
+              if (data && !fs.existsSync(out)) { fs.writeFileSync(out, JSON.stringify(d) + "\n"); console.log("Archiviato " + out); }
+            '
           fi
           cp pipeline/pdnd-data.preview.json src/data/pdnd-data.json
           # Le esportazioni devono restare allineate al dato: i test della CI lo verificano.
@@ -83,7 +92,7 @@ jobs:
           git config user.name "pdnd-graph-bot"
           git config user.email "actions@github.com"
           git checkout -b "$BRANCH"
-          git add src/data/pdnd-data.json src/data/pdnd-data.curated-backup.json exports/
+          git add src/data/pdnd-data.json src/data/pdnd-data.curated-backup.json src/data/snapshots/ exports/
           git commit -m "chore: promozione anteprima a grafo live"
           git push -f -u origin "$BRANCH"
           if [ -n "$(gh pr list --head "$BRANCH" --state open --json number -q '.[0].number' 2>/dev/null)" ]; then

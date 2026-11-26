@@ -475,6 +475,7 @@ distinti erogatore→fruitore, 1.476 relazioni, densità 0,1536.
 | `eservice_con_piu_token_staccati_from_the_beginning.csv` | Sessioni di scambio per e-service e per categoria di fruitore, con id del catalogo: selezione e archi osservati |
 | `aderenti.csv`, `totale_enti.csv` | Dimensione delle classi di enti |
 | `andamento_delle_adesioni.csv`, `attivita_della_piattaforma_from_the_beginning.csv`, `totale_richieste_di_accesso.csv`, `connessioni_totali.csv`, `eservice_pubblicati.csv` | Andamento dell'intera piattaforma nella scheda Numeri: enti aderenti cumulati e sessioni di scambio per mese (scaglioni al 24 di ogni mese, dal 2022), totali con variazione dell'ultimo mese. Non dipendono dalla selezione della mappa |
+| `eservice_con_piu_token_staccati_last_twelve_months.csv`, `_last_six_months.csv` | Andamento recente per e-service: sessioni negli ultimi 12 e 6 mesi (somma per categoria di ente fruitore, minimi garantiti) e variazione degli ultimi 6 mesi rispetto ai 6 precedenti, calcolata sulle sole categorie presenti in entrambe le finestre e solo con almeno 100.000 sessioni nel periodo precedente |
 
 Le classifiche elencano i primi 10 e-service per ogni coppia di categorie
 erogatore × fruitore: i valori ricavati (`enti_abilitati_min`, `sessioni_min`,
@@ -544,6 +545,18 @@ esempio SEND, ≥7.041 enti) sia quelli con pochi fruitori ma volumi molto alti 
 esempio la patente su IT-Wallet, ≥103 milioni di sessioni). Il v1 e la prima
 versione v2 sceglievano invece in ordine alfabetico, escludendo 5 dei 10 e-service
 più richiesti della piattaforma.
+
+### 7.4 bis Confronto fra date
+
+Le istantanee mensili in `src/data/snapshots/` (dal 1° giugno 2026) sono
+ricostruite rilanciando la pipeline sulla versione di `pdnd-opendata` di quella
+data, ricavata dalla cronologia del repository ufficiale, con le regole di oggi:
+stessi enti tracciati, classi, override e relazioni del v1. Le differenze fra due
+istantanee riflettono quindi i cambiamenti della PDND (catalogo, classifiche d'uso,
+aderenti) e non del modello. Poiché la mappa rappresenta una selezione, un
+e-service può entrare o uscire perché è nuovo, perché è stato ritirato o perché è
+cambiato il suo uso. Il confronto con il modello v1 del report è disponibile, ma
+mescola cambiamenti della PDND e cambiamenti del modello, e l'app lo segnala.
 
 ### 7.5 Verifiche sulle fonti (25 novembre 2026)
 

@@ -115,7 +115,7 @@ export default function PDNDGraph() {
           onBack={indietro}
         />
       )}
-      {activeTab === "statistiche" && <StatsView graphData={graphData} onOpenEservice={apriEservice} />}
+      {activeTab === "statistiche" && <StatsView graphData={graphData} onOpenEservice={apriEservice} onOpenEntity={apriEnte} />}
       {activeTab === "metodologia" && <MethodologyView />}
       {activeTab === "guida" && <GuideView />}
       </Suspense>

@@ -73,6 +73,22 @@ node pipeline/build-graph-data.mjs
 node pipeline/build-graph-data.mjs --write
 ```
 
+## Grafo a una data passata
+
+La pipeline può lavorare su una versione passata dei dati aperti, per costruire le
+istantanee del confronto fra date:
+
+```bash
+PDND_OPENDATA_REF=<commit di italia/pdnd-opendata> \
+  node pipeline/build-graph-data.mjs --write --no-ai \
+  --out src/data/snapshots/pdnd-data.2026-06-01.json --data 2026-06-01
+```
+
+`--out` scrive altrove senza toccare anteprima e report; `--data` è la data
+dichiarata nel meta. Lo script `scripts/build-snapshots.mjs` trova da solo il
+commit giusto per ogni data. Alla promozione, il grafo sostituito viene archiviato
+in `src/data/snapshots/` con la sua data.
+
 ## Promuovere l'anteprima a dato live
 
 Quando, dopo aver ispezionato `pdnd-data.preview.json` e il report, sei convinto

@@ -1,12 +1,13 @@
 # Report aggiornamento grafo PDND
 
-Data: 2026-11-26T00:30:49.472Z
+Data: 2026-11-26T00:48:09.201Z
 Modalità: WRITE
 
 ## Download catalogo
 - Righe catalogo: **15301**
 - Adozione: 366 e-service nelle classifiche di enti abilitati
 - Sessioni: 264 e-service nelle classifiche di sessioni di scambio
+- Sessioni recenti: 277 e-service nelle classifiche degli ultimi 12 o 6 mesi
 - Aderenti: 10363 righe nell'elenco, 9826 enti nel totale ufficiale
 - Andamenti: 53 mesi di adesioni, 52 mesi di sessioni
 
@@ -81,6 +82,6 @@ Modalità: WRITE
 - L’e-service ricerca i numeri civici (305054a1-090e-4c3f-9568-f4fb4f9ae266)
 - … e altri 4
 
-✅ Scritta l'anteprima: C:\Private Git\pdnd-eservices-graph\pipeline\pdnd-data.preview.json
+✅ Scritto: C:\Private Git\pdnd-eservices-graph\pipeline\pdnd-data.preview.json
 ℹ️  Il grafo live (src/data/pdnd-data.json) NON è stato modificato.
    Per promuovere l'anteprima a dato live, vedi pipeline/README.md.

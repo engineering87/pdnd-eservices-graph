@@ -26,27 +26,34 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..");
 const LIVE_PATH = join(ROOT, "src", "data", "pdnd-data.json");        // grafo curato (mai sovrascritto)
 const PREVIEW_PATH = join(__dirname, "pdnd-data.preview.json");       // output non distruttivo
-const OUTPUT_PATH = PREVIEW_PATH;
-const REPORT_PATH = join(__dirname, "last-run-report.md");
+const argValue = (nome) => { const i = process.argv.indexOf(nome); return i > 0 ? process.argv[i + 1] : null; };
+// --out <file>: scrive altrove (per esempio un'istantanea storica) senza toccare
+// anteprima e report. --data <AAAA-MM-GG>: data dichiarata nel meta.
+const OUT_ARG = argValue("--out");
+const OUTPUT_PATH = OUT_ARG ? join(process.cwd(), OUT_ARG) : PREVIEW_PATH;
+const REPORT_PATH = OUT_ARG ? null : join(__dirname, "last-run-report.md");
+const DATA_DATI = argValue("--data");
+// Versione dei dati aperti: un commit di italia/pdnd-opendata (variabile
+// PDND_OPENDATA_REF) per ricostruire il grafo com'era a una data passata, con le
+// regole di oggi. Predefinito: lo stato corrente.
+const OPENDATA_REF = process.env.PDND_OPENDATA_REF || "main";
+const OPENDATA = `https://raw.githubusercontent.com/italia/pdnd-opendata/${OPENDATA_REF}/data`;
 const AI_CACHE_PATH = join(__dirname, "ai-cache.json");
 
-const CSV_URL =
-  "https://raw.githubusercontent.com/italia/pdnd-opendata/main/data/eservice_a_catalogo.csv";
+const CSV_URL = `${OPENDATA}/eservice_a_catalogo.csv`;
 // Classifiche ufficiali degli e-service per numero di enti fruitori abilitati, per
 // coppia di categorie erogatore × fruitore (primi 10 per coppia). Servono a scegliere
 // gli e-service più adottati invece dei primi in ordine alfabetico.
-const USAGE_URL =
-  "https://raw.githubusercontent.com/italia/pdnd-opendata/main/data/e_service_con_piu_enti_abilitati_from_the_beginning.csv";
+const USAGE_URL = `${OPENDATA}/e_service_con_piu_enti_abilitati_from_the_beginning.csv`;
 // Classifiche ufficiali per numero di sessioni di scambio (token), con id del catalogo.
-const TOKENS_URL =
-  "https://raw.githubusercontent.com/italia/pdnd-opendata/main/data/eservice_con_piu_token_staccati_from_the_beginning.csv";
+const TOKENS_URL = `${OPENDATA}/eservice_con_piu_token_staccati_from_the_beginning.csv`;
 // Elenco degli aderenti con i loro attributi certificati, e totali ufficiali per categoria.
-const ADERENTI_URL =
-  "https://raw.githubusercontent.com/italia/pdnd-opendata/main/data/aderenti.csv";
-const TOTALI_URL =
-  "https://raw.githubusercontent.com/italia/pdnd-opendata/main/data/totale_enti.csv";
+const ADERENTI_URL = `${OPENDATA}/aderenti.csv`;
+const TOTALI_URL = `${OPENDATA}/totale_enti.csv`;
+// Le stesse classifiche di sessioni sugli ultimi 12 e 6 mesi, per l'andamento recente.
+const TOKENS_12M_URL = `${OPENDATA}/eservice_con_piu_token_staccati_last_twelve_months.csv`;
+const TOKENS_6M_URL = `${OPENDATA}/eservice_con_piu_token_staccati_last_six_months.csv`;
 // Andamenti della piattaforma: serie mensili e totali con variazione sul mese.
-const OPENDATA = "https://raw.githubusercontent.com/italia/pdnd-opendata/main/data";
 const ADESIONI_URL = `${OPENDATA}/andamento_delle_adesioni.csv`;            // enti aderenti, cumulati
 const ATTIVITA_URL = `${OPENDATA}/attivita_della_piattaforma_from_the_beginning.csv`; // sessioni al mese
 const RICHIESTE_URL = `${OPENDATA}/totale_richieste_di_accesso.csv`;       // sessioni totali
@@ -199,6 +206,43 @@ async function main() {
   } catch (e) {
     say(`- ⚠️ Classifiche di sessioni non disponibili (${e.message})`);
   }
+  // Andamento recente per e-service: classifiche delle sessioni negli ultimi 12 e
+  // 6 mesi, per categoria di ente fruitore. Il confronto "ultimi 6 mesi contro i
+  // 6 precedenti" usa solo le categorie presenti in entrambe le finestre: una
+  // categoria uscita dalla top 10 non deve sembrare un calo.
+  const recenti = new Map(); // catalogId -> { s12: Map(cat->n), s6: Map(cat->n) }
+  try {
+    for (const [chiave, url] of [["s12", TOKENS_12M_URL], ["s6", TOKENS_6M_URL]]) {
+      for (const r of (await fetchCSV(url)).filter(r => r.length === 8 && r[4] && r[3])) {
+        const n = Math.round(Number(r[7]) || 0);
+        if (!(n > 0) || r[3] === "Tutte" || r[3] === "Totale") continue;
+        const x = recenti.get(r[4]) || { s12: new Map(), s6: new Map() };
+        x[chiave].set(r[3], Math.max(x[chiave].get(r[3]) || 0, n));
+        recenti.set(r[4], x);
+      }
+    }
+    say(`- Sessioni recenti: ${recenti.size} e-service nelle classifiche degli ultimi 12 o 6 mesi`);
+  } catch (e) {
+    say(`- ⚠️ Classifiche recenti non disponibili (${e.message}): niente andamento per servizio`);
+  }
+  const SOGLIA_TENDENZA = 100000; // sessioni nei 6 mesi precedenti sotto cui la variazione è rumore
+  const andamentoOf = (catalogId) => {
+    const x = recenti.get(catalogId);
+    if (!x) return {};
+    const somma = (m) => [...m.values()].reduce((a, b) => a + b, 0);
+    const out = {};
+    // I 12 mesi contengono i 6: una categoria entrata nella top 10 solo nella
+    // finestra breve alza il minimo garantito anche dei 12 mesi.
+    const s12 = new Map(x.s12);
+    for (const [c, n] of x.s6) s12.set(c, Math.max(s12.get(c) || 0, n));
+    if (s12.size) out.sessioni_12m = somma(s12);
+    if (x.s6.size) out.sessioni_6m = somma(x.s6);
+    const comuni = [...x.s6.keys()].filter(c => x.s12.has(c));
+    const ult6 = comuni.reduce((a, c) => a + x.s6.get(c), 0);
+    const prec6 = comuni.reduce((a, c) => a + x.s12.get(c) - x.s6.get(c), 0);
+    if (comuni.length && prec6 >= SOGLIA_TENDENZA) out.tendenza_6m = Math.round((ult6 / prec6 - 1) * 1000) / 10;
+    return out;
+  };
   // Aderenti e totali ufficiali, per la dimensione dei nodi di classe.
   let aderenti = [], totaliUfficiali = new Map(), totaleEnti = null;
   try {
@@ -392,7 +436,8 @@ async function main() {
         descrizione: truncate(r.description, 140),
         catalogId: r.id,
         ...(adoptionOf(r) ? { enti_abilitati_min: adoptionOf(r) } : {}),
-        ...(sessionsOf(r) ? { sessioni_min: sessionsOf(r) } : {})
+        ...(sessionsOf(r) ? { sessioni_min: sessionsOf(r) } : {}),
+        ...andamentoOf(r.id)
       });
 
       if (!prevServiceIds.has(id)) newServices.push(`${ent.name} — ${truncate(r.name, 50)}`);
@@ -524,12 +569,13 @@ async function main() {
   const output = {
     meta: {
       generato: new Date().toISOString(),
-      ultimo_aggiornamento: new Date().toISOString().slice(0, 10),
+      ultimo_aggiornamento: DATA_DATI || new Date().toISOString().slice(0, 10),
+      ...(OPENDATA_REF !== "main" ? { versione_dati_aperti: `italia/pdnd-opendata@${OPENDATA_REF}` } : {}),
       versione_modello: "v2",
       fonte_enti: "github.com/italia/pdnd-opendata — aderenti.csv (CC0 1.0)",
       fonte_eservices: "github.com/italia/pdnd-opendata — eservice_a_catalogo.csv (CC0 1.0)",
       fonte_connessioni: "Per arco, campo 'origine': override documentati, campo attributes.certified del catalogo, relazioni ricostruite del grafo curato v1, stime AI congelate — vedi METODOLOGIA.md e pipeline/README.md",
-      snapshot_catalogo: `${records.length} righe nel catalogo scaricato il ${new Date().toISOString().slice(0, 10)}`,
+      snapshot_catalogo: `${records.length} righe nel catalogo${DATA_DATI ? ` al ${DATA_DATI}` : ` scaricato il ${new Date().toISOString().slice(0, 10)}`}`,
       fonte_adozione: "github.com/italia/pdnd-opendata — e_service_con_piu_enti_abilitati_from_the_beginning.csv (CC0 1.0). Il campo enti_abilitati_min è il massimo di enti fruitori abilitati fra le classifiche per categoria in cui l'e-service compare: un minimo garantito, non il totale. Gli e-service di ogni ente sono scelti per adozione decrescente.",
       metodologia: "METODOLOGIA.md",
       paper_doi: "10.5281/zenodo.19989954",
@@ -537,6 +583,7 @@ async function main() {
       nota_paper: "Il report Zenodo descrive il modello v1 (snapshot 2026-05-02), conservato in src/data/snapshots/pdnd-data.2026-05-02.json. Questo dato è il modello v2: numeri diversi da quelli del report.",
       convenzione_eservices: "Gli e-service con catalogId corrispondono a un record del catalogo PDND. Quelli con catalogId null sono tipi di servizio ricostruiti nel modello v1 (aggregati comunali, voci riassuntive di ente, famiglie di API): un record può rappresentare molti endpoint del catalogo.",
       fonte_sessioni: "github.com/italia/pdnd-opendata — eservice_con_piu_token_staccati_from_the_beginning.csv (CC0 1.0). Il campo sessioni_min è il massimo di sessioni di scambio fra le classifiche in cui l'e-service compare. La selezione per ente usa il maggiore fra enti abilitati e sessioni, ciascuno rapportato al massimo dell'ente.",
+      fonte_andamento: "github.com/italia/pdnd-opendata — eservice_con_piu_token_staccati_last_twelve_months.csv e _last_six_months.csv (CC0 1.0). sessioni_12m e sessioni_6m sommano le sessioni per categoria di ente fruitore nelle classifiche della finestra (minimi garantiti, primi 10 e-service per categoria). tendenza_6m confronta gli ultimi 6 mesi con i 6 precedenti (12 mesi meno 6) sulle sole categorie presenti in entrambe le finestre, ed è calcolata solo se i 6 mesi precedenti superano 100.000 sessioni.",
       fonte_aderenti: "github.com/italia/pdnd-opendata — aderenti.csv e totale_enti.csv (CC0 1.0). I nodi di classe (aggregato=true) riportano gli aderenti: il totale ufficiale dove pubblicato, altrimenti il conteggio per attributo certificato (pipeline/classi.json).",
       note_connessioni: "Ogni arco porta un campo 'origine': 'documentata' (override da fonti ufficiali), 'osservata' (connessioni abilitate o sessioni di scambio realmente avvenute verso una classe di enti, dalle classifiche ufficiali; i campi connessioni e sessioni riportano i valori osservati, minimi garantiti), 'certificata' (campo attributes.certified del catalogo: classi di enti abilitate), 'ricostruita' (relazioni del grafo curato v1, ricostruite da documentazione pubblica con l'ausilio di modelli AI), 'inferita' (stima AI con confidenza, da rendere tratteggiata nel grafo). Il progetto si basa esclusivamente su informazioni già pubbliche; gli archi inferiti sono dichiarati come stime e non come fatti documentati.",
       generato_da: "pipeline/build-graph-data.mjs",
@@ -602,8 +649,8 @@ async function main() {
 
   // 10. Write
   if (WRITE) {
-    writeFileSync(OUTPUT_PATH, JSON.stringify(output, null, 2) + "\n", "utf-8");
-    say(`\n✅ Scritta l'anteprima: ${OUTPUT_PATH}`);
+    writeFileSync(OUTPUT_PATH, (OUT_ARG ? JSON.stringify(output) : JSON.stringify(output, null, 2)) + "\n", "utf-8");
+    say(`\n✅ Scritto: ${OUTPUT_PATH}`);
     say(`ℹ️  Il grafo live (src/data/pdnd-data.json) NON è stato modificato.`);
     say(`   Per promuovere l'anteprima a dato live, vedi pipeline/README.md.`);
   } else {
@@ -622,6 +669,7 @@ function inferTipo(id, eservices) {
 }
 
 function flush(log) {
+  if (!REPORT_PATH) return;
   try { writeFileSync(REPORT_PATH, log.join("\n") + "\n", "utf-8"); } catch { /* ignore */ }
 }
 

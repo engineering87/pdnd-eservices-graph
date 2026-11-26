@@ -114,6 +114,8 @@ I nodi ad alta centralità sono quelli la cui indisponibilità avrebbe effetto s
 
 **Numeri ed esportazione** (scheda Numeri)
 - Andamento della PDND dal 2022: enti aderenti e sessioni di scambio mese per mese, con i totali ufficiali e la variazione dell'ultimo mese
+- Andamento dei singoli servizi: sessioni degli ultimi 12 e 6 mesi e confronto con i 6 mesi precedenti, nella scheda di ogni e-service e nei servizi in crescita o in calo
+- **Cosa è cambiato**: confronto del grafo attuale con le istantanee mensili (dal 1° giugno 2026) o con il modello v1 del report: nuovi legami, legami scomparsi, servizi entrati e usciti, servizi con più nuove sessioni
 - E-service più adottati e più usati, archi per provenienza, classi di enti
 - Analisi di rete: matrice erogatori × classi di enti raggiunte, enti ponte (centralità di intermediazione), reciprocità e distribuzione dei gradi
 - Esportazione in GraphML, GEXF e CSV direttamente dal browser
@@ -405,7 +407,7 @@ pdnd-eservices-graph/
 │   ├── utils/                           # Costruzione del grafo, esportazioni, stato URL
 │   ├── data/
 │   │   ├── pdnd-data.json               # ← DATI LIVE (modello v2)
-│   │   └── snapshots/                   # Modello v1 del report, congelato
+│   │   └── snapshots/                   # Modello v1 del report e istantanee mensili
 │   ├── App.jsx
 │   ├── index.css
 │   └── main.jsx
