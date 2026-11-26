@@ -566,7 +566,7 @@ console.log("\nRotte (useUrlState.js)");
 const rotte = await import(pathToFileURL(path.join(ROOT, "src/utils/useUrlState.js")).href);
 
 check("le rotte si leggono e si riscrivono senza perdite", () => {
-  const casi = ["/", "/esplora", "/statistiche", "/ente/inps", `/eservice/${DATA.eservices[0].id}`];
+  const casi = ["/", "/esplora", "/enti", "/statistiche", "/ente/inps", `/eservice/${DATA.eservices[0].id}`];
   for (const p of casi) {
     const back = rotte.buildPath(rotte.parseLocation(p));
     if (back !== p) return `${p} → ${back}`;
@@ -582,6 +582,57 @@ check("la rotta di un e-service porta l'id e la scheda giusta", () => {
 check("ogni e-service ha un id utilizzabile come rotta", () => {
   const rotti = DATA.eservices.filter((s) => rotte.parseLocation(rotte.buildPath({ tab: "eservice", eserviceId: s.id })).eserviceId !== s.id);
   return rotti.length === 0 || rotti.map((s) => s.id).slice(0, 5).join(", ");
+});
+
+console.log("\nIndice degli aderenti (src/data/aderenti-index.json)");
+
+const INDICE = JSON.parse(fs.readFileSync(path.join(ROOT, "src/data/aderenti-index.json"), "utf8"));
+const ID_ENTI = new Set(DATA.enti.map((e) => e.id));
+
+check("l'indice ha righe ben formate", () => {
+  const rotte = INDICE.enti.filter((r) => !Array.isArray(r) || r.length !== 6 || typeof r[0] !== "string" || !r[0] || typeof r[4] !== "number" || !Array.isArray(r[5]));
+  return (INDICE.enti.length > 1000 && rotte.length === 0) || `${INDICE.enti.length} righe, ${rotte.length} malformate`;
+});
+
+check("classi e nodi dell'indice esistono nella mappa", () => {
+  const classi = Object.keys(INDICE.classi).filter((c) => !ID_ENTI.has(c));
+  const nodi = INDICE.enti.filter((r) => r[3] && !ID_ENTI.has(r[3])).map((r) => r[3]);
+  const usate = INDICE.enti.filter((r) => r[2] && !INDICE.classi[r[2]]).map((r) => r[2]);
+  const ko = [...classi, ...nodi, ...usate];
+  return ko.length === 0 || [...new Set(ko)].slice(0, 5).join(", ");
+});
+
+check("i servizi elencati non superano quelli pubblicati", () => {
+  const ko = INDICE.enti.filter((r) => r[5].length > r[4]);
+  return ko.length === 0 || ko.slice(0, 3).map((r) => r[0]).join(", ");
+});
+
+console.log("\nComunità e misure nel tempo (communities.js, networkHistory.js)");
+
+const com = await import(pathToFileURL(path.join(ROOT, "src/utils/communities.js")).href);
+const storia = await import(pathToFileURL(path.join(ROOT, "src/utils/networkHistory.js")).href);
+
+check("Louvain separa due triangoli uniti da un solo legame", () => {
+  const archi = [["a", "b", 1], ["a", "c", 1], ["b", "c", 1], ["d", "e", 1], ["d", "f", 1], ["e", "f", 1], ["c", "d", 1]];
+  const { comunita, q } = com.louvain(["a", "b", "c", "d", "e", "f"], archi);
+  const ok = comunita.get("a") === comunita.get("c") && comunita.get("d") === comunita.get("f") && comunita.get("a") !== comunita.get("d");
+  return (ok && Math.abs(q - 5 / 14) < 1e-9) || `q=${q}, ${JSON.stringify([...comunita])}`;
+});
+
+check("le comunità del modello coprono ogni nodo e sono stabili", () => {
+  const a = com.comunitaDelModello(DATA), b = com.comunitaDelModello(DATA);
+  const coperti = a.comunita.size === DATA.enti.length;
+  const uguali = [...a.comunita].every(([v, c]) => b.comunita.get(v) === c);
+  return (coperti && uguali && a.q > 0) || `coperti=${coperti} uguali=${uguali} q=${a.q}`;
+});
+
+check("network-history.json è allineato alle istantanee (npm run export)", () => {
+  const SNAP = path.join(ROOT, "src/data/snapshots");
+  const ist = fs.readdirSync(SNAP).map((f) => /^pdnd-data\.(\d{4}-\d{2}-\d{2})\.json$/.exec(f)).filter(Boolean)
+    .map(([f, d]) => ({ data: d, modello: JSON.parse(fs.readFileSync(path.join(SNAP, f), "utf8")) }));
+  const atteso = JSON.stringify(storia.serieStorica(ist, DATA), null, 1) + "\n";
+  const f = path.join(ROOT, "src/data/network-history.json");
+  return (fs.existsSync(f) && fs.readFileSync(f, "utf8") === atteso) || "file non allineato: eseguire npm run export";
 });
 
 const totale = passed + failures.length;

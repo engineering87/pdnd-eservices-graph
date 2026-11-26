@@ -11,6 +11,7 @@ import GraphView from "./GraphView";
 const StatsView = lazy(() => import("./StatsView"));
 const ExploreView = lazy(() => import("./ExploreView"));
 const EServiceView = lazy(() => import("./EServiceView"));
+const EntiView = lazy(() => import("./EntiView"));
 const MethodologyView = lazy(() => import("./MethodologyView"));
 const GuideView = lazy(() => import("./GuideView"));
 
@@ -52,7 +53,7 @@ export default function PDNDGraph() {
     const base = "PDND E-Services Graph";
     const ente = entityId && PDND_DATA.enti.find(e => e.id === entityId);
     const es = activeTab === "eservice" && PDND_DATA.eservices.find(s => s.id === eserviceId);
-    const sezione = { esplora: "Relazioni", statistiche: "Numeri", metodologia: "Metodologia", guida: "Guida" }[activeTab];
+    const sezione = { esplora: "Relazioni", enti: "Il tuo ente", statistiche: "Numeri", metodologia: "Metodologia", guida: "Guida" }[activeTab];
     document.title = es ? `${es.nome} — ${base}` : ente ? `${ente.name} — ${base}` : sezione ? `${sezione} — ${base}` : base;
   }, [activeTab, entityId, eserviceId]);
 
@@ -112,6 +113,9 @@ export default function PDNDGraph() {
       <Suspense fallback={<Caricamento />}>
       {activeTab === "esplora" && (
         <ExploreView key={`esplora-${rev}`} onOpenEntity={apriEnte} onOpenEservice={apriEservice} />
+      )}
+      {activeTab === "enti" && (
+        <EntiView key={`enti-${rev}`} onOpenEntity={apriEnte} onOpenEservice={apriEservice} onExplore={apriEsplora} />
       )}
       {activeTab === "eservice" && (
         <EServiceView

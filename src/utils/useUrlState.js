@@ -5,7 +5,8 @@ import { useState, useEffect, useCallback } from "react";
  * indirizzabili, condivisibili e indicizzabili.
  *
  *   /                  grafo
- *   /esplora           scheda Esplora (filtri nella query string)
+ *   /esplora           scheda Relazioni (filtri nella query string)
+ *   /enti              ricerca fra tutti gli aderenti (?ente=codice IPA)
  *   /statistiche       scheda Statistiche
  *   /metodologia       scheda Metodologia
  *   /guida             scheda Guida
@@ -17,7 +18,7 @@ import { useState, useEffect, useCallback } from "react";
  * a /ente/inps restituirebbe 404.
  */
 
-const TABS = ["grafo", "esplora", "statistiche", "metodologia", "guida"];
+const TABS = ["grafo", "esplora", "enti", "statistiche", "metodologia", "guida"];
 
 const VUOTO = { tab: "grafo", entityId: null, eserviceId: null };
 

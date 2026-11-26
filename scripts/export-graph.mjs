@@ -17,6 +17,7 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import { FORMATI } from "../src/utils/exportGraph.js";
+import { serieStorica } from "../src/utils/networkHistory.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, "..");
@@ -95,3 +96,14 @@ Se usi questi file, cita il progetto: DOI 10.5281/zenodo.19989954.
 fs.writeFileSync(path.join(OUT, "README.md"), README, "utf8");
 console.log(`  ${"README.md".padEnd(42)} ${(README.length / 1024).toFixed(1)} KB`);
 console.log("\nScritti in exports/\n");
+
+// Misure di rete nel tempo, dalle istantanee mensili e dal grafo attuale: la
+// scheda Numeri legge questo file invece di scaricare tutte le istantanee.
+const SNAP = path.join(ROOT, "src/data/snapshots");
+const istantanee = fs.readdirSync(SNAP)
+  .map((f) => /^pdnd-data\.(\d{4}-\d{2}-\d{2})\.json$/.exec(f))
+  .filter(Boolean)
+  .map(([f, d]) => ({ data: d, modello: JSON.parse(fs.readFileSync(path.join(SNAP, f), "utf8")) }));
+const storia = serieStorica(istantanee, data);
+fs.writeFileSync(path.join(ROOT, "src/data/network-history.json"), JSON.stringify(storia, null, 1) + "\n", "utf8");
+console.log(`Misure di rete nel tempo: ${storia.serie.length} date in src/data/network-history.json\n`);

@@ -29,6 +29,7 @@ const NUMERI = P ? [
 const DATA_NUMERI = P?.aderenti?.serie?.at(-1)?.[0] ? dataLunga(P.aderenti.serie.at(-1)[0]) : "24 novembre 2026";
 
 const DOMANDE = [
+  { testo: "Cerca il tuo ente: il tuo Comune, la tua scuola, la tua ASL", url: "/enti", nota: "Il tuo ente" },
   { testo: "Quali servizi usano i Comuni?", url: "/esplora?fruitore=comuni_agg", nota: "Relazioni" },
   { testo: "Chi usa i dati dell'anagrafe nazionale?", url: "/esplora?erogatore=min_interno&per=fruitore", nota: "Relazioni" },
   PIU_USATO && { testo: `Qual è il servizio più usato? (${PIU_USATO.nome})`, url: `/eservice/${encodeURIComponent(PIU_USATO.id)}`, nota: "Scheda del servizio" },

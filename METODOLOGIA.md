@@ -558,6 +558,40 @@ e-service può entrare o uscire perché è nuovo, perché è stato ritirato o pe
 cambiato il suo uso. Il confronto con il modello v1 del report è disponibile, ma
 mescola cambiamenti della PDND e cambiamenti del modello, e l'app lo segnala.
 
+### 7.4 ter Ricerca fra gli aderenti
+
+La scheda «Il tuo ente» cerca fra tutte le voci di `aderenti.csv`, non solo fra i
+nodi della mappa. La pipeline ne ricava un indice compatto
+(`src/data/aderenti-index.json`, circa 280 kB compressi, scaricato solo quando si
+apre la scheda) con, per ogni voce: nome, codice IPA, classe di enti assegnata con
+le stesse regole di `classi.json`, nodo della mappa se l'ente è rappresentato
+individualmente, numero di e-service pubblicati nel catalogo e i nomi dei primi.
+
+I dati d'uso ufficiali sono pubblicati per categoria di ente, non per singolo
+ente: per un ente compreso in una classe la scheda mostra quindi i servizi usati
+dagli enti del suo tipo, e lo dichiara. L'elenco ufficiale comprende anche uffici
+e articolazioni interne registrati come aderenti a sé, per esempio i singoli
+uffici giudiziari.
+
+### 7.4 quater Comunità e misure nel tempo
+
+**Comunità.** Il metodo di Louvain (Blondel et al., 2008) divide i nodi in gruppi
+massimizzando la modularità Q sul grafo non orientato, in cui il legame fra due
+enti pesa quanto il numero di e-service che li collegano. L'ordine di visita dei
+nodi è fisso, quindi lo stesso dato dà sempre le stesse comunità. Sul grafo di
+novembre 2026 Q vale circa 0,17 (0,24 senza le classi di enti): i gruppi esistono
+ma sono poco separati, perché i grandi erogatori (ANPR, INPS, Agenzia delle
+Entrate) servono quasi tutta la rete. Con una struttura così debole, piccole
+variazioni del dato possono spostare un ente da un gruppo all'altro o cambiare il
+numero dei gruppi.
+
+**Misure nel tempo.** Per ogni istantanea mensile (§7.4 bis) e per il grafo
+attuale, `npm run export` calcola relazioni distinte, densità, reciprocità, quota
+delle relazioni dei primi tre erogatori, intermediazione massima e modularità, e
+le scrive in `src/data/network-history.json`; i test verificano che il file sia
+allineato alle istantanee. Il modello v1 del report resta fuori dalla serie
+perché costruito con regole diverse.
+
 ### 7.5 Verifiche sulle fonti (25 novembre 2026)
 
 - **Numeri ufficiali** ([interop.pagopa.it/numeri](https://www.interop.pagopa.it/numeri), aggiornati al 24/11/2026): 9.826 enti aderenti (306 privati), 15.291 e-service, 55.504 connessioni, 1,87 miliardi di sessioni di scambio.

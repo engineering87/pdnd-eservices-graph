@@ -82,7 +82,10 @@ jobs:
             '
           fi
           cp pipeline/pdnd-data.preview.json src/data/pdnd-data.json
-          # Le esportazioni devono restare allineate al dato: i test della CI lo verificano.
+          # Indice degli aderenti per la ricerca "Il tuo ente", se la pipeline l'ha prodotto.
+          if [ -f pipeline/aderenti-index.preview.json ]; then cp pipeline/aderenti-index.preview.json src/data/aderenti-index.json; fi
+          # Esportazioni e misure di rete nel tempo (network-history.json) devono restare
+          # allineate al dato e alle istantanee: i test della CI lo verificano.
           node scripts/export-graph.mjs
           if [ -z "$(git status --porcelain -- src/data/pdnd-data.json src/data/pdnd-data.curated-backup.json)" ]; then
             echo "Il grafo live era già allineato all'anteprima."
@@ -92,7 +95,8 @@ jobs:
           git config user.name "pdnd-graph-bot"
           git config user.email "actions@github.com"
           git checkout -b "$BRANCH"
-          git add src/data/pdnd-data.json src/data/pdnd-data.curated-backup.json src/data/snapshots/ exports/
+          git add src/data/pdnd-data.json src/data/pdnd-data.curated-backup.json src/data/snapshots/ src/data/network-history.json exports/
+          if [ -f src/data/aderenti-index.json ]; then git add src/data/aderenti-index.json; fi
           git commit -m "chore: promozione anteprima a grafo live"
           git push -f -u origin "$BRANCH"
           if [ -n "$(gh pr list --head "$BRANCH" --state open --json number -q '.[0].number' 2>/dev/null)" ]; then

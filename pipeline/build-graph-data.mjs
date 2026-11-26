@@ -26,6 +26,9 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..");
 const LIVE_PATH = join(ROOT, "src", "data", "pdnd-data.json");        // grafo curato (mai sovrascritto)
 const PREVIEW_PATH = join(__dirname, "pdnd-data.preview.json");       // output non distruttivo
+// Indice di tutti gli aderenti per la ricerca "Il tuo ente": anteprima accanto al
+// grafo, promossa insieme a esso in src/data/aderenti-index.json.
+const INDEX_PREVIEW_PATH = join(__dirname, "aderenti-index.preview.json");
 const argValue = (nome) => { const i = process.argv.indexOf(nome); return i > 0 ? process.argv[i + 1] : null; };
 // --out <file>: scrive altrove (per esempio un'istantanea storica) senza toccare
 // anteprima e report. --data <AAAA-MM-GG>: data dichiarata nel meta.
@@ -564,6 +567,44 @@ async function main() {
     }
   }
 
+  // 6 bis. Indice degli aderenti. Per ogni ente: nome, codice IPA, classe di
+  // appartenenza (stesse regole dei nodi di classe), nodo della mappa se è
+  // tracciato singolarmente, e-service pubblicati (fino a 8 nomi, con le prime 8
+  // cifre dell'id del catalogo, da cui l'app ricava la scheda se l'e-service è
+  // nel modello). Formato a righe compatte: l'app lo scarica solo per cercare.
+  const nodoDiIpa = new Map();
+  for (const e of entities) for (const ipa of e.ipaCodes || []) nodoDiIpa.set(ipa, e.id);
+  const pubblicatiDi = new Map();
+  for (const r of records) {
+    if (r.activeDescriptorState !== "PUBLISHED" || !r.producerId) continue;
+    const l = pubblicatiDi.get(r.producerId) || [];
+    l.push([String(r.id).slice(0, 8), truncate(r.name, 60)]);
+    pubblicatiDi.set(r.producerId, l);
+  }
+  const classeDi = (a) => {
+    let attrs = [];
+    try { attrs = JSON.parse(a.attributes || "[]").filter(x => x.type === "Certified").map(x => x.name); } catch { /* */ }
+    const c = classi.find(c => attrs.some(n => (c.attributi || []).includes(n) || (c.attributi_prefisso || []).some(p => n.startsWith(p))));
+    return c ? c.id : "";
+  };
+  const indiceAderenti = aderenti.length ? {
+    meta: {
+      generato: new Date().toISOString(),
+      data: DATA_DATI || new Date().toISOString().slice(0, 10),
+      fonte: "github.com/italia/pdnd-opendata — aderenti.csv ed eservice_a_catalogo.csv (CC0 1.0)",
+      formato: "enti: [nome, codiceIPA, classe, nodo della mappa, e-service pubblicati, [[id catalogo (8 cifre), nome], ...] fino a 8]",
+    },
+    classi: Object.fromEntries(classi.map(c => [c.id, c.name])),
+    enti: aderenti
+      .filter(a => a.name)
+      .map(a => {
+        const pub = pubblicatiDi.get(a.id) || [];
+        pub.sort((x, y) => x[1].localeCompare(y[1], "it"));
+        return [a.name.trim(), a.ipaCode || "", classeDi(a), nodoDiIpa.get(a.ipaCode) || "", pub.length, pub.slice(0, 8)];
+      })
+      .sort((x, y) => x[0].localeCompare(y[0], "it")),
+  } : null;
+
   // 7. Assemble output
   const removed = [...prevServiceIds].filter(id => !eservices.find(s => s.id === id));
   const output = {
@@ -651,6 +692,10 @@ async function main() {
   if (WRITE) {
     writeFileSync(OUTPUT_PATH, (OUT_ARG ? JSON.stringify(output) : JSON.stringify(output, null, 2)) + "\n", "utf-8");
     say(`\n✅ Scritto: ${OUTPUT_PATH}`);
+    if (!OUT_ARG && indiceAderenti) {
+      writeFileSync(INDEX_PREVIEW_PATH, JSON.stringify(indiceAderenti) + "\n", "utf-8");
+      say(`✅ Indice aderenti: ${indiceAderenti.enti.length} enti in ${INDEX_PREVIEW_PATH}`);
+    }
     say(`ℹ️  Il grafo live (src/data/pdnd-data.json) NON è stato modificato.`);
     say(`   Per promuovere l'anteprima a dato live, vedi pipeline/README.md.`);
   } else {

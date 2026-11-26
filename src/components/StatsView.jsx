@@ -12,6 +12,8 @@ import PDND_DATA from "../data/pdnd-data.json";
 import { FORMATI } from "../utils/exportGraph";
 import { CATEGORY_COLORS } from "../constants/colors";
 import NetworkAnalysis from "./NetworkAnalysis";
+import CommunitiesCard from "./CommunitiesCard";
+import NetworkHistory from "./NetworkHistory";
 import PlatformTrends from "./PlatformTrends";
 import ChangesView from "./ChangesView";
 import { numero, breve } from "../utils/format";
@@ -191,6 +193,10 @@ export default function StatsView({ graphData, onOpenEservice, onOpenEntity }) {
       </div>
 
       <NetworkAnalysis />
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 14, marginTop: 14 }}>
+        <CommunitiesCard onOpenEntity={onOpenEntity} />
+        <NetworkHistory />
+      </div>
 
       <ExportSection />
     </div>

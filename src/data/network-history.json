@@ -1,0 +1,156 @@
+{
+ "meta": {
+  "generato_da": "scripts/export-graph.mjs",
+  "nota": "Archi distinti erogatore → fruitore. Il modello v1 (2026-05-02) è escluso: regole diverse."
+ },
+ "serie": [
+  {
+   "data": "2026-06-01",
+   "nodi": 63,
+   "eservice": 311,
+   "archi": 584,
+   "densita": 0.1495,
+   "reciprocita": 0.2705,
+   "erogatori": 49,
+   "quota_primi_3": 0.2312,
+   "primi_3": [
+    "min_interno",
+    "inps",
+    "ade"
+   ],
+   "ponte": {
+    "id": "inps",
+    "valore": 0.2829
+   },
+   "comunita": 3,
+   "modularita": 0.1742
+  },
+  {
+   "data": "2026-07-01",
+   "nodi": 63,
+   "eservice": 313,
+   "archi": 610,
+   "densita": 0.1562,
+   "reciprocita": 0.2689,
+   "erogatori": 49,
+   "quota_primi_3": 0.2213,
+   "primi_3": [
+    "min_interno",
+    "inps",
+    "ade"
+   ],
+   "ponte": {
+    "id": "inps",
+    "valore": 0.2816
+   },
+   "comunita": 3,
+   "modularita": 0.1651
+  },
+  {
+   "data": "2026-08-01",
+   "nodi": 63,
+   "eservice": 312,
+   "archi": 604,
+   "densita": 0.1546,
+   "reciprocita": 0.2715,
+   "erogatori": 49,
+   "quota_primi_3": 0.2235,
+   "primi_3": [
+    "min_interno",
+    "inps",
+    "ade"
+   ],
+   "ponte": {
+    "id": "inps",
+    "valore": 0.2839
+   },
+   "comunita": 4,
+   "modularita": 0.1716
+  },
+  {
+   "data": "2026-09-01",
+   "nodi": 63,
+   "eservice": 312,
+   "archi": 603,
+   "densita": 0.1544,
+   "reciprocita": 0.272,
+   "erogatori": 49,
+   "quota_primi_3": 0.2272,
+   "primi_3": [
+    "min_interno",
+    "inps",
+    "ade"
+   ],
+   "ponte": {
+    "id": "inps",
+    "valore": 0.2854
+   },
+   "comunita": 3,
+   "modularita": 0.1693
+  },
+  {
+   "data": "2026-10-01",
+   "nodi": 63,
+   "eservice": 312,
+   "archi": 603,
+   "densita": 0.1544,
+   "reciprocita": 0.272,
+   "erogatori": 49,
+   "quota_primi_3": 0.2239,
+   "primi_3": [
+    "min_interno",
+    "inps",
+    "ade"
+   ],
+   "ponte": {
+    "id": "inps",
+    "valore": 0.2861
+   },
+   "comunita": 3,
+   "modularita": 0.1691
+  },
+  {
+   "data": "2026-11-01",
+   "nodi": 63,
+   "eservice": 313,
+   "archi": 605,
+   "densita": 0.1549,
+   "reciprocita": 0.2711,
+   "erogatori": 49,
+   "quota_primi_3": 0.2231,
+   "primi_3": [
+    "min_interno",
+    "inps",
+    "ade"
+   ],
+   "ponte": {
+    "id": "inps",
+    "valore": 0.284
+   },
+   "comunita": 4,
+   "modularita": 0.1716
+  },
+  {
+   "data": "2026-11-26",
+   "attuale": true,
+   "nodi": 63,
+   "eservice": 313,
+   "archi": 600,
+   "densita": 0.1536,
+   "reciprocita": 0.2733,
+   "erogatori": 49,
+   "quota_primi_3": 0.225,
+   "primi_3": [
+    "min_interno",
+    "inps",
+    "ade"
+   ],
+   "ponte": {
+    "id": "inps",
+    "valore": 0.2939
+   },
+   "comunita": 4,
+   "modularita": 0.1693
+  }
+ ]
+}

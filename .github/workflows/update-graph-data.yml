@@ -56,6 +56,8 @@ jobs:
           git config user.email "actions@github.com"
           git checkout -b "$BRANCH"
           git add pipeline/pdnd-data.preview.json pipeline/last-run-report.md pipeline/ai-cache.json
+          # L'indice degli aderenti c'è solo se il loro elenco si è scaricato.
+          if [ -f pipeline/aderenti-index.preview.json ]; then git add pipeline/aderenti-index.preview.json; fi
           git commit -m "chore: aggiornamento anteprima grafo PDND"
           git push -f -u origin "$BRANCH"
           # Il corpo della PR contiene il report di esecuzione: e-service nuovi e

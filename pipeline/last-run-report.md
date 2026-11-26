@@ -1,43 +1,48 @@
 # Report aggiornamento grafo PDND
 
-Data: 2026-11-26T00:48:09.201Z
+Data: 2026-11-26T11:54:47.591Z
 Modalità: WRITE
 
 ## Download catalogo
-- Righe catalogo: **15301**
-- Adozione: 366 e-service nelle classifiche di enti abilitati
+- Righe catalogo: **15304**
+- Adozione: 364 e-service nelle classifiche di enti abilitati
 - Sessioni: 264 e-service nelle classifiche di sessioni di scambio
-- Sessioni recenti: 277 e-service nelle classifiche degli ultimi 12 o 6 mesi
-- Aderenti: 10363 righe nell'elenco, 9826 enti nel totale ufficiale
-- Andamenti: 53 mesi di adesioni, 52 mesi di sessioni
+- Sessioni recenti: 276 e-service nelle classifiche degli ultimi 12 o 6 mesi
+- Aderenti: 10372 righe nell'elenco, 9832 enti nel totale ufficiale
+- Andamenti: 53 mesi di adesioni, 53 mesi di sessioni
 
 ## Risultato
 - Nodi (enti): **63** (prima: 63)
 - E-service: **313** (prima: 313)
-- Nuovi e-service: **0**
-- E-service rimossi: **0**
-- E-service senza fruitori: **44**
+- Nuovi e-service: **3**
+- E-service rimossi: **3**
+- E-service senza fruitori: **43**
 
 ### Archi per provenienza
 - 📄 Documentata (override): **12**
-- 👁️ Osservata (connessioni ufficiali): **264**
-- ✅ Certificata (attributes): **630**
+- 👁️ Osservata (connessioni ufficiali): **267**
+- ✅ Certificata (attributes): **637**
 - 🧩 Ricostruita (grafo curato v1): **545**
 - 🤖 Inferita (AI): **25**
 
 ### Classi di enti (nodi aggregati)
-- Comuni (aggregati): 7657 aderenti (totale ufficiale PagoPA)
+- Comuni (aggregati): 7658 aderenti (totale ufficiale PagoPA)
 - Regioni (aggregati): 21 aderenti (totale ufficiale PagoPA)
-- Enti privati (aggregati): 306 aderenti (totale ufficiale PagoPA)
-- Scuole (aggregati): 381 aderenti (conteggio per attributo certificato)
+- Enti privati (aggregati): 307 aderenti (totale ufficiale PagoPA)
+- Scuole (aggregati): 387 aderenti (conteggio per attributo certificato)
 - Università e AFAM (aggregati): 172 aderenti (totale ufficiale PagoPA)
 - Sanità (aggregati): 123 aderenti (conteggio per attributo certificato)
-- Gestori di pubblici servizi e stazioni appaltanti (aggregati): 343 aderenti (conteggio per attributo certificato)
+- Gestori di pubblici servizi e stazioni appaltanti (aggregati): 344 aderenti (conteggio per attributo certificato)
 - Province e Città metropolitane (aggregati): 99 aderenti (conteggio per attributo certificato)
-- PA centrali (aggregati): 415 aderenti (conteggio per attributo certificato)
+- PA centrali (aggregati): 417 aderenti (conteggio per attributo certificato)
 - Altre PA locali (aggregati): 350 aderenti (conteggio per attributo certificato)
 
 ℹ️  Inferenza AI disattivata (--no-ai).
+
+### Nuovi e-service
+- Reg. Campania — RC032 - Nomi delle strutture ricettive
+- Reg. FVG — Invio foglio notifica Tavolare
+- Reg. FVG — Ricerca listini impianti e erogazione carburanti
 
 ### E-service senza archi (aggiungi override in connections-overrides.json)
 - analytics-services_SDG (7afa3f39-5c80-45b2-a314-5b3ecda1bfea)
@@ -48,7 +53,6 @@ Modalità: WRITE
 - Pesticidi (f156d290-c4b0-4ba9-936a-541916afbc68)
 - Agriturismi in Lombardia (7e6483a7-18ca-4657-a1ee-038c1a0ec786)
 - r_lazio_L30_cartografia_acque_ferme (6610f1a6-9a1e-49fd-ba95-a1b4b0f1dd75)
-- RC027 - Consultazione rilevazioni idrogeologiche (32f9c877-f50b-4ac8-b9eb-a1734fcf757c)
 - Consultazione aree di tutela dell'acqua potabile (dcb4aee9-bd6c-40a3-a466-d40d7e8837b9)
 - Consultazione balneabilità laghi (2f07a53b-d3f5-4ab5-9834-8da30abca54a)
 - Attestato formazione personale regionale - IT Wallet (08d35082-da90-4677-ab26-a4b1bf300d34)
@@ -80,8 +84,10 @@ Modalità: WRITE
 - L’e-service ricerca gli archi stradali (242bbc81-cf94-42ef-a47f-23c90efff025)
 - L’e-service ricerca gli eventi culturali (46035466-f9cb-446d-a608-82590eaf5c53)
 - L’e-service ricerca i numeri civici (305054a1-090e-4c3f-9568-f4fb4f9ae266)
-- … e altri 4
+- L’e-service ricerca le aree verdi pubbliche (ec9d35df-83c6-4880-ad88-9db37e95a932)
+- … e altri 3
 
 ✅ Scritto: C:\Private Git\pdnd-eservices-graph\pipeline\pdnd-data.preview.json
+✅ Indice aderenti: 10372 enti in C:\Private Git\pdnd-eservices-graph\pipeline\aderenti-index.preview.json
 ℹ️  Il grafo live (src/data/pdnd-data.json) NON è stato modificato.
    Per promuovere l'anteprima a dato live, vedi pipeline/README.md.

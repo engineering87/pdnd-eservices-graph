@@ -113,6 +113,11 @@ I nodi ad alta centralità sono quelli la cui indisponibilità avrebbe effetto s
 - Percorsi pronti ("Cosa usano i Comuni", "Chi usa i servizi ANPR"…), viste filtrate condivisibili via link e download in CSV
 - Scheda di ogni e-service ([esempio](https://www.pdndgraph.it/eservice/pagopa_cfc8a94d)): erogatore, fruitori per provenienza, enti abilitati e sessioni, identificativo del catalogo, altri servizi dello stesso erogatore
 
+**Il tuo ente** (scheda Il tuo ente)
+- Ricerca per nome o codice IPA fra tutti gli aderenti alla PDND, oltre 10.000 voci dell'elenco ufficiale: comuni, scuole, aziende sanitarie, università, società
+- Per ogni ente: tipo di ente, e-service che pubblica (con il link alla scheda quando l'e-service è nella mappa), servizi usati dagli enti del suo tipo e collegamenti alla mappa e alla scheda Relazioni
+- Link condivisibile alla scheda di un ente, per esempio [pdndgraph.it/enti?ente=c_e506](https://www.pdndgraph.it/enti?ente=c_e506)
+
 **Lettura dei dati**
 - Frecce direzionali erogatore→fruitore, spessore proporzionale ai servizi condivisi
 - Colori per famiglia istituzionale: Ministero, Regione, Previdenza, Fisco, Digitale e altre
@@ -126,6 +131,8 @@ I nodi ad alta centralità sono quelli la cui indisponibilità avrebbe effetto s
 - **Cosa è cambiato**: confronto del grafo attuale con le istantanee mensili (dal 1° giugno 2026) o con il modello v1 del report: nuovi legami, legami scomparsi, servizi entrati e usciti, servizi con più nuove sessioni
 - E-service più adottati e più usati, archi per provenienza, classi di enti
 - Analisi di rete: matrice erogatori × classi di enti raggiunte, enti ponte (centralità di intermediazione), reciprocità e distribuzione dei gradi
+- **Comunità della rete**: gruppi di enti che si scambiano dati soprattutto fra loro, trovati con il metodo di Louvain, con la modularità e la quota di legami interni di ogni gruppo
+- **La rete nel tempo**: relazioni distinte, densità, reciprocità, concentrazione sui primi erogatori, intermediazione e modularità per ogni istantanea mensile
 - Esportazione in GraphML, GEXF e CSV direttamente dal browser
 - Schede Metodologia e Guida integrate nell'app
 
@@ -375,6 +382,7 @@ Il grafo live è generato dalla pipeline: le modifiche durature vanno nei file d
 ```bash
 node pipeline/build-graph-data.mjs --write                  # aggiorna l'anteprima
 cp pipeline/pdnd-data.preview.json src/data/pdnd-data.json  # promozione
+cp pipeline/aderenti-index.preview.json src/data/aderenti-index.json
 npm run export && npm test
 ```
 
@@ -405,6 +413,7 @@ pdnd-eservices-graph/
 │   ├── connections-reconstructed.json   # Relazioni del modello v1
 │   ├── connections-frozen.json          # Stime AI congelate
 │   ├── pdnd-data.preview.json           # Anteprima generata (NON è il dato live)
+│   ├── aderenti-index.preview.json      # Indice di tutti gli aderenti (anteprima)
 │   ├── last-run-report.md               # Report dell'ultima esecuzione
 │   └── README.md
 ├── public/                              # favicon e logo
@@ -415,6 +424,8 @@ pdnd-eservices-graph/
 │   ├── utils/                           # Costruzione del grafo, esportazioni, stato URL
 │   ├── data/
 │   │   ├── pdnd-data.json               # ← DATI LIVE (modello v2)
+│   │   ├── aderenti-index.json          # Tutti gli aderenti, per la scheda Il tuo ente
+│   │   ├── network-history.json         # Misure di rete nel tempo (npm run export)
 │   │   └── snapshots/                   # Modello v1 del report e istantanee mensili
 │   ├── App.jsx
 │   ├── index.css

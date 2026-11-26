@@ -32,7 +32,9 @@ catalogo ufficiale PDND (CSV, 15.000+ e-service)
    │     4. ricostruita   relazioni v1 (connections-reconstructed.json)
    │     5. inferita      stime congelate, solo se l'e-service è senza archi
    ├── applica i guard di validazione
-   └── scrive pipeline/pdnd-data.preview.json  (ANTEPRIMA, non distruttiva)
+   ├── scrive pipeline/pdnd-data.preview.json  (ANTEPRIMA, non distruttiva)
+   └── scrive pipeline/aderenti-index.preview.json  (indice di tutti gli aderenti,
+         per la scheda «Il tuo ente»)
               │
               ▼
    GitHub Action mensile → pull request su develop con il report
@@ -61,6 +63,7 @@ Attivo↔Sospeso.
 | `classi.json` | Classi di enti (nodi aggregati) allineate alle categorie ufficiali PagoPA: attributi certificati, categorie delle statistiche, totali ufficiali degli aderenti |
 | `connections-frozen.json` | Stime AI congelate (origine `inferita`), usate solo per gli e-service senza altri archi |
 | `pdnd-data.preview.json` | Anteprima generata dalla pipeline (NON è il dato live) |
+| `aderenti-index.preview.json` | Indice compatto di tutti gli aderenti (nome, codice IPA, classe, nodo della mappa, e-service pubblicati) per la scheda «Il tuo ente». Non viene scritto con `--out` |
 | `last-run-report.md` | Report generato ad ogni esecuzione |
 
 ## Uso manuale
@@ -97,7 +100,9 @@ della qualità dell'aggiornamento, hai due modi per promuovere l'anteprima a gra
 **Dalla GitHub Action (consigliato).** Tab **Actions** → workflow
 "Promuovi anteprima a grafo live" → **Run workflow** → scrivi `PROMUOVI` nel campo
 di conferma. Il workflow valida l'anteprima, salva un backup del curato, sostituisce
-il grafo live, rigenera le esportazioni in `exports/` e apre una pull request su
+il grafo live e l'indice degli aderenti, archivia il grafo sostituito fra le
+istantanee, rigenera le esportazioni in `exports/` e le misure di rete nel tempo
+(`src/data/network-history.json`) e apre una pull request su
 `develop`. La conferma esplicita evita promozioni accidentali; il grafo arriva sul
 sito con la release da `develop` a `main`.
 
@@ -105,6 +110,8 @@ sito con la release da `develop` a `main`.
 
 ```bash
 cp pipeline/pdnd-data.preview.json src/data/pdnd-data.json
+cp pipeline/aderenti-index.preview.json src/data/aderenti-index.json
+npm run export && npm test
 ```
 
 In entrambi i casi è l'**unico** passo che modifica il grafo mostrato dall'app, ed è
