@@ -102,8 +102,8 @@ export default function EntiView({ onOpenEntity, onOpenEservice, onExplore }) {
         <div style={{ fontSize: 11, color: "var(--ink-faint)", textTransform: "uppercase", letterSpacing: 1, marginBottom: 6 }}>Il tuo ente</div>
         <h2 style={{ fontSize: m ? 19 : 23, fontWeight: 700, color: "var(--ink-strong)", marginBottom: 6 }}>Cerca un ente aderente alla PDND</h2>
         <p style={{ fontSize: 13, color: "var(--ink-muted)", lineHeight: 1.6, maxWidth: 760, marginBottom: 16 }}>
-          Comuni, scuole, aziende sanitarie, università, società: tutti gli enti dell'elenco ufficiale, non solo quelli
-          rappresentati nella mappa. Per ogni ente vedi il tipo di ente, gli <Termine id="eservice">e-service</Termine> che
+          Comuni, scuole, aziende sanitarie, università, gestori di servizi pubblici: tutti gli enti pubblici dell'elenco
+          ufficiale, non solo quelli rappresentati nella mappa. Per ogni ente vedi il tipo di ente, gli <Termine id="eservice">e-service</Termine> che
           pubblica e i servizi usati dagli enti del suo tipo.
         </p>
 
@@ -117,7 +117,7 @@ export default function EntiView({ onOpenEntity, onOpenEservice, onExplore }) {
         <div id="cerca-ente-stato" role="status" style={{ fontSize: 12, color: "var(--ink-faint)", margin: "8px 0 16px" }}>
           {errore || (!indice ? "Caricamento dell'elenco…"
             : scelto ? null
-            : norm(q).length < 2 ? `${numero(indice.enti.length)} voci nell'elenco ufficiale al ${dataLunga(indice.meta.data)}. Scrivi almeno due lettere.`
+            : norm(q).length < 2 ? `${numero(indice.enti.length)} enti con codice IPA nell'elenco ufficiale al ${dataLunga(indice.meta.data)}. Scrivi almeno due lettere.`
             : `${risultati.length === 25 ? "Primi 25 risultati" : `${risultati.length} risultati`}${risultati.length ? ": Invio apre il primo" : ""}.`)}
         </div>
 
@@ -207,8 +207,10 @@ export default function EntiView({ onOpenEntity, onOpenEservice, onExplore }) {
         )}
 
         <p style={{ fontSize: 11, color: "var(--ink-faint)", lineHeight: 1.55, marginTop: 6 }}>
-          Fonte: elenco degli aderenti e catalogo degli e-service di PagoPA (italia/pdnd-opendata, CC0 1.0). L'elenco comprende
-          anche uffici e articolazioni interne registrati come aderenti a sé.
+          Fonte: elenco degli aderenti e catalogo degli e-service di PagoPA (italia/pdnd-opendata, CC0 1.0). Sono elencati
+          gli aderenti con codice IPA, compresi uffici e articolazioni interne registrati come aderenti a sé. Imprese e altri
+          soggetti privati sono contati nella loro classe ma non elencati uno per uno: fra loro ci sono ditte e società che
+          portano il nome di persone fisiche.
         </p>
       </div>
     </div>

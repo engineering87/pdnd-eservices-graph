@@ -103,7 +103,12 @@ export default function ClassInside({ nodo, onOpenAderente, onOpenEservice, aper
             <div style={{ fontSize: 11, color: "var(--ink-muted)", marginBottom: 10, lineHeight: 1.5 }}>Nel catalogo la classe corrisponde a un solo tipo di ente.</div>
           )}
 
-          {!indice ? <div style={{ fontSize: 11, color: "var(--ink-faint)" }}>Caricamento dell'elenco…</div> : (
+          {!indice ? <div style={{ fontSize: 11, color: "var(--ink-faint)" }}>Caricamento dell'elenco…</div> : membri.length === 0 ? (
+            <div style={{ fontSize: 11, color: "var(--ink-muted)", lineHeight: 1.5 }}>
+              Gli enti di questa classe non hanno codice IPA e non sono elencati uno per uno: fra loro ci sono ditte e società
+              che portano il nome di persone fisiche. Sono contati nei totali.
+            </div>
+          ) : (
             <>
               <div style={titoletto}>Chi pubblica più e-service</div>
               {editori.length === 0 && <div style={{ fontSize: 11, color: "var(--ink-faint)" }}>Nessun ente di questo tipo pubblica e-service.</div>}

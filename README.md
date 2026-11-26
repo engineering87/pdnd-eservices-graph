@@ -116,7 +116,7 @@ I nodi ad alta centralità sono quelli la cui indisponibilità avrebbe effetto s
 - Scheda di ogni e-service ([esempio](https://www.pdndgraph.it/eservice/pagopa_cfc8a94d)): erogatore, fruitori per provenienza, enti abilitati e sessioni, identificativo del catalogo, altri servizi dello stesso erogatore
 
 **Il tuo ente** (scheda Il tuo ente)
-- Ricerca per nome o codice IPA fra tutti gli aderenti alla PDND, oltre 10.000 voci dell'elenco ufficiale: comuni, scuole, aziende sanitarie, università, società
+- Ricerca per nome o codice IPA fra gli enti pubblici aderenti alla PDND, oltre 10.000 voci dell'elenco ufficiale: comuni, scuole, aziende sanitarie, università, gestori di servizi pubblici. Imprese e altri privati sono contati nelle classi ma non elencati uno per uno
 - Per ogni ente: tipo di ente, e-service che pubblica (con il link alla scheda quando l'e-service è nella mappa), servizi usati dagli enti del suo tipo e collegamenti alla mappa e alla scheda Relazioni
 - Link condivisibile alla scheda di un ente, per esempio [pdndgraph.it/enti?ente=c_e506](https://www.pdndgraph.it/enti?ente=c_e506)
 

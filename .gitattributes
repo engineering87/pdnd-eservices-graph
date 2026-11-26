@@ -1,0 +1,4 @@
+# Lo script inline di index.html è autorizzato dalla Content Security Policy
+# con la sua impronta SHA-256 (staticwebapp.config.json): fine riga LF ovunque,
+# altrimenti un checkout con CRLF cambierebbe l'impronta.
+index.html text eol=lf

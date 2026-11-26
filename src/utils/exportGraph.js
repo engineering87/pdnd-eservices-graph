@@ -14,6 +14,8 @@
  * esattamente ciò che il modello non autorizza a fare.
  */
 
+import { rigaCSV } from "./csv.js";
+
 const AVVERTENZA =
   "Le coppie puntuali erogatore-fruitore non sono pubblicate come open data: gli " +
   "archi sono ricostruiti da documentazione pubblica, dal catalogo e dalle " +
@@ -217,11 +219,7 @@ export function toGEXF(data) {
   return righe.join("\n");
 }
 
-const csvCampo = (v) => {
-  const s = String(v ?? "");
-  return /[",\n;]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
-};
-const csvRiga = (campi) => campi.map(csvCampo).join(",");
+const csvRiga = rigaCSV;
 
 /** CSV dei nodi, con intestazione. */
 export function toNodesCSV(data) {

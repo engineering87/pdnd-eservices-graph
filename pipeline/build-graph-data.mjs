@@ -616,17 +616,24 @@ async function main() {
     try { attrs = JSON.parse(a.attributes || "[]").filter(x => x.type === "Certified").map(x => x.name); } catch { /* */ }
     return attrs.map(n => sottotipoDiAttr(classe, n)).find(Boolean) || "";
   };
+  // Nell'indice entrano solo gli aderenti con codice IPA: amministrazioni e
+  // gestori di pubblici servizi, soggetti pubblici per definizione. Imprese e
+  // altri privati restano contati nella loro classe ma non sono elencati uno
+  // per uno: fra loro ci sono ditte individuali e società di persone il cui
+  // nome è quello di persone fisiche (minimizzazione dei dati, art. 5 GDPR).
+  const conIpa = aderenti.filter(a => a.name && a.ipaCode);
   const indiceAderenti = aderenti.length ? {
     meta: {
       generato: new Date().toISOString(),
       data: DATA_DATI || new Date().toISOString().slice(0, 10),
       fonte: "github.com/italia/pdnd-opendata — aderenti.csv ed eservice_a_catalogo.csv (CC0 1.0)",
       formato: "enti: [nome, codiceIPA, classe, nodo della mappa, e-service pubblicati, [[id catalogo (8 cifre), nome], ...] fino a 8, sottotipo]",
+      criterio: "Solo aderenti con codice IPA. Imprese e altri soggetti senza codice IPA sono contati nelle classi ma non elencati.",
+      esclusi_senza_ipa: aderenti.filter(a => a.name && !a.ipaCode).length,
     },
     classi: Object.fromEntries(classi.map(c => [c.id, c.name])),
     sottotipi: Object.fromEntries(classi.flatMap(c => (c.sottotipi || []).map(t => [t.id, t.nome]))),
-    enti: aderenti
-      .filter(a => a.name)
+    enti: conIpa
       .map(a => {
         const pub = pubblicatiDi.get(a.id) || [];
         pub.sort((x, y) => x[1].localeCompare(y[1], "it"));

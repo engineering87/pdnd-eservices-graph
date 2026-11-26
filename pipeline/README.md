@@ -63,7 +63,7 @@ Attivo↔Sospeso.
 | `classi.json` | Classi di enti (nodi aggregati) allineate alle categorie ufficiali PagoPA: attributi certificati, categorie delle statistiche, totali ufficiali degli aderenti, tipi di ente (`sottotipi`) per aprire la classe nella mappa |
 | `connections-frozen.json` | Stime AI congelate (origine `inferita`), usate solo per gli e-service senza altri archi |
 | `pdnd-data.preview.json` | Anteprima generata dalla pipeline (NON è il dato live) |
-| `aderenti-index.preview.json` | Indice compatto di tutti gli aderenti (nome, codice IPA, classe, nodo della mappa, e-service pubblicati) per la scheda «Il tuo ente». Non viene scritto con `--out` |
+| `aderenti-index.preview.json` | Indice compatto degli aderenti con codice IPA (nome, codice IPA, classe, tipo di ente, nodo della mappa, e-service pubblicati) per la scheda «Il tuo ente». Imprese e altri privati senza codice IPA non sono elencati. Non viene scritto con `--out` |
 | `last-run-report.md` | Report generato ad ogni esecuzione |
 
 ## Uso manuale

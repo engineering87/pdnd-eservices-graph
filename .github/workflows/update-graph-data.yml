@@ -14,17 +14,6 @@ permissions:
 jobs:
   update:
     runs-on: ubuntu-latest
-    env:
-      # Inferenza AI via API Anthropic (Opus 5.5).
-      INFERENCE_ENGINE: anthropic
-      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-      ANTHROPIC_MODEL: claude-opus-5-5
-      # GITHUB_TOKEN serve solo al passo gh (push branch + apertura PR), non all'inferenza.
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      INFERENCE_MIN_CONF: "0.6"
-      INFERENCE_MAX_CALLS: "200"    # copre il backfill iniziale in un run; poi la cache fa il resto
-      INFERENCE_DELAY_MS: "500"
-      INFERENCE_MAX_RETRIES: "4"
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -39,6 +28,17 @@ jobs:
       - name: Genera anteprima aggiornata
         # Esce con codice 1 se un guard di validazione fallisce, interrompendo
         # il workflow PRIMA della PR. L'inferenza AI è fail-safe.
+        # Segreti visibili solo dove servono: la chiave API a questo passo, il
+        # token di GitHub al passo che apre la PR (GH_TOKEN).
+        env:
+          # Inferenza AI via API Anthropic (Opus 5.5).
+          INFERENCE_ENGINE: anthropic
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          ANTHROPIC_MODEL: claude-opus-5-5
+          INFERENCE_MIN_CONF: "0.6"
+          INFERENCE_MAX_CALLS: "200"    # copre il backfill iniziale in un run; poi la cache fa il resto
+          INFERENCE_DELAY_MS: "500"
+          INFERENCE_MAX_RETRIES: "4"
         run: node pipeline/build-graph-data.mjs --write
 
       - name: Apri Pull Request con l'anteprima

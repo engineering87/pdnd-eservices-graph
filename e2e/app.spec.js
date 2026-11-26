@@ -134,6 +134,16 @@ test.describe("Primo accesso, tema e accessibilità", () => {
     await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
   });
 
+  test("le intestazioni di sicurezza sono attive", async ({ page }) => {
+    // La policy vale anche qui (vite preview usa staticwebapp.config.json):
+    // una risorsa bloccata produrrebbe un errore in console e farebbe fallire
+    // tutti gli altri test.
+    const risposta = await page.goto("/");
+    const h = risposta.headers();
+    expect(h["content-security-policy"]).toContain("frame-ancestors 'none'");
+    expect(h["x-content-type-options"]).toBe("nosniff");
+  });
+
   test("il primo Tab porta al link «Vai al contenuto»", async ({ page }) => {
     await page.goto("/guida");
     await page.keyboard.press("Tab");

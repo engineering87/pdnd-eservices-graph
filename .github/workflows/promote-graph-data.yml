@@ -32,8 +32,12 @@ jobs:
           node-version: "24"
 
       - name: Verifica conferma
+        # Il testo scritto da chi avvia il workflow passa da una variabile
+        # d'ambiente e non viene mai inserito nello script: niente iniezione.
+        env:
+          CONFERMA: ${{ github.event.inputs.conferma }}
         run: |
-          if [ "${{ github.event.inputs.conferma }}" != "PROMUOVI" ]; then
+          if [ "$CONFERMA" != "PROMUOVI" ]; then
             echo "::error::Conferma non valida. Rilancia scrivendo esattamente PROMUOVI."
             exit 1
           fi

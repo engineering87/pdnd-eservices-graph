@@ -48,7 +48,12 @@ function pagina({ percorso, titolo, descrizione }) {
   html = sostituisci(html, /(<meta property="og:title" content=")[^"]*(")/, t, "og:title");
   html = sostituisci(html, /(<meta property="og:description" content=")[^"]*(")/, d, "og:description");
   html = sostituisci(html, /(<meta property="og:url" content=")[^"]*(")/, u, "og:url");
-  const file = percorso === "/" ? path.join(DIST, "index.html") : path.join(DIST, ...percorso.split("/").filter(Boolean).map(decodeURIComponent), "index.html");
+  // Gli id di enti ed e-service diventano cartelle: un id con separatori o
+  // punti (per esempio "../") scriverebbe fuori da dist/. Si accettano solo
+  // lettere, cifre, trattino e trattino basso.
+  const segmenti = percorso.split("/").filter(Boolean).map(decodeURIComponent);
+  if (segmenti.some((s) => !/^[A-Za-z0-9_-]+$/.test(s))) throw new Error(`prerender-meta: percorso non valido ${percorso}`);
+  const file = percorso === "/" ? path.join(DIST, "index.html") : path.join(DIST, ...segmenti, "index.html");
   fs.mkdirSync(path.dirname(file), { recursive: true });
   fs.writeFileSync(file, html);
 }
@@ -57,7 +62,7 @@ const enti = new Map(data.enti.map((e) => [e.id, e]));
 const pagine = [
   { percorso: "/esplora", titolo: `Relazioni — ${BASE}`, descrizione: "Quali enti offrono i dati e quali li usano: tutte le relazioni della mappa PDND, con filtri per ente, categoria e fonte ed esportazione in CSV." },
   { percorso: "/statistiche", titolo: `Numeri — ${BASE}`, descrizione: "I servizi PDND più adottati e più usati, le classi di enti e l'analisi della rete: chi raggiunge chi, gli enti ponte, la struttura dei legami." },
-  { percorso: "/enti", titolo: `Il tuo ente — ${BASE}`, descrizione: "Cerca il tuo ente fra tutti gli aderenti alla PDND: tipo di ente, e-service pubblicati e servizi usati dagli enti dello stesso tipo." },
+  { percorso: "/enti", titolo: `Il tuo ente — ${BASE}`, descrizione: "Cerca il tuo ente fra gli enti pubblici aderenti alla PDND: tipo di ente, e-service pubblicati e servizi usati dagli enti dello stesso tipo." },
   { percorso: "/metodologia", titolo: `Metodologia — ${BASE}`, descrizione: "Fonti, scelte di rappresentazione e limiti della mappa PDND: dati aperti ufficiali, provenienza dichiarata per ogni legame." },
   { percorso: "/guida", titolo: `Guida — ${BASE}`, descrizione: "Come leggere e usare la mappa degli scambi di dati fra le Pubbliche Amministrazioni: comandi, colori, provenienze e parole chiave." },
 ];

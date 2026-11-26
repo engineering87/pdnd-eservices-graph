@@ -575,8 +575,8 @@ mescola cambiamenti della PDND e cambiamenti del modello, e l'app lo segnala.
 
 ### 7.4 ter Ricerca fra gli aderenti
 
-La scheda «Il tuo ente» cerca fra tutte le voci di `aderenti.csv`, non solo fra i
-nodi della mappa. La pipeline ne ricava un indice compatto
+La scheda «Il tuo ente» cerca fra le voci di `aderenti.csv` con codice IPA, non
+solo fra i nodi della mappa. La pipeline ne ricava un indice compatto
 (`src/data/aderenti-index.json`, circa 280 kB compressi, scaricato solo quando si
 apre la scheda) con, per ogni voce: nome, codice IPA, classe di enti assegnata con
 le stesse regole di `classi.json`, nodo della mappa se l'ente è rappresentato
@@ -587,6 +587,14 @@ ente: per un ente compreso in una classe la scheda mostra quindi i servizi usati
 dagli enti del suo tipo, e lo dichiara. L'elenco ufficiale comprende anche uffici
 e articolazioni interne registrati come aderenti a sé, per esempio i singoli
 uffici giudiziari.
+
+**Dati personali.** Nell'indice entrano solo gli aderenti con codice IPA, cioè
+amministrazioni e gestori di pubblici servizi. Imprese e altri soggetti privati
+(346 voci nell'elenco di novembre 2026) sono contati nelle classi ma non elencati
+uno per uno: fra loro ci sono ditte individuali e società di persone il cui nome è
+quello di persone fisiche. L'elenco ufficiale è pubblico, ma ripubblicarlo in una
+ricerca nominativa non serve allo scopo della mappa (minimizzazione dei dati,
+art. 5 del Regolamento UE 2016/679). L'indice non contiene codici fiscali.
 
 ### 7.4 quater Comunità e misure nel tempo
 

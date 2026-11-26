@@ -1,6 +1,6 @@
 # Report aggiornamento grafo PDND
 
-Data: 2026-11-26T22:54:03.526Z
+Data: 2026-11-26T23:49:04.821Z
 Modalità: WRITE
 
 ## Download catalogo
@@ -14,8 +14,8 @@ Modalità: WRITE
 ## Risultato
 - Nodi (enti): **63** (prima: 63)
 - E-service: **313** (prima: 313)
-- Nuovi e-service: **3**
-- E-service rimossi: **3**
+- Nuovi e-service: **0**
+- E-service rimossi: **0**
 - E-service senza fruitori: **44**
 
 ### Archi per provenienza
@@ -38,11 +38,6 @@ Modalità: WRITE
 - Altre PA locali (aggregati): 350 aderenti (conteggio per attributo certificato)
 
 ℹ️  Inferenza AI disattivata (--no-ai).
-
-### Nuovi e-service
-- Reg. Campania — RC027 - Consultazione rilevazioni idrogeologiche
-- Reg. FVG — Consultazione pratiche opere strutturali
-- Reg. FVG — SUAP FVG BO TO RI
 
 ### E-service senza archi (aggiungi override in connections-overrides.json)
 - analytics-services_SDG (7afa3f39-5c80-45b2-a314-5b3ecda1bfea)
@@ -88,6 +83,6 @@ Modalità: WRITE
 - … e altri 4
 
 ✅ Scritto: C:\Private Git\pdnd-eservices-graph\pipeline\pdnd-data.preview.json
-✅ Indice aderenti: 10363 enti in C:\Private Git\pdnd-eservices-graph\pipeline\aderenti-index.preview.json
+✅ Indice aderenti: 10017 enti in C:\Private Git\pdnd-eservices-graph\pipeline\aderenti-index.preview.json
 ℹ️  Il grafo live (src/data/pdnd-data.json) NON è stato modificato.
    Per promuovere l'anteprima a dato live, vedi pipeline/README.md.

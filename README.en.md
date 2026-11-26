@@ -116,7 +116,7 @@ High-centrality nodes are those whose unavailability would affect many other org
 - A page for every e-service ([example](https://www.pdndgraph.it/eservice/pagopa_cfc8a94d)): provider, consumers by provenance, enabled organisations and sessions, catalogue identifier, other services from the same provider
 
 **Your organisation** (the **Il tuo ente** tab)
-- Search by name or IPA code across all PDND members, more than 10,000 entries of the official list: municipalities, schools, health authorities, universities, companies
+- Search by name or IPA code across the public bodies that are PDND members, more than 10,000 entries of the official list: municipalities, schools, health authorities, universities, public service operators. Companies and other private members are counted in their classes but not listed individually
 - For each organisation: type, the e-services it publishes (linked to the e-service page when the e-service is in the map), the services used by organisations of the same type, and links to the map and the Relazioni tab
 - Shareable link to an organisation's page, for example [pdndgraph.it/enti?ente=c_e506](https://www.pdndgraph.it/enti?ente=c_e506)
 

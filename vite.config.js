@@ -1,5 +1,11 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import { readFileSync } from 'node:fs';
+
+// Le stesse intestazioni di sicurezza del sito pubblicato (Content Security
+// Policy compresa) valgono anche per `vite preview`: i test end-to-end girano
+// lì e falliscono se la policy blocca qualcosa.
+const INTESTAZIONI = JSON.parse(readFileSync('./staticwebapp.config.json', 'utf8')).globalHeaders;
 
 export default defineConfig({
   plugins: [react()],
@@ -17,6 +23,9 @@ export default defineConfig({
         },
       },
     },
+  },
+  preview: {
+    headers: INTESTAZIONI,
   },
   server: {
     port: 3000,

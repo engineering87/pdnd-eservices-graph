@@ -663,6 +663,33 @@ check("l'indice assegna ogni sottotipo alla classe giusta", () => {
   return ko.length === 0 || ko.slice(0, 3).map((r) => r[0]).join(", ");
 });
 
+console.log("\nSicurezza");
+
+const csv = await import(pathToFileURL(path.join(ROOT, "src/utils/csv.js")).href);
+
+check("i CSV neutralizzano le formule e lasciano i numeri", () => {
+  const casi = [["=HYPERLINK(\"x\")", "\"'=HYPERLINK(\"\"x\"\")\""], ["+1+1", "'+1+1"], ["@SUM(A1)", "'@SUM(A1)"], ["-5", "-5"], ["Comune di Lecce", "Comune di Lecce"], ["a,b", "\"a,b\""]];
+  const ko = casi.filter(([v, atteso]) => csv.campoCSV(v) !== atteso);
+  return ko.length === 0 || ko.map(([v]) => `${v} → ${csv.campoCSV(v)}`).join("; ");
+});
+
+const { createHash } = await import("crypto");
+
+check("la Content Security Policy autorizza esattamente gli script inline di index.html", () => {
+  const cfg = JSON.parse(fs.readFileSync(path.join(ROOT, "staticwebapp.config.json"), "utf8"));
+  const csp = cfg.globalHeaders?.["Content-Security-Policy"] || "";
+  const html = fs.readFileSync(path.join(ROOT, "index.html"), "utf8");
+  const impronte = [...html.matchAll(/<script>([\s\S]*?)<\/script>/g)].map((m) => `'sha256-${createHash("sha256").update(m[1]).digest("base64")}'`);
+  const mancanti = impronte.filter((h) => !csp.includes(h));
+  const regole = ["default-src 'self'", "object-src 'none'", "frame-ancestors 'none'", "base-uri 'self'"].filter((r) => !csp.includes(r));
+  return (mancanti.length === 0 && regole.length === 0) || `impronte mancanti: ${mancanti.join(" ")} — regole mancanti: ${regole.join(", ")}`;
+});
+
+check("l'indice degli aderenti elenca solo enti con codice IPA", () => {
+  const senza = INDICE.enti.filter((r) => !r[1]);
+  return (senza.length === 0 && INDICE.meta.esclusi_senza_ipa > 0) || `${senza.length} righe senza codice IPA`;
+});
+
 const totale = passed + failures.length;
 console.log(
   `\n${failures.length === 0 ? "Tutti i test superati" : "Test falliti"}: ${passed}/${totale}\n`
