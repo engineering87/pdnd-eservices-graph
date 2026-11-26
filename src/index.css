@@ -1,7 +1,7 @@
 /* Titillium Web e Roboto Mono sono i caratteri del design system pubblico
    italiano (.italia). Sono adottati qui per il registro tipografico, non per
-   suggerire alcuna affiliazione istituzionale: il progetto e' indipendente. */
-@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Roboto+Mono:wght@400;500;700&display=swap');
+   suggerire alcuna affiliazione istituzionale: il progetto e' indipendente.
+   Sono ospitati dal sito stesso: vedi gli import in src/main.jsx. */
 
 /* Temi. Tutti i colori dell'interfaccia passano da queste variabili: il tema
    scuro e' quello predefinito, il chiaro si attiva con data-theme="light"

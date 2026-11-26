@@ -11,6 +11,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
+// Caratteri ospitati dal sito stesso (pacchetti @fontsource, licenza OFL 1.1):
+// nessuna richiesta a servizi esterni, quindi l'indirizzo IP di chi visita non
+// viene trasmesso a terzi. Solo i pesi usati dall'interfaccia; il browser
+// scarica soltanto i sottoinsiemi di caratteri che servono (unicode-range).
+import '@fontsource/titillium-web/300.css';
+import '@fontsource/titillium-web/400.css';
+import '@fontsource/titillium-web/400-italic.css';
+import '@fontsource/titillium-web/600.css';
+import '@fontsource/titillium-web/700.css';
+import '@fontsource/roboto-mono/400.css';
+import '@fontsource/roboto-mono/500.css';
+import '@fontsource/roboto-mono/700.css';
 import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(

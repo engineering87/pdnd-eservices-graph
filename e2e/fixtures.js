@@ -26,6 +26,12 @@ export const test = base.extend({
     const errori = [];
     page.on("pageerror", (e) => errori.push(`pageerror: ${e.message}`));
     page.on("console", (m) => { if (m.type() === "error") errori.push(`console: ${m.text()}`); });
+    // Privacy: l'app non deve contattare altri siti (caratteri, statistiche,
+    // CDN). Ogni richiesta fuori dal sito fa fallire il test.
+    page.on("request", (r) => {
+      const u = new URL(r.url());
+      if (/^https?:$/.test(u.protocol) && u.hostname !== "localhost") errori.push(`richiesta esterna: ${u.origin}`);
+    });
 
     await use(page);
 

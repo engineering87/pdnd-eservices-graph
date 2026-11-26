@@ -451,6 +451,8 @@ pdnd-eservices-graph/
 
 **React 19** per l'interfaccia, **Vite 8** per la build, **Canvas 2D** per il rendering del grafo senza librerie esterne, **Azure Static Web Apps** per l'hosting e **GitHub Actions** per CI, analisi CodeQL e pipeline dati mensile.
 
+L'app non contatta altri siti: i caratteri (Titillium Web e Roboto Mono, licenza OFL) sono ospitati insieme al sito, non ci sono strumenti di statistica e una Content Security Policy consente solo risorse del sito stesso. I test end-to-end falliscono se una pagina prova a caricare qualcosa da fuori.
+
 ## Contribuire
 
 Le pull request sono benvenute, in particolare le correzioni alle relazioni erogatore→fruitore accompagnate dal riferimento alla fonte pubblica che le documenta.

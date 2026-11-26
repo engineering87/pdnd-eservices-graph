@@ -144,6 +144,16 @@ test.describe("Primo accesso, tema e accessibilità", () => {
     expect(h["x-content-type-options"]).toBe("nosniff");
   });
 
+  test("i caratteri arrivano dal sito stesso", async ({ page }) => {
+    const font = [];
+    page.on("response", (r) => { if (/\.woff2?$/.test(new URL(r.url()).pathname)) font.push(r.url()); });
+    await page.goto("/guida");
+    await page.evaluate(() => document.fonts.ready);
+    expect(await page.evaluate(() => document.fonts.check("600 16px 'Titillium Web'"))).toBe(true);
+    expect(font.length).toBeGreaterThan(0);
+    expect(font.every((u) => u.startsWith("http://localhost"))).toBe(true);
+  });
+
   test("il primo Tab porta al link «Vai al contenuto»", async ({ page }) => {
     await page.goto("/guida");
     await page.keyboard.press("Tab");
