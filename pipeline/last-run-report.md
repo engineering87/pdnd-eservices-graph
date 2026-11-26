@@ -1,6 +1,6 @@
 # Report aggiornamento grafo PDND
 
-Data: 2026-11-26T00:21:05.224Z
+Data: 2026-11-26T00:30:49.472Z
 Modalità: WRITE
 
 ## Download catalogo
@@ -8,11 +8,12 @@ Modalità: WRITE
 - Adozione: 366 e-service nelle classifiche di enti abilitati
 - Sessioni: 264 e-service nelle classifiche di sessioni di scambio
 - Aderenti: 10363 righe nell'elenco, 9826 enti nel totale ufficiale
+- Andamenti: 53 mesi di adesioni, 52 mesi di sessioni
 
 ## Risultato
 - Nodi (enti): **63** (prima: 63)
-- E-service: **313** (prima: 312)
-- Nuovi e-service: **1**
+- E-service: **313** (prima: 313)
+- Nuovi e-service: **0**
 - E-service rimossi: **0**
 - E-service senza fruitori: **44**
 
@@ -36,9 +37,6 @@ Modalità: WRITE
 - Altre PA locali (aggregati): 350 aderenti (conteggio per attributo certificato)
 
 ℹ️  Inferenza AI disattivata (--no-ai).
-
-### Nuovi e-service
-- INPS — Consultazione Indicatore Riscontro ISEE
 
 ### E-service senza archi (aggiungi override in connections-overrides.json)
 - analytics-services_SDG (7afa3f39-5c80-45b2-a314-5b3ecda1bfea)

@@ -474,6 +474,7 @@ distinti erogatore→fruitore, 1.476 relazioni, densità 0,1536.
 | `e_service_con_piu_enti_abilitati_from_the_beginning.csv` | Enti fruitori abilitati per e-service e per categoria di fruitore: selezione e archi osservati |
 | `eservice_con_piu_token_staccati_from_the_beginning.csv` | Sessioni di scambio per e-service e per categoria di fruitore, con id del catalogo: selezione e archi osservati |
 | `aderenti.csv`, `totale_enti.csv` | Dimensione delle classi di enti |
+| `andamento_delle_adesioni.csv`, `attivita_della_piattaforma_from_the_beginning.csv`, `totale_richieste_di_accesso.csv`, `connessioni_totali.csv`, `eservice_pubblicati.csv` | Andamento dell'intera piattaforma nella scheda Numeri: enti aderenti cumulati e sessioni di scambio per mese (scaglioni al 24 di ogni mese, dal 2022), totali con variazione dell'ultimo mese. Non dipendono dalla selezione della mappa |
 
 Le classifiche elencano i primi 10 e-service per ogni coppia di categorie
 erogatore × fruitore: i valori ricavati (`enti_abilitati_min`, `sessioni_min`,

@@ -12,6 +12,7 @@ import PDND_DATA from "../data/pdnd-data.json";
 import { FORMATI } from "../utils/exportGraph";
 import { CATEGORY_COLORS } from "../constants/colors";
 import NetworkAnalysis from "./NetworkAnalysis";
+import PlatformTrends from "./PlatformTrends";
 
 const ORIGINI = [
   ["documentata", "Documentata", "#06d6a0"],
@@ -97,6 +98,8 @@ export default function StatsView({ graphData, onOpenEservice }) {
 
   return (
     <div style={{ flex: 1, overflowY: "auto", padding: "24px 28px" }}>
+      <PlatformTrends />
+      <h2 style={{ fontSize: 15, fontWeight: 700, color: "var(--ink)", marginBottom: 12 }}>Il modello rappresentato nella mappa</h2>
       <div style={{ marginBottom: 20, padding: "12px 16px", borderRadius: 8, background: "rgba(255,209,102,.04)", border: "1px solid rgba(255,209,102,.14)", display: "flex", gap: 12 }}>
         <div style={{ fontSize: 18, color: "var(--cite)", flexShrink: 0, lineHeight: 1 }}>ⓘ</div>
         <div style={{ fontSize: 12, color: "var(--ink-muted)", lineHeight: 1.6 }}>

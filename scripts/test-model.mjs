@@ -457,6 +457,23 @@ check("reciprocità corretta su un grafo noto", () => {
   return net.reciprocity(adj) === 2 / 3 || String(net.reciprocity(adj));
 });
 
+console.log("\nAndamenti della piattaforma (meta.piattaforma)");
+
+check("le serie mensili sono ordinate, positive e coerenti con i totali", () => {
+  const p = DATA.meta.piattaforma;
+  if (!p) return "meta.piattaforma assente: rigenerare l'anteprima con la pipeline";
+  for (const [nome, s] of [["aderenti", p.aderenti.serie], ["sessioni", p.sessioni.serie]]) {
+    if (!s.length) return `serie ${nome} vuota`;
+    for (let i = 1; i < s.length; i++) if (s[i][0] <= s[i - 1][0]) return `serie ${nome} non ordinata a ${s[i][0]}`;
+    if (s.some(([, v]) => !(v >= 0))) return `valori non validi nella serie ${nome}`;
+  }
+  const a = p.aderenti.serie;
+  for (let i = 1; i < a.length; i++) if (a[i][1] < a[i - 1][1]) return `aderenti cumulati in calo a ${a[i][0]}`;
+  const somma = p.sessioni.serie.reduce((t, [, v]) => t + v, 0);
+  // Il totale ufficiale include anche i giorni dopo l'ultimo scaglione mensile.
+  return (somma <= p.sessioni.totale * 1.001 && somma > p.sessioni.totale * .9) || `somma mensile ${somma} vs totale ${p.sessioni.totale}`;
+});
+
 console.log("\nRotte (useUrlState.js)");
 
 const rotte = await import(pathToFileURL(path.join(ROOT, "src/utils/useUrlState.js")).href);

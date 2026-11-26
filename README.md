@@ -113,6 +113,7 @@ I nodi ad alta centralità sono quelli la cui indisponibilità avrebbe effetto s
 - Enti abilitati e sessioni di scambio degli e-service, dove i dati ufficiali li riportano
 
 **Numeri ed esportazione** (scheda Numeri)
+- Andamento della PDND dal 2022: enti aderenti e sessioni di scambio mese per mese, con i totali ufficiali e la variazione dell'ultimo mese
 - E-service più adottati e più usati, archi per provenienza, classi di enti
 - Analisi di rete: matrice erogatori × classi di enti raggiunte, enti ponte (centralità di intermediazione), reciprocità e distribuzione dei gradi
 - Esportazione in GraphML, GEXF e CSV direttamente dal browser

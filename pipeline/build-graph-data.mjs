@@ -45,6 +45,13 @@ const ADERENTI_URL =
   "https://raw.githubusercontent.com/italia/pdnd-opendata/main/data/aderenti.csv";
 const TOTALI_URL =
   "https://raw.githubusercontent.com/italia/pdnd-opendata/main/data/totale_enti.csv";
+// Andamenti della piattaforma: serie mensili e totali con variazione sul mese.
+const OPENDATA = "https://raw.githubusercontent.com/italia/pdnd-opendata/main/data";
+const ADESIONI_URL = `${OPENDATA}/andamento_delle_adesioni.csv`;            // enti aderenti, cumulati
+const ATTIVITA_URL = `${OPENDATA}/attivita_della_piattaforma_from_the_beginning.csv`; // sessioni al mese
+const RICHIESTE_URL = `${OPENDATA}/totale_richieste_di_accesso.csv`;       // sessioni totali
+const CONNESSIONI_URL = `${OPENDATA}/connessioni_totali.csv`;
+const PUBBLICATI_URL = `${OPENDATA}/eservice_pubblicati.csv`;
 // Le classifiche troncano il nome dell'e-service a 60 caratteri.
 const USAGE_NAME_LEN = 60;
 const usageKey = (producer, name) => `${producer.trim()}|${name.slice(0, USAGE_NAME_LEN).trim()}`;
@@ -193,15 +200,42 @@ async function main() {
     say(`- ⚠️ Classifiche di sessioni non disponibili (${e.message})`);
   }
   // Aderenti e totali ufficiali, per la dimensione dei nodi di classe.
-  let aderenti = [], totaliUfficiali = new Map();
+  let aderenti = [], totaliUfficiali = new Map(), totaleEnti = null;
   try {
     const res = await fetch(ADERENTI_URL);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     aderenti = csvToObjects(await res.text());
-    for (const r of await fetchCSV(TOTALI_URL)) if (r[0]) totaliUfficiali.set(r[0], Number(r[1]));
+    for (const r of await fetchCSV(TOTALI_URL)) {
+      if (!r[0]) continue;
+      totaliUfficiali.set(r[0], Number(r[1]));
+      if (r[0] === "Totale enti") totaleEnti = { totale: Number(r[1]), ultimo_mese: Number(r[2]), variazione: Number(r[3]) };
+    }
     say(`- Aderenti: ${aderenti.length} righe nell'elenco, ${totaliUfficiali.get("Totale enti") ?? "?"} enti nel totale ufficiale`);
   } catch (e) {
     say(`- ⚠️ Elenco aderenti non disponibile (${e.message})`);
+  }
+  // Andamenti della piattaforma. Facoltativi: se il download fallisce il grafo si
+  // genera comunque e l'app non mostra la sezione.
+  let piattaforma = null;
+  try {
+    const leggi = async (url) => {
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(`HTTP ${res.status} su ${url.split("/").pop()}`);
+      return csvToObjects(await res.text());
+    };
+    const serie = (righe) => righe.filter(r => r.date).map(r => [r.date, Number(r.count)]).filter(([, n]) => Number.isFinite(n));
+    const totale = (r, campo) => ({ totale: Number(r[campo]), ultimo_mese: Number(r.lastMonthCount), variazione: Number(r.variation) });
+    const [adesioni, attivita, [richieste], [connessioni], [pubblicati]] = await Promise.all(
+      [ADESIONI_URL, ATTIVITA_URL, RICHIESTE_URL, CONNESSIONI_URL, PUBBLICATI_URL].map(leggi));
+    piattaforma = {
+      aderenti: { serie: serie(adesioni), ...(totaleEnti || {}) },
+      sessioni: { serie: serie(attivita), ...totale(richieste, "totalCount") },
+      connessioni: totale(connessioni, "totalCount"),
+      eservice: totale(pubblicati, "count"),
+    };
+    say(`- Andamenti: ${piattaforma.aderenti.serie.length} mesi di adesioni, ${piattaforma.sessioni.serie.length} mesi di sessioni`);
+  } catch (e) {
+    say(`- ⚠️ Andamenti della piattaforma non disponibili (${e.message})`);
   }
   const adoptionOf = r => adoption.get(usageKey(r.producerName || "", r.name || "")) || 0;
   const sessionsOf = r => sessions.get(r.id) || 0;
@@ -505,7 +539,11 @@ async function main() {
       fonte_sessioni: "github.com/italia/pdnd-opendata — eservice_con_piu_token_staccati_from_the_beginning.csv (CC0 1.0). Il campo sessioni_min è il massimo di sessioni di scambio fra le classifiche in cui l'e-service compare. La selezione per ente usa il maggiore fra enti abilitati e sessioni, ciascuno rapportato al massimo dell'ente.",
       fonte_aderenti: "github.com/italia/pdnd-opendata — aderenti.csv e totale_enti.csv (CC0 1.0). I nodi di classe (aggregato=true) riportano gli aderenti: il totale ufficiale dove pubblicato, altrimenti il conteggio per attributo certificato (pipeline/classi.json).",
       note_connessioni: "Ogni arco porta un campo 'origine': 'documentata' (override da fonti ufficiali), 'osservata' (connessioni abilitate o sessioni di scambio realmente avvenute verso una classe di enti, dalle classifiche ufficiali; i campi connessioni e sessioni riportano i valori osservati, minimi garantiti), 'certificata' (campo attributes.certified del catalogo: classi di enti abilitate), 'ricostruita' (relazioni del grafo curato v1, ricostruite da documentazione pubblica con l'ausilio di modelli AI), 'inferita' (stima AI con confidenza, da rendere tratteggiata nel grafo). Il progetto si basa esclusivamente su informazioni già pubbliche; gli archi inferiti sono dichiarati come stime e non come fatti documentati.",
-      generato_da: "pipeline/build-graph-data.mjs"
+      generato_da: "pipeline/build-graph-data.mjs",
+      ...(piattaforma ? {
+        piattaforma,
+        fonte_piattaforma: "github.com/italia/pdnd-opendata — andamento_delle_adesioni, attivita_della_piattaforma_from_the_beginning, totale_richieste_di_accesso, connessioni_totali, eservice_pubblicati (CC0 1.0). Serie mensili a scaglioni che terminano il 24 di ogni mese: enti aderenti cumulati e sessioni di scambio nel mese. Riguardano l'intera piattaforma, non la selezione rappresentata nella mappa.",
+      } : {}),
     },
     enti,
     eservices

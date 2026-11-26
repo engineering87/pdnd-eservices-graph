@@ -13,13 +13,26 @@ import { useIsMobile } from "../utils/useIsMobile";
 // Il servizio con più sessioni di scambio registrate, calcolato dal dato.
 const PIU_USATO = [...PDND_DATA.eservices].sort((a, b) => (b.sessioni_min ?? 0) - (a.sessioni_min ?? 0))[0];
 
-// Numeri ufficiali pubblicati da PagoPA su interop.pagopa.it/numeri.
-const NUMERI = [
+// Numeri ufficiali PagoPA, scaricati dalla pipeline insieme al grafo
+// (meta.piattaforma), così non invecchiano a ogni aggiornamento.
+const P = PDND_DATA.meta?.piattaforma;
+const it = (n) => Math.round(n).toLocaleString("it-IT", { useGrouping: "always" });
+const NUMERI = P ? [
+  [it(P.aderenti.totale ?? P.aderenti.serie.at(-1)[1]), "enti aderenti"],
+  [it(P.eservice.totale), "e-service pubblicati"],
+  [it(P.connessioni.totale), "connessioni attive"],
+] : [
   ["9.826", "enti aderenti"],
   ["15.291", "e-service pubblicati"],
   ["55.504", "connessioni attive"],
 ];
-const DATA_NUMERI = "24 novembre 2026";
+const MESI = ["gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio", "agosto", "settembre", "ottobre", "novembre", "dicembre"];
+const DATA_NUMERI = (() => {
+  const iso = P?.aderenti?.serie?.at(-1)?.[0];
+  if (!iso) return "24 novembre 2026";
+  const [a, m, g] = iso.split("-");
+  return `${+g} ${MESI[+m - 1]} ${a}`;
+})();
 
 const DOMANDE = [
   { testo: "Quali servizi usano i Comuni?", url: "/esplora?fruitore=comuni_agg", nota: "Relazioni" },
