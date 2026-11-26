@@ -65,9 +65,20 @@ const VISTE_ARCHI = [
 ];
 
 
+// Risoluzione del canvas. Tutto il disegno lavora in unità logiche pari al
+// doppio dei pixel CSS (le misure di nodi, etichette e pannello sono pensate
+// così); il buffer del canvas invece ha i pixel reali dello schermo, al massimo
+// il doppio. Su uno schermo a densità 1 il canvas ha un quarto dei pixel di
+// prima, con la stessa resa.
+// Si legge a ogni ridimensionamento: cambia con lo zoom del browser o
+// spostando la finestra su un altro schermo.
+const risoluzione = () => (typeof window === "undefined" ? 2 : Math.min(2, Math.max(1, window.devicePixelRatio || 1)));
+const logico = (cv) => ({ width: cv.clientWidth * 2, height: cv.clientHeight * 2 });
+
 // Trasformazione che porta un nodo al centro della zona libera: il pannello
 // dettagli copre 330 px a destra su desktop e la parte bassa su smartphone.
-function bersaglioCentrato(cv, kAttuale, nd) {
+function bersaglioCentrato(canvas, kAttuale, nd) {
+  const cv = logico(canvas);
   const k = Math.max(kAttuale, 1.1);
   const mobile = window.innerWidth < 768;
   const cx = mobile ? cv.width / 2 : (cv.width - 660) / 2;
@@ -82,8 +93,9 @@ const NOMI_ENTI = PDND_DATA.enti.map((e) => e.name).sort((a, b) => a.localeCompa
 const MOTO_RIDOTTO = typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
 
 // Trasformazione che fa entrare tutti i nodi nel canvas, con un margine per
-// le etichette. Il canvas lavora a doppia risoluzione (width = 2 × CSS px).
-function calcolaInquadratura(nodes, cv) {
+// le etichette, in unità logiche (2 × px CSS).
+function calcolaInquadratura(nodes, canvas) {
+  const cv = logico(canvas);
   const pronti = nodes.filter(n => Number.isFinite(n.x));
   if (!pronti.length || !cv.width) return null;
   let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
@@ -91,6 +103,59 @@ function calcolaInquadratura(nodes, cv) {
   const margine = 60;
   const k = Math.max(.15, Math.min(2.5, Math.min((cv.width - margine * 2) / (x1 - x0 || 1), (cv.height - margine * 2) / (y1 - y0 || 1))));
   return { k, x: cv.width / 2 - ((x0 + x1) / 2) * k, y: cv.height / 2 - ((y0 + y1) / 2) * k };
+}
+
+// Sfumature dei nodi (alone e corpo) disegnate una volta su un piccolo canvas
+// e poi copiate: creare due gradienti radiali per nodo a ogni fotogramma era
+// la parte più costosa del disegno. Contorno e riflesso restano vettoriali,
+// così restano nitidi anche con lo zoom.
+const SPRITE = new Map();
+const SPRITE_SCALA = 2;
+function spriteNodo(col, r) {
+  const chiave = `${col}|${r.toFixed(1)}`;
+  let c = SPRITE.get(chiave);
+  if (c) return c;
+  const lato = Math.ceil(4 * r * SPRITE_SCALA);
+  c = document.createElement("canvas");
+  c.width = c.height = lato;
+  const g = c.getContext("2d");
+  g.scale(SPRITE_SCALA, SPRITE_SCALA);
+  const o = 2 * r;
+  const alone = g.createRadialGradient(o, o, r, o, o, r * 2);
+  alone.addColorStop(0, col + "12"); alone.addColorStop(1, col + "00");
+  g.beginPath(); g.arc(o, o, r * 2, 0, Math.PI * 2); g.fillStyle = alone; g.fill();
+  const corpo = g.createRadialGradient(o - r * .35, o - r * .35, 0, o, o, r);
+  corpo.addColorStop(0, lgt(col, 60)); corpo.addColorStop(.7, col); corpo.addColorStop(1, lgt(col, -20));
+  g.beginPath(); g.arc(o, o, r, 0, Math.PI * 2); g.fillStyle = corpo; g.fill();
+  SPRITE.set(chiave, c);
+  return c;
+}
+
+// Larghezza delle etichette misurata una volta a 100 px e poi scalata: la
+// larghezza del testo è proporzionale alla dimensione del carattere.
+const LARGHEZZE = new Map();
+function larghezzaEtichetta(ctx, testo, fs) {
+  let w = LARGHEZZE.get(testo);
+  if (w == null) {
+    const prima = ctx.font;
+    ctx.font = "600 100px 'Titillium Web',-apple-system,sans-serif";
+    w = ctx.measureText(testo).width;
+    ctx.font = prima;
+    LARGHEZZE.set(testo, w);
+  }
+  return (w * fs) / 100;
+}
+
+// Un solo tratto per coppia di enti e provenienza: gli archi di più e-service
+// fra gli stessi due enti cadono sulla stessa curva, e lo spessore porta già il
+// loro numero. Prima ogni e-service era un tratto a sé, uno sopra l'altro.
+function archiDaDisegnare(links) {
+  const visti = new Map();
+  for (const l of links) {
+    const k = `${l.source.id}>${l.target.id}>${l.origine}`;
+    if (!visti.has(k)) visti.set(k, l);
+  }
+  return [...visti.values()];
 }
 
 // Classi aperte nei loro tipi di ente (src/utils/expandClasses.js). Anche
@@ -152,6 +217,13 @@ export default function GraphView({ entityId = null, onEntityChange, onOpenEserv
   const panRef = useRef(null);
   const afRef = useRef(null);
   const lcRef = useRef({});
+  const disegnoRef = useRef([]);
+  // Disegno su richiesta: il ciclo di fotogrammi gira solo mentre qualcosa si
+  // muove (simulazione, animazione dell'inquadratura, trascinamento) e si
+  // ferma a mappa immobile. ridisegna() lo riavvia.
+  const drawRef = useRef(null);
+  const ridisegnaRef = useRef(() => {});
+  const ridisegna = () => ridisegnaRef.current();
   const [aperte, setAperte] = useState(leggiAperte);
   const [vistaIniziale] = useState(() => costruisciVista(aperte));
   const graph = useRef(vistaIniziale);
@@ -192,6 +264,7 @@ export default function GraphView({ entityId = null, onEntityChange, onOpenEserv
       const cv = canvasRef.current;
       if (!cv || nd.x == null) return;
       tTargetRef.current = bersaglioCentrato(cv, tRef.current.k, nd);
+      ridisegnaRef.current();
     };
     const id = setTimeout(centra, 250);
     return () => clearTimeout(id);
@@ -222,7 +295,7 @@ export default function GraphView({ entityId = null, onEntityChange, onOpenEserv
       if (!nd) return;
       selectNode(nd);
       const cv = canvasRef.current;
-      if (cv && nd.x != null) tTargetRef.current = bersaglioCentrato(cv, tRef.current.k, nd);
+      if (cv && nd.x != null) { tTargetRef.current = bersaglioCentrato(cv, tRef.current.k, nd); ridisegna(); }
     } else if (e.key === "Escape") {
       if (search) setSearch(""); else selectNode(null);
     }
@@ -294,6 +367,7 @@ export default function GraphView({ entityId = null, onEntityChange, onOpenEserv
     nodesRef.current.splice(0, nodesRef.current.length, ...nodi);
     linksRef.current.splice(0, linksRef.current.length, ...vista.links.map((l) => ({ ...l, source: perId.get(l.source), target: perId.get(l.target) })));
     lcRef.current = vista.linkCounts;
+    disegnoRef.current = archiDaDisegnare(linksRef.current);
     graph.current = { ...vista, nodes: nodi };
     const sim = simRef.current;
     if (sim) {
@@ -301,6 +375,7 @@ export default function GraphView({ entityId = null, onEntityChange, onOpenEserv
       if (MOTO_RIDOTTO) { for (let k = 0; k < 200; k++) sim.tick(); sim.alpha.current = 0; }
     }
     setAperte(next);
+    ridisegna();
     // Un tipo di ente selezionato sparisce quando si richiude la sua classe.
     if (selNode && !perId.has(selNode.id)) selectNode(perId.get(selNode.sottotipo_di) || null);
   };
@@ -324,7 +399,9 @@ export default function GraphView({ entityId = null, onEntityChange, onOpenEserv
       n.x = p.x + Math.cos((i / tot) * Math.PI * 2) * 90; n.y = p.y + Math.sin((i / tot) * Math.PI * 2) * 90;
     });
     nodesRef.current = nodes;
-    linksRef.current = links.map(l => ({ ...l, source: nodes.find(n => n.id === l.source) || l.source, target: nodes.find(n => n.id === l.target) || l.target }));
+    const perId = new Map(nodes.map(n => [n.id, n]));
+    linksRef.current = links.map(l => ({ ...l, source: perId.get(l.source) || l.source, target: perId.get(l.target) || l.target }));
+    disegnoRef.current = archiDaDisegnare(linksRef.current);
     const k = tRef.current.k;
     tRef.current.x = (dim.w * 2) / 2 - cx * k;
     tRef.current.y = (dim.h * 2) / 2 - cy * k;
@@ -333,7 +410,7 @@ export default function GraphView({ entityId = null, onEntityChange, onOpenEserv
     if (MOTO_RIDOTTO) simRef.current.alpha.current = 0;
     // Il ciclo di disegno parte dall'effetto su `draw` più sotto, eseguito
     // nello stesso commit subito dopo questo.
-    return () => { simRef.current.stop(); cancelAnimationFrame(afRef.current); };
+    return () => { simRef.current.stop(); cancelAnimationFrame(afRef.current); afRef.current = null; };
     // Inizializzazione una tantum al montaggio: le dimensioni successive non
     // devono riposizionare i nodi né riavviare la simulazione.
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -346,7 +423,11 @@ export default function GraphView({ entityId = null, onEntityChange, onOpenEserv
     const ctx = cv.getContext("2d"), t = tRef.current;
     if (simRef.current && !simRef.current.stopped) simRef.current.tick();
     const parent = cv.parentElement;
-    if (fitPendingRef.current && parent && cv.width === parent.clientWidth * 2 && parent.clientWidth > 0) {
+    // Da qui in poi si disegna in unità logiche (2 × px CSS).
+    const R = cv.clientWidth ? cv.width / cv.clientWidth : 2;
+    ctx.setTransform(R / 2, 0, 0, R / 2, 0, 0);
+    const W = cv.width * 2 / R, H = cv.height * 2 / R;
+    if (fitPendingRef.current && parent && cv.width === Math.round(parent.clientWidth * risoluzione()) && parent.clientWidth > 0) {
       const fit = calcolaInquadratura(nodesRef.current, cv);
       if (fit) Object.assign(t, fit);
       fitPendingRef.current = false;
@@ -357,14 +438,14 @@ export default function GraphView({ entityId = null, onEntityChange, onOpenEserv
       t.x += (g.x - t.x) * .2; t.y += (g.y - t.y) * .2; t.k += (g.k - t.k) * .2;
       if (Math.abs(g.k - t.k) < .002 && Math.abs(g.x - t.x) < 1 && Math.abs(g.y - t.y) < 1) { Object.assign(t, g); tTargetRef.current = null; }
     }
-    ctx.clearRect(0, 0, cv.width, cv.height);
+    ctx.clearRect(0, 0, W, H);
 
-    const bgGrad = ctx.createRadialGradient(cv.width / 2, cv.height / 2, 0, cv.width / 2, cv.height / 2, cv.width * .6);
+    const bgGrad = ctx.createRadialGradient(W / 2, H / 2, 0, W / 2, H / 2, W * .6);
     bgGrad.addColorStop(0, P.sfondo[0]); bgGrad.addColorStop(1, P.sfondo[1]);
-    ctx.fillStyle = bgGrad; ctx.fillRect(0, 0, cv.width, cv.height);
+    ctx.fillStyle = bgGrad; ctx.fillRect(0, 0, W, H);
 
     ctx.save(); ctx.translate(t.x, t.y); ctx.scale(t.k, t.k);
-    const nodes = nodesRef.current, links = linksRef.current;
+    const nodes = nodesRef.current, links = disegnoRef.current;
     const isFilt = filterCat !== "Tutte" || search || filtroArchi;
     const vis = new Set();
     nodes.forEach(n => { if ((filterCat === "Tutte" || n.categoria === filterCat) && (!search || n.name.toLowerCase().includes(search.toLowerCase())) && (!filtroArchi || visibili.nodi.has(n.id))) vis.add(n.id); });
@@ -428,14 +509,9 @@ export default function GraphView({ entityId = null, onEntityChange, onOpenEserv
         ctx.beginPath(); ctx.arc(n.x, n.y, r * 4, 0, Math.PI * 2); ctx.fillStyle = g; ctx.fill();
       }
 
-      const ambGlow = ctx.createRadialGradient(n.x, n.y, r, n.x, n.y, r * 2);
-      ambGlow.addColorStop(0, col + "12"); ambGlow.addColorStop(1, col + "00");
-      ctx.beginPath(); ctx.arc(n.x, n.y, r * 2, 0, Math.PI * 2); ctx.fillStyle = ambGlow; ctx.fill();
+      ctx.drawImage(spriteNodo(col, r), n.x - 2 * r, n.y - 2 * r, 4 * r, 4 * r);
 
       ctx.beginPath(); ctx.arc(n.x, n.y, r, 0, Math.PI * 2);
-      const g2 = ctx.createRadialGradient(n.x - r * .35, n.y - r * .35, 0, n.x, n.y, r);
-      g2.addColorStop(0, lgt(col, 60)); g2.addColorStop(.7, col); g2.addColorStop(1, lgt(col, -20));
-      ctx.fillStyle = g2; ctx.fill();
 
       ctx.strokeStyle = isSel ? P.bordoSel : isHov ? P.bordoHov : col + "40";
       ctx.lineWidth = isSel ? 2.5 : isHov ? 2 : 1; ctx.stroke();
@@ -472,7 +548,7 @@ export default function GraphView({ entityId = null, onEntityChange, onOpenEserv
       .filter(n => n.x && (!isFilt || vis.has(n.id)))
       .sort((a, b) => priorita(b) - priorita(a))
       .forEach(n => {
-        const r = gR(n), w = ctx.measureText(n.name).width + padW * 2, h = fsW + padW;
+        const r = gR(n), w = larghezzaEtichetta(ctx, n.name, fsW) + padW * 2, h = fsW + padW;
         const x = n.x - w / 2, y = n.y + r + 4 / t.k;
         // Solo il nodo selezionato e quello sotto il puntatore hanno sempre
         // l'etichetta; vicini e risultati della ricerca hanno la precedenza ma
@@ -487,20 +563,27 @@ export default function GraphView({ entityId = null, onEntityChange, onOpenEserv
         ctx.fillText(n.name, n.x, y + h / 2 + 1 / t.k);
       });
     ctx.restore();
-    // Il fotogramma successivo richiama questa stessa istanza di `draw`; quando
-    // le dipendenze cambiano, l'effetto più sotto annulla il ciclo e lo riavvia
-    // con la nuova istanza, quindi il riferimento non resta mai indietro.
-    // eslint-disable-next-line react-hooks/immutability
-    afRef.current = requestAnimationFrame(draw);
+    // Serve un altro fotogramma? Sì finché la simulazione o l'inquadratura si
+    // muovono o l'utente trascina; altrimenti il ciclo si ferma.
+    const sim = simRef.current;
+    let moto = 0;
+    if (sim && !sim.stopped) for (const n of nodes) moto = Math.max(moto, Math.abs(n.vx || 0) + Math.abs(n.vy || 0));
+    return Boolean((sim && !sim.stopped && (sim.alpha.current > 0 || moto > .05)) || tTargetRef.current || dragRef.current || panRef.current || fitPendingRef.current);
   }, [selNode, hovNode, filterCat, search, origini, filtroArchi, visibili, P]);
 
-  useEffect(() => { cancelAnimationFrame(afRef.current); draw(); }, [draw]);
+  // Ciclo di fotogrammi: chiama l'ultima versione di draw finché serve.
+  useEffect(() => {
+    const fotogramma = () => { afRef.current = null; if (drawRef.current?.()) afRef.current = requestAnimationFrame(fotogramma); };
+    ridisegnaRef.current = () => { if (afRef.current == null) afRef.current = requestAnimationFrame(fotogramma); };
+    return () => { cancelAnimationFrame(afRef.current); afRef.current = null; };
+  }, []);
+  useEffect(() => { drawRef.current = draw; ridisegnaRef.current(); }, [draw]);
 
   // ── Mouse interaction ───────────────────────────────────────
 
   function s2w(sx, sy) { const t = tRef.current; return { x: (sx - t.x) / t.k, y: (sy - t.y) / t.k }; }
   function findN(wx, wy) { for (let i = nodesRef.current.length - 1; i >= 0; i--) { const n = nodesRef.current[i], r = gR(n) + 4; if ((n.x - wx) ** 2 + (n.y - wy) ** 2 < r ** 2) return n; } return null; }
-  const getXY = (e) => { const rc = canvasRef.current.getBoundingClientRect(); return { sx: (e.clientX - rc.left) * (canvasRef.current.width / rc.width), sy: (e.clientY - rc.top) * (canvasRef.current.height / rc.height) }; };
+  const getXY = (e) => { const rc = canvasRef.current.getBoundingClientRect(); return { sx: (e.clientX - rc.left) * 2, sy: (e.clientY - rc.top) * 2 }; };
 
   const onMD = e => { const { sx, sy } = getXY(e); const { x: wx, y: wy } = s2w(sx, sy), nd = findN(wx, wy); if (nd) { dragRef.current = { node: nd, ox: wx - nd.x, oy: wy - nd.y }; nd.fx = nd.x; nd.fy = nd.y; selectNode(nd); simRef.current?.reheat(); } else { panRef.current = { sx: e.clientX, sy: e.clientY, tx: tRef.current.x, ty: tRef.current.y }; selectNode(null); } };
   const onMM = e => { const { sx, sy } = getXY(e); const { x: wx, y: wy } = s2w(sx, sy); if (dragRef.current) { dragRef.current.node.fx = wx - dragRef.current.ox; dragRef.current.node.fy = wy - dragRef.current.oy; simRef.current?.reheat(); } else if (panRef.current) { tRef.current.x = panRef.current.tx + e.clientX - panRef.current.sx; tRef.current.y = panRef.current.ty + e.clientY - panRef.current.sy; } else { const nd = findN(wx, wy); setHovNode(nd); canvasRef.current.style.cursor = nd ? "pointer" : "grab"; } };
@@ -509,7 +592,7 @@ export default function GraphView({ entityId = null, onEntityChange, onOpenEserv
 
   // ── Touch interaction ───────────────────────────────────────
 
-  const getTouchXY = (touch) => { const rc = canvasRef.current.getBoundingClientRect(); return { sx: (touch.clientX - rc.left) * (canvasRef.current.width / rc.width), sy: (touch.clientY - rc.top) * (canvasRef.current.height / rc.height) }; };
+  const getTouchXY = (touch) => { const rc = canvasRef.current.getBoundingClientRect(); return { sx: (touch.clientX - rc.left) * 2, sy: (touch.clientY - rc.top) * 2 }; };
 
   const onTS = e => {
     e.preventDefault();
@@ -545,8 +628,8 @@ export default function GraphView({ entityId = null, onEntityChange, onOpenEserv
       const scale = dist / lastTouchDist.current;
       const t = tRef.current;
       const rc = canvasRef.current.getBoundingClientRect();
-      const mx = ((e.touches[0].clientX + e.touches[1].clientX) / 2 - rc.left) * (canvasRef.current.width / rc.width);
-      const my = ((e.touches[0].clientY + e.touches[1].clientY) / 2 - rc.top) * (canvasRef.current.height / rc.height);
+      const mx = ((e.touches[0].clientX + e.touches[1].clientX) / 2 - rc.left) * 2;
+      const my = ((e.touches[0].clientY + e.touches[1].clientY) / 2 - rc.top) * 2;
       const nk = Math.max(.15, Math.min(5, t.k * scale));
       t.x = mx - (mx - t.x) * (nk / t.k);
       t.y = my - (my - t.y) * (nk / t.k);
@@ -572,6 +655,11 @@ export default function GraphView({ entityId = null, onEntityChange, onOpenEserv
   useEffect(() => {
     const cv = canvasRef.current;
     if (!cv) return;
+    // Qualunque interazione riavvia il ciclo di disegno, se era fermo.
+    const sveglia = () => ridisegnaRef.current();
+    const risveglio = ["pointerdown", "pointermove", "pointerup", "wheel", "touchstart", "touchmove"];
+    risveglio.forEach((tipo) => cv.addEventListener(tipo, sveglia, { passive: true }));
+    window.addEventListener("pointerup", sveglia);
     const eventi = [
       ["wheel", (e) => gestoriRef.current.onWh(e)],
       ["touchstart", (e) => gestoriRef.current.onTS(e)],
@@ -580,13 +668,17 @@ export default function GraphView({ entityId = null, onEntityChange, onOpenEserv
       ["touchcancel", (e) => gestoriRef.current.onTE(e)],
     ];
     eventi.forEach(([tipo, fn]) => cv.addEventListener(tipo, fn, { passive: false }));
-    return () => eventi.forEach(([tipo, fn]) => cv.removeEventListener(tipo, fn));
+    return () => {
+      eventi.forEach(([tipo, fn]) => cv.removeEventListener(tipo, fn));
+      risveglio.forEach((tipo) => cv.removeEventListener(tipo, sveglia));
+      window.removeEventListener("pointerup", sveglia);
+    };
   }, []);
 
   // ── Resize ──────────────────────────────────────────────────
 
   useEffect(() => {
-    const rs = () => { const c = canvasRef.current?.parentElement; if (!c) return; setDim({ w: c.clientWidth, h: c.clientHeight }); if (canvasRef.current) { canvasRef.current.width = c.clientWidth * 2; canvasRef.current.height = c.clientHeight * 2; } };
+    const rs = () => { const c = canvasRef.current?.parentElement; if (!c) return; setDim({ w: c.clientWidth, h: c.clientHeight }); if (canvasRef.current) { const r = risoluzione(); canvasRef.current.width = Math.round(c.clientWidth * r); canvasRef.current.height = Math.round(c.clientHeight * r); } ridisegnaRef.current(); };
     rs(); window.addEventListener("resize", rs); return () => window.removeEventListener("resize", rs);
   }, []);
 
@@ -610,7 +702,7 @@ export default function GraphView({ entityId = null, onEntityChange, onOpenEserv
         </select>
         <button
           type="button"
-          onClick={() => { const cv = canvasRef.current; const fit = cv && calcolaInquadratura(nodesRef.current, cv); if (fit) tTargetRef.current = fit; }}
+          onClick={() => { const cv = canvasRef.current; const fit = cv && calcolaInquadratura(nodesRef.current, cv); if (fit) { tTargetRef.current = fit; ridisegna(); } }}
           title="Adatta la mappa allo schermo"
           style={{ background: "var(--input)", border: "1px solid var(--border)", borderRadius: 6, padding: "5px 10px", color: "var(--ink)", fontSize: m ? 11 : 12, cursor: "pointer", fontFamily: "inherit" }}
         >
@@ -629,7 +721,7 @@ export default function GraphView({ entityId = null, onEntityChange, onOpenEserv
           alto quanto il canvas iniziale, sforando il viewport e spingendo fuori
           schermo il bordo inferiore del grafo e le legende. */}
       <div style={{ flex: 1, minHeight: 0, position: "relative" }}>
-        <canvas ref={canvasRef} width={dim.w * 2} height={dim.h * 2}
+        <canvas ref={canvasRef}
           role="img"
           aria-label="Mappa degli scambi di dati fra Pubbliche Amministrazioni sulla PDND. Per aprire un ente da tastiera usa la ricerca e premi Invio; lo stesso contenuto è disponibile in forma testuale nelle schede Relazioni e Numeri."
           style={{ width: "100%", height: "100%", cursor: "grab", touchAction: "none" }}
