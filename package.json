@@ -1,6 +1,6 @@
 {
   "name": "pdnd-eservices-graph",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Visualizzazione interattiva del grafo degli e-services sulla Piattaforma Digitale Nazionale Dati (PDND)",
   "private": true,
   "type": "module",

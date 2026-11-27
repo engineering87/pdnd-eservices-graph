@@ -96,7 +96,7 @@ export default function AboutModal({ onClose, onWelcome }) {
             <a href="https://github.com/engineering87/pdnd-eservices-graph" target="_blank" rel="noopener" style={linkStile}>Codice sorgente</a>
           </div>
           <div style={{ fontSize: 11.5, color: "var(--ink-faint)", marginTop: 10 }}>
-            Versione 2.0.0 · Software libero, licenza AGPL-3.0 con obbligo di attribuzione
+            Versione 2.1.0 · Software libero, licenza AGPL-3.0 con obbligo di attribuzione
           </div>
         </Section>
       </div>

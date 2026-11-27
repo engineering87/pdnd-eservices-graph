@@ -28,8 +28,8 @@ keywords:
   - public sector interoperability
   - Italy
 license: AGPL-3.0-or-later
-version: 2.0.0
-date-released: '2026-11-25'
+version: 2.1.0
+date-released: '2026-11-27'
 preferred-citation:
   type: report
   title: >-

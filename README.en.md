@@ -15,7 +15,7 @@ as an interactive graph, built on official open data with the provenance of ever
 [![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.19989954-blue?style=for-the-badge)](https://doi.org/10.5281/zenodo.19989954)
 
 [![License: AGPL-3.0](https://img.shields.io/badge/License-AGPL--3.0-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
-![Version](https://img.shields.io/badge/version-2.0.0-informational)
+![Version](https://img.shields.io/badge/version-2.1.0-informational)
 ![Snapshot](https://img.shields.io/badge/snapshot-26%20November%202026-orange)
 [![Issues](https://img.shields.io/github/issues/engineering87/pdnd-eservices-graph)](https://github.com/engineering87/pdnd-eservices-graph/issues)
 ![Last commit](https://img.shields.io/github/last-commit/engineering87/pdnd-eservices-graph)
