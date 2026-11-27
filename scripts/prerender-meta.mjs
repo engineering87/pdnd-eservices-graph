@@ -64,6 +64,7 @@ const pagine = [
   { percorso: "/statistiche", titolo: `Numeri — ${BASE}`, descrizione: "I servizi PDND più adottati e più usati, le classi di enti e l'analisi della rete: chi raggiunge chi, gli enti ponte, la struttura dei legami." },
   { percorso: "/enti", titolo: `Il tuo ente — ${BASE}`, descrizione: "Cerca il tuo ente fra gli enti pubblici aderenti alla PDND: tipo di ente, e-service pubblicati e servizi usati dagli enti dello stesso tipo." },
   { percorso: "/metodologia", titolo: `Metodologia — ${BASE}`, descrizione: "Fonti, scelte di rappresentazione e limiti della mappa PDND: dati aperti ufficiali, provenienza dichiarata per ogni legame." },
+  { percorso: "/privacy", titolo: `Privacy — ${BASE}`, descrizione: "Nessun cookie, nessuna statistica, nessuna richiesta a siti esterni: come il sito tratta i dati di chi lo visita e quali dati pubblica." },
   { percorso: "/guida", titolo: `Guida — ${BASE}`, descrizione: "Come leggere e usare la mappa degli scambi di dati fra le Pubbliche Amministrazioni: comandi, colori, provenienze e parole chiave." },
 ];
 

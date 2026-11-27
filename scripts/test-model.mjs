@@ -566,7 +566,7 @@ console.log("\nRotte (useUrlState.js)");
 const rotte = await import(pathToFileURL(path.join(ROOT, "src/utils/useUrlState.js")).href);
 
 check("le rotte si leggono e si riscrivono senza perdite", () => {
-  const casi = ["/", "/esplora", "/enti", "/statistiche", "/ente/inps", `/eservice/${DATA.eservices[0].id}`];
+  const casi = ["/", "/esplora", "/enti", "/statistiche", "/privacy", "/ente/inps", `/eservice/${DATA.eservices[0].id}`];
   for (const p of casi) {
     const back = rotte.buildPath(rotte.parseLocation(p));
     if (back !== p) return `${p} → ${back}`;

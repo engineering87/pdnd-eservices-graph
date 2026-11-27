@@ -10,7 +10,7 @@
 
 import { useIsMobile } from "../utils/useIsMobile";
 
-export default function Footer() {
+export default function Footer({ onPrivacy }) {
   const m = useIsMobile();
 
   return (
@@ -25,6 +25,8 @@ export default function Footer() {
         <a href="https://doi.org/10.5281/zenodo.19989954" target="_blank" rel="noopener" style={{ color: "var(--cite)", textDecoration: "none", fontWeight: 600 }} title="The PDND E-Service Network — Zenodo, 2026">Paper</a>
         <span style={{ opacity: .3 }}>|</span>
         <span>AGPL-3.0</span>
+        <span style={{ opacity: .3 }}>|</span>
+        <a href="/privacy" onClick={(e) => { if (onPrivacy) { e.preventDefault(); onPrivacy(); } }} style={{ color: "var(--pa-blue)", textDecoration: "none" }}>Privacy</a>
       </div>
       <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: m ? 9 : 10, color: "var(--ink-faint)" }}>
         <span>Dati:</span>

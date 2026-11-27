@@ -142,6 +142,8 @@ test.describe("Primo accesso, tema e accessibilità", () => {
     const h = risposta.headers();
     expect(h["content-security-policy"]).toContain("frame-ancestors 'none'");
     expect(h["x-content-type-options"]).toBe("nosniff");
+    expect(h["referrer-policy"]).toBe("same-origin");
+    expect(h["permissions-policy"]).toContain("browsing-topics=()");
   });
 
   test("i caratteri arrivano dal sito stesso", async ({ page }) => {
@@ -152,6 +154,15 @@ test.describe("Primo accesso, tema e accessibilità", () => {
     expect(await page.evaluate(() => document.fonts.check("600 16px 'Titillium Web'"))).toBe(true);
     expect(font.length).toBeGreaterThan(0);
     expect(font.every((u) => u.startsWith("http://localhost"))).toBe(true);
+  });
+
+  test("la pagina Privacy si apre dal piè di pagina", async ({ page }) => {
+    await page.goto("/guida");
+    await page.getByRole("contentinfo").getByRole("link", { name: "Privacy" }).click();
+    await expect(page).toHaveURL(/\/privacy$/);
+    await expect(page.getByRole("heading", { name: "Come il sito tratta i tuoi dati" })).toBeVisible();
+    // Quello che la pagina dichiara deve restare vero: nessun cookie.
+    expect(await page.context().cookies()).toEqual([]);
   });
 
   test("il primo Tab porta al link «Vai al contenuto»", async ({ page }) => {

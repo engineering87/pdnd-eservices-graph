@@ -10,6 +10,7 @@ import { useState, useEffect, useCallback } from "react";
  *   /statistiche       scheda Statistiche
  *   /metodologia       scheda Metodologia
  *   /guida             scheda Guida
+ *   /privacy           come il sito tratta i dati (link nel piè di pagina)
  *   /ente/inps         grafo con l'ente selezionato
  *   /eservice/<id>     scheda di un e-service
  *
@@ -18,7 +19,7 @@ import { useState, useEffect, useCallback } from "react";
  * a /ente/inps restituirebbe 404.
  */
 
-const TABS = ["grafo", "esplora", "enti", "statistiche", "metodologia", "guida"];
+const TABS = ["grafo", "esplora", "enti", "statistiche", "metodologia", "guida", "privacy"];
 
 const VUOTO = { tab: "grafo", entityId: null, eserviceId: null };
 

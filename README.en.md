@@ -451,7 +451,7 @@ pdnd-eservices-graph/
 
 **React 19** for the interface, **Vite 8** for the build, **Canvas 2D** for rendering the graph without external libraries, **Azure Static Web Apps** for hosting and **GitHub Actions** for CI, CodeQL analysis and the monthly data pipeline.
 
-The app contacts no other sites: the fonts (Titillium Web and Roboto Mono, OFL licence) are hosted with the site, there are no analytics, and a Content Security Policy allows only the site's own resources. The end-to-end tests fail if a page tries to load anything from elsewhere.
+The app contacts no other sites: the fonts (Titillium Web and Roboto Mono, OFL licence) are hosted with the site, there are no analytics, and a Content Security Policy allows only the site's own resources. The end-to-end tests fail if a page tries to load anything from elsewhere or if a cookie appears. Visitors find the details on the [Privacy](https://www.pdndgraph.it/privacy) page (in Italian), linked from the footer.
 
 ## Contributing
 

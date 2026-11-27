@@ -7,8 +7,8 @@
     "Content-Security-Policy": "default-src 'self'; script-src 'self' 'sha256-6xxHxj+1qIfWntcygDsFTEWqfJLvZ1XAPJScf2OW2u4='; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
     "X-Frame-Options": "DENY",
     "X-Content-Type-Options": "nosniff",
-    "Referrer-Policy": "strict-origin-when-cross-origin",
-    "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
+    "Referrer-Policy": "same-origin",
+    "Permissions-Policy": "camera=(), microphone=(), geolocation=(), browsing-topics=()",
     "Cross-Origin-Opener-Policy": "same-origin"
   },
   "mimeTypes": {

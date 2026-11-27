@@ -14,6 +14,7 @@ const EServiceView = lazy(() => import("./EServiceView"));
 const EntiView = lazy(() => import("./EntiView"));
 const MethodologyView = lazy(() => import("./MethodologyView"));
 const GuideView = lazy(() => import("./GuideView"));
+const PrivacyView = lazy(() => import("./PrivacyView"));
 
 function Caricamento() {
   return <div role="status" style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", color: "var(--ink-faint)", fontSize: 13 }}>Caricamento…</div>;
@@ -53,7 +54,7 @@ export default function PDNDGraph() {
     const base = "PDND E-Services Graph";
     const ente = entityId && PDND_DATA.enti.find(e => e.id === entityId);
     const es = activeTab === "eservice" && PDND_DATA.eservices.find(s => s.id === eserviceId);
-    const sezione = { esplora: "Relazioni", enti: "Il tuo ente", statistiche: "Numeri", metodologia: "Metodologia", guida: "Guida" }[activeTab];
+    const sezione = { esplora: "Relazioni", enti: "Il tuo ente", statistiche: "Numeri", metodologia: "Metodologia", guida: "Guida", privacy: "Privacy" }[activeTab];
     document.title = es ? `${es.nome} — ${base}` : ente ? `${ente.name} — ${base}` : sezione ? `${sezione} — ${base}` : base;
   }, [activeTab, entityId, eserviceId]);
 
@@ -131,10 +132,11 @@ export default function PDNDGraph() {
       {activeTab === "statistiche" && <StatsView graphData={graphData} onOpenEservice={apriEservice} onOpenEntity={apriEnte} />}
       {activeTab === "metodologia" && <MethodologyView />}
       {activeTab === "guida" && <GuideView />}
+      {activeTab === "privacy" && <PrivacyView />}
       </Suspense>
       </main>
 
-      <Footer />
+      <Footer onPrivacy={() => navigate({ tab: "privacy", entityId: null })} />
 
       {showAbout && (
         <AboutModal
