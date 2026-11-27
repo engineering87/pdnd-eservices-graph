@@ -699,6 +699,19 @@ check("l'indice degli aderenti elenca solo enti con codice IPA", () => {
   return (senza.length === 0 && INDICE.meta.esclusi_senza_ipa > 0) || `${senza.length} righe senza codice IPA`;
 });
 
+console.log("\nLicenze");
+
+check("il modello dei dati dichiara la CC BY 4.0 e cita la fonte in ogni esportazione", () => {
+  const file = ["LICENSE-DATA.md", "exports/README.md", "exports/pdnd-eservices-graph-graphml.graphml", "exports/pdnd-eservices-graph-gexf.gexf"];
+  const ko = file.filter((f) => {
+    const s = fs.readFileSync(path.join(ROOT, f), "utf8");
+    return !s.includes("CC BY 4.0") || !s.includes("Dipartimento per la Trasformazione Digitale");
+  });
+  const cff = fs.readFileSync(path.join(ROOT, "CITATION.cff"), "utf8");
+  if (!/CC-BY-4\.0/.test(cff)) ko.push("CITATION.cff senza CC-BY-4.0");
+  return ko.length === 0 || ko.join(", ");
+});
+
 const totale = passed + failures.length;
 console.log(
   `\n${failures.length === 0 ? "Tutti i test superati" : "Test falliti"}: ${passed}/${totale}\n`

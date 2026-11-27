@@ -4,7 +4,7 @@ PDND E-Services Graph
 Copyright (C) 2026 Francesco Del Re
 
 This program is licensed under the GNU Affero General Public License,
-version 3 (see [LICENSE](LICENSE)). As permitted by section 7(b) of that
+version 3 or (at your option) any later version (see [LICENSE](LICENSE)). As permitted by section 7(b) of that
 license, the following additional term applies to the whole program.
 
 ## Preservation of author attribution
@@ -34,7 +34,8 @@ This term is an attribution requirement under section 7(b) and is not a
 
 ## Sintesi in italiano
 
-Il programma è distribuito con licenza GNU AGPL-3.0. In base alla sezione 7(b)
+Il programma è distribuito con licenza GNU AGPL, versione 3 o, a scelta, una
+versione successiva (AGPL-3.0-or-later). In base alla sezione 7(b)
 della licenza vale un termine aggiuntivo: chi distribuisce il programma,
 originale o modificato, o lo rende disponibile agli utenti in rete, deve
 conservare l'attribuzione all'autore e la citazione del report indicate sopra,

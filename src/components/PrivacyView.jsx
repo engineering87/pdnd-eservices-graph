@@ -49,8 +49,10 @@ export default function PrivacyView() {
 
         <h3 style={h3}>I dati mostrati</h3>
         <p style={p}>
-          La mappa usa i dati aperti che PagoPA pubblica sulla PDND (<a style={a} href="https://github.com/italia/pdnd-opendata" target="_blank" rel="noopener">italia/pdnd-opendata</a>,
-          licenza CC0 1.0) e documentazione pubblica, come spiegato nella Metodologia. Riguardano enti, non persone.
+          La mappa rielabora i dati aperti della PDND (<a style={a} href="https://github.com/italia/pdnd-opendata" target="_blank" rel="noopener">italia/pdnd-opendata</a>,
+          licenza CC0 1.0), della Presidenza del Consiglio dei Ministri – Dipartimento per la Trasformazione Digitale e
+          pubblicati da PagoPA S.p.A., che gestisce la piattaforma, oltre a documentazione pubblica, come spiegato nella
+          Metodologia. Riguardano enti, non persone.
         </p>
         <p style={p}>
           La ricerca «Il tuo ente» elenca solo gli aderenti con codice IPA, cioè amministrazioni e gestori di pubblici
@@ -68,13 +70,15 @@ export default function PrivacyView() {
         <p style={p}>
           Per segnalare un dato sbagliato o chiedere la rimozione di un'informazione apri una segnalazione
           su <a style={a} href={`${REPO}/issues`} target="_blank" rel="noopener">GitHub</a>. Se il dato viene dall'elenco
-          ufficiale degli aderenti o dal catalogo, la correzione definitiva va chiesta anche a PagoPA, che lo pubblica: il
+          ufficiale degli aderenti o dal catalogo, la correzione definitiva va chiesta anche a PagoPA, che gestisce la PDND e ne pubblica i dati: il
           sito si aggiorna ogni mese da quella fonte.
         </p>
 
         <p style={{ ...p, fontSize: 11.5, color: "var(--ink-faint)", marginTop: 22 }}>
           Il sito è un progetto indipendente di Francesco Del Re, non collegato a PagoPA né al Dipartimento per la
-          trasformazione digitale. Ultimo aggiornamento di questa pagina: 27 novembre 2026.
+          trasformazione digitale. Caratteri e librerie di terze parti hanno licenze proprie, riportate
+          in <a style={a} href="/licenze-terze-parti.txt" target="_blank" rel="noopener">licenze-terze-parti.txt</a>.
+          Ultimo aggiornamento di questa pagina: 27 novembre 2026.
         </p>
       </div>
     </div>

@@ -1,12 +1,12 @@
 {
   "name": "pdnd-eservices-graph",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Visualizzazione interattiva del grafo degli e-services sulla Piattaforma Digitale Nazionale Dati (PDND)",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node scripts/prerender-meta.mjs",
+    "build": "vite build && node scripts/prerender-meta.mjs && node scripts/licenze-terze-parti.mjs",
     "preview": "vite preview",
     "update-data": "node scripts/update-data.mjs",
     "audit": "node scripts/audit-model.mjs",
@@ -39,7 +39,7 @@
     "open-data",
     "graph-visualization"
   ],
-  "license": "AGPL-3.0",
+  "license": "AGPL-3.0-or-later",
   "repository": {
     "type": "git",
     "url": "https://github.com/engineering87/pdnd-eservices-graph.git"

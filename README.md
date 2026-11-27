@@ -14,8 +14,8 @@ come grafo interattivo, costruito su dati aperti ufficiali e con la provenienza 
 [![Live Demo](https://img.shields.io/badge/demo-pdndgraph.it-brightgreen?style=for-the-badge)](https://www.pdndgraph.it)
 [![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.19989954-blue?style=for-the-badge)](https://doi.org/10.5281/zenodo.19989954)
 
-[![License: AGPL-3.0](https://img.shields.io/badge/License-AGPL--3.0-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
-![Version](https://img.shields.io/badge/version-2.1.0-informational)
+[![License: AGPL-3.0-or-later](https://img.shields.io/badge/License-AGPL--3.0--or--later-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
+![Version](https://img.shields.io/badge/version-2.1.1-informational)
 ![Snapshot](https://img.shields.io/badge/snapshot-26%20novembre%202026-orange)
 [![Issues](https://img.shields.io/github/issues/engineering87/pdnd-eservices-graph)](https://github.com/engineering87/pdnd-eservices-graph/issues)
 ![Last commit](https://img.shields.io/github/last-commit/engineering87/pdnd-eservices-graph)
@@ -440,6 +440,7 @@ pdnd-eservices-graph/
 ├── staticwebapp.config.json             # Config Azure Static Web Apps
 ├── vite.config.js
 ├── ADDITIONAL-TERMS.md                  # Termine di attribuzione AGPL 7(b)
+├── LICENSE-DATA.md                      # Licenza CC BY 4.0 del modello dei dati
 ├── CITATION.cff
 ├── METODOLOGIA.md                       # ← Fonti, metodologia, limitazioni
 └── README.md
@@ -487,15 +488,21 @@ La metodologia è documentata nel report tecnico, distribuito con licenza CC-BY-
 GitHub genera la citazione anche dal pulsante **Cite this repository**, a partire da [`CITATION.cff`](CITATION.cff). I numeri del report si riferiscono al modello v1, quelli di questo README al modello v2: indica sempre la data dello snapshot che usi.
 
 > [!NOTE]
-> **Su cosa si basa la citazione.** Il report è sotto **CC-BY-4.0**: chi ne riprende contenuti deve attribuirli all'autore. Il codice è sotto **AGPL-3.0**: chi lo usa o lo modifica deve conservare le note di copyright e di licenza e rilasciare le opere derivate con la stessa licenza. La citazione del report è la forma con cui l'autore chiede di riconoscere ogni uso del progetto, e permette a chi legge di risalire alla metodologia e ai suoi limiti.
+> **Su cosa si basa la citazione.** Il report è sotto **CC-BY-4.0**: chi ne riprende contenuti deve attribuirli all'autore. Il codice è sotto **AGPL-3.0-or-later**: chi lo usa o lo modifica deve conservare le note di copyright e di licenza e rilasciare le opere derivate con la stessa licenza. La citazione del report è la forma con cui l'autore chiede di riconoscere ogni uso del progetto, e permette a chi legge di risalire alla metodologia e ai suoi limiti.
 
 ## Licenza
 
-Il codice è distribuito sotto licenza **AGPL-3.0** (vedi [LICENSE](LICENSE)), con un termine aggiuntivo di attribuzione ai sensi della sezione 7(b) (vedi [ADDITIONAL-TERMS.md](ADDITIONAL-TERMS.md)):
+Il codice è distribuito sotto licenza **AGPL-3.0-or-later**, cioè GNU AGPL versione 3 o, a scelta, una versione successiva (vedi [LICENSE](LICENSE)), con un termine aggiuntivo di attribuzione ai sensi della sezione 7(b) (vedi [ADDITIONAL-TERMS.md](ADDITIONAL-TERMS.md)):
 
 - puoi **usare, modificare e distribuire** liberamente il codice;
 - se **distribuisci una versione modificata**, devi renderla disponibile con la stessa licenza;
 - se **la offri come servizio in rete** (per esempio una web app), devi rendere disponibile agli utenti il codice sorgente della versione in esecuzione;
 - in ogni copia, versione modificata o servizio in rete devi **conservare l'attribuzione all'autore e la citazione del report**, nel codice e nel piè di pagina dell'interfaccia.
 
-I dati sugli e-service provengono da [PDND Open Data](https://github.com/italia/pdnd-opendata) e sono distribuiti con licenza **CC0 1.0 Universal** (pubblico dominio) dalla Presidenza del Consiglio dei Ministri – Dipartimento per la Trasformazione Digitale.
+Il **modello dei dati** prodotto dal progetto (il grafo in `src/data/`, le istantanee, le misure nel tempo, l'indice degli aderenti, le esportazioni in `exports/` e i dati curati in `pipeline/`) è distribuito con licenza **[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.it)**: puoi riusarlo e modificarlo, anche per fini commerciali, citando il progetto e indicando le modifiche (vedi [LICENSE-DATA.md](LICENSE-DATA.md)).
+
+I dati sugli e-service provengono da [PDND Open Data](https://github.com/italia/pdnd-opendata) e sono distribuiti con licenza **CC0 1.0 Universal** (pubblico dominio) dalla Presidenza del Consiglio dei Ministri – Dipartimento per la Trasformazione Digitale e pubblicati da PagoPA S.p.A. Il progetto li rielabora e ne cita sempre titolare, fonte e licenza: i metadati del dataset per dati.gov.it indicano anche CC BY 4.0, e l'attribuzione soddisfa entrambe ([dettagli](METODOLOGIA.md#6-licenza-dei-dati)).
+
+Il progetto è indipendente: non è affiliato né approvato da PagoPA S.p.A. o dal Dipartimento per la Trasformazione Digitale. I nomi PDND e PagoPA sono usati solo per indicare la piattaforma e la fonte dei dati.
+
+Caratteri e librerie di terze parti hanno licenze proprie (SIL Open Font License 1.1, MIT): i testi sono pubblicati con il sito in [licenze-terze-parti.txt](https://www.pdndgraph.it/licenze-terze-parti.txt) e generati a ogni build da `scripts/licenze-terze-parti.mjs`.

@@ -27,8 +27,10 @@ keywords:
   - weighted network
   - public sector interoperability
   - Italy
-license: AGPL-3.0-or-later
-version: 2.1.0
+license:
+  - AGPL-3.0-or-later
+  - CC-BY-4.0
+version: 2.1.1
 date-released: '2026-11-27'
 preferred-citation:
   type: report

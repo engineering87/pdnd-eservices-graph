@@ -207,7 +207,8 @@ export default function EntiView({ onOpenEntity, onOpenEservice, onExplore }) {
         )}
 
         <p style={{ fontSize: 11, color: "var(--ink-faint)", lineHeight: 1.55, marginTop: 6 }}>
-          Fonte: elenco degli aderenti e catalogo degli e-service di PagoPA (italia/pdnd-opendata, CC0 1.0). Sono elencati
+          Fonte: elenco degli aderenti e catalogo degli e-service della PDND, Presidenza del Consiglio dei Ministri – Dipartimento
+          per la Trasformazione Digitale (italia/pdnd-opendata, CC0 1.0), rielaborati. Sono elencati
           gli aderenti con codice IPA, compresi uffici e articolazioni interne registrati come aderenti a sé. Imprese e altri
           soggetti privati sono contati nella loro classe ma non elencati uno per uno: fra loro ci sono ditte e società che
           portano il nome di persone fisiche.
