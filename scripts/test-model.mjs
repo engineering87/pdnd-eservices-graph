@@ -679,7 +679,13 @@ check("la Content Security Policy autorizza esattamente gli script inline di ind
   const cfg = JSON.parse(fs.readFileSync(path.join(ROOT, "staticwebapp.config.json"), "utf8"));
   const csp = cfg.globalHeaders?.["Content-Security-Policy"] || "";
   const html = fs.readFileSync(path.join(ROOT, "index.html"), "utf8");
-  const impronte = [...html.matchAll(/<script>([\s\S]*?)<\/script>/g)].map((m) => `'sha256-${createHash("sha256").update(m[1]).digest("base64")}'`);
+  // Tutti i tag <script>, in qualunque maiuscola e con qualunque attributo;
+  // la policy chiede l'impronta solo per quelli inline, cioè senza src.
+  const script = [...html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script\s*>/gi)];
+  const impronte = script
+    .filter((m) => !/\bsrc\s*=/i.test(m[1]))
+    .map((m) => `'sha256-${createHash("sha256").update(m[2]).digest("base64")}'`);
+  if (impronte.length === 0) return "nessuno script inline trovato in index.html: il controllo non sta verificando nulla";
   const mancanti = impronte.filter((h) => !csp.includes(h));
   const regole = ["default-src 'self'", "object-src 'none'", "frame-ancestors 'none'", "base-uri 'self'"].filter((r) => !csp.includes(r));
   return (mancanti.length === 0 && regole.length === 0) || `impronte mancanti: ${mancanti.join(" ")} — regole mancanti: ${regole.join(", ")}`;
