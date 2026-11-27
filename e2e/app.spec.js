@@ -156,6 +156,24 @@ test.describe("Primo accesso, tema e accessibilità", () => {
     expect(font.every((u) => u.startsWith("http://localhost"))).toBe(true);
   });
 
+  test("le licenze di terze parti sono pubblicate con il sito", async ({ request }) => {
+    const r = await request.get("/licenze-terze-parti.txt");
+    expect(r.ok()).toBe(true);
+    const testo = await r.text();
+    for (const atteso of ["react ", "react-dom ", "@fontsource/titillium-web", "@fontsource/roboto-mono", "SIL OPEN FONT LICENSE", "Permission is hereby granted", "Dipartimento per la Trasformazione"]) {
+      expect(testo, atteso).toContain(atteso);
+    }
+  });
+
+  test("il piè di pagina cita titolare, licenza e rielaborazione dei dati", async ({ page }) => {
+    await page.goto("/guida");
+    const pie = page.getByRole("contentinfo");
+    await expect(pie).toContainText("PCM – Dip. Trasformazione Digitale");
+    await expect(pie).toContainText("CC0 1.0");
+    await expect(pie).toContainText("rielaborati");
+    await expect(pie.getByRole("link", { name: "Paper" })).toHaveAttribute("href", "https://doi.org/10.5281/zenodo.19989954");
+  });
+
   test("la pagina Privacy si apre dal piè di pagina", async ({ page }) => {
     await page.goto("/guida");
     await page.getByRole("contentinfo").getByRole("link", { name: "Privacy" }).click();

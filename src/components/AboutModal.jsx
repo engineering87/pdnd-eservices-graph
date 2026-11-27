@@ -95,8 +95,14 @@ export default function AboutModal({ onClose, onWelcome }) {
             <a href="https://www.linkedin.com/in/francesco-delre/" target="_blank" rel="noopener" style={linkStile}>LinkedIn</a>
             <a href="https://github.com/engineering87/pdnd-eservices-graph" target="_blank" rel="noopener" style={linkStile}>Codice sorgente</a>
           </div>
-          <div style={{ fontSize: 11.5, color: "var(--ink-faint)", marginTop: 10 }}>
-            Versione 2.1.0 · Software libero, licenza AGPL-3.0 con obbligo di attribuzione
+          <div style={{ fontSize: 11.5, color: "var(--ink-faint)", marginTop: 10, lineHeight: 1.55 }}>
+            Versione 2.1.1 · Software libero, licenza AGPL-3.0-or-later con obbligo di attribuzione · Modello dei dati con licenza CC BY 4.0 ·{" "}
+            <a href="/licenze-terze-parti.txt" target="_blank" rel="noopener" style={linkStile}>Licenze di terze parti</a>
+          </div>
+          <div style={{ fontSize: 11.5, color: "var(--ink-faint)", marginTop: 6, lineHeight: 1.55 }}>
+            Progetto indipendente, non affiliato né approvato da PagoPA S.p.A. o dal Dipartimento per la Trasformazione
+            Digitale. Dati PDND Open Data della Presidenza del Consiglio dei Ministri – Dipartimento per la Trasformazione
+            Digitale, licenza CC0 1.0, rielaborati.
           </div>
         </Section>
       </div>

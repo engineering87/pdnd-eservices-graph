@@ -26,7 +26,7 @@ e rappresentati i dati pubblici visualizzati nel grafo degli e-service PDND.
 
 - **Fonte:** [github.com/italia/pdnd-opendata](https://github.com/italia/pdnd-opendata)
 - **Pubblicazione:** dati.gov.it — Dataset ID `0dfbeb46-736d-4af3-841c-9593d8f6c434`
-- **Licenza:** CC0 1.0 Universal (Pubblico Dominio)
+- **Licenza:** CC0 1.0 Universal (Pubblico Dominio); i metadati per dati.gov.it indicano anche CC BY 4.0, vedi §6
 - **Aggiornamento:** quotidiano
 - **Editore:** PagoPA S.p.A. per PCM - Dipartimento per la Trasformazione Digitale
 - **Contenuto:** elenco di tutti gli e-service pubblicati nel catalogo PDND Interoperabilità,
@@ -455,8 +455,18 @@ Ministri – Dipartimento per la Trasformazione Digitale.
 > "Dati dai Numeri del portale PDND — CC0 Presidenza del Consiglio dei Ministri —
 > Dipartimento per la Trasformazione Digitale"
 
-La presente elaborazione (aggregazione, inferenza delle connessioni, visualizzazione)
-è rilasciata con licenza AGPL-3.0.
+La presente elaborazione è distribuita con due licenze: il codice (pipeline,
+visualizzazione) con licenza AGPL-3.0-or-later, il modello dei dati che produce (selezione
+degli enti, classi, relazioni con la loro provenienza, istantanee, misure ed
+esportazioni) con licenza CC BY 4.0, come descritto in
+[LICENSE-DATA.md](LICENSE-DATA.md).
+
+Nota sulla licenza. Il repository della fonte dichiara CC0 1.0, mentre i metadati
+del dataset pubblicati per dati.gov.it (`metadata/pdnd-opendata.rdf`,
+`datapackage.yaml`) indicano anche CC BY 4.0. Per prudenza il progetto rispetta la
+più esigente delle due: cita sempre titolare e fonte, indica la licenza e dichiara
+che i dati sono rielaborati. Il progetto non è affiliato né approvato da PagoPA
+S.p.A. o dal Dipartimento per la Trasformazione Digitale.
 
 ## 7. Modello v2 (novembre 2026)
 

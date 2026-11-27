@@ -28,7 +28,7 @@ const AVVERTENZA =
 
 const FONTE = "https://github.com/engineering87/pdnd-eservices-graph";
 const DOI = "10.5281/zenodo.19989954";
-const LICENZA = "Codice AGPL-3.0, dati di origine CC0 1.0 (italia/pdnd-opendata)";
+const LICENZA = "Modello dei dati: CC BY 4.0 (citare PDND E-Services Graph, Francesco Del Re). Codice: AGPL-3.0-or-later. Dati di origine: PDND Open Data, Presidenza del Consiglio dei Ministri - Dipartimento per la Trasformazione Digitale (github.com/italia/pdnd-opendata), CC0 1.0, rielaborati";
 
 /**
  * Data dello snapshot. Non ricade mai sull'ora corrente: una data variabile
@@ -175,7 +175,7 @@ export function toGEXF(data) {
   righe.push('<gexf xmlns="http://gexf.net/1.3" version="1.3">');
   righe.push("  <meta lastmodifieddate=\"" + generato + "\">");
   righe.push("    <creator>PDND E-Services Graph</creator>");
-  righe.push(`    <description>${esc(AVVERTENZA)}</description>`);
+  righe.push(`    <description>${esc(`${AVVERTENZA} ${LICENZA}. DOI: ${DOI}.`)}</description>`);
   righe.push("  </meta>");
   righe.push('  <graph mode="static" defaultedgetype="directed">');
   righe.push('    <attributes class="node">');

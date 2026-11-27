@@ -12,6 +12,7 @@
     "Cross-Origin-Opener-Policy": "same-origin"
   },
   "mimeTypes": {
-    ".json": "application/json"
+    ".json": "application/json",
+    ".txt": "text/plain; charset=utf-8"
   }
 }

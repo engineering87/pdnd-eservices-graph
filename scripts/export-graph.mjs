@@ -89,7 +89,13 @@ for n, d in sorted(G.out_degree, key=lambda x: -x[1])[:5]:
 
 ## Licenze e citazione
 
-Dati di origine CC0 1.0 (\`italia/pdnd-opendata\`), codice AGPL-3.0.
+Questi file sono distribuiti con licenza **CC BY 4.0**
+(https://creativecommons.org/licenses/by/4.0/deed.it): puoi riusarli e
+modificarli citando il progetto e indicando le modifiche (vedi LICENSE-DATA.md).
+
+Dati di origine: PDND Open Data (\`italia/pdnd-opendata\`), Presidenza del Consiglio
+dei Ministri – Dipartimento per la Trasformazione Digitale, licenza CC0 1.0,
+rielaborati da questo progetto. Codice AGPL-3.0-or-later.
 Se usi questi file, cita il progetto: DOI 10.5281/zenodo.19989954.
 `;
 

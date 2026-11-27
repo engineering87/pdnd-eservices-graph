@@ -233,6 +233,8 @@ function ExportSection() {
         Il grafo in formati di interscambio standard, pronti per Gephi, NetworkX, igraph, R o un foglio
         di calcolo. Ogni arco conserva il campo <em>origine</em> e i nodi aggregati sono marcati come tali:
         le misure di grado su questo modello non sono confrontabili con quelle di un grafo non aggregato.
+        Licenza <a href="https://creativecommons.org/licenses/by/4.0/deed.it" target="_blank" rel="noopener" style={{ color: "var(--pa-blue)" }}>CC BY 4.0</a>:
+        riusali citando PDND E-Services Graph e il report.
       </p>
       <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
         {FORMATI.map(f => (
