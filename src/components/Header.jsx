@@ -10,12 +10,25 @@ import Termine from "./Termine";
 const TABS = [
   { id: "grafo", label: "Mappa" },
   { id: "esplora", label: "Relazioni" },
+  { id: "enti", label: "Il tuo ente" },
   { id: "statistiche", label: "Numeri" },
   { id: "metodologia", label: "Metodologia" },
   { id: "guida", label: "Guida" },
 ];
 
-export default function Header({ stats, activeTab, onTabChange, onAbout }) {
+function PulsanteTema({ tema, onToggle, m }) {
+  const chiaro = tema === "light";
+  return (
+    <button type="button" onClick={onToggle} aria-pressed={chiaro}
+      aria-label={chiaro ? "Tema chiaro attivo: passa al tema scuro" : "Tema scuro attivo: passa al tema chiaro"}
+      title={chiaro ? "Passa al tema scuro" : "Passa al tema chiaro"}
+      style={{ width: m ? 34 : 38, height: m ? 32 : 36, borderRadius: 6, border: "1px solid var(--border-strong)", background: "var(--surface-raised)", color: "var(--ink)", cursor: "pointer", fontSize: m ? 15 : 16, lineHeight: 1, flexShrink: 0, display: "inline-flex", alignItems: "center", justifyContent: "center" }}>
+      <span aria-hidden="true">{chiaro ? "☾" : "☀"}</span>
+    </button>
+  );
+}
+
+export default function Header({ stats, activeTab, onTabChange, onAbout, tema, onToggleTheme }) {
   const m = useIsMobile();
 
   // I tre indicatori condividono lo stesso trattamento: un dato istituzionale
@@ -59,7 +72,7 @@ export default function Header({ stats, activeTab, onTabChange, onAbout }) {
   };
 
   return (
-    <header style={{ background: "rgba(10,14,26,.85)", backdropFilter: "blur(16px)", borderBottom: "1px solid var(--border)", zIndex: 20, position: "relative" }}>
+    <header style={{ background: "var(--header-bg)", backdropFilter: "blur(16px)", borderBottom: "1px solid var(--border)", zIndex: 20, position: "relative" }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: m ? "10px 14px 8px" : "16px 28px 12px", flexWrap: "wrap", gap: m ? 10 : 16 }}>
         <div style={{ display: "flex", alignItems: "center", gap: m ? 10 : 14, flex: m ? "1 1 auto" : undefined }}>
           <img src="/logo.svg" alt="" width={m ? 32 : 42} height={m ? 32 : 42} style={{ display: "block", flexShrink: 0, borderRadius: m ? 7 : 9 }} />
@@ -67,7 +80,7 @@ export default function Header({ stats, activeTab, onTabChange, onAbout }) {
             <h1 style={{ fontSize: m ? 14 : 19, fontWeight: 700, letterSpacing: -.2, color: "var(--ink)" }}>PDND E-Services Graph</h1>
             {!m && <p style={{ fontSize: 12, color: "var(--ink-faint)", marginTop: 2, lineHeight: 1.4, maxWidth: 420 }}>Mappa interattiva dell'interoperabilità tra le Pubbliche Amministrazioni italiane</p>}
           </div>
-          {m && <button onClick={onAbout} style={{ ...infoButtonStyle, marginLeft: "auto" }}><span aria-hidden="true" style={{ color: "var(--pa-blue)" }}>ⓘ</span>Il progetto</button>}
+          {m && <span style={{ marginLeft: "auto", display: "inline-flex", gap: 8 }}><PulsanteTema tema={tema} onToggle={onToggleTheme} m={m} /><button onClick={onAbout} style={infoButtonStyle}><span aria-hidden="true" style={{ color: "var(--pa-blue)" }}>ⓘ</span>Il progetto</button></span>}
         </div>
 
         <div style={{ display: "flex", gap: m ? 8 : 12, alignItems: "center", ...(m ? { width: "100%" } : {}) }}>
@@ -97,6 +110,7 @@ export default function Header({ stats, activeTab, onTabChange, onAbout }) {
             );
           })}
           </div>
+          {!m && <PulsanteTema tema={tema} onToggle={onToggleTheme} m={m} />}
           {!m && <button onClick={onAbout} title="Cosa mostra la mappa, come leggerla, come citarla" style={infoButtonStyle}><span aria-hidden="true" style={{ color: "var(--pa-blue)" }}>ⓘ</span>Il progetto</button>}
         </div>
       </div>

@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, lazy, Suspense } from "react";
 import PDND_DATA from "../data/pdnd-data.json";
 import { buildGraph } from "../utils/buildGraph";
 import Header from "./Header";
@@ -6,12 +6,21 @@ import Footer from "./Footer";
 import AboutModal from "./AboutModal";
 import WelcomePanel from "./WelcomePanel";
 import GraphView from "./GraphView";
-import StatsView from "./StatsView";
-import ExploreView from "./ExploreView";
-import EServiceView from "./EServiceView";
-import MethodologyView from "./MethodologyView";
-import GuideView from "./GuideView";
+// La mappa è la vista iniziale e resta nel pacchetto principale; le altre si
+// caricano alla prima apertura, così la prima visita scarica meno codice.
+const StatsView = lazy(() => import("./StatsView"));
+const ExploreView = lazy(() => import("./ExploreView"));
+const EServiceView = lazy(() => import("./EServiceView"));
+const EntiView = lazy(() => import("./EntiView"));
+const MethodologyView = lazy(() => import("./MethodologyView"));
+const GuideView = lazy(() => import("./GuideView"));
+const PrivacyView = lazy(() => import("./PrivacyView"));
+
+function Caricamento() {
+  return <div role="status" style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", color: "var(--ink-faint)", fontSize: 13 }}>Caricamento…</div>;
+}
 import { useUrlState, parseLocation } from "../utils/useUrlState";
+import { useTheme } from "../utils/useTheme";
 
 // Il benvenuto compare una sola volta, e solo a chi arriva sulla pagina
 // iniziale: un collegamento condiviso a un ente o a una vista filtrata deve
@@ -30,6 +39,7 @@ function segnaBenvenutoVisto() {
 
 export default function PDNDGraph() {
   const [{ tab: activeTab, entityId, eserviceId }, navigate] = useUrlState();
+  const [tema, cambiaTema] = useTheme();
   const [showAbout, setShowAbout] = useState(false);
   const [showWelcome, setShowWelcome] = useState(benvenutoDaMostrare);
   // Cambia quando si apre un indirizzo con filtri nella query string: le viste
@@ -44,7 +54,7 @@ export default function PDNDGraph() {
     const base = "PDND E-Services Graph";
     const ente = entityId && PDND_DATA.enti.find(e => e.id === entityId);
     const es = activeTab === "eservice" && PDND_DATA.eservices.find(s => s.id === eserviceId);
-    const sezione = { esplora: "Relazioni", statistiche: "Numeri", metodologia: "Metodologia", guida: "Guida" }[activeTab];
+    const sezione = { esplora: "Relazioni", enti: "Il tuo ente", statistiche: "Numeri", metodologia: "Metodologia", guida: "Guida", privacy: "Privacy" }[activeTab];
     document.title = es ? `${es.nome} — ${base}` : ente ? `${ente.name} — ${base}` : sezione ? `${sezione} — ${base}` : base;
   }, [activeTab, entityId, eserviceId]);
 
@@ -75,28 +85,39 @@ export default function PDNDGraph() {
   return (
     <div style={{
       width: "100%", height: "100vh",
-      background: "linear-gradient(145deg,#0a0e1a 0%,#111827 40%,#0d1525 100%)",
+      background: "var(--app-bg)",
       fontFamily: "'Titillium Web',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif",
       color: "var(--ink)",
       display: "flex", flexDirection: "column", overflow: "hidden",
     }}>
+      <a href="#contenuto" className="salta-al-contenuto">Vai al contenuto</a>
       <Header
         stats={stats}
         activeTab={activeTab}
         onTabChange={(tab) => navigate({ tab, entityId: null })}
         onAbout={() => setShowAbout(true)}
+        tema={tema}
+        onToggleTheme={cambiaTema}
       />
 
+      {/* Regione principale: destinazione del link "Vai al contenuto". */}
+      <main id="contenuto" tabIndex={-1} style={{ flex: 1, minHeight: 0, display: "flex", flexDirection: "column", outline: "none" }}>
       {activeTab === "grafo" && (
         <GraphView
           key={`grafo-${rev}`}
           entityId={entityId}
           onEntityChange={(id) => navigate({ entityId: id })}
+          onOpenAderente={(ipa) => vaiA(`/enti?ente=${encodeURIComponent(ipa)}`)}
           onOpenEservice={apriEservice}
+          tema={tema}
         />
       )}
+      <Suspense fallback={<Caricamento />}>
       {activeTab === "esplora" && (
         <ExploreView key={`esplora-${rev}`} onOpenEntity={apriEnte} onOpenEservice={apriEservice} />
+      )}
+      {activeTab === "enti" && (
+        <EntiView key={`enti-${rev}`} onOpenEntity={apriEnte} onOpenEservice={apriEservice} onExplore={apriEsplora} />
       )}
       {activeTab === "eservice" && (
         <EServiceView
@@ -108,11 +129,14 @@ export default function PDNDGraph() {
           onBack={indietro}
         />
       )}
-      {activeTab === "statistiche" && <StatsView graphData={graphData} onOpenEservice={apriEservice} />}
+      {activeTab === "statistiche" && <StatsView graphData={graphData} onOpenEservice={apriEservice} onOpenEntity={apriEnte} />}
       {activeTab === "metodologia" && <MethodologyView />}
       {activeTab === "guida" && <GuideView />}
+      {activeTab === "privacy" && <PrivacyView />}
+      </Suspense>
+      </main>
 
-      <Footer />
+      <Footer onPrivacy={() => navigate({ tab: "privacy", entityId: null })} />
 
       {showAbout && (
         <AboutModal

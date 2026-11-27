@@ -1,25 +1,27 @@
 # Report aggiornamento grafo PDND
 
-Data: 2026-11-25T12:32:39.015Z
+Data: 2026-11-26T23:49:04.821Z
 Modalità: WRITE
 
 ## Download catalogo
 - Righe catalogo: **15301**
 - Adozione: 366 e-service nelle classifiche di enti abilitati
 - Sessioni: 264 e-service nelle classifiche di sessioni di scambio
+- Sessioni recenti: 277 e-service nelle classifiche degli ultimi 12 o 6 mesi
 - Aderenti: 10363 righe nell'elenco, 9826 enti nel totale ufficiale
+- Andamenti: 53 mesi di adesioni, 52 mesi di sessioni
 
 ## Risultato
 - Nodi (enti): **63** (prima: 63)
-- E-service: **312** (prima: 312)
+- E-service: **313** (prima: 313)
 - Nuovi e-service: **0**
 - E-service rimossi: **0**
 - E-service senza fruitori: **44**
 
 ### Archi per provenienza
-- 📄 Documentata (override): **6**
-- 👁️ Osservata (connessioni ufficiali): **265**
-- ✅ Certificata (attributes): **628**
+- 📄 Documentata (override): **12**
+- 👁️ Osservata (connessioni ufficiali): **264**
+- ✅ Certificata (attributes): **630**
 - 🧩 Ricostruita (grafo curato v1): **545**
 - 🤖 Inferita (AI): **25**
 
@@ -80,6 +82,7 @@ Modalità: WRITE
 - L’e-service ricerca i numeri civici (305054a1-090e-4c3f-9568-f4fb4f9ae266)
 - … e altri 4
 
-✅ Scritta l'anteprima: C:\Private Git\pdnd-eservices-graph\pipeline\pdnd-data.preview.json
+✅ Scritto: C:\Private Git\pdnd-eservices-graph\pipeline\pdnd-data.preview.json
+✅ Indice aderenti: 10017 enti in C:\Private Git\pdnd-eservices-graph\pipeline\aderenti-index.preview.json
 ℹ️  Il grafo live (src/data/pdnd-data.json) NON è stato modificato.
    Per promuovere l'anteprima a dato live, vedi pipeline/README.md.

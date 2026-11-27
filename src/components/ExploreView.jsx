@@ -15,10 +15,9 @@ import {
 import { CATEGORY_COLORS, ORIGIN_STYLES } from "../constants/colors";
 import { useIsMobile } from "../utils/useIsMobile";
 import Termine from "./Termine";
+import { numero, breve } from "../utils/format";
 
 const ROWS = flattenRelations(PDND_DATA);
-const fmt = (n) => (n == null ? "—" : n.toLocaleString("it-IT"));
-const breve = (n) => n == null ? "—" : n >= 1e6 ? `${(n / 1e6).toLocaleString("it-IT", { maximumFractionDigits: 1 })} M` : fmt(n);
 
 const ENTI = [...PDND_DATA.enti].sort((a, b) => a.name.localeCompare(b.name, "it"));
 const EROGATORI = ENTI.filter((e) => PDND_DATA.eservices.some((s) => s.erogatore === e.id));
@@ -86,7 +85,7 @@ function Campo({ label, children, grow }) {
 function OrigineBadge({ origine }) {
   const s = ORIGIN_STYLES[origine] || { nome: origine, colore: "#889" };
   return (
-    <span style={{ display: "inline-block", padding: "1px 7px", borderRadius: 10, fontSize: 10, fontWeight: 600, color: s.colore, background: `${s.colore}1a`, border: `1px solid ${s.colore}40`, whiteSpace: "nowrap" }}>
+    <span style={{ display: "inline-block", padding: "1px 7px", borderRadius: 10, fontSize: 10, fontWeight: 600, color: `color-mix(in srgb, ${s.colore} 65%, var(--ink))`, background: `color-mix(in srgb, ${s.colore} 10%, transparent)`, border: `1px solid color-mix(in srgb, ${s.colore} 40%, transparent)`, whiteSpace: "nowrap" }}>
       {s.nome}
     </span>
   );
@@ -94,7 +93,7 @@ function OrigineBadge({ origine }) {
 
 function Tile({ label, value, sub }) {
   return (
-    <div style={{ flex: "1 1 120px", padding: "10px 12px", background: "rgba(15,20,35,.6)", border: "1px solid rgba(100,160,220,.08)", borderRadius: 8, textAlign: "center" }}>
+    <div style={{ flex: "1 1 120px", padding: "10px 12px", background: "var(--card)", border: "1px solid var(--line)", borderRadius: 8, textAlign: "center" }}>
       <div className="tabular" style={{ fontSize: 20, fontWeight: 700, color: "var(--ink)" }}>{value}</div>
       <div style={{ fontSize: 9.5, color: "var(--ink-faint)", textTransform: "uppercase", letterSpacing: .5, marginTop: 2 }}>{label}</div>
       {sub && <div style={{ fontSize: 9, color: "var(--ink-faint)", marginTop: 2 }}>{sub}</div>}
@@ -106,17 +105,18 @@ function Th({ children, col, sort, onSort, align = "left" }) {
   const attivo = sort.col === col;
   return (
     <th
+      scope="col"
       onClick={col ? () => onSort(col) : undefined}
       aria-sort={attivo ? (sort.dir === 1 ? "ascending" : "descending") : undefined}
-      style={{ textAlign: align, padding: "8px 10px", fontSize: 10, fontWeight: 700, color: attivo ? "var(--ink)" : "var(--ink-faint)", textTransform: "uppercase", letterSpacing: .5, cursor: col ? "pointer" : "default", whiteSpace: "nowrap", borderBottom: "1px solid var(--border)", position: "sticky", top: 0, background: "#0f1626", userSelect: "none" }}
+      style={{ textAlign: align, padding: "8px 10px", fontSize: 10, fontWeight: 700, color: attivo ? "var(--ink)" : "var(--ink-faint)", textTransform: "uppercase", letterSpacing: .5, cursor: col ? "pointer" : "default", whiteSpace: "nowrap", borderBottom: "1px solid var(--border)", position: "sticky", top: 0, background: "var(--surface-1)", userSelect: "none" }}
     >
       {children}{attivo ? (sort.dir === 1 ? " ▲" : " ▼") : ""}
     </th>
   );
 }
 
-const td = { padding: "7px 10px", fontSize: 12, borderBottom: "1px solid rgba(100,160,220,.06)", verticalAlign: "top" };
-const link = { background: "none", border: "none", padding: 0, color: "var(--ink)", cursor: "pointer", fontFamily: "inherit", fontSize: "inherit", textAlign: "left", textDecoration: "underline", textDecorationColor: "rgba(120,160,210,.35)", textUnderlineOffset: 3 };
+const td = { padding: "7px 10px", fontSize: 12, borderBottom: "1px solid var(--line)", verticalAlign: "top" };
+const link = { background: "none", border: "none", padding: 0, color: "var(--ink)", cursor: "pointer", fontFamily: "inherit", fontSize: "inherit", textAlign: "left", textDecoration: "underline", textDecorationColor: "var(--underline)", textUnderlineOffset: 3 };
 
 /** Ordina per colonna; i valori mancanti vanno sempre in fondo. */
 function ordina(arr, sort) {
@@ -190,7 +190,7 @@ export default function ExploreView({ onOpenEntity, onOpenEservice }) {
     <div style={{ flex: 1, overflowY: "auto", padding: m ? "16px 14px" : "24px 28px" }}>
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
         <div style={{ fontSize: 11, color: "var(--ink-faint)", textTransform: "uppercase", letterSpacing: 1, marginBottom: 6 }}>Relazioni fra enti</div>
-        <h2 style={{ fontSize: m ? 18 : 22, fontWeight: 700, color: "#f1f5f9", marginBottom: 6 }}>Chi offre i dati e chi li usa</h2>
+        <h2 style={{ fontSize: m ? 18 : 22, fontWeight: 700, color: "var(--ink-strong)", marginBottom: 6 }}>Chi offre i dati e chi li usa</h2>
         <p style={{ fontSize: 12.5, color: "var(--ink-muted)", lineHeight: 1.6, maxWidth: 820, marginBottom: 16 }}>
           Ogni riga dice quale ente offre un servizio di scambio dati (<Termine id="eservice">e-service</Termine>) e quale ente,
           o <Termine id="classe">classe di enti</Termine>, lo usa. <Termine id="abilitati">Enti abilitati</Termine> e{" "}
@@ -209,7 +209,7 @@ export default function ExploreView({ onOpenEntity, onOpenEservice }) {
         </div>
 
         {/* Filtri */}
-        <div style={{ padding: "14px 16px", background: "rgba(15,20,35,.6)", border: "1px solid rgba(100,160,220,.08)", borderRadius: 10, marginBottom: 16 }}>
+        <div style={{ padding: "14px 16px", background: "var(--card)", border: "1px solid var(--line)", borderRadius: 10, marginBottom: 16 }}>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
             <Campo label="Cerca" grow>
               <input type="search" value={f.q} placeholder="E-service, descrizione o ente" onChange={(e) => aggiorna({ q: e.target.value })} style={ctrl} />
@@ -245,7 +245,7 @@ export default function ExploreView({ onOpenEntity, onOpenEservice }) {
               const on = f.origini.includes(o);
               return (
                 <button key={o} type="button" aria-pressed={on} onClick={() => toggleOrigine(o)}
-                  style={{ ...ctrl, padding: "4px 10px", borderRadius: 12, fontSize: 11, cursor: "pointer", color: on ? s.colore : "var(--ink-faint)", borderColor: on ? s.colore : "var(--border)", background: on ? `${s.colore}1a` : "transparent" }}>
+                  style={{ ...ctrl, padding: "4px 10px", borderRadius: 12, fontSize: 11, cursor: "pointer", color: on ? `color-mix(in srgb, ${s.colore} 65%, var(--ink))` : "var(--ink-faint)", borderColor: on ? s.colore : "var(--border)", background: on ? `color-mix(in srgb, ${s.colore} 10%, transparent)` : "transparent" }}>
                   {s.nome}
                 </button>
               );
@@ -265,10 +265,10 @@ export default function ExploreView({ onOpenEntity, onOpenEservice }) {
 
         {/* Riepilogo */}
         <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginBottom: 18 }}>
-          <Tile label="Relazioni" value={fmt(tot.relazioni)} />
-          <Tile label="E-service" value={fmt(tot.eservice)} />
-          <Tile label="Erogatori" value={fmt(tot.erogatori)} />
-          <Tile label="Fruitori" value={fmt(tot.fruitori)} />
+          <Tile label="Relazioni" value={numero(tot.relazioni)} />
+          <Tile label="E-service" value={numero(tot.eservice)} />
+          <Tile label="Erogatori" value={numero(tot.erogatori)} />
+          <Tile label="Fruitori" value={numero(tot.fruitori)} />
           <Tile label="Sessioni osservate" value={tot.sessioni ? breve(tot.sessioni) : "—"} sub={tot.sessioni ? "almeno" : null} />
         </div>
 
@@ -287,7 +287,7 @@ export default function ExploreView({ onOpenEntity, onOpenEservice }) {
                 </select>
                 <span style={{ fontSize: 11, color: "var(--ink-faint)" }}>{gruppi.length} gruppi · clic su un gruppo per filtrare</span>
               </div>
-              <div style={{ overflowX: "auto", border: "1px solid rgba(100,160,220,.08)", borderRadius: 8 }}>
+              <div style={{ overflowX: "auto", border: "1px solid var(--line)", borderRadius: 8 }}>
                 <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 560 }}>
                   <thead>
                     <tr>
@@ -305,14 +305,14 @@ export default function ExploreView({ onOpenEntity, onOpenEservice }) {
                         <tr key={g.chiave} onClick={() => filtraGruppo(g)} style={{ cursor: "pointer" }} title="Filtra su questo gruppo">
                           <td style={td}>
                             <div style={{ color: "var(--ink)" }}>{per === "origine" ? <OrigineBadge origine={g.chiave} /> : g.nome}</div>
-                            <div style={{ height: 3, marginTop: 4, borderRadius: 2, background: "rgba(30,40,60,.6)" }}>
+                            <div style={{ height: 3, marginTop: 4, borderRadius: 2, background: "var(--track)" }}>
                               <div style={{ height: "100%", width: `${(g.relazioni / maxRelazioni) * 100}%`, borderRadius: 2, background: colore || "var(--pa-blue)" }} />
                             </div>
                           </td>
-                          <td className="tabular" style={{ ...td, textAlign: "right" }}>{fmt(g.relazioni)}</td>
-                          <td className="tabular" style={{ ...td, textAlign: "right" }}>{fmt(g.eservice)}</td>
-                          <td className="tabular" style={{ ...td, textAlign: "right" }}>{fmt(g[colonnaConteggio[0]])}</td>
-                          <td className="tabular" style={{ ...td, textAlign: "right", color: g.sessioni ? "#4fc3f7" : "var(--ink-faint)" }}>{breve(g.sessioni)}</td>
+                          <td className="tabular" style={{ ...td, textAlign: "right" }}>{numero(g.relazioni)}</td>
+                          <td className="tabular" style={{ ...td, textAlign: "right" }}>{numero(g.eservice)}</td>
+                          <td className="tabular" style={{ ...td, textAlign: "right" }}>{numero(g[colonnaConteggio[0]])}</td>
+                          <td className="tabular" style={{ ...td, textAlign: "right", color: g.sessioni ? "var(--acc-cyan)" : "var(--ink-faint)" }}>{breve(g.sessioni)}</td>
                         </tr>
                       );
                     })}
@@ -330,12 +330,12 @@ export default function ExploreView({ onOpenEntity, onOpenEservice }) {
             <section>
               <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap", marginBottom: 8 }}>
                 <h3 style={{ fontSize: 13, fontWeight: 700, color: "var(--ink)" }}>Dettaglio delle relazioni</h3>
-                <span style={{ fontSize: 11, color: "var(--ink-faint)" }}>{fmt(righe.length)} righe</span>
+                <span style={{ fontSize: 11, color: "var(--ink-faint)" }}>{numero(righe.length)} righe</span>
                 <button type="button" onClick={scaricaCSV} style={{ ...ctrl, marginLeft: "auto", padding: "5px 12px", fontSize: 11, cursor: "pointer", color: "var(--pa-blue)", borderColor: "var(--pa-blue)" }}>
                   Scarica CSV
                 </button>
               </div>
-              <div style={{ overflowX: "auto", border: "1px solid rgba(100,160,220,.08)", borderRadius: 8 }}>
+              <div style={{ overflowX: "auto", border: "1px solid var(--line)", borderRadius: 8 }}>
                 <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 760 }}>
                   <thead>
                     <tr>
@@ -351,8 +351,8 @@ export default function ExploreView({ onOpenEntity, onOpenEservice }) {
                     {righeOrdinate.slice(0, limiteRighe).map((r) => (
                       <tr key={`${r.eserviceId}|${r.fruitore}`}>
                         <td style={td}>{ente(r.erogatore, r.erogatoreNome)}</td>
-                        <td style={{ ...td, color: "#cbd5e1", maxWidth: 340 }}>
-                          <button type="button" style={{ ...link, color: "#cbd5e1" }} onClick={() => onOpenEservice(r.eserviceId)} title="Apri la scheda dell'e-service">{r.eservice}</button>
+                        <td style={{ ...td, color: "var(--ink-soft)", maxWidth: 340 }}>
+                          <button type="button" style={{ ...link, color: "var(--ink-soft)" }} onClick={() => onOpenEservice(r.eserviceId)} title="Apri la scheda dell'e-service">{r.eservice}</button>
                           {!r.catalogId && <span title="Tipo di servizio del modello v1, non un singolo e-service del catalogo" style={{ marginLeft: 6, fontSize: 9.5, color: "var(--ink-faint)" }}>tipo</span>}
                         </td>
                         <td style={td}>
@@ -360,8 +360,8 @@ export default function ExploreView({ onOpenEntity, onOpenEservice }) {
                           {r.fruitoreAggregato && <span style={{ marginLeft: 6, fontSize: 9.5, color: "var(--ink-faint)" }}>classe</span>}
                         </td>
                         <td style={td}><OrigineBadge origine={r.origine} /></td>
-                        <td className="tabular" style={{ ...td, textAlign: "right", color: r.connessioni != null ? "var(--ink)" : "var(--ink-faint)" }}>{fmt(r.connessioni)}</td>
-                        <td className="tabular" style={{ ...td, textAlign: "right", color: r.sessioni != null ? "#4fc3f7" : "var(--ink-faint)" }}>{breve(r.sessioni)}</td>
+                        <td className="tabular" style={{ ...td, textAlign: "right", color: r.connessioni != null ? "var(--ink)" : "var(--ink-faint)" }}>{numero(r.connessioni)}</td>
+                        <td className="tabular" style={{ ...td, textAlign: "right", color: r.sessioni != null ? "var(--acc-cyan)" : "var(--ink-faint)" }}>{breve(r.sessioni)}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -369,7 +369,7 @@ export default function ExploreView({ onOpenEntity, onOpenEservice }) {
               </div>
               {righe.length > limiteRighe && (
                 <button type="button" onClick={() => setLimiteRighe((n) => n + 100)} style={{ ...ctrl, marginTop: 8, cursor: "pointer", fontSize: 11, color: "var(--ink-muted)" }}>
-                  Mostra altre {Math.min(100, righe.length - limiteRighe)} righe ({fmt(righe.length - limiteRighe)} rimanenti)
+                  Mostra altre {Math.min(100, righe.length - limiteRighe)} righe ({numero(righe.length - limiteRighe)} rimanenti)
                 </button>
               )}
             </section>

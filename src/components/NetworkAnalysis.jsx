@@ -13,11 +13,12 @@ import {
   distinctAdjacency, degrees, reciprocity, betweenness, degreeHistogram, providerMatrix,
 } from "../utils/networkMetrics";
 import { useIsMobile } from "../utils/useIsMobile";
+import { numero } from "../utils/format";
 
 const ENTI = new Map(PDND_DATA.enti.map((e) => [e.id, e]));
 const nome = (id) => ENTI.get(id)?.name || id;
-const fmt = (n) => n.toLocaleString("it-IT");
-const breve = (n) => n >= 1e6 ? `${(n / 1e6).toLocaleString("it-IT", { maximumFractionDigits: 1 })} M` : n >= 1e3 ? `${Math.round(n / 1e3)} k` : fmt(n);
+// Abbreviazione corta per le celle strette della matrice ("12 k", "3,4 M").
+const abbreviaCella = (n) => n >= 1e6 ? `${(n / 1e6).toLocaleString("it-IT", { maximumFractionDigits: 1 })} M` : n >= 1e3 ? `${Math.round(n / 1e3)} k` : numero(n);
 
 // Etichette brevi per le colonne della matrice.
 const BREVI = {
@@ -32,7 +33,7 @@ const colonnaDi = (id) => (ENTI.get(id)?.aggregato ? id : "__individuali");
 
 function Card({ title, color, children, wide }) {
   return (
-    <div style={{ background: "rgba(15,20,35,.6)", border: "1px solid rgba(100,160,220,.08)", borderRadius: 10, padding: "20px 22px", flex: wide ? "1 1 100%" : "1 1 340px", minWidth: 0 }}>
+    <div style={{ background: "var(--card)", border: "1px solid var(--line)", borderRadius: 10, padding: "20px 22px", flex: wide ? "1 1 100%" : "1 1 340px", minWidth: 0 }}>
       <div style={{ fontSize: 11, fontWeight: 700, color, textTransform: "uppercase", letterSpacing: .8, marginBottom: 14 }}>{title}</div>
       {children}
     </div>
@@ -100,12 +101,12 @@ export default function NetworkAnalysis() {
       </div>
 
       <div style={{ display: "flex", flexWrap: "wrap", gap: 16 }}>
-        <Card title="Chi raggiunge quali enti" color="#4fc3f7" wide>
+        <Card title="Chi raggiunge quali enti" color="var(--acc-cyan)" wide>
           <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap", marginBottom: 12 }}>
             <span style={{ fontSize: 12, color: "var(--ink-muted)" }}>I 15 erogatori con più fruitori, per classe di enti raggiunta. Valore:</span>
             {[["eservice", "e-service"], ["sessioni", "sessioni osservate"]].map(([k, l]) => (
               <button key={k} type="button" aria-pressed={metrica === k} onClick={() => setMetrica(k)}
-                style={{ padding: "3px 10px", borderRadius: 12, fontSize: 11, cursor: "pointer", fontFamily: "inherit", background: metrica === k ? "rgba(79,195,247,.12)" : "transparent", color: metrica === k ? "#4fc3f7" : "var(--ink-faint)", border: `1px solid ${metrica === k ? "#4fc3f7" : "var(--border)"}` }}>
+                style={{ padding: "3px 10px", borderRadius: 12, fontSize: 11, cursor: "pointer", fontFamily: "inherit", background: metrica === k ? "rgba(79,195,247,.12)" : "transparent", color: metrica === k ? "var(--acc-cyan)" : "var(--ink-faint)", border: `1px solid ${metrica === k ? "var(--acc-cyan)" : "var(--border)"}` }}>
                 {l}
               </button>
             ))}
@@ -114,25 +115,25 @@ export default function NetworkAnalysis() {
             <table style={{ borderCollapse: "separate", borderSpacing: 2, minWidth: 720, width: "100%" }}>
               <thead>
                 <tr>
-                  <th />
+                  <th scope="col"><span className="sr-only">Erogatore</span></th>
                   {COLONNE.map((c) => (
-                    <th key={c.id} title={c.title} style={{ fontSize: 9.5, fontWeight: 600, color: "var(--ink-faint)", padding: "0 2px 6px", textAlign: "center", whiteSpace: "nowrap" }}>{c.label}</th>
+                    <th key={c.id} scope="col" title={c.title} style={{ fontSize: 9.5, fontWeight: 600, color: "var(--ink-faint)", padding: "0 2px 6px", textAlign: "center", whiteSpace: "nowrap" }}>{c.label}</th>
                   ))}
                 </tr>
               </thead>
               <tbody>
                 {erogatori.map((id) => (
                   <tr key={id}>
-                    <th scope="row" style={{ fontSize: 11.5, fontWeight: 400, color: "#cbd5e1", textAlign: "left", paddingRight: 8, whiteSpace: "nowrap" }}>{nome(id)}</th>
+                    <th scope="row" style={{ fontSize: 11.5, fontWeight: 400, color: "var(--ink-soft)", textAlign: "left", paddingRight: 8, whiteSpace: "nowrap" }}>{nome(id)}</th>
                     {COLONNE.map((c) => {
                       const cella = matrice.get(id).get(c.id);
                       const v = cella ? cella[metrica] : 0;
                       const a = v ? 0.12 + 0.78 * Math.sqrt(v / maxCella) : 0;
                       return (
-                        <td key={c.id} title={cella ? `${nome(id)} → ${c.title}: ${cella.eservice} e-service${cella.sessioni ? `, ${fmt(cella.sessioni)} sessioni osservate` : ""}` : `${nome(id)} → ${c.title}: nessun arco`}
+                        <td key={c.id} title={cella ? `${nome(id)} → ${c.title}: ${cella.eservice} e-service${cella.sessioni ? `, ${numero(cella.sessioni)} sessioni osservate` : ""}` : `${nome(id)} → ${c.title}: nessun arco`}
                           className="tabular"
-                          style={{ textAlign: "center", fontSize: 10.5, padding: "6px 2px", borderRadius: 3, minWidth: 44, background: v ? `rgba(79,195,247,${a})` : "rgba(30,40,60,.35)", color: a > .55 ? "#0a0e1a" : v ? "var(--ink)" : "var(--ink-faint)" }}>
-                          {v ? (metrica === "sessioni" ? breve(v) : v) : "·"}
+                          style={{ textAlign: "center", fontSize: 10.5, padding: "6px 2px", borderRadius: 3, minWidth: 44, background: v ? `rgba(79,195,247,${a})` : "var(--card-inset)", color: a > .55 ? "var(--surface-0)" : v ? "var(--ink)" : "var(--ink-faint)" }}>
+                          {v ? (metrica === "sessioni" ? abbreviaCella(v) : v) : "·"}
                         </td>
                       );
                     })}
@@ -147,17 +148,17 @@ export default function NetworkAnalysis() {
           </div>
         </Card>
 
-        <Card title="Enti ponte (intermediazione)" color="#8338ec">
+        <Card title="Enti ponte (intermediazione)" color="var(--acc-violet)">
           <div style={{ marginBottom: 12 }}>{toggle}</div>
           {topBc.length === 0 && <div style={{ fontSize: 12, color: "var(--ink-faint)" }}>Nessun nodo sta su cammini fra altri nodi.</div>}
           {topBc.map(([id, v]) => (
             <div key={id} style={{ marginBottom: 9 }}>
               <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, marginBottom: 3 }}>
-                <span style={{ color: "#cbd5e1" }}>{nome(id)}</span>
-                <span className="tabular" style={{ color: "#8338ec", fontWeight: 700 }}>{v.toLocaleString("it-IT", { maximumFractionDigits: 3, minimumFractionDigits: 3 })}</span>
+                <span style={{ color: "var(--ink-soft)" }}>{nome(id)}</span>
+                <span className="tabular" style={{ color: "var(--acc-violet)", fontWeight: 700 }}>{v.toLocaleString("it-IT", { maximumFractionDigits: 3, minimumFractionDigits: 3 })}</span>
               </div>
-              <div style={{ height: 6, background: "rgba(30,40,60,.6)", borderRadius: 3 }}>
-                <div style={{ height: "100%", width: `${(v / topBc[0][1]) * 100}%`, background: "#8338ec", borderRadius: 3 }} />
+              <div style={{ height: 6, background: "var(--track)", borderRadius: 3 }}>
+                <div style={{ height: "100%", width: `${(v / topBc[0][1]) * 100}%`, background: "var(--acc-violet)", borderRadius: 3 }} />
               </div>
             </div>
           ))}
@@ -167,7 +168,7 @@ export default function NetworkAnalysis() {
           </div>
         </Card>
 
-        <Card title="Struttura della rete" color="#06d6a0">
+        <Card title="Struttura della rete" color="var(--acc-green)">
           <div style={{ marginBottom: 12 }}>{toggle}</div>
           <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginBottom: 16 }}>
             {[
@@ -175,14 +176,14 @@ export default function NetworkAnalysis() {
               ["Archi distinti", [...adj.values()].reduce((a, s) => a + s.size, 0)],
               ["Reciprocità", `${(reciproca * 100).toLocaleString("it-IT", { maximumFractionDigits: 1 })}%`],
             ].map(([l, v]) => (
-              <div key={l} style={{ flex: "1 1 90px", textAlign: "center", padding: "10px 6px", border: "1px solid rgba(100,160,220,.08)", borderRadius: 8 }}>
-                <div className="tabular" style={{ fontSize: 18, fontWeight: 700, color: "#06d6a0" }}>{typeof v === "number" ? fmt(v) : v}</div>
+              <div key={l} style={{ flex: "1 1 90px", textAlign: "center", padding: "10px 6px", border: "1px solid var(--line)", borderRadius: 8 }}>
+                <div className="tabular" style={{ fontSize: 18, fontWeight: 700, color: "var(--acc-green)" }}>{typeof v === "number" ? numero(v) : v}</div>
                 <div style={{ fontSize: 9.5, color: "var(--ink-faint)", textTransform: "uppercase", letterSpacing: .5, marginTop: 2 }}>{l}</div>
               </div>
             ))}
           </div>
           <div style={{ display: "flex", gap: m ? 14 : 20, flexWrap: "wrap" }}>
-            <Istogramma bins={istOut} colore="#06d6a0" titolo="Grado in uscita (a quanti nodi eroga)" />
+            <Istogramma bins={istOut} colore="var(--acc-green)" titolo="Grado in uscita (a quanti nodi eroga)" />
             <Istogramma bins={istIn} colore="var(--pa-blue)" titolo="Grado in entrata (da quanti nodi fruisce)" />
           </div>
           <div style={nota}>

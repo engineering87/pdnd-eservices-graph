@@ -10,11 +10,11 @@
 
 import { useIsMobile } from "../utils/useIsMobile";
 
-export default function Footer() {
+export default function Footer({ onPrivacy }) {
   const m = useIsMobile();
 
   return (
-    <footer style={{ background: "rgba(8,11,20,.9)", borderTop: "1px solid var(--border)", padding: m ? "10px 14px" : "14px 28px", display: "flex", flexDirection: m ? "column" : "row", justifyContent: "space-between", alignItems: m ? "flex-start" : "center", gap: m ? 6 : 12, zIndex: 20 }}>
+    <footer style={{ background: "var(--footer-bg)", borderTop: "1px solid var(--border)", padding: m ? "10px 14px" : "14px 28px", display: "flex", flexDirection: m ? "column" : "row", justifyContent: "space-between", alignItems: m ? "flex-start" : "center", gap: m ? 6 : 12, zIndex: 20 }}>
       <div style={{ display: "flex", alignItems: "center", gap: m ? 10 : 20, fontSize: m ? 10 : 11, color: "var(--ink-muted)", flexWrap: "wrap" }}>
         <span>Progetto di <span style={{ color: "var(--ink)", fontWeight: 600 }}>Francesco Del Re</span></span>
         <span style={{ opacity: .3 }}>|</span>
@@ -25,6 +25,8 @@ export default function Footer() {
         <a href="https://doi.org/10.5281/zenodo.19989954" target="_blank" rel="noopener" style={{ color: "var(--cite)", textDecoration: "none", fontWeight: 600 }} title="The PDND E-Service Network — Zenodo, 2026">Paper</a>
         <span style={{ opacity: .3 }}>|</span>
         <span>AGPL-3.0</span>
+        <span style={{ opacity: .3 }}>|</span>
+        <a href="/privacy" onClick={(e) => { if (onPrivacy) { e.preventDefault(); onPrivacy(); } }} style={{ color: "var(--pa-blue)", textDecoration: "none" }}>Privacy</a>
       </div>
       <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: m ? 9 : 10, color: "var(--ink-faint)" }}>
         <span>Dati:</span>

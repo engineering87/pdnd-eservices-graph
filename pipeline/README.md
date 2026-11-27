@@ -32,10 +32,12 @@ catalogo ufficiale PDND (CSV, 15.000+ e-service)
    │     4. ricostruita   relazioni v1 (connections-reconstructed.json)
    │     5. inferita      stime congelate, solo se l'e-service è senza archi
    ├── applica i guard di validazione
-   └── scrive pipeline/pdnd-data.preview.json  (ANTEPRIMA, non distruttiva)
+   ├── scrive pipeline/pdnd-data.preview.json  (ANTEPRIMA, non distruttiva)
+   └── scrive pipeline/aderenti-index.preview.json  (indice di tutti gli aderenti,
+         per la scheda «Il tuo ente»)
               │
               ▼
-   GitHub Action mensile → commit dell'anteprima su main
+   GitHub Action mensile → pull request su develop con il report
 ```
 
 > **Modalità non distruttiva.** La pipeline scrive solo sull'anteprima
@@ -58,9 +60,10 @@ Attivo↔Sospeso.
 | `category-map.json` | Mappa categorie consumatori (`attributes.certified`) → nodi, per la baseline degli archi |
 | `connections-overrides.json` | Connessioni curate da documentazione, con precedenza sulla baseline |
 | `connections-reconstructed.json` | Relazioni del modello v1 (origine `ricostruita`): `anchored` per catalogId, sommate agli archi del catalogo; `unanchored` riportate così come sono. I servizi agganciati sono sempre inclusi, anche oltre `maxServices` |
-| `classi.json` | Classi di enti (nodi aggregati) allineate alle categorie ufficiali PagoPA: attributi certificati, categorie delle statistiche, totali ufficiali degli aderenti |
+| `classi.json` | Classi di enti (nodi aggregati) allineate alle categorie ufficiali PagoPA: attributi certificati, categorie delle statistiche, totali ufficiali degli aderenti, tipi di ente (`sottotipi`) per aprire la classe nella mappa |
 | `connections-frozen.json` | Stime AI congelate (origine `inferita`), usate solo per gli e-service senza altri archi |
 | `pdnd-data.preview.json` | Anteprima generata dalla pipeline (NON è il dato live) |
+| `aderenti-index.preview.json` | Indice compatto degli aderenti con codice IPA (nome, codice IPA, classe, tipo di ente, nodo della mappa, e-service pubblicati) per la scheda «Il tuo ente». Imprese e altri privati senza codice IPA non sono elencati. Non viene scritto con `--out` |
 | `last-run-report.md` | Report generato ad ogni esecuzione |
 
 ## Uso manuale
@@ -73,6 +76,22 @@ node pipeline/build-graph-data.mjs
 node pipeline/build-graph-data.mjs --write
 ```
 
+## Grafo a una data passata
+
+La pipeline può lavorare su una versione passata dei dati aperti, per costruire le
+istantanee del confronto fra date:
+
+```bash
+PDND_OPENDATA_REF=<commit di italia/pdnd-opendata> \
+  node pipeline/build-graph-data.mjs --write --no-ai \
+  --out src/data/snapshots/pdnd-data.2026-06-01.json --data 2026-06-01
+```
+
+`--out` scrive altrove senza toccare anteprima e report; `--data` è la data
+dichiarata nel meta. Lo script `scripts/build-snapshots.mjs` trova da solo il
+commit giusto per ogni data. Alla promozione, il grafo sostituito viene archiviato
+in `src/data/snapshots/` con la sua data.
+
 ## Promuovere l'anteprima a dato live
 
 Quando, dopo aver ispezionato `pdnd-data.preview.json` e il report, sei convinto
@@ -81,12 +100,18 @@ della qualità dell'aggiornamento, hai due modi per promuovere l'anteprima a gra
 **Dalla GitHub Action (consigliato).** Tab **Actions** → workflow
 "Promuovi anteprima a grafo live" → **Run workflow** → scrivi `PROMUOVI` nel campo
 di conferma. Il workflow valida l'anteprima, salva un backup del curato, sostituisce
-il grafo live e committa. La conferma esplicita evita promozioni accidentali.
+il grafo live e l'indice degli aderenti, archivia il grafo sostituito fra le
+istantanee, rigenera le esportazioni in `exports/` e le misure di rete nel tempo
+(`src/data/network-history.json`) e apre una pull request su
+`develop`. La conferma esplicita evita promozioni accidentali; il grafo arriva sul
+sito con la release da `develop` a `main`.
 
 **Da riga di comando.**
 
 ```bash
 cp pipeline/pdnd-data.preview.json src/data/pdnd-data.json
+cp pipeline/aderenti-index.preview.json src/data/aderenti-index.json
+npm run export && npm test
 ```
 
 In entrambi i casi è l'**unico** passo che modifica il grafo mostrato dall'app, ed è
@@ -125,8 +150,10 @@ Lo script si interrompe (exit 1) senza scrivere nulla se:
 - vengono generati **zero** e-service (problema di matching IPA);
 - il numero di nodi cala di oltre il **30%** rispetto alla versione precedente.
 
-Nel workflow GitHub, un guard fallito interrompe il job **prima** del commit:
-`main` non viene mai aggiornato con dati rotti.
+Nel workflow GitHub, un guard fallito interrompe il job **prima** della pull
+request: nessun ramo riceve dati rotti. Quando l'anteprima cambia, il workflow
+apre (o aggiorna) una pull request su `develop` con il report di esecuzione nel
+testo, da rivedere prima del merge.
 
 ## Manutenzione periodica
 

@@ -463,8 +463,8 @@ La presente elaborazione (aggregazione, inferenza delle connessioni, visualizzaz
 Il modello v2 è prodotto dalla pipeline (`pipeline/build-graph-data.mjs`) a partire
 dai dataset ufficiali di [pdnd-opendata](https://github.com/italia/pdnd-opendata)
 (CC0) e conserva, con provenienza dichiarata, tutte le 570 relazioni del v1.
-Snapshot del 25 novembre 2026: 63 nodi (10 aggregati), 312 e-service, 600 archi
-distinti erogatore→fruitore, 1.469 relazioni, densità 0,1536.
+Snapshot del 26 novembre 2026: 63 nodi (10 aggregati), 313 e-service, 600 archi
+distinti erogatore→fruitore, 1.476 relazioni, densità 0,1536.
 
 ### 7.1 Fonti ufficiali usate dalla pipeline
 
@@ -474,6 +474,8 @@ distinti erogatore→fruitore, 1.469 relazioni, densità 0,1536.
 | `e_service_con_piu_enti_abilitati_from_the_beginning.csv` | Enti fruitori abilitati per e-service e per categoria di fruitore: selezione e archi osservati |
 | `eservice_con_piu_token_staccati_from_the_beginning.csv` | Sessioni di scambio per e-service e per categoria di fruitore, con id del catalogo: selezione e archi osservati |
 | `aderenti.csv`, `totale_enti.csv` | Dimensione delle classi di enti |
+| `andamento_delle_adesioni.csv`, `attivita_della_piattaforma_from_the_beginning.csv`, `totale_richieste_di_accesso.csv`, `connessioni_totali.csv`, `eservice_pubblicati.csv` | Andamento dell'intera piattaforma nella scheda Numeri: enti aderenti cumulati e sessioni di scambio per mese (scaglioni al 24 di ogni mese, dal 2022), totali con variazione dell'ultimo mese. Non dipendono dalla selezione della mappa |
+| `eservice_con_piu_token_staccati_last_twelve_months.csv`, `_last_six_months.csv` | Andamento recente per e-service: sessioni negli ultimi 12 e 6 mesi (somma per categoria di ente fruitore, minimi garantiti) e variazione degli ultimi 6 mesi rispetto ai 6 precedenti, calcolata sulle sole categorie presenti in entrambe le finestre e solo con almeno 100.000 sessioni nel periodo precedente |
 
 Le classifiche elencano i primi 10 e-service per ogni coppia di categorie
 erogatore × fruitore: i valori ricavati (`enti_abilitati_min`, `sessioni_min`,
@@ -504,6 +506,21 @@ dal progetto. Restano nominati gli enti citati esplicitamente nel catalogo e i
 ministeri (enti distinti, tutti quelli tracciati). L'attributo "Pubbliche
 Amministrazioni" (qualsiasi PA) va su tutte le classi pubbliche.
 
+**Tipi di ente dentro le classi.** Sette classi riuniscono più tipologie IPA: per
+esempio Sanità comprende ASL, aziende ospedaliere e IRCCS, agenzie regionali
+sanitarie e istituti zooprofilattici. In `classi.json` il campo `sottotipi`
+raggruppa gli attributi certificati di ogni classe sotto un nome breve; ogni
+attributo sta in un solo sottotipo. La pipeline conta gli aderenti di ogni
+sottotipo sull'elenco ufficiale e, per ogni arco verso una classe, registra in
+`sottotipi` a quali tipi il catalogo apre l'e-service.
+
+Nella mappa una classe si può aprire nei suoi tipi di ente. Si spostano sui tipi
+solo le abilitazioni del catalogo rivolte a una parte della classe. Restano sulla
+classe l'uso osservato, perché le statistiche ufficiali sono per categoria e non
+per tipo di ente, e le abilitazioni rivolte all'intera classe, come l'attributo
+"Pubbliche Amministrazioni". L'apertura cambia solo la vista: densità, comunità e
+misure nel tempo restano calcolate con le classi chiuse.
+
 ### 7.3 Provenienza degli archi
 
 Ogni arco dichiara una provenienza; quando più fonti sostengono lo stesso arco vale
@@ -511,15 +528,27 @@ la più forte, in quest'ordine:
 
 | Origine | Significato | Archi |
 |---|---|---|
-| `documentata` | Override con fonte ufficiale puntuale (`connections-overrides.json`) | 6 |
-| `osservata` | Connessioni abilitate o sessioni di scambio realmente registrate dalla PDND verso una classe di enti | 265 |
-| `certificata` | Classe di enti abilitata nel campo `attributes.certified` del catalogo | 628 |
+| `documentata` | Override con fonte ufficiale puntuale (`connections-overrides.json`) | 12 |
+| `osservata` | Connessioni abilitate o sessioni di scambio realmente registrate dalla PDND verso una classe di enti | 264 |
+| `certificata` | Classe di enti abilitata nel campo `attributes.certified` del catalogo | 630 |
 | `ricostruita` | Relazione del modello v1 (`connections-reconstructed.json`) | 545 |
 | `inferita` | Stima AI congelata (`connections-frozen.json`), solo se manca ogni altra prova | 25 |
 
 Il numero di connessioni e di sessioni osservate accompagna l'arco qualunque sia la
 sua provenienza. Delle 570 relazioni del v1, 25 trovano conferma nei dati
 ufficiali (18 certificate, 7 osservate); le altre restano `ricostruita`.
+
+**Archi documentati da norma (aggiornamento del 26 novembre 2026).** Il DL 19
+febbraio 2026, n. 19, art. 6, convertito dalla L. 20 aprile 2026, n. 50, prevede che
+scuole, università e Comuni che erogano prestazioni agevolate acquisiscano d'ufficio
+dall'INPS, tramite la PDND, i dati ISEE strettamente necessari. Gli archi INPS →
+Scuole, Università e AFAM, Comuni sono quindi `documentata` sui due servizi generali
+di consultazione ISEE (Indicatore e Attestazione). La norma non indica il singolo
+e-service: la scelta dei due servizi generali, e non delle varianti per residenti od
+operatori, è del progetto ed è dichiarata in `connections-overrides.json`. Un arco
+documentato da una norma attesta l'obbligo o la facoltà di acquisire il dato, non il
+volume effettivo d'uso: quello resta indicato, dove pubblicato, da connessioni e
+sessioni osservate.
 
 ### 7.4 Selezione degli e-service
 
@@ -531,6 +560,60 @@ esempio SEND, ≥7.041 enti) sia quelli con pochi fruitori ma volumi molto alti 
 esempio la patente su IT-Wallet, ≥103 milioni di sessioni). Il v1 e la prima
 versione v2 sceglievano invece in ordine alfabetico, escludendo 5 dei 10 e-service
 più richiesti della piattaforma.
+
+### 7.4 bis Confronto fra date
+
+Le istantanee mensili in `src/data/snapshots/` (dal 1° giugno 2026) sono
+ricostruite rilanciando la pipeline sulla versione di `pdnd-opendata` di quella
+data, ricavata dalla cronologia del repository ufficiale, con le regole di oggi:
+stessi enti tracciati, classi, override e relazioni del v1. Le differenze fra due
+istantanee riflettono quindi i cambiamenti della PDND (catalogo, classifiche d'uso,
+aderenti) e non del modello. Poiché la mappa rappresenta una selezione, un
+e-service può entrare o uscire perché è nuovo, perché è stato ritirato o perché è
+cambiato il suo uso. Il confronto con il modello v1 del report è disponibile, ma
+mescola cambiamenti della PDND e cambiamenti del modello, e l'app lo segnala.
+
+### 7.4 ter Ricerca fra gli aderenti
+
+La scheda «Il tuo ente» cerca fra le voci di `aderenti.csv` con codice IPA, non
+solo fra i nodi della mappa. La pipeline ne ricava un indice compatto
+(`src/data/aderenti-index.json`, circa 280 kB compressi, scaricato solo quando si
+apre la scheda) con, per ogni voce: nome, codice IPA, classe di enti assegnata con
+le stesse regole di `classi.json`, nodo della mappa se l'ente è rappresentato
+individualmente, numero di e-service pubblicati nel catalogo e i nomi dei primi.
+
+I dati d'uso ufficiali sono pubblicati per categoria di ente, non per singolo
+ente: per un ente compreso in una classe la scheda mostra quindi i servizi usati
+dagli enti del suo tipo, e lo dichiara. L'elenco ufficiale comprende anche uffici
+e articolazioni interne registrati come aderenti a sé, per esempio i singoli
+uffici giudiziari.
+
+**Dati personali.** Nell'indice entrano solo gli aderenti con codice IPA, cioè
+amministrazioni e gestori di pubblici servizi. Imprese e altri soggetti privati
+(346 voci nell'elenco di novembre 2026) sono contati nelle classi ma non elencati
+uno per uno: fra loro ci sono ditte individuali e società di persone il cui nome è
+quello di persone fisiche. L'elenco ufficiale è pubblico, ma ripubblicarlo in una
+ricerca nominativa non serve allo scopo della mappa (minimizzazione dei dati,
+art. 5 del Regolamento UE 2016/679). L'indice non contiene codici fiscali.
+
+### 7.4 quater Comunità e misure nel tempo
+
+**Comunità.** Il metodo di Louvain (Blondel et al., 2008) divide i nodi in gruppi
+massimizzando la modularità Q sul grafo non orientato, in cui il legame fra due
+enti pesa quanto il numero di e-service che li collegano. L'ordine di visita dei
+nodi è fisso, quindi lo stesso dato dà sempre le stesse comunità. Sul grafo di
+novembre 2026 Q vale circa 0,17 (0,24 senza le classi di enti): i gruppi esistono
+ma sono poco separati, perché i grandi erogatori (ANPR, INPS, Agenzia delle
+Entrate) servono quasi tutta la rete. Con una struttura così debole, piccole
+variazioni del dato possono spostare un ente da un gruppo all'altro o cambiare il
+numero dei gruppi.
+
+**Misure nel tempo.** Per ogni istantanea mensile (§7.4 bis) e per il grafo
+attuale, `npm run export` calcola relazioni distinte, densità, reciprocità, quota
+delle relazioni dei primi tre erogatori, intermediazione massima e modularità, e
+le scrive in `src/data/network-history.json`; i test verificano che il file sia
+allineato alle istantanee. Il modello v1 del report resta fuori dalla serie
+perché costruito con regole diverse.
 
 ### 7.5 Verifiche sulle fonti (25 novembre 2026)
 

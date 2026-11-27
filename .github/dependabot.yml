@@ -1,0 +1,28 @@
+# Aggiornamenti automatici delle dipendenze. Le PR puntano su develop, il ramo
+# di integrazione, così passano da CI e CodeQL prima di arrivare su main con la
+# release. Gli avvisi di sicurezza restano calcolati sul ramo di default.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    target-branch: develop
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    groups:
+      # Un'unica PR per gli aggiornamenti minori e di patch, una per ciascun
+      # aggiornamento maggiore: meno rumore, rischi separati.
+      minori-e-patch:
+        update-types: [minor, patch]
+    commit-message:
+      prefix: "chore(deps)"
+      prefix-development: "chore(deps-dev)"
+
+  - package-ecosystem: github-actions
+    directory: /
+    target-branch: develop
+    schedule:
+      interval: monthly
+    commit-message:
+      prefix: "ci"

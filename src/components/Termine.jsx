@@ -59,8 +59,8 @@ export default function Termine({ id, titolo, testo, sottolineato = true, childr
           role="tooltip"
           style={{
             position: "fixed", left: pos.left, top: pos.top, bottom: pos.bottom, width: pos.larghezza, zIndex: 200,
-            padding: "10px 12px", borderRadius: 8, background: "#16203a", border: "1px solid var(--border-strong)",
-            boxShadow: "0 8px 24px rgba(0,0,0,.45)", fontSize: 12.5, lineHeight: 1.5, color: "var(--ink-muted)",
+            padding: "10px 12px", borderRadius: 8, background: "var(--tooltip)", border: "1px solid var(--border-strong)",
+            boxShadow: "var(--shadow)", fontSize: 12.5, lineHeight: 1.5, color: "var(--ink-muted)",
             fontWeight: 400, textTransform: "none", letterSpacing: 0, textAlign: "left", pointerEvents: "none",
           }}
         >

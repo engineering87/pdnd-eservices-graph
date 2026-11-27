@@ -7,7 +7,9 @@
  * sessioni osservate. Questi valori sono minimi garantiti, non totali.
  */
 
-export const ORIGINI = ["documentata", "osservata", "certificata", "ricostruita", "inferita"];
+import { campoCSV } from "./csv.js";
+
+export const ORIGINI =["documentata", "osservata", "certificata", "ricostruita", "inferita"];
 
 /** Appiattisce il modello in righe, una per arco. */
 export function flattenRelations(data) {
@@ -116,10 +118,7 @@ export function summarize(rows) {
 
 /** CSV delle righe filtrate, con intestazione. */
 export function relationsToCSV(rows) {
-  const campo = (v) => {
-    const s = v == null ? "" : String(v);
-    return /[",\n;]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
-  };
+  const campo = campoCSV;
   const cols = ["erogatore", "erogatoreNome", "eservice", "catalogId", "fruitore", "fruitoreNome", "fruitoreCategoria", "origine", "connessioni", "sessioni"];
   return [cols.join(","), ...rows.map((r) => cols.map((c) => campo(r[c])).join(","))].join("\n") + "\n";
 }

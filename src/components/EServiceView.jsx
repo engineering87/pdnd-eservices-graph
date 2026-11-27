@@ -9,23 +9,20 @@ import PDND_DATA from "../data/pdnd-data.json";
 import { ORIGINI } from "../utils/relations";
 import { CATEGORY_COLORS, ORIGIN_STYLES } from "../constants/colors";
 import { useIsMobile } from "../utils/useIsMobile";
+import { numero, breve, dataLunga } from "../utils/format";
 
 const ENTI = new Map(PDND_DATA.enti.map((e) => [e.id, e]));
-const SNAPSHOT = PDND_DATA.meta?.ultimo_aggiornamento
-  ? new Date(`${PDND_DATA.meta.ultimo_aggiornamento}T12:00:00`).toLocaleDateString("it-IT", { day: "numeric", month: "long", year: "numeric" })
-  : "—";
-const fmt = (n) => (n == null ? "—" : n.toLocaleString("it-IT"));
-const breve = (n) => n == null ? "—" : n >= 1e6 ? `${(n / 1e6).toLocaleString("it-IT", { maximumFractionDigits: 1 })} M` : fmt(n);
+const SNAPSHOT = dataLunga(PDND_DATA.meta?.ultimo_aggiornamento);
 
-const link = { background: "none", border: "none", padding: 0, color: "var(--ink)", cursor: "pointer", fontFamily: "inherit", fontSize: "inherit", textAlign: "left", textDecoration: "underline", textDecorationColor: "rgba(120,160,210,.35)", textUnderlineOffset: 3 };
-const box = { background: "rgba(15,20,35,.6)", border: "1px solid rgba(100,160,220,.08)", borderRadius: 10, padding: "18px 20px", marginBottom: 16 };
+const link = { background: "none", border: "none", padding: 0, color: "var(--ink)", cursor: "pointer", fontFamily: "inherit", fontSize: "inherit", textAlign: "left", textDecoration: "underline", textDecorationColor: "var(--underline)", textUnderlineOffset: 3 };
+const box = { background: "var(--card)", border: "1px solid var(--line)", borderRadius: 10, padding: "18px 20px", marginBottom: 16 };
 const h3 = { fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: .8, marginBottom: 12 };
-const td = { padding: "7px 10px", fontSize: 12, borderBottom: "1px solid rgba(100,160,220,.06)", verticalAlign: "top" };
+const td = { padding: "7px 10px", fontSize: 12, borderBottom: "1px solid var(--line)", verticalAlign: "top" };
 const th = { textAlign: "left", padding: "6px 10px", fontSize: 10, fontWeight: 700, color: "var(--ink-faint)", textTransform: "uppercase", letterSpacing: .5, borderBottom: "1px solid var(--border)", whiteSpace: "nowrap" };
 
 function Badge({ children, colore = "var(--ink-faint)", title }) {
   return (
-    <span title={title} style={{ display: "inline-block", padding: "2px 9px", borderRadius: 10, fontSize: 10.5, fontWeight: 600, color: colore, border: `1px solid ${colore}55`, background: `${colore}14`, whiteSpace: "nowrap" }}>
+    <span title={title} style={{ display: "inline-block", padding: "2px 9px", borderRadius: 10, fontSize: 10.5, fontWeight: 600, color: `color-mix(in srgb, ${colore} 65%, var(--ink))`, border: `1px solid color-mix(in srgb, ${colore} 45%, transparent)`, background: `color-mix(in srgb, ${colore} 10%, transparent)`, whiteSpace: "nowrap" }}>
       {children}
     </span>
   );
@@ -33,7 +30,7 @@ function Badge({ children, colore = "var(--ink-faint)", title }) {
 
 function Tile({ label, value, sub, colore = "var(--ink)" }) {
   return (
-    <div style={{ flex: "1 1 140px", padding: "12px", background: "rgba(15,20,35,.6)", border: "1px solid rgba(100,160,220,.08)", borderRadius: 8, textAlign: "center" }}>
+    <div style={{ flex: "1 1 140px", padding: "12px", background: "var(--card)", border: "1px solid var(--line)", borderRadius: 8, textAlign: "center" }}>
       <div className="tabular" style={{ fontSize: 22, fontWeight: 700, color: colore }}>{value}</div>
       <div style={{ fontSize: 9.5, color: "var(--ink-faint)", textTransform: "uppercase", letterSpacing: .5, marginTop: 3 }}>{label}</div>
       {sub && <div style={{ fontSize: 9.5, color: "var(--ink-faint)", marginTop: 2 }}>{sub}</div>}
@@ -84,21 +81,31 @@ export default function EServiceView({ eserviceId, onOpenEntity, onOpenEservice,
         <button type="button" onClick={onBack} style={{ ...link, color: "var(--ink-faint)", fontSize: 12, textDecoration: "none", marginBottom: 12 }}>← Indietro</button>
 
         <div style={{ fontSize: 10, color: "var(--ink-faint)", textTransform: "uppercase", letterSpacing: 1, marginBottom: 6 }}>E-service</div>
-        <h2 style={{ fontSize: m ? 18 : 23, fontWeight: 700, color: "#f1f5f9", marginBottom: 8, wordBreak: "break-word" }}>{es.nome}</h2>
+        <h2 style={{ fontSize: m ? 18 : 23, fontWeight: 700, color: "var(--ink-strong)", marginBottom: 8, wordBreak: "break-word" }}>{es.nome}</h2>
         <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 8, marginBottom: 14, fontSize: 12.5, color: "var(--ink-muted)" }}>
           <span>Erogato da</span>
           <button type="button" style={{ ...link, fontWeight: 600 }} onClick={() => onOpenEntity(es.erogatore)} title="Apri nel grafo">{erog?.name || es.erogatore}</button>
           {erog && <Badge colore={CATEGORY_COLORS[erog.categoria]}>{erog.categoria}</Badge>}
-          <Badge colore={es.stato === "Attivo" ? "#06d6a0" : "#ffd166"}>{es.stato}</Badge>
+          <Badge colore={es.stato === "Attivo" ? "var(--acc-green)" : "var(--acc-yellow)"}>{es.stato}</Badge>
           {es.versione && <Badge>v{es.versione}</Badge>}
           {!es.catalogId && <Badge colore="#c49a9a" title="Record del modello v1 che rappresenta un tipo di servizio, non un singolo e-service del catalogo">tipo di servizio (v1)</Badge>}
         </div>
-        {es.descrizione && <p style={{ fontSize: 13.5, color: "#cbd5e1", lineHeight: 1.65, maxWidth: 820, marginBottom: 18 }}>{es.descrizione}</p>}
+        {es.descrizione && <p style={{ fontSize: 13.5, color: "var(--ink-soft)", lineHeight: 1.65, maxWidth: 820, marginBottom: 18 }}>{es.descrizione}</p>}
 
         <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginBottom: 18 }}>
-          <Tile label="Fruitori nel modello" value={fmt(archi.length)} sub={classi ? `di cui ${classi} classi di enti` : null} />
-          <Tile label="Enti abilitati" value={fmt(es.enti_abilitati_min)} sub={es.enti_abilitati_min ? "almeno, dato ufficiale" : "non nelle classifiche"} colore={es.enti_abilitati_min ? "#4fc3f7" : "var(--ink-faint)"} />
-          <Tile label="Sessioni di scambio" value={breve(es.sessioni_min)} sub={es.sessioni_min ? "almeno, dato ufficiale" : "non nelle classifiche"} colore={es.sessioni_min ? "#8338ec" : "var(--ink-faint)"} />
+          <Tile label="Fruitori nel modello" value={numero(archi.length)} sub={classi ? `di cui ${classi} classi di enti` : null} />
+          <Tile label="Enti abilitati" value={numero(es.enti_abilitati_min)} sub={es.enti_abilitati_min ? "almeno, dato ufficiale" : "non nelle classifiche"} colore={es.enti_abilitati_min ? "var(--acc-cyan)" : "var(--ink-faint)"} />
+          <Tile label="Sessioni di scambio" value={breve(es.sessioni_min)} sub={es.sessioni_min ? "almeno, dall'avvio" : "non nelle classifiche"} colore={es.sessioni_min ? "var(--acc-violet)" : "var(--ink-faint)"} />
+          {es.sessioni_12m != null && (
+            <Tile label="Ultimi 12 mesi" value={breve(es.sessioni_12m)} sub={es.sessioni_6m != null ? `di cui ${breve(es.sessioni_6m)} negli ultimi 6` : "sessioni, almeno"} />
+          )}
+          {es.tendenza_6m != null && (
+            <Tile
+              label="Ultimi 6 mesi"
+              value={`${es.tendenza_6m > 0 ? "▲ +" : es.tendenza_6m < 0 ? "▼ " : ""}${es.tendenza_6m.toLocaleString("it-IT", { maximumFractionDigits: 1 })}%`}
+              sub="sessioni rispetto ai 6 mesi precedenti"
+            />
+          )}
         </div>
 
         <div style={box}>
@@ -115,10 +122,10 @@ export default function EServiceView({ eserviceId, onOpenEntity, onOpenEservice,
                   <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 460 }}>
                     <thead>
                       <tr>
-                        <th style={th}>Fruitore</th>
-                        <th style={{ ...th, textAlign: "right" }}>Aderenti</th>
-                        <th style={{ ...th, textAlign: "right" }}>Enti abilitati</th>
-                        <th style={{ ...th, textAlign: "right" }}>Sessioni</th>
+                        <th scope="col" style={th}>Fruitore</th>
+                        <th scope="col" style={{ ...th, textAlign: "right" }}>Aderenti</th>
+                        <th scope="col" style={{ ...th, textAlign: "right" }}>Enti abilitati</th>
+                        <th scope="col" style={{ ...th, textAlign: "right" }}>Sessioni</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -128,9 +135,9 @@ export default function EServiceView({ eserviceId, onOpenEntity, onOpenEservice,
                             <button type="button" style={link} onClick={() => onOpenEntity(a.fruitore)} title="Apri nel grafo">{a.ente?.name || a.fruitore}</button>
                             {a.ente?.aggregato && <span style={{ marginLeft: 6, fontSize: 9.5, color: "var(--ink-faint)" }}>classe</span>}
                           </td>
-                          <td className="tabular" style={{ ...td, textAlign: "right", color: "var(--ink-faint)" }}>{a.ente?.aderenti ? fmt(a.ente.aderenti) : ""}</td>
-                          <td className="tabular" style={{ ...td, textAlign: "right", color: a.connessioni != null ? "var(--ink)" : "var(--ink-faint)" }}>{fmt(a.connessioni)}</td>
-                          <td className="tabular" style={{ ...td, textAlign: "right", color: a.sessioni != null ? "#4fc3f7" : "var(--ink-faint)" }}>{breve(a.sessioni)}</td>
+                          <td className="tabular" style={{ ...td, textAlign: "right", color: "var(--ink-faint)" }}>{a.ente?.aderenti ? numero(a.ente.aderenti) : ""}</td>
+                          <td className="tabular" style={{ ...td, textAlign: "right", color: a.connessioni != null ? "var(--ink)" : "var(--ink-faint)" }}>{numero(a.connessioni)}</td>
+                          <td className="tabular" style={{ ...td, textAlign: "right", color: a.sessioni != null ? "var(--acc-cyan)" : "var(--ink-faint)" }}>{breve(a.sessioni)}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -173,12 +180,12 @@ export default function EServiceView({ eserviceId, onOpenEntity, onOpenEservice,
 
         {altri.length > 0 && (
           <div style={box}>
-            <div style={{ ...h3, color: "#06d6a0" }}>Altri e-service di {erog?.name || es.erogatore} ({altri.length})</div>
+            <div style={{ ...h3, color: "var(--acc-green)" }}>Altri e-service di {erog?.name || es.erogatore} ({altri.length})</div>
             {altri.map((s) => (
-              <div key={s.id} style={{ display: "flex", justifyContent: "space-between", gap: 12, padding: "6px 0", borderBottom: "1px solid rgba(100,160,220,.05)", fontSize: 12.5 }}>
-                <button type="button" style={{ ...link, color: "#cbd5e1" }} onClick={() => onOpenEservice(s.id)}>{s.nome}</button>
+              <div key={s.id} style={{ display: "flex", justifyContent: "space-between", gap: 12, padding: "6px 0", borderBottom: "1px solid var(--line)", fontSize: 12.5 }}>
+                <button type="button" style={{ ...link, color: "var(--ink-soft)" }} onClick={() => onOpenEservice(s.id)}>{s.nome}</button>
                 <span className="tabular" style={{ fontSize: 11, color: "var(--ink-faint)", whiteSpace: "nowrap" }}>
-                  {s.sessioni_min ? `≥ ${breve(s.sessioni_min)} sessioni` : s.enti_abilitati_min ? `≥ ${fmt(s.enti_abilitati_min)} enti` : `${s.fruitori.length} fruitori`}
+                  {s.sessioni_min ? `≥ ${breve(s.sessioni_min)} sessioni` : s.enti_abilitati_min ? `≥ ${numero(s.enti_abilitati_min)} enti` : `${s.fruitori.length} fruitori`}
                 </span>
               </div>
             ))}

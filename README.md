@@ -1,5 +1,7 @@
 <div align="center">
 
+**Italiano** · [English](README.en.md)
+
 <img src="public/logo.svg" alt="PDND E-Services Graph" width="88" height="88">
 
 # PDND E-Services Graph
@@ -13,8 +15,8 @@ come grafo interattivo, costruito su dati aperti ufficiali e con la provenienza 
 [![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.19989954-blue?style=for-the-badge)](https://doi.org/10.5281/zenodo.19989954)
 
 [![License: AGPL-3.0](https://img.shields.io/badge/License-AGPL--3.0-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
-![Version](https://img.shields.io/badge/version-2.0.0-informational)
-![Snapshot](https://img.shields.io/badge/snapshot-25%20novembre%202026-orange)
+![Version](https://img.shields.io/badge/version-2.1.0-informational)
+![Snapshot](https://img.shields.io/badge/snapshot-26%20novembre%202026-orange)
 [![Issues](https://img.shields.io/github/issues/engineering87/pdnd-eservices-graph)](https://github.com/engineering87/pdnd-eservices-graph/issues)
 ![Last commit](https://img.shields.io/github/last-commit/engineering87/pdnd-eservices-graph)
 [![Stars](https://img.shields.io/github/stars/engineering87/pdnd-eservices-graph?style=social)](https://github.com/engineering87/pdnd-eservices-graph)
@@ -25,11 +27,11 @@ come grafo interattivo, costruito su dati aperti ufficiali e con la provenienza 
 
 <br>
 
-| **63** | **312** | **600** | **265** | **88,7%** |
+| **63** | **313** | **600** | **264** | **88,7%** |
 |:---:|:---:|:---:|:---:|:---:|
 | nodi, di cui 10 classi di enti | e-service | archi erogatore→fruitore | archi osservati nell'uso reale | copertura del catalogo |
 
-<sub>Modello v2, snapshot del 25 novembre 2026. I nodi sono una selezione: vedi [Cosa rappresentano i nodi](#cosa-rappresentano-i-nodi).</sub>
+<sub>Modello v2, snapshot del 26 novembre 2026. I nodi sono una selezione: vedi [Cosa rappresentano i nodi](#cosa-rappresentano-i-nodi).</sub>
 
 </div>
 
@@ -49,7 +51,7 @@ come grafo interattivo, costruito su dati aperti ufficiali e con la provenienza 
 > BibTeX e dettagli in [Come citare](#come-citare).
 
 > [!NOTE]
-> **Il grafo è una fotografia datata.** Enti, e-service e connessioni cambiano ogni giorno. Il grafo pubblicato fotografa il **25 novembre 2026**; il report Zenodo descrive il modello v1 del 2 maggio 2026. I numeri correnti sono su [interop.pagopa.it/numeri](https://www.interop.pagopa.it/numeri). Citando dati di questo progetto, indica sempre la data dello snapshot.
+> **Il grafo è una fotografia datata.** Enti, e-service e connessioni cambiano ogni giorno. Il grafo pubblicato fotografa il **26 novembre 2026**; il report Zenodo descrive il modello v1 del 2 maggio 2026. I numeri correnti sono su [interop.pagopa.it/numeri](https://www.interop.pagopa.it/numeri). Citando dati di questo progetto, indica sempre la data dello snapshot.
 
 ## Indice
 
@@ -79,7 +81,7 @@ Valori calcolati sul modello v2 e riproducibili con `npm run audit`; tra parente
 
 **Alcuni enti sono cerniere, non estremità.** INPS eroga verso 50 nodi e fruisce da 36: è al centro del welfare sia come fonte sia come consumatore. Il nodo dei Comuni mostra il pattern complementare, con 43 archi in ingresso e 14 in uscita, come ci si aspetta da un nodo che raccoglie migliaia di enti fruitori.
 
-**Abilitazione e uso sono misure diverse.** Un arco certificato dice che una classe di enti può usare un servizio, un arco osservato che lo usa: nel modello i primi sono 628, i secondi 265. Gli archi osservati mostrano dove passano i volumi, per esempio oltre 150 milioni di sessioni dai servizi ANPR verso i Comuni. Le classifiche ufficiali elencano però solo i primi 10 e-service per categoria, quindi un servizio senza arco osservato non è per forza poco usato.
+**Abilitazione e uso sono misure diverse.** Un arco certificato dice che una classe di enti può usare un servizio, un arco osservato che lo usa: nel modello i primi sono 630, i secondi 264. Gli archi osservati mostrano dove passano i volumi, per esempio oltre 150 milioni di sessioni dai servizi ANPR verso i Comuni. Le classifiche ufficiali elencano però solo i primi 10 e-service per categoria, quindi un servizio senza arco osservato non è per forza poco usato.
 
 **I cluster tematici corrispondono ai domini della PA.** Già nel modello v1 welfare (INPS, Comuni, Ministero del Lavoro), fisco (Agenzia delle Entrate, MEF, Sogei) e trasparenza (ANAC, AgID) si separavano nel layout, senza che le categorie fossero usate per posizionare i nodi.
 
@@ -97,13 +99,26 @@ I nodi ad alta centralità sono quelli la cui indisponibilità avrebbe effetto s
 - Mappa leggibile: nodi che non si sovrappongono, etichette senza sovrapposizioni che si infittiscono con lo zoom, adattamento automatico allo schermo e pulsante **Centra**, legenda dei colori per famiglie
 - Filtro per categoria dalla legenda e ricerca testuale degli enti
 - Pannello dettagli con gli e-service erogati e fruiti da ogni ente e, per le classi, il numero di aderenti
+- **Dentro la classe**: per ogni classe di enti, i tipi di ente che la compongono (per esempio ASL, aziende ospedaliere e IRCCS nella Sanità) con gli aderenti e gli e-service abilitati solo a quel tipo, chi pubblica più e-service e la ricerca fra i suoi enti
+- Apertura di una classe nella mappa: accanto alla classe compaiono i suoi tipi di ente, con le abilitazioni del catalogo rivolte solo a loro; l'uso osservato resta sulla classe, perché è pubblicato per categoria ([esempio](https://www.pdndgraph.it/ente/sanita_agg?aperte=sanita_agg))
 - Link diretti a ogni vista e a ogni ente, per esempio [pdndgraph.it/ente/inps](https://www.pdndgraph.it/ente/inps)
+
+**Accessibilità e temi**
+- Tema chiaro e tema scuro, con un pulsante nell'intestazione; al primo accesso segue la preferenza del sistema
+- Colori del testo verificati sul contrasto WCAG 2.1 AA (almeno 4,5:1) in entrambi i temi
+- Uso da tastiera: link «Vai al contenuto», ricerca di un ente con suggerimenti e apertura con Invio, finestre di dialogo che trattengono il fuoco e si chiudono con Esc
+- Rispetto della preferenza «riduci movimento» e tabelle con intestazioni dichiarate per i lettori di schermo
 
 **Relazioni fra enti** (scheda Relazioni)
 - Tutte le relazioni erogatore → e-service → fruitore in tabella, filtrabili per erogatore, fruitore, categoria, provenienza e testo
 - Riepilogo raggruppato per erogatore, fruitore, categoria, e-service o provenienza, con enti abilitati e sessioni osservate
 - Percorsi pronti ("Cosa usano i Comuni", "Chi usa i servizi ANPR"…), viste filtrate condivisibili via link e download in CSV
 - Scheda di ogni e-service ([esempio](https://www.pdndgraph.it/eservice/pagopa_cfc8a94d)): erogatore, fruitori per provenienza, enti abilitati e sessioni, identificativo del catalogo, altri servizi dello stesso erogatore
+
+**Il tuo ente** (scheda Il tuo ente)
+- Ricerca per nome o codice IPA fra gli enti pubblici aderenti alla PDND, oltre 10.000 voci dell'elenco ufficiale: comuni, scuole, aziende sanitarie, università, gestori di servizi pubblici. Imprese e altri privati sono contati nelle classi ma non elencati uno per uno
+- Per ogni ente: tipo di ente, e-service che pubblica (con il link alla scheda quando l'e-service è nella mappa), servizi usati dagli enti del suo tipo e collegamenti alla mappa e alla scheda Relazioni
+- Link condivisibile alla scheda di un ente, per esempio [pdndgraph.it/enti?ente=c_e506](https://www.pdndgraph.it/enti?ente=c_e506)
 
 **Lettura dei dati**
 - Frecce direzionali erogatore→fruitore, spessore proporzionale ai servizi condivisi
@@ -113,8 +128,13 @@ I nodi ad alta centralità sono quelli la cui indisponibilità avrebbe effetto s
 - Enti abilitati e sessioni di scambio degli e-service, dove i dati ufficiali li riportano
 
 **Numeri ed esportazione** (scheda Numeri)
+- Andamento della PDND dal 2022: enti aderenti e sessioni di scambio mese per mese, con i totali ufficiali e la variazione dell'ultimo mese
+- Andamento dei singoli servizi: sessioni degli ultimi 12 e 6 mesi e confronto con i 6 mesi precedenti, nella scheda di ogni e-service e nei servizi in crescita o in calo
+- **Cosa è cambiato**: confronto del grafo attuale con le istantanee mensili (dal 1° giugno 2026) o con il modello v1 del report: nuovi legami, legami scomparsi, servizi entrati e usciti, servizi con più nuove sessioni
 - E-service più adottati e più usati, archi per provenienza, classi di enti
 - Analisi di rete: matrice erogatori × classi di enti raggiunte, enti ponte (centralità di intermediazione), reciprocità e distribuzione dei gradi
+- **Comunità della rete**: gruppi di enti che si scambiano dati soprattutto fra loro, trovati con il metodo di Louvain, con la modularità e la quota di legami interni di ogni gruppo
+- **La rete nel tempo**: relazioni distinte, densità, reciprocità, concentrazione sui primi erogatori, intermediazione e modularità per ogni istantanea mensile
 - Esportazione in GraphML, GEXF e CSV direttamente dal browser
 - Schede Metodologia e Guida integrate nell'app
 
@@ -122,12 +142,12 @@ I nodi ad alta centralità sono quelli la cui indisponibilità avrebbe effetto s
 
 ### In numeri
 
-| Metrica | v2 (25 novembre 2026) | v1 (2 maggio 2026, report) |
+| Metrica | v2 (26 novembre 2026) | v1 (2 maggio 2026, report) |
 |---|---|---|
 | Nodi | **63** (53 enti + 10 classi di enti) | 51 (50 enti + 1 aggregato) |
-| E-service | **312** | 86 tipi di servizio |
+| E-service | **313** | 86 tipi di servizio |
 | Archi distinti erogatore→fruitore | **600** | 343 |
-| Relazioni erogatore–fruitore | **1.469** | 570 |
+| Relazioni erogatore–fruitore | **1.476** | 570 |
 | Densità | **0,1536** | 0,1345 |
 | Copertura del catalogo ufficiale | **88,7%** di 15.301 record | ~89% di 14.102 endpoint |
 
@@ -158,7 +178,7 @@ Per ruolo: 48 nodi erogatori e fruitori, 12 solo fruitori, 3 solo erogatori. Per
 Grado, centralità e densità sono quindi calcolati **su questo insieme**, non sull'universo degli aderenti: un grado in uscita di 53 significa "eroga verso 53 dei 62 altri nodi", alcuni dei quali rappresentano migliaia di enti. Sono indicatori della struttura della rete rappresentata, non censimenti. Criteri completi in [METODOLOGIA.md §3](METODOLOGIA.md#3-scelte-di-rappresentazione-e-aggregazioni) e [§7.2](METODOLOGIA.md#72-classi-di-enti).
 
 > [!NOTE]
-> 55 dei 312 record in `eservices`, quelli senza `catalogId`, rappresentano un **tipo di servizio** del modello v1 e non un singolo endpoint del catalogo. Vedi [METODOLOGIA.md §3.5](METODOLOGIA.md#35-tipi-di-servizio-service-type-vs-endpoint-del-catalogo).
+> 55 dei 313 record in `eservices`, quelli senza `catalogId`, rappresentano un **tipo di servizio** del modello v1 e non un singolo endpoint del catalogo. Vedi [METODOLOGIA.md §3.5](METODOLOGIA.md#35-tipi-di-servizio-service-type-vs-endpoint-del-catalogo).
 
 ### Come è costruito il grafo
 
@@ -207,9 +227,9 @@ Ogni arco porta un campo `origine`, così chi usa il dato sa da dove viene ogni 
 
 | Origine | Significato | Archi |
 |---|---|---:|
-| `documentata` | Fonte ufficiale puntuale: circolari, manuali, presentazioni | 6 |
-| `osservata` | Connessioni o sessioni realmente registrate dalla PDND verso una classe di enti | 265 |
-| `certificata` | Classe di enti abilitata dal campo `attributes.certified` del catalogo | 628 |
+| `documentata` | Fonte ufficiale puntuale: norme, circolari, manuali, presentazioni | 12 |
+| `osservata` | Connessioni o sessioni realmente registrate dalla PDND verso una classe di enti | 264 |
+| `certificata` | Classe di enti abilitata dal campo `attributes.certified` del catalogo | 630 |
 | `ricostruita` | Relazione del modello v1, ricostruita da documentazione pubblica senza fonte per singolo arco | 545 |
 | `inferita` | Stima AI congelata, usata solo quando manca ogni altra prova | 25 |
 
@@ -221,11 +241,11 @@ Il catalogo cresce con l'adesione di nuovi enti e la pubblicazione di nuovi e-se
 
 | Livello | File | Aggiornato al | Contenuto |
 |---|---|---|---|
-| **Grafo live** (v2) | `src/data/pdnd-data.json` | 25 novembre 2026 | 63 nodi, 312 e-service, 600 archi |
-| **Anteprima** (automatica) | `pipeline/pdnd-data.preview.json` | 25 novembre 2026 | allineata al grafo live |
+| **Grafo live** (v2) | `src/data/pdnd-data.json` | 26 novembre 2026 | 63 nodi, 313 e-service, 600 archi |
+| **Anteprima** (automatica) | `pipeline/pdnd-data.preview.json` | 26 novembre 2026 | allineata al grafo live |
 | **Snapshot v1** (report) | `src/data/snapshots/pdnd-data.2026-05-02.json` | 2 maggio 2026 | 51 nodi, 86 tipi di e-service, 343 archi, congelato |
 
-Una GitHub Action mensile rigenera l'anteprima, che **non sostituisce** il grafo live: la promozione è manuale e avviene dopo aver controllato il report di esecuzione. Così un cambiamento automatico del catalogo non può cancellare relazioni ricostruite e documentate a mano. Le 570 relazioni del v1 vivono in `pipeline/connections-reconstructed.json` e confluiscono in ogni anteprima; un test verifica che nessuna coppia erogatore→fruitore del v1 vada persa.
+Una GitHub Action mensile rigenera l'anteprima e apre una pull request su `develop` con il report di esecuzione. L'anteprima **non sostituisce** il grafo live: la promozione è manuale, passa da un'altra pull request e arriva sul sito con la release. Così un cambiamento automatico del catalogo non può cancellare relazioni ricostruite e documentate a mano. Le 570 relazioni del v1 vivono in `pipeline/connections-reconstructed.json` e confluiscono in ogni anteprima; un test verifica che nessuna coppia erogatore→fruitore del v1 vada persa.
 
 Per ogni ente la pipeline sceglie gli e-service più rilevanti secondo le classifiche ufficiali, cioè il maggiore fra enti abilitati e sessioni di scambio; i campi `enti_abilitati_min` e `sessioni_min` ne riportano i minimi garantiti. Ogni fruitore compare una volta per e-service, con la provenienza più forte; connessioni e sessioni osservate accompagnano l'arco qualunque sia la sua provenienza.
 
@@ -317,7 +337,7 @@ print(archi["origine"].value_counts())
 nome = nodi.set_index("id")["label"]
 print(archi.groupby("Source")["Weight"].sum().sort_values(ascending=False).head(3).rename(index=nome))
 # Min. Interno (ANPR)      267
-# INPS                     133
+# INPS                     140
 # Agenzia delle Entrate    101
 ```
 
@@ -343,6 +363,7 @@ npm run dev        # http://localhost:3000
 | `npm run dev` / `npm run build` | Avvio in sviluppo / build di produzione |
 | `npm run lint` | Controllo statico del codice |
 | `npm test` | Invarianti del modello, conservazione del v1, allineamento delle esportazioni |
+| `npm run test:e2e` | Test end-to-end con Playwright: l'app vera in Chromium, su desktop e smartphone (la prima volta: `npx playwright install chromium`) |
 | `npm run audit` | Audit del JSON: conteggi, gradi, controlli di coerenza |
 | `npm run compare-catalog` | Copertura del modello rispetto al catalogo ufficiale |
 | `npm run export` | Rigenera GraphML, GEXF e CSV in `exports/` |
@@ -350,6 +371,8 @@ npm run dev        # http://localhost:3000
 | `npm run paper-metrics` | Snippet pgfplots/LaTeX per il report Zenodo |
 
 Dettagli sugli script in [scripts/README.md](scripts/README.md).
+
+La build (`npm run build`) scrive anche una pagina per ogni ente ed e-service con titolo, descrizione e immagine di anteprima propri (`scripts/prerender-meta.mjs`), così i link condivisi mostrano il contenuto giusto anche ai servizi che non eseguono JavaScript.
 
 ### Aggiornare enti e relazioni
 
@@ -362,6 +385,7 @@ Il grafo live è generato dalla pipeline: le modifiche durature vanno nei file d
 ```bash
 node pipeline/build-graph-data.mjs --write                  # aggiorna l'anteprima
 cp pipeline/pdnd-data.preview.json src/data/pdnd-data.json  # promozione
+cp pipeline/aderenti-index.preview.json src/data/aderenti-index.json
 npm run export && npm test
 ```
 
@@ -374,8 +398,9 @@ npm run export && npm test
 pdnd-eservices-graph/
 ├── .github/workflows/
 │   ├── azure-static-web-apps-polite-plant-07967ad10.yml  # CI/CD per Azure
-│   ├── ci.yml                                            # Lint, test e build (main e develop)
+│   ├── ci.yml                                            # Lint, test, build ed end-to-end (main e develop)
 │   ├── codeql.yml                                        # Analisi di sicurezza CodeQL (main e develop)
+│   ├── dependabot.yml                                    # (in .github/) aggiornamenti delle dipendenze su develop
 │   ├── update-graph-data.yml                             # Pipeline dati mensile
 │   └── promote-graph-data.yml                            # Promozione manuale dell'anteprima
 ├── docs/
@@ -391,9 +416,11 @@ pdnd-eservices-graph/
 │   ├── connections-reconstructed.json   # Relazioni del modello v1
 │   ├── connections-frozen.json          # Stime AI congelate
 │   ├── pdnd-data.preview.json           # Anteprima generata (NON è il dato live)
+│   ├── aderenti-index.preview.json      # Indice di tutti gli aderenti (anteprima)
 │   ├── last-run-report.md               # Report dell'ultima esecuzione
 │   └── README.md
 ├── public/                              # favicon e logo
+├── e2e/                                 # Test end-to-end (Playwright)
 ├── scripts/                             # audit, confronto, test, export, metriche del report
 ├── src/
 │   ├── components/                      # PDNDGraph, GraphView, StatsView, MethodologyView, GuideView…
@@ -401,12 +428,15 @@ pdnd-eservices-graph/
 │   ├── utils/                           # Costruzione del grafo, esportazioni, stato URL
 │   ├── data/
 │   │   ├── pdnd-data.json               # ← DATI LIVE (modello v2)
-│   │   └── snapshots/                   # Modello v1 del report, congelato
+│   │   ├── aderenti-index.json          # Tutti gli aderenti, per la scheda Il tuo ente
+│   │   ├── network-history.json         # Misure di rete nel tempo (npm run export)
+│   │   └── snapshots/                   # Modello v1 del report e istantanee mensili
 │   ├── App.jsx
 │   ├── index.css
 │   └── main.jsx
 ├── index.html
 ├── package.json
+├── playwright.config.js               # Configurazione dei test end-to-end
 ├── staticwebapp.config.json             # Config Azure Static Web Apps
 ├── vite.config.js
 ├── ADDITIONAL-TERMS.md                  # Termine di attribuzione AGPL 7(b)
@@ -421,13 +451,15 @@ pdnd-eservices-graph/
 
 **React 19** per l'interfaccia, **Vite 8** per la build, **Canvas 2D** per il rendering del grafo senza librerie esterne, **Azure Static Web Apps** per l'hosting e **GitHub Actions** per CI, analisi CodeQL e pipeline dati mensile.
 
+L'app non contatta altri siti: i caratteri (Titillium Web e Roboto Mono, licenza OFL) sono ospitati insieme al sito, non ci sono strumenti di statistica e una Content Security Policy consente solo risorse del sito stesso. I test end-to-end falliscono se una pagina prova a caricare qualcosa da fuori o se compare un cookie. I dettagli per chi visita sono nella pagina [Privacy](https://www.pdndgraph.it/privacy), collegata dal piè di pagina.
+
 ## Contribuire
 
 Le pull request sono benvenute, in particolare le correzioni alle relazioni erogatore→fruitore accompagnate dal riferimento alla fonte pubblica che le documenta.
 
 1. Fai un fork del repository e crea un branch (`git checkout -b feature/nuovo-ente`)
 2. Modifica i file di `pipeline/` o i componenti
-3. Esegui `npm run lint`, `npm test` e `npm run audit`
+3. Esegui `npm run lint`, `npm test`, `npm run test:e2e` e `npm run audit`
 4. Apri una pull request
 
 ## Come citare

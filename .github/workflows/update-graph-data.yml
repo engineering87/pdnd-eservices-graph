@@ -5,27 +5,20 @@ on:
     - cron: "0 4 1 * *"   # giorno 1 di ogni mese, 04:00 UTC
   workflow_dispatch: {}    # avvio manuale dalla tab Actions
 
+# Le PR automatiche partono da develop e puntano su develop, il ramo di
+# integrazione: arrivano su main, e quindi sul sito, solo con la release.
 permissions:
   contents: write
-  pull-requests: write     # per aprire la PR (main è protetto)
+  pull-requests: write
 
 jobs:
   update:
     runs-on: ubuntu-latest
-    env:
-      # Inferenza AI via API Anthropic (Opus 5.5).
-      INFERENCE_ENGINE: anthropic
-      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-      ANTHROPIC_MODEL: claude-opus-5-5
-      # GITHUB_TOKEN serve solo al passo gh (push branch + apertura PR), non all'inferenza.
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      INFERENCE_MIN_CONF: "0.6"
-      INFERENCE_MAX_CALLS: "200"    # copre il backfill iniziale in un run; poi la cache fa il resto
-      INFERENCE_DELAY_MS: "500"
-      INFERENCE_MAX_RETRIES: "4"
     steps:
       - name: Checkout
         uses: actions/checkout@v5
+        with:
+          ref: develop
 
       - name: Setup Node
         uses: actions/setup-node@v5
@@ -35,6 +28,17 @@ jobs:
       - name: Genera anteprima aggiornata
         # Esce con codice 1 se un guard di validazione fallisce, interrompendo
         # il workflow PRIMA della PR. L'inferenza AI è fail-safe.
+        # Segreti visibili solo dove servono: la chiave API a questo passo, il
+        # token di GitHub al passo che apre la PR (GH_TOKEN).
+        env:
+          # Inferenza AI via API Anthropic (Opus 5.5).
+          INFERENCE_ENGINE: anthropic
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          ANTHROPIC_MODEL: claude-opus-5-5
+          INFERENCE_MIN_CONF: "0.6"
+          INFERENCE_MAX_CALLS: "200"    # copre il backfill iniziale in un run; poi la cache fa il resto
+          INFERENCE_DELAY_MS: "500"
+          INFERENCE_MAX_RETRIES: "4"
         run: node pipeline/build-graph-data.mjs --write
 
       - name: Apri Pull Request con l'anteprima
@@ -52,15 +56,29 @@ jobs:
           git config user.email "actions@github.com"
           git checkout -b "$BRANCH"
           git add pipeline/pdnd-data.preview.json pipeline/last-run-report.md pipeline/ai-cache.json
+          # L'indice degli aderenti c'è solo se il loro elenco si è scaricato.
+          if [ -f pipeline/aderenti-index.preview.json ]; then git add pipeline/aderenti-index.preview.json; fi
           git commit -m "chore: aggiornamento anteprima grafo PDND"
           git push -f -u origin "$BRANCH"
-          # Apri la PR se non già aperta. Se l'organizzazione/repo non consente alle
-          # Actions di creare PR, il branch resta pushato e viene stampato il link manuale.
+          # Il corpo della PR contiene il report di esecuzione: e-service nuovi e
+          # rimossi, archi per provenienza, classi di enti, avvisi.
+          BODY="$RUNNER_TEMP/pr-body.md"
+          {
+            echo "Aggiornamento automatico dell'anteprima (\`pipeline/pdnd-data.preview.json\`). Il grafo live non è toccato."
+            echo "Dopo il merge, per pubblicarla lancia il workflow \"Promuovi anteprima a grafo live\"."
+            echo
+            echo "---"
+            echo
+            cat pipeline/last-run-report.md
+          } > "$BODY"
+          # Apri la PR se non già aperta, altrimenti aggiornane il corpo. Se le
+          # Actions non possono creare PR, il branch resta pushato e si stampa il link.
           if [ -n "$(gh pr list --head "$BRANCH" --state open --json number -q '.[0].number' 2>/dev/null)" ]; then
-            echo "PR già aperta per $BRANCH: aggiornata col nuovo commit."
-          elif gh pr create --base main --head "$BRANCH" \
+            gh pr edit "$BRANCH" --body-file "$BODY" 2>/dev/null || true
+            echo "PR già aperta per $BRANCH: aggiornata col nuovo commit e il nuovo report."
+          elif gh pr create --base develop --head "$BRANCH" \
               --title "Aggiornamento anteprima grafo PDND" \
-              --body "Aggiornamento automatico dell'anteprima (\`pipeline/pdnd-data.preview.json\`). Il grafo live non è toccato. Rivedi il report e mergia per versionare l'anteprima." 2>/dev/null; then
+              --body-file "$BODY" 2>/dev/null; then
             echo "Pull request creata."
           else
             echo "::warning::Creazione PR non consentita alle Actions. Branch pushato: aprila a mano qui:"

@@ -1,5 +1,5 @@
 {
-  "_comment": "Classi di enti rappresentate da nodi aggregati, allineate alle 12 categorie di fruitori usate da PagoPA nelle statistiche ufficiali (pdnd-opendata). 'attributi': attributi certificati PDND che identificano la classe; generano archi 'certificata' verso il nodo (salvo diversa indicazione in category-map.json, che ha precedenza) e servono a contare gli aderenti. 'categorie_ufficiali': nomi delle categorie di fruitori nelle classifiche ufficiali, usati per gli archi 'osservata'. 'totale_ufficiale': riga di totale_enti.csv da preferire al conteggio per attributo, che include anche articolazioni interne degli enti. L'ordine delle classi è la priorità con cui un aderente con più attributi viene assegnato a una sola classe nel conteggio.",
+  "_comment": "Classi di enti rappresentate da nodi aggregati, allineate alle 12 categorie di fruitori usate da PagoPA nelle statistiche ufficiali (pdnd-opendata). 'attributi': attributi certificati PDND che identificano la classe; generano archi 'certificata' verso il nodo (salvo diversa indicazione in category-map.json, che ha precedenza) e servono a contare gli aderenti. 'categorie_ufficiali': nomi delle categorie di fruitori nelle classifiche ufficiali, usati per gli archi 'osservata'. 'totale_ufficiale': riga di totale_enti.csv da preferire al conteggio per attributo, che include anche articolazioni interne degli enti. L'ordine delle classi è la priorità con cui un aderente con più attributi viene assegnato a una sola classe nel conteggio. 'sottotipi': gruppi di attributi con un nome breve, per aprire la classe nella mappa e nel pannello; ogni attributo della classe sta in un solo sottotipo.",
   "classi": [
     {
       "id": "privati_agg",
@@ -7,7 +7,11 @@
       "descrizione": "Imprese iscritte al Registro Imprese e assicurazioni aderenti alla PDND (aperta alle imprese dal 15 gennaio 2026)",
       "attributi": ["Adesione dal Registro Imprese", "Assicurazioni"],
       "categorie_ufficiali": ["Enti privati"],
-      "totale_ufficiale": "Enti privati"
+      "totale_ufficiale": "Enti privati",
+      "sottotipi": [
+        {"id": "privati_agg__imprese", "nome": "Imprese", "attributi": ["Adesione dal Registro Imprese"]},
+        {"id": "privati_agg__assicurazioni", "nome": "Assicurazioni", "attributi": ["Assicurazioni"]}
+      ]
     },
     {
       "id": "scuole_agg",
@@ -26,7 +30,24 @@
         "Agenzie, Enti e Consorzi Pubblici per il Diritto allo Studio Universitario"
       ],
       "categorie_ufficiali": ["Università e AFAM"],
-      "totale_ufficiale": "Università e AFAM"
+      "totale_ufficiale": "Università e AFAM",
+      "sottotipi": [
+        {
+          "id": "universita_agg__universita",
+          "nome": "Università",
+          "attributi": ["Universita' e Istituti di Istruzione Universitaria Pubblici"]
+        },
+        {
+          "id": "universita_agg__afam",
+          "nome": "AFAM",
+          "attributi": ["Istituzioni per l'Alta Formazione Artistica, Musicale e Coreutica - AFAM"]
+        },
+        {
+          "id": "universita_agg__diritto_studio",
+          "nome": "Diritto allo studio",
+          "attributi": ["Agenzie, Enti e Consorzi Pubblici per il Diritto allo Studio Universitario"]
+        }
+      ]
     },
     {
       "id": "sanita_agg",
@@ -39,21 +60,50 @@
         "Istituti Zooprofilattici Sperimentali"
       ],
       "attributi_prefisso": ["Azienda Sanitaria Provinciale"],
-      "categorie_ufficiali": ["Aziende sanitarie locali e Strutture di ricovero"]
+      "categorie_ufficiali": ["Aziende sanitarie locali e Strutture di ricovero"],
+      "sottotipi": [
+        {
+          "id": "sanita_agg__asl",
+          "nome": "ASL e ASP",
+          "attributi": ["Aziende Sanitarie Locali"],
+          "attributi_prefisso": ["Azienda Sanitaria Provinciale"]
+        },
+        {
+          "id": "sanita_agg__ospedali",
+          "nome": "Aziende ospedaliere e IRCCS",
+          "attributi": ["Aziende Ospedaliere, Aziende Ospedaliere Universitarie, Policlinici e Istituti di Ricovero e Cura a Carattere Scientifico Pubblici"]
+        },
+        {
+          "id": "sanita_agg__agenzie_sanitarie",
+          "nome": "Agenzie regionali sanitarie",
+          "attributi": ["Agenzie Regionali Sanitarie"]
+        },
+        {
+          "id": "sanita_agg__zooprofilattici",
+          "nome": "Istituti zooprofilattici",
+          "attributi": ["Istituti Zooprofilattici Sperimentali"]
+        }
+      ]
     },
     {
       "id": "gestori_agg",
       "name": "Gestori di pubblici servizi e stazioni appaltanti (aggregati)",
       "descrizione": "Gestori di pubblici servizi, stazioni appaltanti e società a controllo pubblico aderenti",
-      "attributi": [
-        "Gestori di Pubblici Servizi",
-        "Stazioni Appaltanti",
-        "Stazioni Appaltanti Gestori di Pubblici Servizi",
-        "Società a Controllo Pubblico - Registro Imprese",
-        "Societa' in Conto Economico Consolidato",
-        "Societa' in Conto Economico Consolidato - Tipologia IPA"
-      ],
-      "categorie_ufficiali": ["Stazioni Appaltanti e Gestori di pubblici servizi"]
+      "attributi": ["Gestori di Pubblici Servizi", "Stazioni Appaltanti", "Stazioni Appaltanti Gestori di Pubblici Servizi", "Società a Controllo Pubblico - Registro Imprese", "Societa' in Conto Economico Consolidato", "Societa' in Conto Economico Consolidato - Tipologia IPA"],
+      "categorie_ufficiali": ["Stazioni Appaltanti e Gestori di pubblici servizi"],
+      "sottotipi": [
+        {"id": "gestori_agg__gestori", "nome": "Gestori di pubblici servizi", "attributi": ["Gestori di Pubblici Servizi"]},
+        {
+          "id": "gestori_agg__stazioni_appaltanti",
+          "nome": "Stazioni appaltanti",
+          "attributi": ["Stazioni Appaltanti", "Stazioni Appaltanti Gestori di Pubblici Servizi"]
+        },
+        {
+          "id": "gestori_agg__societa_pubbliche",
+          "nome": "Società pubbliche",
+          "attributi": ["Società a Controllo Pubblico - Registro Imprese", "Societa' in Conto Economico Consolidato", "Societa' in Conto Economico Consolidato - Tipologia IPA"]
+        }
+      ]
     },
     {
       "id": "province_agg",
@@ -61,7 +111,16 @@
       "descrizione": "Province, Città metropolitane e loro consorzi aderenti",
       "attributi": ["Province e loro Consorzi e Associazioni", "Citta' Metropolitane"],
       "attributi_prefisso": ["Citta' Metropolitana di"],
-      "categorie_ufficiali": ["Province e Città Metropolitane"]
+      "categorie_ufficiali": ["Province e Città Metropolitane"],
+      "sottotipi": [
+        {"id": "province_agg__province", "nome": "Province", "attributi": ["Province e loro Consorzi e Associazioni"]},
+        {
+          "id": "province_agg__citta_metropolitane",
+          "nome": "Città metropolitane",
+          "attributi": ["Citta' Metropolitane"],
+          "attributi_prefisso": ["Citta' Metropolitana di"]
+        }
+      ]
     },
     {
       "id": "regioni_agg",
@@ -97,10 +156,57 @@
         "Commissari Straordinari Governativi",
         "Enti Pubblici Produttori di Servizi Assistenziali, Ricreativi e Culturali "
       ],
-      "categorie_ufficiali": [
-        "Pubbliche Amministrazioni Centrali",
-        "Altre Pubbliche Amministrazioni Centrali",
-        "Enti Nazionali di Previdenza ed Assistenza Sociale"
+      "categorie_ufficiali": ["Pubbliche Amministrazioni Centrali", "Altre Pubbliche Amministrazioni Centrali", "Enti Nazionali di Previdenza ed Assistenza Sociale"],
+      "sottotipi": [
+        {
+          "id": "pa_centrali_agg__ministeri",
+          "nome": "Ministeri e Presidenza del Consiglio",
+          "attributi": ["Presidenza del Consiglio dei Ministri, Ministeri e Avvocatura dello Stato"]
+        },
+        {
+          "id": "pa_centrali_agg__previdenza",
+          "nome": "Enti di previdenza",
+          "attributi": [
+            "Enti di Previdenza ed Assistenza Sociale in Conto Economico Consolidato",
+            "Enti di Previdenza ed Assistenza Sociale in Conto Economico Consolidato privati "
+          ]
+        },
+        {
+          "id": "pa_centrali_agg__ordini",
+          "nome": "Ordini e collegi professionali",
+          "attributi": ["Federazioni Nazionali, Ordini, Collegi e Consigli Professionali"]
+        },
+        {
+          "id": "pa_centrali_agg__polizia",
+          "nome": "Forze di polizia",
+          "attributi": ["Forze di Polizia ad Ordinamento Civile e Militare per la Tutela dell'Ordine e della Sicurezza Pubblica"]
+        },
+        {
+          "id": "pa_centrali_agg__ricerca",
+          "nome": "Enti di ricerca",
+          "attributi": ["Enti e Istituzioni di Ricerca Pubblici"]
+        },
+        {
+          "id": "pa_centrali_agg__enti_non_economici",
+          "nome": "Enti pubblici non economici",
+          "attributi": ["Enti Pubblici Non Economici", "Enti Pubblici Produttori di Servizi Assistenziali, Ricreativi e Culturali "]
+        },
+        {
+          "id": "pa_centrali_agg__autorita",
+          "nome": "Autorità indipendenti",
+          "attributi": ["Autorita' Amministrative Indipendenti"]
+        },
+        {"id": "pa_centrali_agg__agenzie_fiscali", "nome": "Agenzie fiscali", "attributi": ["Agenzie Fiscali"]},
+        {
+          "id": "pa_centrali_agg__organi_costituzionali",
+          "nome": "Organi costituzionali",
+          "attributi": ["Organi Costituzionali e di Rilievo Costituzionale"]
+        },
+        {
+          "id": "pa_centrali_agg__commissari",
+          "nome": "Commissari straordinari",
+          "attributi": ["Commissari Straordinari Governativi"]
+        }
       ]
     },
     {
@@ -125,7 +231,55 @@
         "Autorita' Portuali",
         "Enti di Regolazione dei Servizi Idrici e o dei Rifiuti"
       ],
-      "categorie_ufficiali": ["Altre Pubbliche Amministrazioni locali"]
+      "categorie_ufficiali": ["Altre Pubbliche Amministrazioni locali"],
+      "sottotipi": [
+        {
+          "id": "pa_locali_agg__unioni",
+          "nome": "Unioni di Comuni e Comunità montane",
+          "attributi": ["Unioni di Comuni e loro Consorzi e Associazioni", "Comunita' Montane e loro Consorzi e Associazioni"]
+        },
+        {
+          "id": "pa_locali_agg__consorzi",
+          "nome": "Consorzi locali",
+          "attributi": ["Consorzi tra Amministrazioni Locali", "Consorzi di Bacino Imbrifero Montano"]
+        },
+        {
+          "id": "pa_locali_agg__servizi_persona",
+          "nome": "Aziende di servizi alla persona",
+          "attributi": ["Aziende Pubbliche di Servizi alla Persona"]
+        },
+        {
+          "id": "pa_locali_agg__camere_commercio",
+          "nome": "Camere di commercio",
+          "attributi": ["Camere di Commercio, Industria, Artigianato e Agricoltura e loro Unioni Regionali"]
+        },
+        {
+          "id": "pa_locali_agg__agenzie_regionali",
+          "nome": "Agenzie ed enti regionali",
+          "attributi": [
+            "Agenzie ed Enti Regionali per la Formazione, la Ricerca e l'Ambiente",
+            "Agenzie ed Enti Regionali del Lavoro",
+            "Agenzie Regionali per le Erogazioni in Agricoltura",
+            "Agenzie ed Enti Regionali di Sviluppo Agricolo"
+          ]
+        },
+        {
+          "id": "pa_locali_agg__parchi",
+          "nome": "Parchi e aree protette",
+          "attributi": ["Parchi Nazionali, Consorzi e Enti Gestori di Parchi e Aree Naturali Protette"]
+        },
+        {
+          "id": "pa_locali_agg__edilizia",
+          "nome": "Edilizia residenziale pubblica",
+          "attributi": ["Aziende e Consorzi Pubblici Territoriali per l'Edilizia Residenziale"]
+        },
+        {
+          "id": "pa_locali_agg__autorita_territoriali",
+          "nome": "Autorità di bacino, portuali e di regolazione",
+          "attributi": ["Autorita' di Bacino", "Autorita' Portuali", "Enti di Regolazione dei Servizi Idrici e o dei Rifiuti"]
+        },
+        {"id": "pa_locali_agg__altri", "nome": "Altri enti locali", "attributi": ["Altri Enti Locali"]}
+      ]
     }
   ]
 }

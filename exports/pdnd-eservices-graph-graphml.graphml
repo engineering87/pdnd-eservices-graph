@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns
          http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
   <!-- PDND E-Services Graph. Fonte: https://github.com/engineering87/pdnd-eservices-graph -->
-  <!-- DOI: 10.5281/zenodo.19989954. Codice AGPL-3.0, dati di origine CC0 1.0 (italia/pdnd-opendata). Snapshot: 2026-11-25 -->
+  <!-- DOI: 10.5281/zenodo.19989954. Codice AGPL-3.0, dati di origine CC0 1.0 (italia/pdnd-opendata). Snapshot: 2026-11-26 -->
   <!-- Le coppie puntuali erogatore-fruitore non sono pubblicate come open data: gli archi sono ricostruiti da documentazione pubblica, dal catalogo e dalle statistiche ufficiali aggregate per categoria di ente. Il campo origine di ogni arco ne dichiara la provenienza; connessioni e sessioni, dove presenti, sono minimi garantiti. I nodi marcati aggregato=true rappresentano classi di enti (per esempio circa 7.650 Comuni in un solo nodo, con il numero di aderenti nel campo aderenti): le misure di grado su questo grafo non sono confrontabili con quelle di un grafo non aggregato. -->
   <key id="n_label" for="node" attr.name="label" attr.type="string"/>
   <key id="n_categoria" for="node" attr.name="categoria" attr.type="string"/>
@@ -745,74 +745,74 @@
       <data key="e_connessioni">96</data>
       <data key="e_sessioni">66460488</data>
     </edge>
-    <edge id="e50" source="inps" target="pa_centrali_agg">
+    <edge id="e50" source="inps" target="scuole_agg">
+      <data key="e_weight">3</data>
+      <data key="e_origine">documentata|osservata</data>
+      <data key="e_servizi">Consultazione Attestazione ISEE; Consultazione DURC; Consultazione Indicatore ISEE</data>
+      <data key="e_connessioni">6</data>
+    </edge>
+    <edge id="e51" source="inps" target="universita_agg">
+      <data key="e_weight">9</data>
+      <data key="e_origine">certificata|documentata|osservata</data>
+      <data key="e_servizi">Consultazione Attestazione ISEE; Consultazione DURC; Consultazione Indicatore ISEE; SIUSS-CasellarioAssistenza; Consultazione Agevolazioni Tasse Univ. - WaaS; Consultazione Attestazione ISEE Operatori; Consultazione Indicatore Nucleo Riscontro ISEE; SIUSS_AcquisizionePsPsaSina; Consultazione Indicatore Riscontro ISEE</data>
+      <data key="e_connessioni">58</data>
+      <data key="e_sessioni">309554</data>
+    </edge>
+    <edge id="e52" source="inps" target="comuni_agg">
+      <data key="e_weight">13</data>
+      <data key="e_origine">documentata|inferita|osservata</data>
+      <data key="e_servizi">Consultazione Attestazione ISEE; Consultazione DURC; Consultazione Indicatore ISEE; SIUSS-CasellarioAssistenza; Consultazione Acc. Adulti Anziani - WaaS; Consultazione Agevolazioni Servizi Pubb. - WaaS; Consultazione Agevolazioni Tributarie - WaaS; Consultazione Attestazione Residenti ISEE; Consultazione Indicatore Residenti ISEE; Consultazione Attestazione ISEE Operatori; Consultazione Indicatore Nucleo Riscontro ISEE; SIUSS_AcquisizionePsPsaSina; Consultazione Indicatore Riscontro ISEE</data>
+      <data key="e_connessioni">942</data>
+      <data key="e_sessioni">1085132</data>
+    </edge>
+    <edge id="e53" source="inps" target="regioni_agg">
+      <data key="e_weight">10</data>
+      <data key="e_origine">certificata|inferita|osservata</data>
+      <data key="e_servizi">Consultazione Attestazione ISEE; Consultazione DURC; Consultazione Indicatore ISEE; SIUSS-CasellarioAssistenza; Consultazione Acc. Adulti Anziani - WaaS; Consultazione Agevolazioni Servizi Pubb. - WaaS; Consultazione Attestazione ISEE Operatori; Consultazione Indicatore Nucleo Riscontro ISEE; SIUSS_AcquisizionePsPsaSina; Consultazione Indicatore Riscontro ISEE</data>
+      <data key="e_connessioni">13</data>
+      <data key="e_sessioni">1178024</data>
+    </edge>
+    <edge id="e54" source="inps" target="pa_locali_agg">
+      <data key="e_weight">9</data>
+      <data key="e_origine">certificata|osservata</data>
+      <data key="e_servizi">Consultazione Attestazione ISEE; Consultazione DURC; Consultazione Indicatore ISEE; SIUSS-CasellarioAssistenza; Consultazione Attestazione Residenti ISEE; Consultazione Attestazione ISEE Operatori; Consultazione Indicatore Nucleo Riscontro ISEE; SIUSS_AcquisizionePsPsaSina; Consultazione Indicatore Riscontro ISEE</data>
+      <data key="e_connessioni">14</data>
+      <data key="e_sessioni">90333</data>
+    </edge>
+    <edge id="e55" source="inps" target="sanita_agg">
+      <data key="e_weight">8</data>
+      <data key="e_origine">certificata|osservata</data>
+      <data key="e_servizi">Consultazione Attestazione ISEE; Consultazione DURC; Consultazione Indicatore ISEE; SIUSS-CasellarioAssistenza; Consultazione Attestazione ISEE Operatori; Consultazione Indicatore Nucleo Riscontro ISEE; SIUSS_AcquisizionePsPsaSina; Consultazione Indicatore Riscontro ISEE</data>
+      <data key="e_connessioni">2</data>
+      <data key="e_sessioni">3</data>
+    </edge>
+    <edge id="e56" source="inps" target="gestori_agg">
+      <data key="e_weight">5</data>
+      <data key="e_origine">osservata</data>
+      <data key="e_servizi">Consultazione Attestazione ISEE; Consultazione DURC; Consultazione Indicatore ISEE; EDCperITWALLET; Consultazione Attestazione ISEE Operatori</data>
+      <data key="e_connessioni">8</data>
+      <data key="e_sessioni">435174</data>
+    </edge>
+    <edge id="e57" source="inps" target="pa_centrali_agg">
       <data key="e_weight">2</data>
       <data key="e_origine">osservata</data>
       <data key="e_servizi">Consultazione DURC; Comunicazioni Obbligatorie</data>
       <data key="e_connessioni">7</data>
       <data key="e_sessioni">566879</data>
     </edge>
-    <edge id="e51" source="inps" target="scuole_agg">
-      <data key="e_weight">1</data>
-      <data key="e_origine">osservata</data>
-      <data key="e_servizi">Consultazione DURC</data>
-      <data key="e_connessioni">6</data>
-    </edge>
-    <edge id="e52" source="inps" target="pa_locali_agg">
-      <data key="e_weight">8</data>
-      <data key="e_origine">certificata|osservata</data>
-      <data key="e_servizi">Consultazione DURC; Consultazione Indicatore ISEE; SIUSS-CasellarioAssistenza; Consultazione Attestazione ISEE; Consultazione Attestazione Residenti ISEE; Consultazione Attestazione ISEE Operatori; Consultazione Indicatore Nucleo Riscontro ISEE; SIUSS_AcquisizionePsPsaSina</data>
-      <data key="e_connessioni">14</data>
-      <data key="e_sessioni">90333</data>
-    </edge>
-    <edge id="e53" source="inps" target="comuni_agg">
-      <data key="e_weight">12</data>
-      <data key="e_origine">inferita|osservata</data>
-      <data key="e_servizi">Consultazione DURC; Consultazione Indicatore ISEE; SIUSS-CasellarioAssistenza; Consultazione Acc. Adulti Anziani - WaaS; Consultazione Agevolazioni Servizi Pubb. - WaaS; Consultazione Agevolazioni Tributarie - WaaS; Consultazione Attestazione ISEE; Consultazione Attestazione Residenti ISEE; Consultazione Indicatore Residenti ISEE; Consultazione Attestazione ISEE Operatori; Consultazione Indicatore Nucleo Riscontro ISEE; SIUSS_AcquisizionePsPsaSina</data>
-      <data key="e_connessioni">942</data>
-      <data key="e_sessioni">1083429</data>
-    </edge>
-    <edge id="e54" source="inps" target="privati_agg">
+    <edge id="e58" source="inps" target="privati_agg">
       <data key="e_weight">1</data>
       <data key="e_origine">osservata</data>
       <data key="e_servizi">Consultazione DURC</data>
       <data key="e_connessioni">8</data>
       <data key="e_sessioni">56</data>
     </edge>
-    <edge id="e55" source="inps" target="regioni_agg">
-      <data key="e_weight">9</data>
-      <data key="e_origine">certificata|inferita|osservata</data>
-      <data key="e_servizi">Consultazione DURC; Consultazione Indicatore ISEE; SIUSS-CasellarioAssistenza; Consultazione Acc. Adulti Anziani - WaaS; Consultazione Agevolazioni Servizi Pubb. - WaaS; Consultazione Attestazione ISEE; Consultazione Attestazione ISEE Operatori; Consultazione Indicatore Nucleo Riscontro ISEE; SIUSS_AcquisizionePsPsaSina</data>
-      <data key="e_connessioni">13</data>
-      <data key="e_sessioni">1178013</data>
-    </edge>
-    <edge id="e56" source="inps" target="sanita_agg">
-      <data key="e_weight">7</data>
-      <data key="e_origine">certificata|osservata</data>
-      <data key="e_servizi">Consultazione DURC; Consultazione Indicatore ISEE; SIUSS-CasellarioAssistenza; Consultazione Attestazione ISEE; Consultazione Attestazione ISEE Operatori; Consultazione Indicatore Nucleo Riscontro ISEE; SIUSS_AcquisizionePsPsaSina</data>
-      <data key="e_connessioni">2</data>
-      <data key="e_sessioni">3</data>
-    </edge>
-    <edge id="e57" source="inps" target="province_agg">
+    <edge id="e59" source="inps" target="province_agg">
       <data key="e_weight">3</data>
       <data key="e_origine">certificata|osservata</data>
       <data key="e_servizi">Consultazione DURC; SIUSS-CasellarioAssistenza; SIUSS_AcquisizionePsPsaSina</data>
       <data key="e_connessioni">3</data>
       <data key="e_sessioni">2</data>
-    </edge>
-    <edge id="e58" source="inps" target="gestori_agg">
-      <data key="e_weight">5</data>
-      <data key="e_origine">osservata</data>
-      <data key="e_servizi">Consultazione DURC; Consultazione Indicatore ISEE; Consultazione Attestazione ISEE; EDCperITWALLET; Consultazione Attestazione ISEE Operatori</data>
-      <data key="e_connessioni">8</data>
-      <data key="e_sessioni">435174</data>
-    </edge>
-    <edge id="e59" source="inps" target="universita_agg">
-      <data key="e_weight">8</data>
-      <data key="e_origine">certificata|osservata</data>
-      <data key="e_servizi">Consultazione DURC; Consultazione Indicatore ISEE; SIUSS-CasellarioAssistenza; Consultazione Agevolazioni Tasse Univ. - WaaS; Consultazione Attestazione ISEE; Consultazione Attestazione ISEE Operatori; Consultazione Indicatore Nucleo Riscontro ISEE; SIUSS_AcquisizionePsPsaSina</data>
-      <data key="e_connessioni">58</data>
-      <data key="e_sessioni">309554</data>
     </edge>
     <edge id="e60" source="inps" target="c_milano">
       <data key="e_weight">3</data>

@@ -457,12 +457,116 @@ check("reciprocità corretta su un grafo noto", () => {
   return net.reciprocity(adj) === 2 / 3 || String(net.reciprocity(adj));
 });
 
+console.log("\nAndamenti della piattaforma (meta.piattaforma)");
+
+check("le serie mensili sono ordinate, positive e coerenti con i totali", () => {
+  const p = DATA.meta.piattaforma;
+  if (!p) return "meta.piattaforma assente: rigenerare l'anteprima con la pipeline";
+  for (const [nome, s] of [["aderenti", p.aderenti.serie], ["sessioni", p.sessioni.serie]]) {
+    if (!s.length) return `serie ${nome} vuota`;
+    for (let i = 1; i < s.length; i++) if (s[i][0] <= s[i - 1][0]) return `serie ${nome} non ordinata a ${s[i][0]}`;
+    if (s.some(([, v]) => !(v >= 0))) return `valori non validi nella serie ${nome}`;
+  }
+  const a = p.aderenti.serie;
+  for (let i = 1; i < a.length; i++) if (a[i][1] < a[i - 1][1]) return `aderenti cumulati in calo a ${a[i][0]}`;
+  const somma = p.sessioni.serie.reduce((t, [, v]) => t + v, 0);
+  // Il totale ufficiale include anche i giorni dopo l'ultimo scaglione mensile.
+  return (somma <= p.sessioni.totale * 1.001 && somma > p.sessioni.totale * .9) || `somma mensile ${somma} vs totale ${p.sessioni.totale}`;
+});
+
+check("l'andamento recente per e-service è coerente", () => {
+  for (const s of DATA.eservices) {
+    if (s.sessioni_6m != null && s.sessioni_12m != null && s.sessioni_6m > s.sessioni_12m) return `${s.id}: 6 mesi oltre i 12 mesi`;
+    if (s.tendenza_6m != null && (s.sessioni_12m == null || s.sessioni_6m == null)) return `${s.id}: tendenza senza le sessioni delle due finestre`;
+    if (s.tendenza_6m != null && !(s.tendenza_6m >= -100)) return `${s.id}: tendenza non valida (${s.tendenza_6m})`;
+  }
+  return true;
+});
+
+console.log("\nConfronto fra date (compare.js e istantanee)");
+
+const cmp = await import(pathToFileURL(path.join(ROOT, "src/utils/compare.js")).href);
+const SNAP_DIR = path.join(ROOT, "src/data/snapshots");
+const istantanee = fs.readdirSync(SNAP_DIR).filter((f) => cmp.dataIstantanea(f)).sort();
+
+check("un modello confrontato con se stesso non ha differenze", () => {
+  const r = cmp.compareModels(DATA, DATA);
+  const vuote = ["entiAggiunti", "entiRimossi", "esAggiunti", "esRimossi", "legamiAggiunti", "legamiRimossi", "sessioni"].every((k) => r[k].length === 0);
+  return vuote || "differenze trovate confrontando il dato con se stesso";
+});
+
+check("aggiunte e rimozioni sono coerenti con i totali", () => {
+  const prec = istantanee.filter((f) => f !== "pdnd-data.2026-05-02.json").at(-1);
+  if (!prec) return "nessuna istantanea mensile in src/data/snapshots";
+  const A = JSON.parse(fs.readFileSync(path.join(SNAP_DIR, prec), "utf8"));
+  const r = cmp.compareModels(A, DATA);
+  const [la, lb] = r.totali.legami;
+  if (lb - la !== r.legamiAggiunti.length - r.legamiRimossi.length) return `legami: ${la}→${lb} ma +${r.legamiAggiunti.length} −${r.legamiRimossi.length}`;
+  return true;
+});
+
+check("ogni istantanea è un modello valido con la sua data", () => {
+  for (const f of istantanee) {
+    const d = JSON.parse(fs.readFileSync(path.join(SNAP_DIR, f), "utf8"));
+    if (!d.enti?.length || !d.eservices?.length) return `${f}: vuota`;
+    const ids = new Set(d.enti.map((e) => e.id));
+    const rotto = d.eservices.find((s) => !ids.has(s.erogatore) || s.fruitori.some((x) => !ids.has(x)));
+    if (rotto) return `${f}: riferimento a un ente inesistente in ${rotto.id}`;
+  }
+  return true;
+});
+
+console.log("\nDisposizione della mappa (layout.js)");
+
+const lay = await import(pathToFileURL(path.join(ROOT, "src/utils/layout.js")).href);
+
+check("la disposizione è compatta e senza nodi scagliati lontano", () => {
+  const g = buildGraph(DATA);
+  const cx = 480, cy = 350;
+  g.nodes.forEach((n) => { const [u, v] = lay.posizioneDaId(n.id); n.x = cx + (u - .5) * 500; n.y = cy + (v - .5) * 400; });
+  const byId = new Map(g.nodes.map((n) => [n.id, n]));
+  const links = g.links.map((l) => ({ ...l, source: byId.get(l.source), target: byId.get(l.target) }));
+  const sim = lay.mkSim(g.nodes, links, cx, cy);
+  for (let i = 0; i < 320; i++) sim.tick();
+  const dist = g.nodes.map((n) => Math.hypot(n.x - cx, n.y - cy)).sort((a, b) => a - b);
+  const mediana = dist[Math.floor(dist.length / 2)], massima = dist.at(-1);
+  if (g.nodes.some((n) => !Number.isFinite(n.x) || !Number.isFinite(n.y))) return "posizioni non finite";
+  return massima < mediana * 3 || `nodo a ${Math.round(massima)} dal centro, mediana ${Math.round(mediana)}`;
+});
+
+check("le posizioni iniziali sono stabili e distribuite", () => {
+  const a = lay.posizioneDaId("inps"), b = lay.posizioneDaId("inps");
+  if (a[0] !== b[0] || a[1] !== b[1]) return "posizione non deterministica";
+  const tutte = DATA.enti.map((e) => lay.posizioneDaId(e.id));
+  return tutte.every(([u, v]) => u >= 0 && u < 1 && v >= 0 && v < 1) || "valori fuori da [0, 1)";
+});
+
+console.log("\nFormattazione (format.js)");
+
+const fmtMod = await import(pathToFileURL(path.join(ROOT, "src/utils/format.js")).href);
+
+check("numeri con separatore delle migliaia anche a 4 cifre", () => {
+  const casi = [[9826, "9.826"], [15291, "15.291"], [7, "7"], [null, "—"]];
+  const ko = casi.filter(([n, atteso]) => fmtMod.numero(n) !== atteso);
+  return ko.length === 0 || ko.map(([n]) => `${n} → ${fmtMod.numero(n)}`).join(", ");
+});
+
+check("abbreviazioni e date in italiano", () => {
+  const casi = [
+    [fmtMod.breve(861909182), "861,9 M"], [fmtMod.compatto(1872260806), "1,87 mld"],
+    [fmtMod.compatto(76308615), "76,3 mln"], [fmtMod.dataLunga("2026-11-24"), "24 novembre 2026"],
+    [fmtMod.meseAnno("2026-06-24"), "giu 2026"],
+  ];
+  const ko = casi.filter(([a, b]) => a !== b);
+  return ko.length === 0 || ko.map(([a, b]) => `${a} invece di ${b}`).join(", ");
+});
+
 console.log("\nRotte (useUrlState.js)");
 
 const rotte = await import(pathToFileURL(path.join(ROOT, "src/utils/useUrlState.js")).href);
 
 check("le rotte si leggono e si riscrivono senza perdite", () => {
-  const casi = ["/", "/esplora", "/statistiche", "/ente/inps", `/eservice/${DATA.eservices[0].id}`];
+  const casi = ["/", "/esplora", "/enti", "/statistiche", "/privacy", "/ente/inps", `/eservice/${DATA.eservices[0].id}`];
   for (const p of casi) {
     const back = rotte.buildPath(rotte.parseLocation(p));
     if (back !== p) return `${p} → ${back}`;
@@ -478,6 +582,121 @@ check("la rotta di un e-service porta l'id e la scheda giusta", () => {
 check("ogni e-service ha un id utilizzabile come rotta", () => {
   const rotti = DATA.eservices.filter((s) => rotte.parseLocation(rotte.buildPath({ tab: "eservice", eserviceId: s.id })).eserviceId !== s.id);
   return rotti.length === 0 || rotti.map((s) => s.id).slice(0, 5).join(", ");
+});
+
+console.log("\nIndice degli aderenti (src/data/aderenti-index.json)");
+
+const INDICE = JSON.parse(fs.readFileSync(path.join(ROOT, "src/data/aderenti-index.json"), "utf8"));
+const ID_ENTI = new Set(DATA.enti.map((e) => e.id));
+
+check("l'indice ha righe ben formate", () => {
+  const rotte = INDICE.enti.filter((r) => !Array.isArray(r) || r.length !== 7 || typeof r[0] !== "string" || !r[0] || typeof r[4] !== "number" || !Array.isArray(r[5]));
+  return (INDICE.enti.length > 1000 && rotte.length === 0) || `${INDICE.enti.length} righe, ${rotte.length} malformate`;
+});
+
+check("classi e nodi dell'indice esistono nella mappa", () => {
+  const classi = Object.keys(INDICE.classi).filter((c) => !ID_ENTI.has(c));
+  const nodi = INDICE.enti.filter((r) => r[3] && !ID_ENTI.has(r[3])).map((r) => r[3]);
+  const usate = INDICE.enti.filter((r) => r[2] && !INDICE.classi[r[2]]).map((r) => r[2]);
+  const ko = [...classi, ...nodi, ...usate];
+  return ko.length === 0 || [...new Set(ko)].slice(0, 5).join(", ");
+});
+
+check("i servizi elencati non superano quelli pubblicati", () => {
+  const ko = INDICE.enti.filter((r) => r[5].length > r[4]);
+  return ko.length === 0 || ko.slice(0, 3).map((r) => r[0]).join(", ");
+});
+
+console.log("\nComunità e misure nel tempo (communities.js, networkHistory.js)");
+
+const com = await import(pathToFileURL(path.join(ROOT, "src/utils/communities.js")).href);
+const storia = await import(pathToFileURL(path.join(ROOT, "src/utils/networkHistory.js")).href);
+
+check("Louvain separa due triangoli uniti da un solo legame", () => {
+  const archi = [["a", "b", 1], ["a", "c", 1], ["b", "c", 1], ["d", "e", 1], ["d", "f", 1], ["e", "f", 1], ["c", "d", 1]];
+  const { comunita, q } = com.louvain(["a", "b", "c", "d", "e", "f"], archi);
+  const ok = comunita.get("a") === comunita.get("c") && comunita.get("d") === comunita.get("f") && comunita.get("a") !== comunita.get("d");
+  return (ok && Math.abs(q - 5 / 14) < 1e-9) || `q=${q}, ${JSON.stringify([...comunita])}`;
+});
+
+check("le comunità del modello coprono ogni nodo e sono stabili", () => {
+  const a = com.comunitaDelModello(DATA), b = com.comunitaDelModello(DATA);
+  const coperti = a.comunita.size === DATA.enti.length;
+  const uguali = [...a.comunita].every(([v, c]) => b.comunita.get(v) === c);
+  return (coperti && uguali && a.q > 0) || `coperti=${coperti} uguali=${uguali} q=${a.q}`;
+});
+
+check("network-history.json è allineato alle istantanee (npm run export)", () => {
+  const SNAP = path.join(ROOT, "src/data/snapshots");
+  const ist = fs.readdirSync(SNAP).map((f) => /^pdnd-data\.(\d{4}-\d{2}-\d{2})\.json$/.exec(f)).filter(Boolean)
+    .map(([f, d]) => ({ data: d, modello: JSON.parse(fs.readFileSync(path.join(SNAP, f), "utf8")) }));
+  const atteso = JSON.stringify(storia.serieStorica(ist, DATA), null, 1) + "\n";
+  const f = path.join(ROOT, "src/data/network-history.json");
+  return (fs.existsSync(f) && fs.readFileSync(f, "utf8") === atteso) || "file non allineato: eseguire npm run export";
+});
+
+console.log("\nApertura delle classi (expandClasses.js)");
+
+const esp = await import(pathToFileURL(path.join(ROOT, "src/utils/expandClasses.js")).href);
+
+check("i sottotipi di ogni classe hanno id e conteggi validi", () => {
+  const ko = DATA.enti.filter((e) => e.sottotipi).filter((e) => e.sottotipi.some((t) => !t.id.startsWith(`${e.id}__`) || !(t.aderenti >= 0)));
+  return ko.length === 0 || ko.map((e) => e.id).join(", ");
+});
+
+check("aprire una classe sposta sui tipi solo le abilitazioni parziali", () => {
+  const ids = esp.classiApribili(DATA);
+  const aperto = esp.apriClassi(DATA, new Set(ids));
+  const tipi = new Set(aperto.enti.filter((e) => e.sottotipo_di).map((e) => e.id));
+  const contaClasse = (d) => d.eservices.reduce((n, s) => n + (s.archi || []).filter((a) => ids.includes(a.fruitore) && a.origine !== "certificata").length, 0);
+  const versoTipi = aperto.eservices.reduce((n, s) => n + (s.archi || []).filter((a) => tipi.has(a.fruitore)).length, 0);
+  const soloCertificata = aperto.eservices.every((s) => (s.archi || []).every((a) => !tipi.has(a.fruitore) || a.origine === "certificata"));
+  const coerenti = aperto.eservices.every((s) => s.fruitori.every((f) => (s.archi || []).some((a) => a.fruitore === f)));
+  return (ids.length > 0 && versoTipi > 0 && soloCertificata && coerenti && contaClasse(aperto) === contaClasse(DATA))
+    || `classi=${ids.length} versoTipi=${versoTipi} soloCert=${soloCertificata} coerenti=${coerenti}`;
+});
+
+check("con nessuna classe aperta il modello resta identico", () => esp.apriClassi(DATA, new Set()) === DATA || "modello copiato");
+
+check("l'indice assegna ogni sottotipo alla classe giusta", () => {
+  const ko = INDICE.enti.filter((r) => r[6] && !r[6].startsWith(`${r[2]}__`));
+  return ko.length === 0 || ko.slice(0, 3).map((r) => r[0]).join(", ");
+});
+
+console.log("\nSicurezza");
+
+const csv = await import(pathToFileURL(path.join(ROOT, "src/utils/csv.js")).href);
+
+check("i CSV neutralizzano le formule e lasciano i numeri", () => {
+  const casi = [["=HYPERLINK(\"x\")", "\"'=HYPERLINK(\"\"x\"\")\""], ["+1+1", "'+1+1"], ["@SUM(A1)", "'@SUM(A1)"], ["-5", "-5"], ["Comune di Lecce", "Comune di Lecce"], ["a,b", "\"a,b\""]];
+  const ko = casi.filter(([v, atteso]) => csv.campoCSV(v) !== atteso);
+  return ko.length === 0 || ko.map(([v]) => `${v} → ${csv.campoCSV(v)}`).join("; ");
+});
+
+const { createHash } = await import("crypto");
+
+check("la Content Security Policy autorizza esattamente gli script inline di index.html", () => {
+  const cfg = JSON.parse(fs.readFileSync(path.join(ROOT, "staticwebapp.config.json"), "utf8"));
+  const csp = cfg.globalHeaders?.["Content-Security-Policy"] || "";
+  const html = fs.readFileSync(path.join(ROOT, "index.html"), "utf8");
+  // Tutti i tag <script>, in qualunque maiuscola e con qualunque attributo,
+  // anche nel tag di chiusura (i browser accettano </script foo>); la policy
+  // chiede l'impronta solo per quelli inline, cioè senza src. La verifica
+  // definitiva la fanno i test end-to-end, dove è il browser a leggere l'HTML
+  // e la policy blocca davvero uno script con l'impronta sbagliata.
+  const script = [...html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script\b[^>]*>/gi)];
+  const impronte = script
+    .filter((m) => !/\bsrc\s*=/i.test(m[1]))
+    .map((m) => `'sha256-${createHash("sha256").update(m[2]).digest("base64")}'`);
+  if (impronte.length === 0) return "nessuno script inline trovato in index.html: il controllo non sta verificando nulla";
+  const mancanti = impronte.filter((h) => !csp.includes(h));
+  const regole = ["default-src 'self'", "object-src 'none'", "frame-ancestors 'none'", "base-uri 'self'"].filter((r) => !csp.includes(r));
+  return (mancanti.length === 0 && regole.length === 0) || `impronte mancanti: ${mancanti.join(" ")} — regole mancanti: ${regole.join(", ")}`;
+});
+
+check("l'indice degli aderenti elenca solo enti con codice IPA", () => {
+  const senza = INDICE.enti.filter((r) => !r[1]);
+  return (senza.length === 0 && INDICE.meta.esclusi_senza_ipa > 0) || `${senza.length} righe senza codice IPA`;
 });
 
 const totale = passed + failures.length;

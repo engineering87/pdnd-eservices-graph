@@ -1,12 +1,13 @@
 {
   "meta": {
-    "generato": "2026-11-25T12:32:40.090Z",
-    "ultimo_aggiornamento": "2026-11-25",
+    "generato": "2026-11-26T22:54:07.425Z",
+    "ultimo_aggiornamento": "2026-11-26",
+    "versione_dati_aperti": "italia/pdnd-opendata@15eb5a4736cd90038c43b8b97dfe005f6a19fff4",
     "versione_modello": "v2",
     "fonte_enti": "github.com/italia/pdnd-opendata — aderenti.csv (CC0 1.0)",
     "fonte_eservices": "github.com/italia/pdnd-opendata — eservice_a_catalogo.csv (CC0 1.0)",
     "fonte_connessioni": "Per arco, campo 'origine': override documentati, campo attributes.certified del catalogo, relazioni ricostruite del grafo curato v1, stime AI congelate — vedi METODOLOGIA.md e pipeline/README.md",
-    "snapshot_catalogo": "15301 righe nel catalogo scaricato il 2026-11-25",
+    "snapshot_catalogo": "15301 righe nel catalogo scaricato il 2026-11-26",
     "fonte_adozione": "github.com/italia/pdnd-opendata — e_service_con_piu_enti_abilitati_from_the_beginning.csv (CC0 1.0). Il campo enti_abilitati_min è il massimo di enti fruitori abilitati fra le classifiche per categoria in cui l'e-service compare: un minimo garantito, non il totale. Gli e-service di ogni ente sono scelti per adozione decrescente.",
     "metodologia": "METODOLOGIA.md",
     "paper_doi": "10.5281/zenodo.19989954",
@@ -14,9 +15,457 @@
     "nota_paper": "Il report Zenodo descrive il modello v1 (snapshot 2026-05-02), conservato in src/data/snapshots/pdnd-data.2026-05-02.json. Questo dato è il modello v2: numeri diversi da quelli del report.",
     "convenzione_eservices": "Gli e-service con catalogId corrispondono a un record del catalogo PDND. Quelli con catalogId null sono tipi di servizio ricostruiti nel modello v1 (aggregati comunali, voci riassuntive di ente, famiglie di API): un record può rappresentare molti endpoint del catalogo.",
     "fonte_sessioni": "github.com/italia/pdnd-opendata — eservice_con_piu_token_staccati_from_the_beginning.csv (CC0 1.0). Il campo sessioni_min è il massimo di sessioni di scambio fra le classifiche in cui l'e-service compare. La selezione per ente usa il maggiore fra enti abilitati e sessioni, ciascuno rapportato al massimo dell'ente.",
+    "fonte_andamento": "github.com/italia/pdnd-opendata — eservice_con_piu_token_staccati_last_twelve_months.csv e _last_six_months.csv (CC0 1.0). sessioni_12m e sessioni_6m sommano le sessioni per categoria di ente fruitore nelle classifiche della finestra (minimi garantiti, primi 10 e-service per categoria). tendenza_6m confronta gli ultimi 6 mesi con i 6 precedenti (12 mesi meno 6) sulle sole categorie presenti in entrambe le finestre, ed è calcolata solo se i 6 mesi precedenti superano 100.000 sessioni.",
     "fonte_aderenti": "github.com/italia/pdnd-opendata — aderenti.csv e totale_enti.csv (CC0 1.0). I nodi di classe (aggregato=true) riportano gli aderenti: il totale ufficiale dove pubblicato, altrimenti il conteggio per attributo certificato (pipeline/classi.json).",
     "note_connessioni": "Ogni arco porta un campo 'origine': 'documentata' (override da fonti ufficiali), 'osservata' (connessioni abilitate o sessioni di scambio realmente avvenute verso una classe di enti, dalle classifiche ufficiali; i campi connessioni e sessioni riportano i valori osservati, minimi garantiti), 'certificata' (campo attributes.certified del catalogo: classi di enti abilitate), 'ricostruita' (relazioni del grafo curato v1, ricostruite da documentazione pubblica con l'ausilio di modelli AI), 'inferita' (stima AI con confidenza, da rendere tratteggiata nel grafo). Il progetto si basa esclusivamente su informazioni già pubbliche; gli archi inferiti sono dichiarati come stime e non come fatti documentati.",
-    "generato_da": "pipeline/build-graph-data.mjs"
+    "generato_da": "pipeline/build-graph-data.mjs",
+    "piattaforma": {
+      "aderenti": {
+        "serie": [
+          [
+            "2022-06-24",
+            1
+          ],
+          [
+            "2022-07-24",
+            4
+          ],
+          [
+            "2022-08-24",
+            8
+          ],
+          [
+            "2022-10-24",
+            11
+          ],
+          [
+            "2022-11-24",
+            76
+          ],
+          [
+            "2022-12-24",
+            99
+          ],
+          [
+            "2023-01-24",
+            131
+          ],
+          [
+            "2023-02-24",
+            229
+          ],
+          [
+            "2023-03-24",
+            305
+          ],
+          [
+            "2023-04-24",
+            383
+          ],
+          [
+            "2023-05-24",
+            474
+          ],
+          [
+            "2023-06-24",
+            702
+          ],
+          [
+            "2023-07-24",
+            1430
+          ],
+          [
+            "2023-08-24",
+            1979
+          ],
+          [
+            "2023-09-24",
+            2794
+          ],
+          [
+            "2023-10-24",
+            3739
+          ],
+          [
+            "2023-11-24",
+            4376
+          ],
+          [
+            "2023-12-24",
+            4908
+          ],
+          [
+            "2024-01-24",
+            5315
+          ],
+          [
+            "2024-02-24",
+            5733
+          ],
+          [
+            "2024-03-24",
+            6065
+          ],
+          [
+            "2024-04-24",
+            6344
+          ],
+          [
+            "2024-05-24",
+            6568
+          ],
+          [
+            "2024-06-24",
+            6754
+          ],
+          [
+            "2024-07-24",
+            6891
+          ],
+          [
+            "2024-08-24",
+            6971
+          ],
+          [
+            "2024-09-24",
+            7081
+          ],
+          [
+            "2024-10-24",
+            7324
+          ],
+          [
+            "2024-11-24",
+            7479
+          ],
+          [
+            "2024-12-24",
+            7650
+          ],
+          [
+            "2025-01-24",
+            7746
+          ],
+          [
+            "2025-02-24",
+            7871
+          ],
+          [
+            "2025-03-24",
+            7992
+          ],
+          [
+            "2025-04-24",
+            8113
+          ],
+          [
+            "2025-05-24",
+            8224
+          ],
+          [
+            "2025-06-24",
+            8367
+          ],
+          [
+            "2025-07-24",
+            8477
+          ],
+          [
+            "2025-08-24",
+            8539
+          ],
+          [
+            "2025-09-24",
+            8643
+          ],
+          [
+            "2025-10-24",
+            8794
+          ],
+          [
+            "2025-11-24",
+            8902
+          ],
+          [
+            "2025-12-24",
+            8983
+          ],
+          [
+            "2026-01-24",
+            9069
+          ],
+          [
+            "2026-02-24",
+            9209
+          ],
+          [
+            "2026-03-24",
+            9305
+          ],
+          [
+            "2026-04-24",
+            9373
+          ],
+          [
+            "2026-05-24",
+            9420
+          ],
+          [
+            "2026-06-24",
+            9469
+          ],
+          [
+            "2026-07-24",
+            9521
+          ],
+          [
+            "2026-08-24",
+            9539
+          ],
+          [
+            "2026-09-24",
+            9600
+          ],
+          [
+            "2026-10-24",
+            9709
+          ],
+          [
+            "2026-11-24",
+            9826
+          ]
+        ],
+        "totale": 9826,
+        "ultimo_mese": 133,
+        "variazione": 1.4
+      },
+      "sessioni": {
+        "serie": [
+          [
+            "2022-08-24",
+            10
+          ],
+          [
+            "2022-09-24",
+            36
+          ],
+          [
+            "2022-10-24",
+            222
+          ],
+          [
+            "2022-11-24",
+            46
+          ],
+          [
+            "2022-12-24",
+            226
+          ],
+          [
+            "2023-01-24",
+            588
+          ],
+          [
+            "2023-02-24",
+            340
+          ],
+          [
+            "2023-03-24",
+            306
+          ],
+          [
+            "2023-04-24",
+            253
+          ],
+          [
+            "2023-05-24",
+            355
+          ],
+          [
+            "2023-06-24",
+            466948
+          ],
+          [
+            "2023-07-24",
+            1056789
+          ],
+          [
+            "2023-08-24",
+            2950012
+          ],
+          [
+            "2023-09-24",
+            6020098
+          ],
+          [
+            "2023-10-24",
+            9756656
+          ],
+          [
+            "2023-11-24",
+            16156251
+          ],
+          [
+            "2023-12-24",
+            18733744
+          ],
+          [
+            "2024-01-24",
+            23081133
+          ],
+          [
+            "2024-02-24",
+            23352372
+          ],
+          [
+            "2024-03-24",
+            27740529
+          ],
+          [
+            "2024-04-24",
+            21002697
+          ],
+          [
+            "2024-05-24",
+            19945198
+          ],
+          [
+            "2024-06-24",
+            17256057
+          ],
+          [
+            "2024-07-24",
+            17276779
+          ],
+          [
+            "2024-08-24",
+            18534932
+          ],
+          [
+            "2024-09-24",
+            26293479
+          ],
+          [
+            "2024-10-24",
+            26072618
+          ],
+          [
+            "2024-11-24",
+            37194094
+          ],
+          [
+            "2024-12-24",
+            57608177
+          ],
+          [
+            "2025-01-24",
+            48303569
+          ],
+          [
+            "2025-02-24",
+            48845820
+          ],
+          [
+            "2025-03-24",
+            45458898
+          ],
+          [
+            "2025-04-24",
+            41874214
+          ],
+          [
+            "2025-05-24",
+            39703314
+          ],
+          [
+            "2025-06-24",
+            41328776
+          ],
+          [
+            "2025-07-24",
+            42857853
+          ],
+          [
+            "2025-08-24",
+            41277200
+          ],
+          [
+            "2025-09-24",
+            61830705
+          ],
+          [
+            "2025-10-24",
+            57940504
+          ],
+          [
+            "2025-11-24",
+            64419206
+          ],
+          [
+            "2025-12-24",
+            80501520
+          ],
+          [
+            "2026-01-24",
+            82468051
+          ],
+          [
+            "2026-02-24",
+            85651238
+          ],
+          [
+            "2026-03-24",
+            81451029
+          ],
+          [
+            "2026-04-24",
+            86859733
+          ],
+          [
+            "2026-05-24",
+            87096604
+          ],
+          [
+            "2026-06-24",
+            75083293
+          ],
+          [
+            "2026-07-24",
+            75909941
+          ],
+          [
+            "2026-08-24",
+            77609306
+          ],
+          [
+            "2026-09-24",
+            83271524
+          ],
+          [
+            "2026-10-24",
+            75708948
+          ],
+          [
+            "2026-11-24",
+            76308615
+          ]
+        ],
+        "totale": 1872260806,
+        "ultimo_mese": 76308615,
+        "variazione": 4.2
+      },
+      "connessioni": {
+        "totale": 55504,
+        "ultimo_mese": 3303,
+        "variazione": 6.3
+      },
+      "eservice": {
+        "totale": 15291,
+        "ultimo_mese": 38,
+        "variazione": 0.2
+      }
+    },
+    "fonte_piattaforma": "github.com/italia/pdnd-opendata — andamento_delle_adesioni, attivita_della_piattaforma_from_the_beginning, totale_richieste_di_accesso, connessioni_totali, eservice_pubblicati (CC0 1.0). Serie mensili a scaglioni che terminano il 24 di ogni mese: enti aderenti cumulati e sessioni di scambio nel mese. Riguardano l'intera piattaforma, non la selezione rappresentata nella mappa."
   },
   "enti": [
     {
@@ -418,7 +867,19 @@
       "descrizione": "Imprese iscritte al Registro Imprese e assicurazioni aderenti alla PDND (aperta alle imprese dal 15 gennaio 2026)",
       "aggregato": true,
       "aderenti": 306,
-      "aderenti_fonte": "totale ufficiale PagoPA"
+      "aderenti_fonte": "totale ufficiale PagoPA",
+      "sottotipi": [
+        {
+          "id": "privati_agg__imprese",
+          "nome": "Imprese",
+          "aderenti": 219
+        },
+        {
+          "id": "privati_agg__assicurazioni",
+          "nome": "Assicurazioni",
+          "aderenti": 99
+        }
+      ]
     },
     {
       "id": "scuole_agg",
@@ -438,7 +899,24 @@
       "descrizione": "Università pubbliche, istituzioni AFAM ed enti per il diritto allo studio aderenti",
       "aggregato": true,
       "aderenti": 172,
-      "aderenti_fonte": "totale ufficiale PagoPA"
+      "aderenti_fonte": "totale ufficiale PagoPA",
+      "sottotipi": [
+        {
+          "id": "universita_agg__universita",
+          "nome": "Università",
+          "aderenti": 73
+        },
+        {
+          "id": "universita_agg__afam",
+          "nome": "AFAM",
+          "aderenti": 102
+        },
+        {
+          "id": "universita_agg__diritto_studio",
+          "nome": "Diritto allo studio",
+          "aderenti": 14
+        }
+      ]
     },
     {
       "id": "sanita_agg",
@@ -448,7 +926,29 @@
       "descrizione": "Aziende sanitarie locali, aziende ospedaliere, IRCCS e agenzie sanitarie aderenti",
       "aggregato": true,
       "aderenti": 123,
-      "aderenti_fonte": "conteggio per attributo certificato"
+      "aderenti_fonte": "conteggio per attributo certificato",
+      "sottotipi": [
+        {
+          "id": "sanita_agg__asl",
+          "nome": "ASL e ASP",
+          "aderenti": 76
+        },
+        {
+          "id": "sanita_agg__ospedali",
+          "nome": "Aziende ospedaliere e IRCCS",
+          "aderenti": 40
+        },
+        {
+          "id": "sanita_agg__agenzie_sanitarie",
+          "nome": "Agenzie regionali sanitarie",
+          "aderenti": 4
+        },
+        {
+          "id": "sanita_agg__zooprofilattici",
+          "nome": "Istituti zooprofilattici",
+          "aderenti": 3
+        }
+      ]
     },
     {
       "id": "gestori_agg",
@@ -458,7 +958,24 @@
       "descrizione": "Gestori di pubblici servizi, stazioni appaltanti e società a controllo pubblico aderenti",
       "aggregato": true,
       "aderenti": 343,
-      "aderenti_fonte": "conteggio per attributo certificato"
+      "aderenti_fonte": "conteggio per attributo certificato",
+      "sottotipi": [
+        {
+          "id": "gestori_agg__gestori",
+          "nome": "Gestori di pubblici servizi",
+          "aderenti": 259
+        },
+        {
+          "id": "gestori_agg__stazioni_appaltanti",
+          "nome": "Stazioni appaltanti",
+          "aderenti": 61
+        },
+        {
+          "id": "gestori_agg__societa_pubbliche",
+          "nome": "Società pubbliche",
+          "aderenti": 23
+        }
+      ]
     },
     {
       "id": "province_agg",
@@ -468,7 +985,19 @@
       "descrizione": "Province, Città metropolitane e loro consorzi aderenti",
       "aggregato": true,
       "aderenti": 99,
-      "aderenti_fonte": "conteggio per attributo certificato"
+      "aderenti_fonte": "conteggio per attributo certificato",
+      "sottotipi": [
+        {
+          "id": "province_agg__province",
+          "nome": "Province",
+          "aderenti": 82
+        },
+        {
+          "id": "province_agg__citta_metropolitane",
+          "nome": "Città metropolitane",
+          "aderenti": 17
+        }
+      ]
     },
     {
       "id": "pa_centrali_agg",
@@ -478,7 +1007,59 @@
       "descrizione": "Amministrazioni centrali, ordini professionali, enti di ricerca, autorità indipendenti ed enti previdenziali non rappresentati individualmente",
       "aggregato": true,
       "aderenti": 415,
-      "aderenti_fonte": "conteggio per attributo certificato"
+      "aderenti_fonte": "conteggio per attributo certificato",
+      "sottotipi": [
+        {
+          "id": "pa_centrali_agg__ministeri",
+          "nome": "Ministeri e Presidenza del Consiglio",
+          "aderenti": 100
+        },
+        {
+          "id": "pa_centrali_agg__previdenza",
+          "nome": "Enti di previdenza",
+          "aderenti": 6
+        },
+        {
+          "id": "pa_centrali_agg__ordini",
+          "nome": "Ordini e collegi professionali",
+          "aderenti": 220
+        },
+        {
+          "id": "pa_centrali_agg__polizia",
+          "nome": "Forze di polizia",
+          "aderenti": 23
+        },
+        {
+          "id": "pa_centrali_agg__ricerca",
+          "nome": "Enti di ricerca",
+          "aderenti": 22
+        },
+        {
+          "id": "pa_centrali_agg__enti_non_economici",
+          "nome": "Enti pubblici non economici",
+          "aderenti": 25
+        },
+        {
+          "id": "pa_centrali_agg__autorita",
+          "nome": "Autorità indipendenti",
+          "aderenti": 6
+        },
+        {
+          "id": "pa_centrali_agg__agenzie_fiscali",
+          "nome": "Agenzie fiscali",
+          "aderenti": 5
+        },
+        {
+          "id": "pa_centrali_agg__organi_costituzionali",
+          "nome": "Organi costituzionali",
+          "aderenti": 5
+        },
+        {
+          "id": "pa_centrali_agg__commissari",
+          "nome": "Commissari straordinari",
+          "aderenti": 3
+        }
+      ]
     },
     {
       "id": "pa_locali_agg",
@@ -488,7 +1069,54 @@
       "descrizione": "Unioni di Comuni, Comunità montane, consorzi, parchi, ASP, camere di commercio, agenzie regionali e altri enti locali aderenti",
       "aggregato": true,
       "aderenti": 350,
-      "aderenti_fonte": "conteggio per attributo certificato"
+      "aderenti_fonte": "conteggio per attributo certificato",
+      "sottotipi": [
+        {
+          "id": "pa_locali_agg__unioni",
+          "nome": "Unioni di Comuni e Comunità montane",
+          "aderenti": 161
+        },
+        {
+          "id": "pa_locali_agg__consorzi",
+          "nome": "Consorzi locali",
+          "aderenti": 28
+        },
+        {
+          "id": "pa_locali_agg__servizi_persona",
+          "nome": "Aziende di servizi alla persona",
+          "aderenti": 27
+        },
+        {
+          "id": "pa_locali_agg__camere_commercio",
+          "nome": "Camere di commercio",
+          "aderenti": 8
+        },
+        {
+          "id": "pa_locali_agg__agenzie_regionali",
+          "nome": "Agenzie ed enti regionali",
+          "aderenti": 35
+        },
+        {
+          "id": "pa_locali_agg__parchi",
+          "nome": "Parchi e aree protette",
+          "aderenti": 31
+        },
+        {
+          "id": "pa_locali_agg__edilizia",
+          "nome": "Edilizia residenziale pubblica",
+          "aderenti": 18
+        },
+        {
+          "id": "pa_locali_agg__autorita_territoriali",
+          "nome": "Autorità di bacino, portuali e di regolazione",
+          "aderenti": 20
+        },
+        {
+          "id": "pa_locali_agg__altri",
+          "nome": "Altri enti locali",
+          "aderenti": 22
+        }
+      ]
     }
   ],
   "eservices": [
@@ -560,7 +1188,11 @@
         },
         {
           "fruitore": "province_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "province_agg__citta_metropolitane",
+            "province_agg__province"
+          ]
         },
         {
           "fruitore": "scuole_agg",
@@ -580,7 +1212,10 @@
         },
         {
           "fruitore": "pa_centrali_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "pa_centrali_agg__organi_costituzionali"
+          ]
         },
         {
           "fruitore": "adm",
@@ -735,7 +1370,10 @@
       "stato": "Attivo",
       "descrizione": "Dato un idANPR, restituisce i dati utili alla notifica al cittadino: generalità, residenza, esistenza in vita e identificativo unico nazion…",
       "catalogId": "579dcb3b-cc97-43dc-8080-64855408dd26",
-      "sessioni_min": 9733791
+      "sessioni_min": 9733791,
+      "sessioni_12m": 5514501,
+      "sessioni_6m": 3562353,
+      "tendenza_6m": 82.5
     },
     {
       "id": "min_interno_49cb628f",
@@ -813,7 +1451,11 @@
         },
         {
           "fruitore": "province_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "province_agg__citta_metropolitane",
+            "province_agg__province"
+          ]
         },
         {
           "fruitore": "scuole_agg",
@@ -833,7 +1475,10 @@
         },
         {
           "fruitore": "pa_centrali_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "pa_centrali_agg__organi_costituzionali"
+          ]
         },
         {
           "fruitore": "adm",
@@ -1022,11 +1667,18 @@
         },
         {
           "fruitore": "province_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "province_agg__citta_metropolitane",
+            "province_agg__province"
+          ]
         },
         {
           "fruitore": "pa_centrali_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "pa_centrali_agg__organi_costituzionali"
+          ]
         },
         {
           "fruitore": "mlps",
@@ -1189,12 +1841,18 @@
         {
           "fruitore": "province_agg",
           "origine": "osservata",
+          "sottotipi": [
+            "province_agg__province"
+          ],
           "connessioni": 47,
           "sessioni": 30074
         },
         {
           "fruitore": "gestori_agg",
           "origine": "osservata",
+          "sottotipi": [
+            "gestori_agg__gestori"
+          ],
           "connessioni": 81
         },
         {
@@ -1226,7 +1884,10 @@
       "descrizione": "Dato un idANPR, restituisce i dati relativi alla residenza del cittadino presenti in ANPR alla data di riferimento: generalità, data decorr…",
       "catalogId": "a152b46b-f330-494d-9845-82c460bc9fcf",
       "enti_abilitati_min": 2500,
-      "sessioni_min": 78603051
+      "sessioni_min": 78603051,
+      "sessioni_12m": 57681430,
+      "sessioni_6m": 37993770,
+      "tendenza_6m": 92
     },
     {
       "id": "min_interno_fd741918",
@@ -1253,6 +1914,9 @@
         {
           "fruitore": "privati_agg",
           "origine": "osservata",
+          "sottotipi": [
+            "privati_agg__assicurazioni"
+          ],
           "connessioni": 96,
           "sessioni": 66460488
         },
@@ -1264,6 +1928,9 @@
         {
           "fruitore": "gestori_agg",
           "origine": "osservata",
+          "sottotipi": [
+            "gestori_agg__gestori"
+          ],
           "connessioni": 39
         },
         {
@@ -1297,7 +1964,10 @@
       "descrizione": "Dato un idANPR, restituisce i dati relativi all'esistenza in vita o al decesso del cittadino presenti in ANPR alla data di riferimento: gen…",
       "catalogId": "fd741918-cac1-4d5f-9437-15b520b4cce3",
       "enti_abilitati_min": 96,
-      "sessioni_min": 70180548
+      "sessioni_min": 70180548,
+      "sessioni_12m": 25805747,
+      "sessioni_6m": 10454185,
+      "tendenza_6m": -31.9
     },
     {
       "id": "min_interno_5e023f06",
@@ -1340,11 +2010,17 @@
         {
           "fruitore": "province_agg",
           "origine": "osservata",
+          "sottotipi": [
+            "province_agg__province"
+          ],
           "connessioni": 39
         },
         {
           "fruitore": "gestori_agg",
           "origine": "osservata",
+          "sottotipi": [
+            "gestori_agg__gestori"
+          ],
           "connessioni": 68
         },
         {
@@ -1370,7 +2046,10 @@
       "descrizione": "Dato un idANPR, restituisce i dati dello stato di famiglia alla data di riferimento, per ciascun componente restituisce: generalità, data d…",
       "catalogId": "5e023f06-e5d4-4f8a-b7b8-299b97d2abee",
       "enti_abilitati_min": 2022,
-      "sessioni_min": 22653382
+      "sessioni_min": 22653382,
+      "sessioni_12m": 17474925,
+      "sessioni_6m": 9928435,
+      "tendenza_6m": 31.6
     },
     {
       "id": "min_interno_12d5ff12",
@@ -1429,6 +2108,9 @@
         {
           "fruitore": "gestori_agg",
           "origine": "osservata",
+          "sottotipi": [
+            "gestori_agg__gestori"
+          ],
           "connessioni": 106,
           "sessioni": 10474994
         },
@@ -1458,7 +2140,10 @@
       "descrizione": "A fronte di un codice fiscale o dei dati anagrafici completi, restituisce l'idANPR del cittadino. E'restituito anche l'identificativo di un…",
       "catalogId": "12d5ff12-7894-4c89-bbfc-033418fb1e38",
       "enti_abilitati_min": 1986,
-      "sessioni_min": 33707780
+      "sessioni_min": 33707780,
+      "sessioni_12m": 25494034,
+      "sessioni_6m": 19416429,
+      "tendenza_6m": 219.5
     },
     {
       "id": "min_interno_f978f8b9",
@@ -1484,6 +2169,9 @@
         {
           "fruitore": "province_agg",
           "origine": "osservata",
+          "sottotipi": [
+            "province_agg__province"
+          ],
           "connessioni": 35
         },
         {
@@ -1515,7 +2203,10 @@
         },
         {
           "fruitore": "gestori_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "gestori_agg__gestori"
+          ]
         }
       ],
       "versione": "2",
@@ -1523,7 +2214,10 @@
       "descrizione": "Dato un idANPR, restituisce le generalità, lo stato civile e l'identificativo unico nazionale del cittadino alla data di riferimento. Se de…",
       "catalogId": "f978f8b9-de00-45ba-801b-1b4a60b547d9",
       "enti_abilitati_min": 1159,
-      "sessioni_min": 3817454
+      "sessioni_min": 3817454,
+      "sessioni_12m": 2024730,
+      "sessioni_6m": 1201249,
+      "tendenza_6m": 45.7
     },
     {
       "id": "min_interno_a308cad0",
@@ -1557,6 +2251,9 @@
         {
           "fruitore": "province_agg",
           "origine": "osservata",
+          "sottotipi": [
+            "province_agg__province"
+          ],
           "connessioni": 31
         },
         {
@@ -1590,7 +2287,10 @@
         },
         {
           "fruitore": "gestori_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "gestori_agg__gestori"
+          ]
         }
       ],
       "versione": "2",
@@ -1598,7 +2298,10 @@
       "descrizione": "Dato un idANPR, restituisce i dati della cittadinanza del cittadino presenti in ANPR alla data di riferimento: generalità, dati della/e cit…",
       "catalogId": "a308cad0-9bf2-4346-954e-6dde312f9e16",
       "enti_abilitati_min": 1138,
-      "sessioni_min": 17094153
+      "sessioni_min": 17094153,
+      "sessioni_12m": 14990338,
+      "sessioni_6m": 6970647,
+      "tendenza_6m": -13.1
     },
     {
       "id": "min_interno_c0e20947",
@@ -1651,14 +2354,20 @@
         },
         {
           "fruitore": "gestori_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "gestori_agg__gestori"
+          ]
         }
       ],
       "versione": "2",
       "stato": "Attivo",
       "descrizione": "Dato un idANPR, restituisce i dati utili alle comunicazioni con il cittadino: generalità, residenza, esistenza in vita e identificativo uni…",
       "catalogId": "c0e20947-7c1a-416e-9abf-0dfbfb3fec24",
-      "sessioni_min": 14436931
+      "sessioni_min": 14436931,
+      "sessioni_12m": 14238773,
+      "sessioni_6m": 6405141,
+      "tendenza_6m": -18.2
     },
     {
       "id": "min_interno_6ee0e5c9",
@@ -1688,6 +2397,9 @@
         {
           "fruitore": "pa_centrali_agg",
           "origine": "osservata",
+          "sottotipi": [
+            "pa_centrali_agg__organi_costituzionali"
+          ],
           "connessioni": 2,
           "sessioni": 12935158
         },
@@ -1706,7 +2418,11 @@
         },
         {
           "fruitore": "province_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "province_agg__citta_metropolitane",
+            "province_agg__province"
+          ]
         },
         {
           "fruitore": "scuole_agg",
@@ -1766,7 +2482,85 @@
       "descrizione": "Dato un idANPR, restituisce i dati relativi all'esistenza in vita o al decesso del cittadino presenti in ANPR alla data di riferimento: gen…",
       "catalogId": "6ee0e5c9-1382-40fc-ad1b-2f185abec256",
       "enti_abilitati_min": 2,
-      "sessioni_min": 9035634
+      "sessioni_min": 9035634,
+      "sessioni_12m": 6474476,
+      "sessioni_6m": 4075256,
+      "tendenza_6m": 69.9
+    },
+    {
+      "id": "inps_843ac013",
+      "nome": "Consultazione Attestazione ISEE",
+      "erogatore": "inps",
+      "fruitori": [
+        "scuole_agg",
+        "universita_agg",
+        "comuni_agg",
+        "regioni_agg",
+        "pa_locali_agg",
+        "sanita_agg",
+        "gestori_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "scuole_agg",
+          "origine": "documentata"
+        },
+        {
+          "fruitore": "universita_agg",
+          "origine": "documentata",
+          "sottotipi": [
+            "universita_agg__afam",
+            "universita_agg__diritto_studio",
+            "universita_agg__universita"
+          ],
+          "connessioni": 58,
+          "sessioni": 280617
+        },
+        {
+          "fruitore": "comuni_agg",
+          "origine": "documentata",
+          "connessioni": 47,
+          "sessioni": 592764
+        },
+        {
+          "fruitore": "regioni_agg",
+          "origine": "osservata",
+          "connessioni": 13,
+          "sessioni": 1035897
+        },
+        {
+          "fruitore": "pa_locali_agg",
+          "origine": "osservata",
+          "sottotipi": [
+            "pa_locali_agg__edilizia"
+          ],
+          "connessioni": 14,
+          "sessioni": 89488
+        },
+        {
+          "fruitore": "sanita_agg",
+          "origine": "osservata",
+          "sottotipi": [
+            "sanita_agg__asl"
+          ],
+          "connessioni": 2
+        },
+        {
+          "fruitore": "gestori_agg",
+          "origine": "osservata",
+          "connessioni": 1,
+          "sessioni": 87
+        }
+      ],
+      "versione": "3",
+      "stato": "Attivo",
+      "descrizione": "Servizio di consultazione Attestazione ISEE",
+      "catalogId": "843ac013-941a-4afe-8243-e668142e73e6",
+      "enti_abilitati_min": 135,
+      "sessioni_min": 1998853,
+      "sessioni_12m": 1475287,
+      "sessioni_6m": 705644,
+      "tendenza_6m": -8.3
     },
     {
       "id": "inps_19efdb32",
@@ -1883,16 +2677,19 @@
       "descrizione": "Il servizio permette di consultare un DURC regolare in corso di validità alla data della richiesta di un soggetto contribuente inserendo o …",
       "catalogId": "19efdb32-dd4e-493e-8982-3d28f2e8be64",
       "enti_abilitati_min": 229,
-      "sessioni_min": 191955
+      "sessioni_min": 191955,
+      "sessioni_12m": 86933,
+      "sessioni_6m": 40041
     },
     {
       "id": "inps_8ffc6245",
       "nome": "Consultazione Indicatore ISEE",
       "erogatore": "inps",
       "fruitori": [
+        "scuole_agg",
         "universita_agg",
-        "pa_locali_agg",
         "comuni_agg",
+        "pa_locali_agg",
         "regioni_agg",
         "sanita_agg",
         "gestori_agg",
@@ -1925,22 +2722,34 @@
       ],
       "archi": [
         {
+          "fruitore": "scuole_agg",
+          "origine": "documentata"
+        },
+        {
           "fruitore": "universita_agg",
-          "origine": "osservata",
+          "origine": "documentata",
+          "sottotipi": [
+            "universita_agg__afam",
+            "universita_agg__diritto_studio",
+            "universita_agg__universita"
+          ],
           "connessioni": 30,
           "sessioni": 28753
         },
         {
-          "fruitore": "pa_locali_agg",
-          "origine": "osservata",
-          "connessioni": 10,
-          "sessioni": 79
-        },
-        {
           "fruitore": "comuni_agg",
-          "origine": "osservata",
+          "origine": "documentata",
           "connessioni": 36,
           "sessioni": 13262
+        },
+        {
+          "fruitore": "pa_locali_agg",
+          "origine": "osservata",
+          "sottotipi": [
+            "pa_locali_agg__edilizia"
+          ],
+          "connessioni": 10,
+          "sessioni": 79
         },
         {
           "fruitore": "regioni_agg",
@@ -1951,6 +2760,9 @@
         {
           "fruitore": "sanita_agg",
           "origine": "osservata",
+          "sottotipi": [
+            "sanita_agg__asl"
+          ],
           "connessioni": 1,
           "sessioni": 3
         },
@@ -2070,7 +2882,9 @@
       "descrizione": "Servizio per la Consultazione dell'indicatore ISEE",
       "catalogId": "8ffc6245-0ab1-4e2e-8423-6e1a855c320a",
       "enti_abilitati_min": 85,
-      "sessioni_min": 182463
+      "sessioni_min": 182463,
+      "sessioni_12m": 121730,
+      "sessioni_6m": 69214
     },
     {
       "id": "inps_90176150",
@@ -2120,19 +2934,33 @@
         },
         {
           "fruitore": "universita_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "universita_agg__diritto_studio",
+            "universita_agg__universita"
+          ]
         },
         {
           "fruitore": "pa_locali_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "pa_locali_agg__servizi_persona",
+            "pa_locali_agg__unioni"
+          ]
         },
         {
           "fruitore": "sanita_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "sanita_agg__asl"
+          ]
         },
         {
           "fruitore": "province_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "province_agg__citta_metropolitane"
+          ]
         },
         {
           "fruitore": "c_milano",
@@ -2328,62 +3156,6 @@
       "catalogId": "2dd25168-da15-485e-bef8-21003b03d2b3"
     },
     {
-      "id": "inps_843ac013",
-      "nome": "Consultazione Attestazione ISEE",
-      "erogatore": "inps",
-      "fruitori": [
-        "regioni_agg",
-        "universita_agg",
-        "pa_locali_agg",
-        "comuni_agg",
-        "sanita_agg",
-        "gestori_agg"
-      ],
-      "archi": [
-        {
-          "fruitore": "regioni_agg",
-          "origine": "osservata",
-          "connessioni": 13,
-          "sessioni": 1035897
-        },
-        {
-          "fruitore": "universita_agg",
-          "origine": "osservata",
-          "connessioni": 58,
-          "sessioni": 280617
-        },
-        {
-          "fruitore": "pa_locali_agg",
-          "origine": "osservata",
-          "connessioni": 14,
-          "sessioni": 89488
-        },
-        {
-          "fruitore": "comuni_agg",
-          "origine": "osservata",
-          "connessioni": 47,
-          "sessioni": 592764
-        },
-        {
-          "fruitore": "sanita_agg",
-          "origine": "osservata",
-          "connessioni": 2
-        },
-        {
-          "fruitore": "gestori_agg",
-          "origine": "osservata",
-          "connessioni": 1,
-          "sessioni": 87
-        }
-      ],
-      "versione": "3",
-      "stato": "Attivo",
-      "descrizione": "Servizio di consultazione Attestazione ISEE",
-      "catalogId": "843ac013-941a-4afe-8243-e668142e73e6",
-      "enti_abilitati_min": 135,
-      "sessioni_min": 1998853
-    },
-    {
       "id": "inps_2303d392",
       "nome": "Consultazione Attestazione Residenti ISEE",
       "erogatore": "inps",
@@ -2410,7 +3182,10 @@
       "descrizione": "Servizio per i Comuni per la consultazione dell'attestazione ISEE di un nucleo familiare residente nel comune che sta effettuando la ricerc…",
       "catalogId": "2303d392-6b30-462b-a9e6-6fe99498cc53",
       "enti_abilitati_min": 944,
-      "sessioni_min": 363690
+      "sessioni_min": 363690,
+      "sessioni_12m": 354196,
+      "sessioni_6m": 168205,
+      "tendenza_6m": -9.5
     },
     {
       "id": "inps_9d9fc812",
@@ -2432,7 +3207,9 @@
       "descrizione": "Servizio per i Comuni per la consultazione dell'indicatore ISEE di un soggetto facente parte del nucleo familiare residente nel comune che …",
       "catalogId": "9d9fc812-0410-4ceb-a062-a987e3eb79fa",
       "enti_abilitati_min": 347,
-      "sessioni_min": 104200
+      "sessioni_min": 104200,
+      "sessioni_12m": 100451,
+      "sessioni_6m": 88027
     },
     {
       "id": "inps_c8a660ab",
@@ -2459,7 +3236,10 @@
       "descrizione": "European Disability Card (EDC): il servizio consente all'Istituto Poligrafico e Zecca dello Stato (IPZS) di richiedere, tramite Codice Fisc…",
       "catalogId": "c8a660ab-7fe8-4f90-a88f-a91913f357d8",
       "enti_abilitati_min": 1,
-      "sessioni_min": 435003
+      "sessioni_min": 435003,
+      "sessioni_12m": 194437,
+      "sessioni_6m": 93363,
+      "tendenza_6m": -7.6
     },
     {
       "id": "inps_fc0160de",
@@ -2524,7 +3304,9 @@
       "stato": "Attivo",
       "descrizione": "Il servizio consente la ricezione delle CO per i modelli UNILAV, UNISOMM, UNIMARE, UNIURG, VARDATORI e UNILAV CONG",
       "catalogId": "fc0160de-6db7-414b-805d-e3670394c107",
-      "sessioni_min": 379710
+      "sessioni_min": 379710,
+      "sessioni_12m": 125008,
+      "sessioni_6m": 63404
     },
     {
       "id": "inps_198ac93e",
@@ -2542,6 +3324,9 @@
         {
           "fruitore": "pa_locali_agg",
           "origine": "osservata",
+          "sottotipi": [
+            "pa_locali_agg__edilizia"
+          ],
           "connessioni": 3,
           "sessioni": 470
         },
@@ -2558,11 +3343,19 @@
         {
           "fruitore": "universita_agg",
           "origine": "osservata",
+          "sottotipi": [
+            "universita_agg__afam",
+            "universita_agg__diritto_studio",
+            "universita_agg__universita"
+          ],
           "connessioni": 4
         },
         {
           "fruitore": "sanita_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "sanita_agg__asl"
+          ]
         },
         {
           "fruitore": "regioni_agg",
@@ -2574,7 +3367,9 @@
       "descrizione": "Servizio di consultazione Attestazione ISEE, fruibile dagli operatori autorizzati dell'Ente fruitore. Nella comunicazione verso i sistemi I…",
       "catalogId": "198ac93e-9b84-4f88-a663-b343025cebfe",
       "enti_abilitati_min": 63,
-      "sessioni_min": 470
+      "sessioni_min": 470,
+      "sessioni_12m": 470,
+      "sessioni_6m": 120
     },
     {
       "id": "inps_b78673b5",
@@ -2597,12 +3392,20 @@
         {
           "fruitore": "universita_agg",
           "origine": "osservata",
+          "sottotipi": [
+            "universita_agg__afam",
+            "universita_agg__diritto_studio",
+            "universita_agg__universita"
+          ],
           "connessioni": 3,
           "sessioni": 184
         },
         {
           "fruitore": "sanita_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "sanita_agg__asl"
+          ]
         },
         {
           "fruitore": "regioni_agg",
@@ -2610,7 +3413,10 @@
         },
         {
           "fruitore": "pa_locali_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "pa_locali_agg__edilizia"
+          ]
         }
       ],
       "versione": "1",
@@ -2618,7 +3424,9 @@
       "descrizione": "Servizio per la Consultazione dell'indicatore ISEE e del nucleo familiare tramite dato di riscontro (protocollo DSU)",
       "catalogId": "b78673b5-125e-4d74-b496-4c7d0911f0b2",
       "enti_abilitati_min": 53,
-      "sessioni_min": 7099
+      "sessioni_min": 7099,
+      "sessioni_12m": 7092,
+      "sessioni_6m": 5547
     },
     {
       "id": "inps_9eb24c8d",
@@ -2640,11 +3448,18 @@
         },
         {
           "fruitore": "pa_locali_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "pa_locali_agg__servizi_persona",
+            "pa_locali_agg__unioni"
+          ]
         },
         {
           "fruitore": "province_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "province_agg__citta_metropolitane"
+          ]
         },
         {
           "fruitore": "regioni_agg",
@@ -2652,11 +3467,18 @@
         },
         {
           "fruitore": "sanita_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "sanita_agg__asl"
+          ]
         },
         {
           "fruitore": "universita_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "universita_agg__diritto_studio",
+            "universita_agg__universita"
+          ]
         }
       ],
       "versione": "2",
@@ -2664,6 +3486,64 @@
       "descrizione": "Il servizio consente la trasmissione da parte degli enti erogatori verso INPS dei dati delle prestazioni erogate come previsti per il SIUSS",
       "catalogId": "9eb24c8d-05ae-4b3a-a1f6-af9afc9bd93d",
       "enti_abilitati_min": 53
+    },
+    {
+      "id": "inps_7950aa09",
+      "nome": "Consultazione Indicatore Riscontro ISEE",
+      "erogatore": "inps",
+      "fruitori": [
+        "comuni_agg",
+        "regioni_agg",
+        "universita_agg",
+        "sanita_agg",
+        "pa_locali_agg"
+      ],
+      "archi": [
+        {
+          "fruitore": "comuni_agg",
+          "origine": "osservata",
+          "connessioni": 28,
+          "sessioni": 1703
+        },
+        {
+          "fruitore": "regioni_agg",
+          "origine": "osservata",
+          "connessioni": 1,
+          "sessioni": 11
+        },
+        {
+          "fruitore": "universita_agg",
+          "origine": "osservata",
+          "sottotipi": [
+            "universita_agg__afam",
+            "universita_agg__diritto_studio",
+            "universita_agg__universita"
+          ],
+          "connessioni": 1
+        },
+        {
+          "fruitore": "sanita_agg",
+          "origine": "certificata",
+          "sottotipi": [
+            "sanita_agg__asl"
+          ]
+        },
+        {
+          "fruitore": "pa_locali_agg",
+          "origine": "certificata",
+          "sottotipi": [
+            "pa_locali_agg__edilizia"
+          ]
+        }
+      ],
+      "versione": "1",
+      "stato": "Attivo",
+      "descrizione": "Servizio per la Consultazione dell'indicatore ISEE tramite dato di riscontro (protocollo DSU)",
+      "catalogId": "7950aa09-8155-4f8b-a882-22f3fe6d7d44",
+      "enti_abilitati_min": 30,
+      "sessioni_min": 1703,
+      "sessioni_12m": 1677,
+      "sessioni_6m": 1651
     },
     {
       "id": "ade_c0db9916",
@@ -2705,6 +3585,10 @@
         {
           "fruitore": "universita_agg",
           "origine": "osservata",
+          "sottotipi": [
+            "universita_agg__afam",
+            "universita_agg__universita"
+          ],
           "connessioni": 11,
           "sessioni": 3957
         },
@@ -2719,11 +3603,17 @@
         },
         {
           "fruitore": "pa_locali_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "pa_locali_agg__autorita_territoriali"
+          ]
         },
         {
           "fruitore": "province_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "province_agg__citta_metropolitane"
+          ]
         },
         {
           "fruitore": "min_interno",
@@ -2831,7 +3721,9 @@
       "descrizione": "Questo servizio ritorna la validità di un dato codice fiscale con un campo di ritorno booleano nell' oggetto json della risposta.",
       "catalogId": "c0db9916-d66a-4dc5-8ffc-c1e268e20cc4",
       "enti_abilitati_min": 11,
-      "sessioni_min": 5577948
+      "sessioni_min": 5577948,
+      "sessioni_12m": 169373,
+      "sessioni_6m": 167838
     },
     {
       "id": "ade_54a312be",
@@ -2889,15 +3781,25 @@
         },
         {
           "fruitore": "universita_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "universita_agg__afam",
+            "universita_agg__universita"
+          ]
         },
         {
           "fruitore": "pa_locali_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "pa_locali_agg__autorita_territoriali"
+          ]
         },
         {
           "fruitore": "province_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "province_agg__citta_metropolitane"
+          ]
         },
         {
           "fruitore": "min_interno",
@@ -2989,7 +3891,8 @@
       "descrizione": "Aggiornamento delle coordinate geografiche (longitudine, latitudine e quota) degli accessi con un'unica tipologia di operazione che aggiung…",
       "catalogId": "0aa3313a-41bc-4c0b-af2b-338483583525",
       "enti_abilitati_min": 5075,
-      "sessioni_min": 13335012
+      "sessioni_min": 13335012,
+      "sessioni_12m": 12537638
     },
     {
       "id": "ade_57d95a2a",
@@ -3011,7 +3914,10 @@
       "descrizione": "Aggiornamento degli accessi con operazioni di inserimento, aggiornamento e soppressione. Il servizio non è utilizzabile per modificare solo…",
       "catalogId": "57d95a2a-d740-43be-8083-b09077856e72",
       "enti_abilitati_min": 3339,
-      "sessioni_min": 9979868
+      "sessioni_min": 9979868,
+      "sessioni_12m": 9851647,
+      "sessioni_6m": 3278356,
+      "tendenza_6m": -50.1
     },
     {
       "id": "ade_9e5179e2",
@@ -3051,7 +3957,9 @@
       "stato": "Attivo",
       "descrizione": "Aggiornamento degli odonimi con operazioni di inserimento, aggiornamento e soppressione. Il servizio non è utilizzabile per modificare solo…",
       "catalogId": "3dca862b-b7a4-4b0c-b989-cc24ad947ee8",
-      "enti_abilitati_min": 2745
+      "enti_abilitati_min": 2745,
+      "sessioni_12m": 1687188,
+      "sessioni_6m": 1687188
     },
     {
       "id": "ade_190e9711",
@@ -3081,11 +3989,17 @@
         {
           "fruitore": "pa_centrali_agg",
           "origine": "osservata",
+          "sottotipi": [
+            "pa_centrali_agg__ricerca"
+          ],
           "connessioni": 7
         },
         {
           "fruitore": "province_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "province_agg__citta_metropolitane"
+          ]
         },
         {
           "fruitore": "min_interno",
@@ -3129,7 +4043,10 @@
         },
         {
           "fruitore": "pa_locali_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "pa_locali_agg__autorita_territoriali"
+          ]
         },
         {
           "fruitore": "agid",
@@ -3156,7 +4073,9 @@
       "stato": "Attivo",
       "descrizione": "Il servizio permette l'interrogazione per codice fiscale o per dati anagrafici di soggetti persona fisica",
       "catalogId": "190e9711-d77f-40c1-be01-71165643ca57",
-      "enti_abilitati_min": 7
+      "enti_abilitati_min": 7,
+      "sessioni_12m": 620174,
+      "sessioni_6m": 620174
     },
     {
       "id": "ade_c444a17f",
@@ -3300,6 +4219,9 @@
         {
           "fruitore": "gestori_agg",
           "origine": "osservata",
+          "sottotipi": [
+            "gestori_agg__gestori"
+          ],
           "connessioni": 80
         },
         {
@@ -3357,7 +4279,10 @@
       "descrizione": "e-service per la consultazione dei domicili digitali presenti nell'INAD per le Pubbliche Amministrazioni e Gestori dei Pubblici Servizi ai …",
       "catalogId": "2d97cffc-27cb-4705-a21d-9e1084aec9e3",
       "enti_abilitati_min": 1916,
-      "sessioni_min": 68149844
+      "sessioni_min": 68149844,
+      "sessioni_12m": 44352864,
+      "sessioni_6m": 24587477,
+      "tendenza_6m": 29.4
     },
     {
       "id": "agid_c80fc0c7",
@@ -3590,7 +4515,9 @@
       "descrizione": "Riceve i dati sulle comunicazioni obbligatorie dal mlps",
       "catalogId": "27d0b921-bd8b-4c17-b5dd-761a6fff7cb8",
       "enti_abilitati_min": 1,
-      "sessioni_min": 390678
+      "sessioni_min": 390678,
+      "sessioni_12m": 183099,
+      "sessioni_6m": 93266
     },
     {
       "id": "inail_16444299",
@@ -3617,7 +4544,9 @@
       "descrizione": "pdnd.mlps.tassi",
       "catalogId": "16444299-2354-44c9-b587-bcb29ee29a0f",
       "enti_abilitati_min": 1,
-      "sessioni_min": 1947
+      "sessioni_min": 1947,
+      "sessioni_12m": 1941,
+      "sessioni_6m": 1103
     },
     {
       "id": "inail_e85c57f7",
@@ -3637,7 +4566,9 @@
       "stato": "Attivo",
       "descrizione": "Richiesta Certificato del Debito",
       "catalogId": "e85c57f7-5d94-45ad-b88b-9e81dc837a62",
-      "sessioni_min": 276
+      "sessioni_min": 276,
+      "sessioni_12m": 80,
+      "sessioni_6m": 34
     },
     {
       "id": "unioncamere_2abffc64",
@@ -3760,7 +4691,10 @@
       "descrizione": "Servizi di consultazione Registro Imprese",
       "catalogId": "2abffc64-7511-40c9-991d-86f282137726",
       "enti_abilitati_min": 797,
-      "sessioni_min": 6162105
+      "sessioni_min": 6162105,
+      "sessioni_12m": 3391185,
+      "sessioni_6m": 2445926,
+      "tendenza_6m": 158.8
     },
     {
       "id": "unioncamere_1bcf7afa",
@@ -3845,7 +4779,9 @@
       "descrizione": "API esposta ai Back Office ET per il recupero e l'aggiornamento del descrittore istanza",
       "catalogId": "1bcf7afa-dcc6-4674-8f2c-978da051d065",
       "enti_abilitati_min": 44,
-      "sessioni_min": 44
+      "sessioni_min": 44,
+      "sessioni_12m": 82,
+      "sessioni_6m": 27
     },
     {
       "id": "unioncamere_7a850b8b",
@@ -3920,7 +4856,9 @@
       "descrizione": "API per il recupero dei metadati dei procedimenti e delle componenti strutturali",
       "catalogId": "7a850b8b-4307-491f-9534-771e212d4c45",
       "enti_abilitati_min": 15,
-      "sessioni_min": 2428
+      "sessioni_min": 2428,
+      "sessioni_12m": 2423,
+      "sessioni_6m": 2324
     },
     {
       "id": "unioncamere_8d75b585",
@@ -4110,7 +5048,9 @@
       "descrizione": "il servizio permette di richiedere l'esecuzione della testlist di verifica compliant delle componenti informatiche della componenti informa…",
       "catalogId": "e37dde23-93f2-4c8f-89a2-472cd0d4f380",
       "enti_abilitati_min": 429,
-      "sessioni_min": 57803
+      "sessioni_min": 57803,
+      "sessioni_12m": 50746,
+      "sessioni_6m": 6656
     },
     {
       "id": "unioncamere_984935f2",
@@ -4152,7 +5092,9 @@
       "descrizione": "API esposte dal Back Office Camerale verso i Back Office degli Enti Terzi",
       "catalogId": "984935f2-4b4d-462c-a9c6-7e06d1610c07",
       "enti_abilitati_min": 7,
-      "sessioni_min": 7
+      "sessioni_min": 7,
+      "sessioni_12m": 12,
+      "sessioni_6m": 2
     },
     {
       "id": "unioncamere_2c31cb18",
@@ -4180,7 +5122,9 @@
       "descrizione": "L'API ha lo scopo di ricevere i documenti erogati in modalità asincrona dalle PP.AA. interessate",
       "catalogId": "2c31cb18-f9a6-438f-82ce-60197db75541",
       "enti_abilitati_min": 5,
-      "sessioni_min": 10711
+      "sessioni_min": 10711,
+      "sessioni_12m": 413,
+      "sessioni_6m": 131
     },
     {
       "id": "unioncamere_16e87af1",
@@ -4289,7 +5233,8 @@
       "descrizione": "Attestazione della rappresentanza legale di una persona fisica in un'impresa quale persona giuridica",
       "catalogId": "4f8fecec-8bfc-4c23-80a3-c67814c853a8",
       "enti_abilitati_min": 1,
-      "sessioni_min": 167
+      "sessioni_min": 167,
+      "sessioni_12m": 5
     },
     {
       "id": "unioncamere_0116d2da",
@@ -4311,7 +5256,9 @@
       "descrizione": "L'API ha lo scopo di ricevere ed elaborare una richiesta di documenti erogati dalle PP.AA.",
       "catalogId": "0116d2da-3361-479d-9a93-bb2137c5cc0a",
       "enti_abilitati_min": 1,
-      "sessioni_min": 1323
+      "sessioni_min": 1323,
+      "sessioni_12m": 367,
+      "sessioni_6m": 172
     },
     {
       "id": "mef_a957566b",
@@ -4570,7 +5517,10 @@
       "descrizione": "Servizio per la gestione delle schede dati per le fasi successive alla pubblicazione",
       "catalogId": "dfc8c208-813a-4da1-be6c-b20789f6cd93",
       "enti_abilitati_min": 19,
-      "sessioni_min": 9555149
+      "sessioni_min": 9555149,
+      "sessioni_12m": 9992954,
+      "sessioni_6m": 5343106,
+      "tendenza_6m": 15.1
     },
     {
       "id": "anac_ce093b84",
@@ -4616,7 +5566,10 @@
       "descrizione": "Servizio per la gestione della pubblicazione degli avvisi",
       "catalogId": "ce093b84-bcb2-4bdd-ae75-0fc1dcf56ce1",
       "enti_abilitati_min": 19,
-      "sessioni_min": 25059569
+      "sessioni_min": 25059569,
+      "sessioni_12m": 6522524,
+      "sessioni_6m": 4488726,
+      "tendenza_6m": 30.4
     },
     {
       "id": "anac_28a33c9f",
@@ -4668,7 +5621,10 @@
       "descrizione": "Servizi per il recupero dello stato dell'appalto, del lotto o del Contratto e dell'esito dell'operazione",
       "catalogId": "28a33c9f-7450-4f66-8776-4db37adab3a5",
       "enti_abilitati_min": 19,
-      "sessioni_min": 55479239
+      "sessioni_min": 55479239,
+      "sessioni_12m": 20241781,
+      "sessioni_6m": 10240469,
+      "tendenza_6m": 2.4
     },
     {
       "id": "anac_50ca2a3a",
@@ -4740,7 +5696,10 @@
       "descrizione": "Servizio per la gestione delle fasi di un appalto",
       "catalogId": "84ff6795-2255-4784-95d8-c4eb4b89a6b5",
       "enti_abilitati_min": 19,
-      "sessioni_min": 47455750
+      "sessioni_min": 47455750,
+      "sessioni_12m": 16818241,
+      "sessioni_6m": 7928087,
+      "tendenza_6m": -10.8
     },
     {
       "id": "min_giustizia_c881c211",
@@ -4865,7 +5824,9 @@
       "stato": "Attivo",
       "descrizione": "Certificazione per persone fisiche (artt. 28 e 29 DPR 313/2002). Supporta invocazioni singole e massive e restituisce l'esito e il certific…",
       "catalogId": "c881c211-3a50-4e8d-9667-ae51955d0711",
-      "enti_abilitati_min": 19
+      "enti_abilitati_min": 19,
+      "sessioni_12m": 20558,
+      "sessioni_6m": 20558
     },
     {
       "id": "min_giustizia_fe9b0f58",
@@ -5097,7 +6058,11 @@
       "archi": [
         {
           "fruitore": "pa_centrali_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "pa_centrali_agg__enti_non_economici",
+            "pa_centrali_agg__organi_costituzionali"
+          ]
         },
         {
           "fruitore": "min_interno",
@@ -5180,7 +6145,11 @@
       "archi": [
         {
           "fruitore": "pa_centrali_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "pa_centrali_agg__enti_non_economici",
+            "pa_centrali_agg__organi_costituzionali"
+          ]
         },
         {
           "fruitore": "min_interno",
@@ -5277,7 +6246,11 @@
       "archi": [
         {
           "fruitore": "pa_centrali_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "pa_centrali_agg__enti_non_economici",
+            "pa_centrali_agg__organi_costituzionali"
+          ]
         },
         {
           "fruitore": "min_interno",
@@ -5340,7 +6313,11 @@
       "archi": [
         {
           "fruitore": "pa_centrali_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "pa_centrali_agg__enti_non_economici",
+            "pa_centrali_agg__organi_costituzionali"
+          ]
         },
         {
           "fruitore": "min_interno",
@@ -5403,7 +6380,11 @@
       "archi": [
         {
           "fruitore": "pa_centrali_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "pa_centrali_agg__enti_non_economici",
+            "pa_centrali_agg__organi_costituzionali"
+          ]
         },
         {
           "fruitore": "min_interno",
@@ -5466,7 +6447,11 @@
       "archi": [
         {
           "fruitore": "pa_centrali_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "pa_centrali_agg__enti_non_economici",
+            "pa_centrali_agg__organi_costituzionali"
+          ]
         },
         {
           "fruitore": "min_interno",
@@ -5579,7 +6564,10 @@
       "descrizione": "Consente di richiedere il dettaglio dei titoli, relativi ad un singolo soggetto, presso gli Istituti di Formazione Superiore (IFS) presenti…",
       "catalogId": "b943e5ed-1cdc-4010-8bd7-da6ee221b923",
       "enti_abilitati_min": 16,
-      "sessioni_min": 7628819
+      "sessioni_min": 7628819,
+      "sessioni_12m": 8611024,
+      "sessioni_6m": 6896853,
+      "tendenza_6m": 302.3
     },
     {
       "id": "mur_69abfe02",
@@ -5599,7 +6587,10 @@
       "stato": "Attivo",
       "descrizione": "Acquisizione del dettaglio dei titoli accademici conseguiti da una studentessa/uno studente",
       "catalogId": "69abfe02-3e83-4b10-82ae-8af6b9aedc7c",
-      "sessioni_min": 28672867
+      "sessioni_min": 28672867,
+      "sessioni_12m": 13045258,
+      "sessioni_6m": 1571027,
+      "tendenza_6m": -86.3
     },
     {
       "id": "mur_c3718b5a",
@@ -5619,7 +6610,10 @@
       "stato": "Attivo",
       "descrizione": "Acquisizione del dettaglio delle iscrizioni per corso di studi negli ultimi tre anni accademici di una studentessa o di uno studente",
       "catalogId": "c3718b5a-510c-4f8b-9195-4ca58478e733",
-      "sessioni_min": 23399902
+      "sessioni_min": 23399902,
+      "sessioni_12m": 15161660,
+      "sessioni_6m": 6821968,
+      "tendenza_6m": -18.2
     },
     {
       "id": "mur_06a2d800",
@@ -5687,7 +6681,8 @@
       "descrizione": "Consente di richiedere il dettaglio delle iscrizioni, relative ad un singolo soggetto, presso gli Istituti di Formazione Superiore (IFS) pr…",
       "catalogId": "06a2d800-1f5f-46d0-8602-d1ed7eabedf6",
       "enti_abilitati_min": 11,
-      "sessioni_min": 1262
+      "sessioni_min": 1262,
+      "sessioni_12m": 1218
     },
     {
       "id": "mur_6d2f1f5d",
@@ -5878,6 +6873,10 @@
         {
           "fruitore": "gestori_agg",
           "origine": "osservata",
+          "sottotipi": [
+            "gestori_agg__gestori",
+            "gestori_agg__stazioni_appaltanti"
+          ],
           "connessioni": 42,
           "sessioni": 75609659
         },
@@ -5909,7 +6908,10 @@
       "descrizione": "Il servizio permette alle Pubbliche Amministrazioni di inviare comunicazioni a valore legale a persone fisiche e giuridiche.",
       "catalogId": "cfc8a94d-001a-4ab6-bb5c-2509b2a68af1",
       "enti_abilitati_min": 7041,
-      "sessioni_min": 945848500
+      "sessioni_min": 945848500,
+      "sessioni_12m": 437489347,
+      "sessioni_6m": 163392290,
+      "tendenza_6m": -40.4
     },
     {
       "id": "pagopa_dc9cdf88",
@@ -5937,7 +6939,10 @@
       "descrizione": "Il servizio permette alle Società a controllo pubblico di inviare comunicazioni a valore legale a persone fisiche e giuridiche.",
       "catalogId": "dc9cdf88-1696-4b90-b29e-c116cc0f8c24",
       "enti_abilitati_min": 9,
-      "sessioni_min": 5837617
+      "sessioni_min": 5837617,
+      "sessioni_12m": 4234026,
+      "sessioni_6m": 1028155,
+      "tendenza_6m": -67.9
     },
     {
       "id": "pagopa_3820c986",
@@ -5979,7 +6984,10 @@
       "descrizione": "Questo servizio è dedicato all'invio delle comunicazioni obbligatorie di tipo Unilav - Erogazione Inversa",
       "catalogId": "a158fc5c-b5cc-4d0f-a8a7-9c6481cbf8cd",
       "enti_abilitati_min": 12,
-      "sessioni_min": 5514437
+      "sessioni_min": 5514437,
+      "sessioni_12m": 5149938,
+      "sessioni_6m": 3894034,
+      "tendenza_6m": 210.1
     },
     {
       "id": "mlps_9177c75a",
@@ -6001,7 +7009,10 @@
       "descrizione": "Questo servizio è dedicato all'invio delle comunicazioni obbligatorie di tipo UniSomm - Erogazione Inversa",
       "catalogId": "9177c75a-24bd-4cff-ae81-8ed0e03bf4f1",
       "enti_abilitati_min": 12,
-      "sessioni_min": 572138
+      "sessioni_min": 572138,
+      "sessioni_12m": 556302,
+      "sessioni_6m": 433380,
+      "tendenza_6m": 252.6
     },
     {
       "id": "mlps_596f991a",
@@ -6053,7 +7064,9 @@
       "stato": "Attivo",
       "descrizione": "Questo servizio è dedicato all'invio delle comunicazioni obbligatorie di tipo Unilav",
       "catalogId": "e7d5bac0-7b04-40ae-a7ae-aa094dcc8572",
-      "sessioni_min": 1752046
+      "sessioni_min": 1752046,
+      "sessioni_12m": 248347,
+      "sessioni_6m": 29031
     },
     {
       "id": "mlps_87d6b335",
@@ -6093,7 +7106,9 @@
       "stato": "Attivo",
       "descrizione": "Dato il codice del corso, il servizio restituisce i corsi di formazione dell'Ente Nazionale del Microcredito verso i quali è stato manifest…",
       "catalogId": "e0be209b-04d5-43d1-92b4-97a080e7ac28",
-      "sessioni_min": 477262
+      "sessioni_min": 477262,
+      "sessioni_12m": 477262,
+      "sessioni_6m": 474325
     },
     {
       "id": "mlps_10fbfaed",
@@ -6158,7 +7173,10 @@
       "stato": "Attivo",
       "descrizione": "Il servizio permette l'emissione sincrona dei dati della patente e la verifica dello stato.",
       "catalogId": "b5db89e0-1752-497c-983d-5ada7b20a12e",
-      "sessioni_min": 103379389
+      "sessioni_min": 103379389,
+      "sessioni_12m": 101895777,
+      "sessioni_6m": 70222514,
+      "tendenza_6m": 121.7
     },
     {
       "id": "mit_bae24663",
@@ -6208,7 +7226,10 @@
       "stato": "Attivo",
       "descrizione": "Servizi per la fruizione dei dati relativi alla Patente di Guida tramite AppIO",
       "catalogId": "e77ceead-0967-44f1-958d-367d7b7fcaaa",
-      "sessioni_min": 17658948
+      "sessioni_min": 17658948,
+      "sessioni_12m": 10333502,
+      "sessioni_6m": 5089314,
+      "tendenza_6m": -3
     },
     {
       "id": "mit_63c38daa",
@@ -6536,7 +7557,9 @@
       "descrizione": "Consente alle Pubbliche Amministrazioni autorizzate di ricercare e consultare competenze, profili professionali e profili di ruolo del sist…",
       "catalogId": "ef62480c-7664-4c66-9fb6-94cf3e4d97e4",
       "enti_abilitati_min": 65,
-      "sessioni_min": 376
+      "sessioni_min": 376,
+      "sessioni_12m": 4819,
+      "sessioni_6m": 4819
     },
     {
       "id": "dfp_16639688",
@@ -7083,7 +8106,10 @@
       "descrizione": "Servizi per accertare le informazioni dei titoli",
       "catalogId": "78fd67d2-a23e-46f4-8ff0-734c04b54feb",
       "enti_abilitati_min": 13,
-      "sessioni_min": 2075443
+      "sessioni_min": 2075443,
+      "sessioni_12m": 861173,
+      "sessioni_6m": 517599,
+      "tendenza_6m": 50.7
     },
     {
       "id": "min_istruzione_463cf9fe",
@@ -7226,7 +8252,10 @@
       "archi": [
         {
           "fruitore": "province_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "province_agg__citta_metropolitane"
+          ]
         },
         {
           "fruitore": "comuni_agg",
@@ -7323,7 +8352,9 @@
       "descrizione": "Dati di consultazione per i dati sui pollini e spore",
       "catalogId": "cd0ae962-cdc2-4ef6-9cc6-c31c6f95d39b",
       "enti_abilitati_min": 4,
-      "sessioni_min": 363
+      "sessioni_min": 363,
+      "sessioni_12m": 380,
+      "sessioni_6m": 380
     },
     {
       "id": "ispra_326628e1",
@@ -7343,7 +8374,9 @@
       "stato": "Attivo",
       "descrizione": "API per la consultazione dei dati di ReNDiS",
       "catalogId": "326628e1-dd72-4b61-8dde-4f8f97108219",
-      "sessioni_min": 453
+      "sessioni_min": 453,
+      "sessioni_12m": 137,
+      "sessioni_6m": 63
     },
     {
       "id": "ispra_2284999a",
@@ -7369,7 +8402,9 @@
       "stato": "Attivo",
       "descrizione": "API per l'erogazione dei dati climatici",
       "catalogId": "2284999a-8f23-48c0-a7ce-3503c780655e",
-      "enti_abilitati_min": 3
+      "enti_abilitati_min": 3,
+      "sessioni_12m": 32,
+      "sessioni_6m": 32
     },
     {
       "id": "ispra_f156d290",
@@ -7418,7 +8453,10 @@
         },
         {
           "fruitore": "pa_locali_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "pa_locali_agg__unioni"
+          ]
         }
       ],
       "versione": "1",
@@ -7458,11 +8496,17 @@
         },
         {
           "fruitore": "pa_locali_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "pa_locali_agg__unioni"
+          ]
         },
         {
           "fruitore": "universita_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "universita_agg__universita"
+          ]
         }
       ],
       "versione": "1",
@@ -7491,11 +8535,17 @@
         },
         {
           "fruitore": "universita_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "universita_agg__universita"
+          ]
         },
         {
           "fruitore": "province_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "province_agg__citta_metropolitane"
+          ]
         }
       ],
       "versione": "1",
@@ -7534,7 +8584,10 @@
         },
         {
           "fruitore": "province_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "province_agg__citta_metropolitane"
+          ]
         }
       ],
       "versione": "1",
@@ -7562,7 +8615,10 @@
         },
         {
           "fruitore": "province_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "province_agg__citta_metropolitane"
+          ]
         }
       ],
       "versione": "1",
@@ -7590,7 +8646,10 @@
         },
         {
           "fruitore": "province_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "province_agg__citta_metropolitane"
+          ]
         }
       ],
       "versione": "1",
@@ -7682,7 +8741,9 @@
       "stato": "Attivo",
       "descrizione": "Dato in input un codice fiscale, restituisce la certificazione relativa allo status di dipendente della Regione Siciliana.",
       "catalogId": "eae870ed-007d-4caa-a596-6f2adef96495",
-      "sessioni_min": 49
+      "sessioni_min": 49,
+      "sessioni_12m": 49,
+      "sessioni_6m": 49
     },
     {
       "id": "r_sicilia_f821d1f5",
@@ -7695,6 +8756,9 @@
         {
           "fruitore": "sanita_agg",
           "origine": "osservata",
+          "sottotipi": [
+            "sanita_agg__asl"
+          ],
           "connessioni": 1
         }
       ],
@@ -7715,6 +8779,9 @@
         {
           "fruitore": "sanita_agg",
           "origine": "osservata",
+          "sottotipi": [
+            "sanita_agg__asl"
+          ],
           "connessioni": 1,
           "sessioni": 5
         }
@@ -7724,7 +8791,9 @@
       "descrizione": "Il servizio fornisce dati anagrafici degli assistiti dal servizio sanitario regionale, sono forniti anche le ASP di Assistenza, il medico s…",
       "catalogId": "63758e9b-aa8d-4458-8961-4ec9dfa1af77",
       "enti_abilitati_min": 1,
-      "sessioni_min": 5
+      "sessioni_min": 5,
+      "sessioni_12m": 5,
+      "sessioni_6m": 5
     },
     {
       "id": "r_sicilia_26161c54",
@@ -7737,6 +8806,9 @@
         {
           "fruitore": "sanita_agg",
           "origine": "osservata",
+          "sottotipi": [
+            "sanita_agg__asl"
+          ],
           "connessioni": 1,
           "sessioni": 4
         }
@@ -7746,7 +8818,9 @@
       "descrizione": "Il servizio fornisce informazioni di tipo statistico sugli assistiti dal servizio sanitario regionale, raggruppate per ASP, comune, sesso, …",
       "catalogId": "26161c54-f0b2-4dae-bb5c-b390e97711ae",
       "enti_abilitati_min": 1,
-      "sessioni_min": 4
+      "sessioni_min": 4,
+      "sessioni_12m": 4,
+      "sessioni_6m": 4
     },
     {
       "id": "r_friuli_e7656c0a",
@@ -7834,7 +8908,8 @@
       "stato": "Attivo",
       "descrizione": "Dato il codice fiscale dell’impiegato, restituisce i dataset di attributi relativi ai badge a lui associati, comprensivi di stato, periodo …",
       "catalogId": "2023e8d8-4c39-4abb-861b-079c237bc566",
-      "sessioni_min": 113
+      "sessioni_min": 113,
+      "sessioni_12m": 113
     },
     {
       "id": "r_friuli_034163c9",
@@ -8089,7 +9164,9 @@
       "stato": "Attivo",
       "descrizione": "Tracciato per la comunicazioni di Comunicazioni Obbligatorie di rapporto di lavoro; trasformazione di rapporto di lavoro; distacco; trasfer…",
       "catalogId": "859d97c8-f84e-4d0c-ade0-c359ac5ee4ae",
-      "sessioni_min": 62575
+      "sessioni_min": 62575,
+      "sessioni_12m": 46749,
+      "sessioni_6m": 24103
     },
     {
       "id": "r_liguria_e02dce7c",
@@ -8109,6 +9186,10 @@
         {
           "fruitore": "province_agg",
           "origine": "osservata",
+          "sottotipi": [
+            "province_agg__citta_metropolitane",
+            "province_agg__province"
+          ],
           "connessioni": 1,
           "sessioni": 4
         }
@@ -8118,7 +9199,9 @@
       "descrizione": "L'API permette di visionare per la consultazione dei soggetti.",
       "catalogId": "e02dce7c-6090-4b17-8cf1-a9ad72126c72",
       "enti_abilitati_min": 3,
-      "sessioni_min": 7
+      "sessioni_min": 7,
+      "sessioni_12m": 7,
+      "sessioni_6m": 7
     },
     {
       "id": "r_liguria_c87b28b2",
@@ -8136,7 +9219,11 @@
         },
         {
           "fruitore": "province_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "province_agg__citta_metropolitane",
+            "province_agg__province"
+          ]
         }
       ],
       "versione": "2",
@@ -8162,7 +9249,11 @@
         },
         {
           "fruitore": "province_agg",
-          "origine": "certificata"
+          "origine": "certificata",
+          "sottotipi": [
+            "province_agg__citta_metropolitane",
+            "province_agg__province"
+          ]
         }
       ],
       "versione": "2",
@@ -8196,7 +9287,9 @@
       "descrizione": "Comunicazioni Obbligatorie REST Service – Regione Toscana Invio e ricezione delle comunicazioni obbligatorie di assunzione, variazione e ce…",
       "catalogId": "d068b30a-ceef-4e50-a2ac-3c4624ae66ac",
       "enti_abilitati_min": 2,
-      "sessioni_min": 8994
+      "sessioni_min": 8994,
+      "sessioni_12m": 6880,
+      "sessioni_6m": 3584
     },
     {
       "id": "r_toscana_e68abe40",
@@ -8218,7 +9311,8 @@
       "descrizione": "Servizio per la consultazione degli istituti scolastici con corsi di orientamento universitario in formato GeoJSON.",
       "catalogId": "e68abe40-2f55-4b08-a8df-f87659fb0bd0",
       "enti_abilitati_min": 2,
-      "sessioni_min": 6
+      "sessioni_min": 6,
+      "sessioni_12m": 6
     },
     {
       "id": "r_toscana_04a117c5",
@@ -8246,7 +9340,9 @@
       "descrizione": "Restituisce la lista degli atti con cui Regione Toscana ha finanziato gli interventi di difesa del suolo",
       "catalogId": "04a117c5-9cf3-466a-afe1-2cef4deb0365",
       "enti_abilitati_min": 1,
-      "sessioni_min": 13
+      "sessioni_min": 13,
+      "sessioni_12m": 13,
+      "sessioni_6m": 13
     },
     {
       "id": "r_toscana_fa4aa665",
@@ -8268,7 +9364,9 @@
       "descrizione": "Restituisce la lista degli interventi di difesa del suolo finanziati, dati un atto di finanziamento e ente Regione Toscana",
       "catalogId": "fa4aa665-a530-4305-b9af-e053b2ae6b46",
       "enti_abilitati_min": 1,
-      "sessioni_min": 11
+      "sessioni_min": 11,
+      "sessioni_12m": 11,
+      "sessioni_6m": 11
     },
     {
       "id": "r_molise_049d7f88",
@@ -8475,7 +9573,10 @@
       "descrizione": "Indicatore della condizione economica famigliare per l'accesso ai benefici delle famiglie con figli in Provincia Autonoma di Trento. Restit…",
       "catalogId": "b0d8d387-b610-4083-95ae-9ff5037f1fba",
       "enti_abilitati_min": 2,
-      "sessioni_min": 458793
+      "sessioni_min": 458793,
+      "sessioni_12m": 449983,
+      "sessioni_6m": 247026,
+      "tendenza_6m": 21.7
     },
     {
       "id": "pa_trento_0c11e6df",
@@ -8785,7 +9886,9 @@
       "descrizione": "Tracciato per la comunicazioni di Comunicazioni Obbligatorie di instaurazione di rapporto di lavoro; proroga di rapporto di lavoro; trasfor…",
       "catalogId": "0e578ff4-ff2b-41ea-9ddf-96b517ad3e30",
       "enti_abilitati_min": 1,
-      "sessioni_min": 14521
+      "sessioni_min": 14521,
+      "sessioni_12m": 6851,
+      "sessioni_6m": 3493
     },
     {
       "id": "r_piemonte_b55e0876",
@@ -8880,7 +9983,9 @@
       "descrizione": "Invio del modulo di comunicazione dell’assunzione dei lavoratori, della proroga, trasformazione e cessazione dei relativi rapporti di lavor…",
       "catalogId": "0511cb99-afa6-42c5-8f1d-aef32cd5e6c9",
       "enti_abilitati_min": 1,
-      "sessioni_min": 112921
+      "sessioni_min": 112921,
+      "sessioni_12m": 112921,
+      "sessioni_6m": 112921
     },
     {
       "id": "r_veneto_0b91e519",
@@ -8922,7 +10027,8 @@
       "descrizione": "Esposizione di dati relativi ad atti di dissesti idrogeolici in Regione del Veneto",
       "catalogId": "1823b71c-5244-4d3d-8a68-5b16ddcd23ca",
       "enti_abilitati_min": 1,
-      "sessioni_min": 8
+      "sessioni_min": 8,
+      "sessioni_12m": 2
     },
     {
       "id": "r_marche_ab4b3587",
@@ -8943,7 +10049,8 @@
       "descrizione": "Comunicazioni Obbligatorie Regione Marche",
       "catalogId": "ab4b3587-36f9-4ba8-a598-5557ba3836de",
       "enti_abilitati_min": 2,
-      "sessioni_min": 16303
+      "sessioni_min": 16303,
+      "sessioni_12m": 6624
     },
     {
       "id": "r_marche_d5a150d3",
@@ -9154,7 +10261,9 @@
       "stato": "Attivo",
       "descrizione": "• la gestione, il monitoraggio e il controllo delle Comunicazioni Obbligatorie (avviamenti, trasformazioni, proroghe e cessazioni dei rappo…",
       "catalogId": "e08b744b-ca39-4222-b8d4-ce9b9112826c",
-      "sessioni_min": 12217
+      "sessioni_min": 12217,
+      "sessioni_12m": 12217,
+      "sessioni_6m": 12217
     },
     {
       "id": "r_vda_23ce5696",

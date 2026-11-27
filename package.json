@@ -1,12 +1,12 @@
 {
   "name": "pdnd-eservices-graph",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Visualizzazione interattiva del grafo degli e-services sulla Piattaforma Digitale Nazionale Dati (PDND)",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && node scripts/prerender-meta.mjs",
     "preview": "vite preview",
     "update-data": "node scripts/update-data.mjs",
     "audit": "node scripts/audit-model.mjs",
@@ -14,14 +14,18 @@
     "paper-metrics": "node scripts/compute-paper-metrics.mjs",
     "test": "node scripts/test-model.mjs",
     "lint": "eslint .",
-    "export": "node scripts/export-graph.mjs"
+    "export": "node scripts/export-graph.mjs",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
+    "@fontsource/roboto-mono": "^5.3.0",
+    "@fontsource/titillium-web": "^5.3.0",
     "react": "^19.3.1",
     "react-dom": "^19.3.1"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.65.1",
     "@vitejs/plugin-react": "^6.3.0",
     "eslint": "^10.15.0",
     "eslint-plugin-react-hooks": "^7.1.1",

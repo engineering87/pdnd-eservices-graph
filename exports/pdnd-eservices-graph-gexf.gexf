@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gexf xmlns="http://gexf.net/1.3" version="1.3">
-  <meta lastmodifieddate="2026-11-25">
+  <meta lastmodifieddate="2026-11-26">
     <creator>PDND E-Services Graph</creator>
     <description>Le coppie puntuali erogatore-fruitore non sono pubblicate come open data: gli archi sono ricostruiti da documentazione pubblica, dal catalogo e dalle statistiche ufficiali aggregate per categoria di ente. Il campo origine di ogni arco ne dichiara la provenienza; connessioni e sessioni, dove presenti, sono minimi garantiti. I nodi marcati aggregato=true rappresentano classi di enti (per esempio circa 7.650 Comuni in un solo nodo, con il numero di aderenti nel campo aderenti): le misure di grado su questo grafo non sono confrontabili con quelle di un grafo non aggregato.</description>
   </meta>
@@ -791,7 +791,62 @@
           <attvalue for="3" value="66460488"/>
         </attvalues>
       </edge>
-      <edge id="e50" source="inps" target="pa_centrali_agg" weight="2">
+      <edge id="e50" source="inps" target="scuole_agg" weight="3">
+        <attvalues>
+          <attvalue for="0" value="documentata|osservata"/>
+          <attvalue for="1" value="Consultazione Attestazione ISEE; Consultazione DURC; Consultazione Indicatore ISEE"/>
+          <attvalue for="2" value="6"/>
+        </attvalues>
+      </edge>
+      <edge id="e51" source="inps" target="universita_agg" weight="9">
+        <attvalues>
+          <attvalue for="0" value="certificata|documentata|osservata"/>
+          <attvalue for="1" value="Consultazione Attestazione ISEE; Consultazione DURC; Consultazione Indicatore ISEE; SIUSS-CasellarioAssistenza; Consultazione Agevolazioni Tasse Univ. - WaaS; Consultazione Attestazione ISEE Operatori; Consultazione Indicatore Nucleo Riscontro ISEE; SIUSS_AcquisizionePsPsaSina; Consultazione Indicatore Riscontro ISEE"/>
+          <attvalue for="2" value="58"/>
+          <attvalue for="3" value="309554"/>
+        </attvalues>
+      </edge>
+      <edge id="e52" source="inps" target="comuni_agg" weight="13">
+        <attvalues>
+          <attvalue for="0" value="documentata|inferita|osservata"/>
+          <attvalue for="1" value="Consultazione Attestazione ISEE; Consultazione DURC; Consultazione Indicatore ISEE; SIUSS-CasellarioAssistenza; Consultazione Acc. Adulti Anziani - WaaS; Consultazione Agevolazioni Servizi Pubb. - WaaS; Consultazione Agevolazioni Tributarie - WaaS; Consultazione Attestazione Residenti ISEE; Consultazione Indicatore Residenti ISEE; Consultazione Attestazione ISEE Operatori; Consultazione Indicatore Nucleo Riscontro ISEE; SIUSS_AcquisizionePsPsaSina; Consultazione Indicatore Riscontro ISEE"/>
+          <attvalue for="2" value="942"/>
+          <attvalue for="3" value="1085132"/>
+        </attvalues>
+      </edge>
+      <edge id="e53" source="inps" target="regioni_agg" weight="10">
+        <attvalues>
+          <attvalue for="0" value="certificata|inferita|osservata"/>
+          <attvalue for="1" value="Consultazione Attestazione ISEE; Consultazione DURC; Consultazione Indicatore ISEE; SIUSS-CasellarioAssistenza; Consultazione Acc. Adulti Anziani - WaaS; Consultazione Agevolazioni Servizi Pubb. - WaaS; Consultazione Attestazione ISEE Operatori; Consultazione Indicatore Nucleo Riscontro ISEE; SIUSS_AcquisizionePsPsaSina; Consultazione Indicatore Riscontro ISEE"/>
+          <attvalue for="2" value="13"/>
+          <attvalue for="3" value="1178024"/>
+        </attvalues>
+      </edge>
+      <edge id="e54" source="inps" target="pa_locali_agg" weight="9">
+        <attvalues>
+          <attvalue for="0" value="certificata|osservata"/>
+          <attvalue for="1" value="Consultazione Attestazione ISEE; Consultazione DURC; Consultazione Indicatore ISEE; SIUSS-CasellarioAssistenza; Consultazione Attestazione Residenti ISEE; Consultazione Attestazione ISEE Operatori; Consultazione Indicatore Nucleo Riscontro ISEE; SIUSS_AcquisizionePsPsaSina; Consultazione Indicatore Riscontro ISEE"/>
+          <attvalue for="2" value="14"/>
+          <attvalue for="3" value="90333"/>
+        </attvalues>
+      </edge>
+      <edge id="e55" source="inps" target="sanita_agg" weight="8">
+        <attvalues>
+          <attvalue for="0" value="certificata|osservata"/>
+          <attvalue for="1" value="Consultazione Attestazione ISEE; Consultazione DURC; Consultazione Indicatore ISEE; SIUSS-CasellarioAssistenza; Consultazione Attestazione ISEE Operatori; Consultazione Indicatore Nucleo Riscontro ISEE; SIUSS_AcquisizionePsPsaSina; Consultazione Indicatore Riscontro ISEE"/>
+          <attvalue for="2" value="2"/>
+          <attvalue for="3" value="3"/>
+        </attvalues>
+      </edge>
+      <edge id="e56" source="inps" target="gestori_agg" weight="5">
+        <attvalues>
+          <attvalue for="0" value="osservata"/>
+          <attvalue for="1" value="Consultazione Attestazione ISEE; Consultazione DURC; Consultazione Indicatore ISEE; EDCperITWALLET; Consultazione Attestazione ISEE Operatori"/>
+          <attvalue for="2" value="8"/>
+          <attvalue for="3" value="435174"/>
+        </attvalues>
+      </edge>
+      <edge id="e57" source="inps" target="pa_centrali_agg" weight="2">
         <attvalues>
           <attvalue for="0" value="osservata"/>
           <attvalue for="1" value="Consultazione DURC; Comunicazioni Obbligatorie"/>
@@ -799,30 +854,7 @@
           <attvalue for="3" value="566879"/>
         </attvalues>
       </edge>
-      <edge id="e51" source="inps" target="scuole_agg" weight="1">
-        <attvalues>
-          <attvalue for="0" value="osservata"/>
-          <attvalue for="1" value="Consultazione DURC"/>
-          <attvalue for="2" value="6"/>
-        </attvalues>
-      </edge>
-      <edge id="e52" source="inps" target="pa_locali_agg" weight="8">
-        <attvalues>
-          <attvalue for="0" value="certificata|osservata"/>
-          <attvalue for="1" value="Consultazione DURC; Consultazione Indicatore ISEE; SIUSS-CasellarioAssistenza; Consultazione Attestazione ISEE; Consultazione Attestazione Residenti ISEE; Consultazione Attestazione ISEE Operatori; Consultazione Indicatore Nucleo Riscontro ISEE; SIUSS_AcquisizionePsPsaSina"/>
-          <attvalue for="2" value="14"/>
-          <attvalue for="3" value="90333"/>
-        </attvalues>
-      </edge>
-      <edge id="e53" source="inps" target="comuni_agg" weight="12">
-        <attvalues>
-          <attvalue for="0" value="inferita|osservata"/>
-          <attvalue for="1" value="Consultazione DURC; Consultazione Indicatore ISEE; SIUSS-CasellarioAssistenza; Consultazione Acc. Adulti Anziani - WaaS; Consultazione Agevolazioni Servizi Pubb. - WaaS; Consultazione Agevolazioni Tributarie - WaaS; Consultazione Attestazione ISEE; Consultazione Attestazione Residenti ISEE; Consultazione Indicatore Residenti ISEE; Consultazione Attestazione ISEE Operatori; Consultazione Indicatore Nucleo Riscontro ISEE; SIUSS_AcquisizionePsPsaSina"/>
-          <attvalue for="2" value="942"/>
-          <attvalue for="3" value="1083429"/>
-        </attvalues>
-      </edge>
-      <edge id="e54" source="inps" target="privati_agg" weight="1">
+      <edge id="e58" source="inps" target="privati_agg" weight="1">
         <attvalues>
           <attvalue for="0" value="osservata"/>
           <attvalue for="1" value="Consultazione DURC"/>
@@ -830,44 +862,12 @@
           <attvalue for="3" value="56"/>
         </attvalues>
       </edge>
-      <edge id="e55" source="inps" target="regioni_agg" weight="9">
-        <attvalues>
-          <attvalue for="0" value="certificata|inferita|osservata"/>
-          <attvalue for="1" value="Consultazione DURC; Consultazione Indicatore ISEE; SIUSS-CasellarioAssistenza; Consultazione Acc. Adulti Anziani - WaaS; Consultazione Agevolazioni Servizi Pubb. - WaaS; Consultazione Attestazione ISEE; Consultazione Attestazione ISEE Operatori; Consultazione Indicatore Nucleo Riscontro ISEE; SIUSS_AcquisizionePsPsaSina"/>
-          <attvalue for="2" value="13"/>
-          <attvalue for="3" value="1178013"/>
-        </attvalues>
-      </edge>
-      <edge id="e56" source="inps" target="sanita_agg" weight="7">
-        <attvalues>
-          <attvalue for="0" value="certificata|osservata"/>
-          <attvalue for="1" value="Consultazione DURC; Consultazione Indicatore ISEE; SIUSS-CasellarioAssistenza; Consultazione Attestazione ISEE; Consultazione Attestazione ISEE Operatori; Consultazione Indicatore Nucleo Riscontro ISEE; SIUSS_AcquisizionePsPsaSina"/>
-          <attvalue for="2" value="2"/>
-          <attvalue for="3" value="3"/>
-        </attvalues>
-      </edge>
-      <edge id="e57" source="inps" target="province_agg" weight="3">
+      <edge id="e59" source="inps" target="province_agg" weight="3">
         <attvalues>
           <attvalue for="0" value="certificata|osservata"/>
           <attvalue for="1" value="Consultazione DURC; SIUSS-CasellarioAssistenza; SIUSS_AcquisizionePsPsaSina"/>
           <attvalue for="2" value="3"/>
           <attvalue for="3" value="2"/>
-        </attvalues>
-      </edge>
-      <edge id="e58" source="inps" target="gestori_agg" weight="5">
-        <attvalues>
-          <attvalue for="0" value="osservata"/>
-          <attvalue for="1" value="Consultazione DURC; Consultazione Indicatore ISEE; Consultazione Attestazione ISEE; EDCperITWALLET; Consultazione Attestazione ISEE Operatori"/>
-          <attvalue for="2" value="8"/>
-          <attvalue for="3" value="435174"/>
-        </attvalues>
-      </edge>
-      <edge id="e59" source="inps" target="universita_agg" weight="8">
-        <attvalues>
-          <attvalue for="0" value="certificata|osservata"/>
-          <attvalue for="1" value="Consultazione DURC; Consultazione Indicatore ISEE; SIUSS-CasellarioAssistenza; Consultazione Agevolazioni Tasse Univ. - WaaS; Consultazione Attestazione ISEE; Consultazione Attestazione ISEE Operatori; Consultazione Indicatore Nucleo Riscontro ISEE; SIUSS_AcquisizionePsPsaSina"/>
-          <attvalue for="2" value="58"/>
-          <attvalue for="3" value="309554"/>
         </attvalues>
       </edge>
       <edge id="e60" source="inps" target="c_milano" weight="3">

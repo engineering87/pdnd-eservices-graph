@@ -3,10 +3,35 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Visualizzazione interattiva del grafo degli e-services sulla PDND — Piattaforma Digitale Nazionale Dati" />
+    <meta name="description" content="Mappa interattiva degli scambi di dati fra le Pubbliche Amministrazioni italiane sulla PDND: chi offre i dati, chi li usa e quanto, da dati aperti ufficiali." />
     <meta name="theme-color" content="#0a0e1a" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Tema applicato prima del primo disegno: la scelta salvata vince,
+         altrimenti la preferenza del sistema (vedi src/utils/useTheme.js). -->
+    <script>
+      (function () {
+        var t = null;
+        try { t = localStorage.getItem("pdnd-graph-tema"); } catch (e) { /* archivio non disponibile */ }
+        if (t !== "light" && t !== "dark") {
+          t = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+        }
+        document.documentElement.setAttribute("data-theme", t);
+      })();
+    </script>
+    <!-- Anteprime di condivisione. Per ogni ente ed e-service il build scrive
+         una pagina con titolo, descrizione e indirizzo propri
+         (scripts/prerender-meta.mjs). -->
+    <link rel="canonical" href="https://www.pdndgraph.it/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="PDND E-Services Graph" />
+    <meta property="og:locale" content="it_IT" />
+    <meta property="og:title" content="PDND E-Services Graph — Mappa Interoperabilità" />
+    <meta property="og:description" content="Mappa interattiva degli scambi di dati fra le Pubbliche Amministrazioni italiane sulla PDND: chi offre i dati, chi li usa e quanto, da dati aperti ufficiali." />
+    <meta property="og:url" content="https://www.pdndgraph.it/" />
+    <meta property="og:image" content="https://www.pdndgraph.it/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="La rete degli enti della PDND disegnata come grafo" />
+    <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>PDND E-Services Graph — Mappa Interoperabilità</title>
   </head>

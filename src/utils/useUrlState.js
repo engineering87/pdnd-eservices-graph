@@ -5,10 +5,12 @@ import { useState, useEffect, useCallback } from "react";
  * indirizzabili, condivisibili e indicizzabili.
  *
  *   /                  grafo
- *   /esplora           scheda Esplora (filtri nella query string)
+ *   /esplora           scheda Relazioni (filtri nella query string)
+ *   /enti              ricerca fra tutti gli aderenti (?ente=codice IPA)
  *   /statistiche       scheda Statistiche
  *   /metodologia       scheda Metodologia
  *   /guida             scheda Guida
+ *   /privacy           come il sito tratta i dati (link nel piè di pagina)
  *   /ente/inps         grafo con l'ente selezionato
  *   /eservice/<id>     scheda di un e-service
  *
@@ -17,7 +19,7 @@ import { useState, useEffect, useCallback } from "react";
  * a /ente/inps restituirebbe 404.
  */
 
-const TABS = ["grafo", "esplora", "statistiche", "metodologia", "guida"];
+const TABS = ["grafo", "esplora", "enti", "statistiche", "metodologia", "guida", "privacy"];
 
 const VUOTO = { tab: "grafo", entityId: null, eserviceId: null };
 
@@ -60,7 +62,9 @@ export function useUrlState() {
   // impilare voci nella cronologia quando è stato il browser a cambiare rotta.
   useEffect(() => {
     const next = buildPath(state);
-    if (next !== window.location.pathname) {
+    // La barra finale non conta: il server può servire /ente/inps/ per la
+    // pagina con l'anteprima di condivisione di /ente/inps.
+    if (next !== (window.location.pathname.replace(/\/+$/, "") || "/")) {
       // Dentro la stessa vista la query string resta: selezionare un ente nel
       // grafo non deve perdere il filtro sulla provenienza degli archi.
       const stessaVista = parseLocation(window.location.pathname).tab === state.tab;

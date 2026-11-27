@@ -12,6 +12,8 @@ Zenodo paper aligned with the data.
 | `test-model.mjs` | `npm test` | Model invariants and export checks |
 | `export-graph.mjs` | `npm run export` | GraphML, GEXF and CSV in `exports/` |
 | `update-data.mjs` | `npm run update-data` | Summary of the official catalogue |
+| `prerender-meta.mjs` | runs after `vite build` | Per-route HTML with share previews |
+| `build-snapshots.mjs` | `node scripts/build-snapshots.mjs --mensili 2026-06 2026-11` | Past snapshots for the date comparison |
 
 All are pure ES modules, no dependencies, run with Node.js
 (>= 18 for `fetch` support). They are idempotent and can be re-run
@@ -32,7 +34,7 @@ node scripts/audit-model.mjs
 The script also prints a "modelling note" reminding that each
 `eservices[]` record stands for a service type, not a catalogue
 endpoint. This is the convention used in METODOLOGIA.md §3.5 and is
-the reason why the model's e-service count (312 in model v2) is not
+the reason why the model's e-service count (313 in model v2) is not
 comparable with the ~15,000 endpoints of the official catalogue.
 
 Some warnings are expected in model v2: e-services without consumers
@@ -131,6 +133,24 @@ npm run export
 
 Downloads the official catalogue and prints counts by state and by
 producer, useful to spot new producers worth tracking.
+
+## 7. `build-snapshots.mjs` — past snapshots
+
+Rebuilds the graph as it was at past dates and saves it in
+`src/data/snapshots/pdnd-data.YYYY-MM-DD.json`, for the "Cosa è cambiato"
+comparison in the app. For each date it finds the last commit of
+`italia/pdnd-opendata` up to that day and reruns the pipeline on that version of
+the open data, with today's rules: differences between snapshots reflect the
+PDND, not the model. Existing snapshots are skipped unless `--forza` is given;
+the v1 report snapshot is never touched.
+
+```bash
+node scripts/build-snapshots.mjs --mensili 2026-06 2026-11   # 1st of each month
+node scripts/build-snapshots.mjs 2026-09-15                   # a specific day
+```
+
+From now on the promotion workflow also archives the graph it replaces, so the
+history grows by itself.
 
 ## Notes
 

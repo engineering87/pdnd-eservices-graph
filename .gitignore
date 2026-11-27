@@ -10,3 +10,7 @@ Thumbs.db
 
 # Artefatto transitorio della pipeline (rigenerato a ogni run)
 pipeline/last-run-report.md
+
+# Test end-to-end (Playwright)
+test-results/
+playwright-report/

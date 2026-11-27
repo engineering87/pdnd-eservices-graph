@@ -26,25 +26,42 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..");
 const LIVE_PATH = join(ROOT, "src", "data", "pdnd-data.json");        // grafo curato (mai sovrascritto)
 const PREVIEW_PATH = join(__dirname, "pdnd-data.preview.json");       // output non distruttivo
-const OUTPUT_PATH = PREVIEW_PATH;
-const REPORT_PATH = join(__dirname, "last-run-report.md");
+// Indice di tutti gli aderenti per la ricerca "Il tuo ente": anteprima accanto al
+// grafo, promossa insieme a esso in src/data/aderenti-index.json.
+const INDEX_PREVIEW_PATH = join(__dirname, "aderenti-index.preview.json");
+const argValue = (nome) => { const i = process.argv.indexOf(nome); return i > 0 ? process.argv[i + 1] : null; };
+// --out <file>: scrive altrove (per esempio un'istantanea storica) senza toccare
+// anteprima e report. --data <AAAA-MM-GG>: data dichiarata nel meta.
+const OUT_ARG = argValue("--out");
+const OUTPUT_PATH = OUT_ARG ? join(process.cwd(), OUT_ARG) : PREVIEW_PATH;
+const REPORT_PATH = OUT_ARG ? null : join(__dirname, "last-run-report.md");
+const DATA_DATI = argValue("--data");
+// Versione dei dati aperti: un commit di italia/pdnd-opendata (variabile
+// PDND_OPENDATA_REF) per ricostruire il grafo com'era a una data passata, con le
+// regole di oggi. Predefinito: lo stato corrente.
+const OPENDATA_REF = process.env.PDND_OPENDATA_REF || "main";
+const OPENDATA = `https://raw.githubusercontent.com/italia/pdnd-opendata/${OPENDATA_REF}/data`;
 const AI_CACHE_PATH = join(__dirname, "ai-cache.json");
 
-const CSV_URL =
-  "https://raw.githubusercontent.com/italia/pdnd-opendata/main/data/eservice_a_catalogo.csv";
+const CSV_URL = `${OPENDATA}/eservice_a_catalogo.csv`;
 // Classifiche ufficiali degli e-service per numero di enti fruitori abilitati, per
 // coppia di categorie erogatore × fruitore (primi 10 per coppia). Servono a scegliere
 // gli e-service più adottati invece dei primi in ordine alfabetico.
-const USAGE_URL =
-  "https://raw.githubusercontent.com/italia/pdnd-opendata/main/data/e_service_con_piu_enti_abilitati_from_the_beginning.csv";
+const USAGE_URL = `${OPENDATA}/e_service_con_piu_enti_abilitati_from_the_beginning.csv`;
 // Classifiche ufficiali per numero di sessioni di scambio (token), con id del catalogo.
-const TOKENS_URL =
-  "https://raw.githubusercontent.com/italia/pdnd-opendata/main/data/eservice_con_piu_token_staccati_from_the_beginning.csv";
+const TOKENS_URL = `${OPENDATA}/eservice_con_piu_token_staccati_from_the_beginning.csv`;
 // Elenco degli aderenti con i loro attributi certificati, e totali ufficiali per categoria.
-const ADERENTI_URL =
-  "https://raw.githubusercontent.com/italia/pdnd-opendata/main/data/aderenti.csv";
-const TOTALI_URL =
-  "https://raw.githubusercontent.com/italia/pdnd-opendata/main/data/totale_enti.csv";
+const ADERENTI_URL = `${OPENDATA}/aderenti.csv`;
+const TOTALI_URL = `${OPENDATA}/totale_enti.csv`;
+// Le stesse classifiche di sessioni sugli ultimi 12 e 6 mesi, per l'andamento recente.
+const TOKENS_12M_URL = `${OPENDATA}/eservice_con_piu_token_staccati_last_twelve_months.csv`;
+const TOKENS_6M_URL = `${OPENDATA}/eservice_con_piu_token_staccati_last_six_months.csv`;
+// Andamenti della piattaforma: serie mensili e totali con variazione sul mese.
+const ADESIONI_URL = `${OPENDATA}/andamento_delle_adesioni.csv`;            // enti aderenti, cumulati
+const ATTIVITA_URL = `${OPENDATA}/attivita_della_piattaforma_from_the_beginning.csv`; // sessioni al mese
+const RICHIESTE_URL = `${OPENDATA}/totale_richieste_di_accesso.csv`;       // sessioni totali
+const CONNESSIONI_URL = `${OPENDATA}/connessioni_totali.csv`;
+const PUBBLICATI_URL = `${OPENDATA}/eservice_pubblicati.csv`;
 // Le classifiche troncano il nome dell'e-service a 60 caratteri.
 const USAGE_NAME_LEN = 60;
 const usageKey = (producer, name) => `${producer.trim()}|${name.slice(0, USAGE_NAME_LEN).trim()}`;
@@ -192,16 +209,80 @@ async function main() {
   } catch (e) {
     say(`- ⚠️ Classifiche di sessioni non disponibili (${e.message})`);
   }
+  // Andamento recente per e-service: classifiche delle sessioni negli ultimi 12 e
+  // 6 mesi, per categoria di ente fruitore. Il confronto "ultimi 6 mesi contro i
+  // 6 precedenti" usa solo le categorie presenti in entrambe le finestre: una
+  // categoria uscita dalla top 10 non deve sembrare un calo.
+  const recenti = new Map(); // catalogId -> { s12: Map(cat->n), s6: Map(cat->n) }
+  try {
+    for (const [chiave, url] of [["s12", TOKENS_12M_URL], ["s6", TOKENS_6M_URL]]) {
+      for (const r of (await fetchCSV(url)).filter(r => r.length === 8 && r[4] && r[3])) {
+        const n = Math.round(Number(r[7]) || 0);
+        if (!(n > 0) || r[3] === "Tutte" || r[3] === "Totale") continue;
+        const x = recenti.get(r[4]) || { s12: new Map(), s6: new Map() };
+        x[chiave].set(r[3], Math.max(x[chiave].get(r[3]) || 0, n));
+        recenti.set(r[4], x);
+      }
+    }
+    say(`- Sessioni recenti: ${recenti.size} e-service nelle classifiche degli ultimi 12 o 6 mesi`);
+  } catch (e) {
+    say(`- ⚠️ Classifiche recenti non disponibili (${e.message}): niente andamento per servizio`);
+  }
+  const SOGLIA_TENDENZA = 100000; // sessioni nei 6 mesi precedenti sotto cui la variazione è rumore
+  const andamentoOf = (catalogId) => {
+    const x = recenti.get(catalogId);
+    if (!x) return {};
+    const somma = (m) => [...m.values()].reduce((a, b) => a + b, 0);
+    const out = {};
+    // I 12 mesi contengono i 6: una categoria entrata nella top 10 solo nella
+    // finestra breve alza il minimo garantito anche dei 12 mesi.
+    const s12 = new Map(x.s12);
+    for (const [c, n] of x.s6) s12.set(c, Math.max(s12.get(c) || 0, n));
+    if (s12.size) out.sessioni_12m = somma(s12);
+    if (x.s6.size) out.sessioni_6m = somma(x.s6);
+    const comuni = [...x.s6.keys()].filter(c => x.s12.has(c));
+    const ult6 = comuni.reduce((a, c) => a + x.s6.get(c), 0);
+    const prec6 = comuni.reduce((a, c) => a + x.s12.get(c) - x.s6.get(c), 0);
+    if (comuni.length && prec6 >= SOGLIA_TENDENZA) out.tendenza_6m = Math.round((ult6 / prec6 - 1) * 1000) / 10;
+    return out;
+  };
   // Aderenti e totali ufficiali, per la dimensione dei nodi di classe.
-  let aderenti = [], totaliUfficiali = new Map();
+  let aderenti = [], totaliUfficiali = new Map(), totaleEnti = null;
   try {
     const res = await fetch(ADERENTI_URL);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     aderenti = csvToObjects(await res.text());
-    for (const r of await fetchCSV(TOTALI_URL)) if (r[0]) totaliUfficiali.set(r[0], Number(r[1]));
+    for (const r of await fetchCSV(TOTALI_URL)) {
+      if (!r[0]) continue;
+      totaliUfficiali.set(r[0], Number(r[1]));
+      if (r[0] === "Totale enti") totaleEnti = { totale: Number(r[1]), ultimo_mese: Number(r[2]), variazione: Number(r[3]) };
+    }
     say(`- Aderenti: ${aderenti.length} righe nell'elenco, ${totaliUfficiali.get("Totale enti") ?? "?"} enti nel totale ufficiale`);
   } catch (e) {
     say(`- ⚠️ Elenco aderenti non disponibile (${e.message})`);
+  }
+  // Andamenti della piattaforma. Facoltativi: se il download fallisce il grafo si
+  // genera comunque e l'app non mostra la sezione.
+  let piattaforma = null;
+  try {
+    const leggi = async (url) => {
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(`HTTP ${res.status} su ${url.split("/").pop()}`);
+      return csvToObjects(await res.text());
+    };
+    const serie = (righe) => righe.filter(r => r.date).map(r => [r.date, Number(r.count)]).filter(([, n]) => Number.isFinite(n));
+    const totale = (r, campo) => ({ totale: Number(r[campo]), ultimo_mese: Number(r.lastMonthCount), variazione: Number(r.variation) });
+    const [adesioni, attivita, [richieste], [connessioni], [pubblicati]] = await Promise.all(
+      [ADESIONI_URL, ATTIVITA_URL, RICHIESTE_URL, CONNESSIONI_URL, PUBBLICATI_URL].map(leggi));
+    piattaforma = {
+      aderenti: { serie: serie(adesioni), ...(totaleEnti || {}) },
+      sessioni: { serie: serie(attivita), ...totale(richieste, "totalCount") },
+      connessioni: totale(connessioni, "totalCount"),
+      eservice: totale(pubblicati, "count"),
+    };
+    say(`- Andamenti: ${piattaforma.aderenti.serie.length} mesi di adesioni, ${piattaforma.sessioni.serie.length} mesi di sessioni`);
+  } catch (e) {
+    say(`- ⚠️ Andamenti della piattaforma non disponibili (${e.message})`);
   }
   const adoptionOf = r => adoption.get(usageKey(r.producerName || "", r.name || "")) || 0;
   const sessionsOf = r => sessions.get(r.id) || 0;
@@ -229,16 +310,24 @@ async function main() {
     return null;
   };
   const certTargets = (name) => categoryMap[name] ?? (classOfAttr(name) ? [classOfAttr(name)] : []);
+  // Sottotipo di una classe (classi.json, 'sottotipi'): il gruppo di attributi a
+  // cui appartiene un attributo certificato. Serve ad aprire la classe nella mappa.
+  const classeById = new Map(classi.map(c => [c.id, c]));
+  const sottotipoDiAttr = (classId, name) =>
+    (classeById.get(classId)?.sottotipi || []).find(t => (t.attributi || []).includes(name) || (t.attributi_prefisso || []).some(p => name.startsWith(p)))?.id || null;
   const classOfOfficial = new Map(classi.flatMap(c => (c.categorie_ufficiali || []).map(o => [o, c.id])));
   // Dimensione delle classi: totale ufficiale dove PagoPA lo pubblica, altrimenti
   // conteggio degli aderenti per attributo certificato (una classe per aderente,
   // nell'ordine di classi.json).
   const classSize = new Map();
+  const subSize = new Map();
   for (const a of aderenti) {
     let attrs = [];
     try { attrs = JSON.parse(a.attributes || "[]").filter(x => x.type === "Certified").map(x => x.name); } catch { /* */ }
     const c = classi.find(c => attrs.some(n => (c.attributi || []).includes(n) || (c.attributi_prefisso || []).some(p => n.startsWith(p))));
     if (c) classSize.set(c.id, (classSize.get(c.id) || 0) + 1);
+    const t = c && attrs.map(n => sottotipoDiAttr(c.id, n)).find(Boolean);
+    if (t) subSize.set(t, (subSize.get(t) || 0) + 1);
   }
   const classInfo = new Map(classi.map(c => {
     const ufficiale = c.totale_ufficiale && totaliUfficiali.get(c.totale_ufficiale);
@@ -246,6 +335,12 @@ async function main() {
       ? { aderenti: ufficiale, aderenti_fonte: "totale ufficiale PagoPA" }
       : classSize.has(c.id) ? { aderenti: classSize.get(c.id), aderenti_fonte: "conteggio per attributo certificato" } : {}];
   }));
+  // Sottotipi con il numero di aderenti dell'elenco ufficiale (conteggio per
+  // attributo: la somma può differire dal totale ufficiale della classe).
+  for (const c of classi) {
+    if (!c.sottotipi?.length) continue;
+    classInfo.get(c.id).sottotipi = c.sottotipi.map(t => ({ id: t.id, nome: t.nome, aderenti: subSize.get(t.id) || 0 }));
+  }
   const overrides = loadJSON(join(__dirname, "connections-overrides.json")).overrides;
   // Layer congelato: inferenze AI curate e fissate nel dato versionato (deterministico).
   let frozen = {};
@@ -330,6 +425,14 @@ async function main() {
       }
       if (overrides[r.id]) add(overrides[r.id], "documentata");
       add([...new Set([...conn.keys(), ...sess.keys()])], "osservata");
+      // Sottotipi abilitati per ogni classe: dicono a quale parte della classe
+      // il catalogo apre l'e-service, qualunque sia l'origine dell'arco.
+      const certSub = new Map();
+      for (const c of certifiedCategories(r.attributes)) {
+        if (categoryMap[c]) continue;
+        const cls = classOfAttr(c), t = cls && sottotipoDiAttr(cls, c);
+        if (t) certSub.set(cls, new Set([...(certSub.get(cls) || []), t]));
+      }
       if (!overrides[r.id]) {
         const set = new Set();
         for (const c of certifiedCategories(r.attributes)) certTargets(c).forEach(n => set.add(n));
@@ -342,6 +445,7 @@ async function main() {
       // Il numero di connessioni osservate accompagna l'arco qualunque sia la sua
       // provenienza: è un dato ufficiale sul peso reale della relazione.
       for (const a of archi) {
+        if (certSub.has(a.fruitore)) a.sottotipi = [...certSub.get(a.fruitore)].sort();
         if (conn.has(a.fruitore)) a.connessioni = conn.get(a.fruitore);
         if (sess.has(a.fruitore)) a.sessioni = sess.get(a.fruitore);
       }
@@ -358,7 +462,8 @@ async function main() {
         descrizione: truncate(r.description, 140),
         catalogId: r.id,
         ...(adoptionOf(r) ? { enti_abilitati_min: adoptionOf(r) } : {}),
-        ...(sessionsOf(r) ? { sessioni_min: sessionsOf(r) } : {})
+        ...(sessionsOf(r) ? { sessioni_min: sessionsOf(r) } : {}),
+        ...andamentoOf(r.id)
       });
 
       if (!prevServiceIds.has(id)) newServices.push(`${ent.name} — ${truncate(r.name, 50)}`);
@@ -485,17 +590,71 @@ async function main() {
     }
   }
 
+  // 6 bis. Indice degli aderenti. Per ogni ente: nome, codice IPA, classe di
+  // appartenenza (stesse regole dei nodi di classe), nodo della mappa se è
+  // tracciato singolarmente, e-service pubblicati (fino a 8 nomi, con le prime 8
+  // cifre dell'id del catalogo, da cui l'app ricava la scheda se l'e-service è
+  // nel modello). Formato a righe compatte: l'app lo scarica solo per cercare.
+  const nodoDiIpa = new Map();
+  for (const e of entities) for (const ipa of e.ipaCodes || []) nodoDiIpa.set(ipa, e.id);
+  const pubblicatiDi = new Map();
+  for (const r of records) {
+    if (r.activeDescriptorState !== "PUBLISHED" || !r.producerId) continue;
+    const l = pubblicatiDi.get(r.producerId) || [];
+    l.push([String(r.id).slice(0, 8), truncate(r.name, 60)]);
+    pubblicatiDi.set(r.producerId, l);
+  }
+  const classeDi = (a) => {
+    let attrs = [];
+    try { attrs = JSON.parse(a.attributes || "[]").filter(x => x.type === "Certified").map(x => x.name); } catch { /* */ }
+    const c = classi.find(c => attrs.some(n => (c.attributi || []).includes(n) || (c.attributi_prefisso || []).some(p => n.startsWith(p))));
+    return c ? c.id : "";
+  };
+  const sottotipoDi = (a, classe) => {
+    if (!classe) return "";
+    let attrs = [];
+    try { attrs = JSON.parse(a.attributes || "[]").filter(x => x.type === "Certified").map(x => x.name); } catch { /* */ }
+    return attrs.map(n => sottotipoDiAttr(classe, n)).find(Boolean) || "";
+  };
+  // Nell'indice entrano solo gli aderenti con codice IPA: amministrazioni e
+  // gestori di pubblici servizi, soggetti pubblici per definizione. Imprese e
+  // altri privati restano contati nella loro classe ma non sono elencati uno
+  // per uno: fra loro ci sono ditte individuali e società di persone il cui
+  // nome è quello di persone fisiche (minimizzazione dei dati, art. 5 GDPR).
+  const conIpa = aderenti.filter(a => a.name && a.ipaCode);
+  const indiceAderenti = aderenti.length ? {
+    meta: {
+      generato: new Date().toISOString(),
+      data: DATA_DATI || new Date().toISOString().slice(0, 10),
+      fonte: "github.com/italia/pdnd-opendata — aderenti.csv ed eservice_a_catalogo.csv (CC0 1.0)",
+      formato: "enti: [nome, codiceIPA, classe, nodo della mappa, e-service pubblicati, [[id catalogo (8 cifre), nome], ...] fino a 8, sottotipo]",
+      criterio: "Solo aderenti con codice IPA. Imprese e altri soggetti senza codice IPA sono contati nelle classi ma non elencati.",
+      esclusi_senza_ipa: aderenti.filter(a => a.name && !a.ipaCode).length,
+    },
+    classi: Object.fromEntries(classi.map(c => [c.id, c.name])),
+    sottotipi: Object.fromEntries(classi.flatMap(c => (c.sottotipi || []).map(t => [t.id, t.nome]))),
+    enti: conIpa
+      .map(a => {
+        const pub = pubblicatiDi.get(a.id) || [];
+        pub.sort((x, y) => x[1].localeCompare(y[1], "it"));
+        const classe = classeDi(a);
+        return [a.name.trim(), a.ipaCode || "", classe, nodoDiIpa.get(a.ipaCode) || "", pub.length, pub.slice(0, 8), sottotipoDi(a, classe)];
+      })
+      .sort((x, y) => x[0].localeCompare(y[0], "it")),
+  } : null;
+
   // 7. Assemble output
   const removed = [...prevServiceIds].filter(id => !eservices.find(s => s.id === id));
   const output = {
     meta: {
       generato: new Date().toISOString(),
-      ultimo_aggiornamento: new Date().toISOString().slice(0, 10),
+      ultimo_aggiornamento: DATA_DATI || new Date().toISOString().slice(0, 10),
+      ...(OPENDATA_REF !== "main" ? { versione_dati_aperti: `italia/pdnd-opendata@${OPENDATA_REF}` } : {}),
       versione_modello: "v2",
       fonte_enti: "github.com/italia/pdnd-opendata — aderenti.csv (CC0 1.0)",
       fonte_eservices: "github.com/italia/pdnd-opendata — eservice_a_catalogo.csv (CC0 1.0)",
       fonte_connessioni: "Per arco, campo 'origine': override documentati, campo attributes.certified del catalogo, relazioni ricostruite del grafo curato v1, stime AI congelate — vedi METODOLOGIA.md e pipeline/README.md",
-      snapshot_catalogo: `${records.length} righe nel catalogo scaricato il ${new Date().toISOString().slice(0, 10)}`,
+      snapshot_catalogo: `${records.length} righe nel catalogo${DATA_DATI ? ` al ${DATA_DATI}` : ` scaricato il ${new Date().toISOString().slice(0, 10)}`}`,
       fonte_adozione: "github.com/italia/pdnd-opendata — e_service_con_piu_enti_abilitati_from_the_beginning.csv (CC0 1.0). Il campo enti_abilitati_min è il massimo di enti fruitori abilitati fra le classifiche per categoria in cui l'e-service compare: un minimo garantito, non il totale. Gli e-service di ogni ente sono scelti per adozione decrescente.",
       metodologia: "METODOLOGIA.md",
       paper_doi: "10.5281/zenodo.19989954",
@@ -503,9 +662,14 @@ async function main() {
       nota_paper: "Il report Zenodo descrive il modello v1 (snapshot 2026-05-02), conservato in src/data/snapshots/pdnd-data.2026-05-02.json. Questo dato è il modello v2: numeri diversi da quelli del report.",
       convenzione_eservices: "Gli e-service con catalogId corrispondono a un record del catalogo PDND. Quelli con catalogId null sono tipi di servizio ricostruiti nel modello v1 (aggregati comunali, voci riassuntive di ente, famiglie di API): un record può rappresentare molti endpoint del catalogo.",
       fonte_sessioni: "github.com/italia/pdnd-opendata — eservice_con_piu_token_staccati_from_the_beginning.csv (CC0 1.0). Il campo sessioni_min è il massimo di sessioni di scambio fra le classifiche in cui l'e-service compare. La selezione per ente usa il maggiore fra enti abilitati e sessioni, ciascuno rapportato al massimo dell'ente.",
+      fonte_andamento: "github.com/italia/pdnd-opendata — eservice_con_piu_token_staccati_last_twelve_months.csv e _last_six_months.csv (CC0 1.0). sessioni_12m e sessioni_6m sommano le sessioni per categoria di ente fruitore nelle classifiche della finestra (minimi garantiti, primi 10 e-service per categoria). tendenza_6m confronta gli ultimi 6 mesi con i 6 precedenti (12 mesi meno 6) sulle sole categorie presenti in entrambe le finestre, ed è calcolata solo se i 6 mesi precedenti superano 100.000 sessioni.",
       fonte_aderenti: "github.com/italia/pdnd-opendata — aderenti.csv e totale_enti.csv (CC0 1.0). I nodi di classe (aggregato=true) riportano gli aderenti: il totale ufficiale dove pubblicato, altrimenti il conteggio per attributo certificato (pipeline/classi.json).",
       note_connessioni: "Ogni arco porta un campo 'origine': 'documentata' (override da fonti ufficiali), 'osservata' (connessioni abilitate o sessioni di scambio realmente avvenute verso una classe di enti, dalle classifiche ufficiali; i campi connessioni e sessioni riportano i valori osservati, minimi garantiti), 'certificata' (campo attributes.certified del catalogo: classi di enti abilitate), 'ricostruita' (relazioni del grafo curato v1, ricostruite da documentazione pubblica con l'ausilio di modelli AI), 'inferita' (stima AI con confidenza, da rendere tratteggiata nel grafo). Il progetto si basa esclusivamente su informazioni già pubbliche; gli archi inferiti sono dichiarati come stime e non come fatti documentati.",
-      generato_da: "pipeline/build-graph-data.mjs"
+      generato_da: "pipeline/build-graph-data.mjs",
+      ...(piattaforma ? {
+        piattaforma,
+        fonte_piattaforma: "github.com/italia/pdnd-opendata — andamento_delle_adesioni, attivita_della_piattaforma_from_the_beginning, totale_richieste_di_accesso, connessioni_totali, eservice_pubblicati (CC0 1.0). Serie mensili a scaglioni che terminano il 24 di ogni mese: enti aderenti cumulati e sessioni di scambio nel mese. Riguardano l'intera piattaforma, non la selezione rappresentata nella mappa.",
+      } : {}),
     },
     enti,
     eservices
@@ -564,8 +728,12 @@ async function main() {
 
   // 10. Write
   if (WRITE) {
-    writeFileSync(OUTPUT_PATH, JSON.stringify(output, null, 2) + "\n", "utf-8");
-    say(`\n✅ Scritta l'anteprima: ${OUTPUT_PATH}`);
+    writeFileSync(OUTPUT_PATH, (OUT_ARG ? JSON.stringify(output) : JSON.stringify(output, null, 2)) + "\n", "utf-8");
+    say(`\n✅ Scritto: ${OUTPUT_PATH}`);
+    if (!OUT_ARG && indiceAderenti) {
+      writeFileSync(INDEX_PREVIEW_PATH, JSON.stringify(indiceAderenti) + "\n", "utf-8");
+      say(`✅ Indice aderenti: ${indiceAderenti.enti.length} enti in ${INDEX_PREVIEW_PATH}`);
+    }
     say(`ℹ️  Il grafo live (src/data/pdnd-data.json) NON è stato modificato.`);
     say(`   Per promuovere l'anteprima a dato live, vedi pipeline/README.md.`);
   } else {
@@ -584,6 +752,7 @@ function inferTipo(id, eservices) {
 }
 
 function flush(log) {
+  if (!REPORT_PATH) return;
   try { writeFileSync(REPORT_PATH, log.join("\n") + "\n", "utf-8"); } catch { /* ignore */ }
 }
 
