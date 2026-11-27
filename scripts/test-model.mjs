@@ -679,9 +679,12 @@ check("la Content Security Policy autorizza esattamente gli script inline di ind
   const cfg = JSON.parse(fs.readFileSync(path.join(ROOT, "staticwebapp.config.json"), "utf8"));
   const csp = cfg.globalHeaders?.["Content-Security-Policy"] || "";
   const html = fs.readFileSync(path.join(ROOT, "index.html"), "utf8");
-  // Tutti i tag <script>, in qualunque maiuscola e con qualunque attributo;
-  // la policy chiede l'impronta solo per quelli inline, cioè senza src.
-  const script = [...html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script\s*>/gi)];
+  // Tutti i tag <script>, in qualunque maiuscola e con qualunque attributo,
+  // anche nel tag di chiusura (i browser accettano </script foo>); la policy
+  // chiede l'impronta solo per quelli inline, cioè senza src. La verifica
+  // definitiva la fanno i test end-to-end, dove è il browser a leggere l'HTML
+  // e la policy blocca davvero uno script con l'impronta sbagliata.
+  const script = [...html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script\b[^>]*>/gi)];
   const impronte = script
     .filter((m) => !/\bsrc\s*=/i.test(m[1]))
     .map((m) => `'sha256-${createHash("sha256").update(m[2]).digest("base64")}'`);
